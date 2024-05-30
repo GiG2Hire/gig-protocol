@@ -1,0 +1,496 @@
+.liveSoon {
+  position: relative;
+  font-size: var(--font-size-base);
+  display: inline-block;
+  font-family: var(--font-space-mono);
+  color: var(--green-medium);
+  text-align: left;
+  min-width: 89px;
+}
+.frameChild {
+  width: 12px;
+  height: 12px;
+  position: relative;
+  border-radius: var(--br-81xl);
+  background-color: var(--green-medium);
+  overflow: hidden;
+  flex-shrink: 0;
+}
+.frameWrapper,
+.liveSoonParent {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  padding: var(--padding-7xs) 0 0;
+}
+.liveSoonParent {
+  cursor: pointer;
+  border: 0;
+  padding: var(--padding-9xs) var(--padding-base);
+  background-color: var(--navy-bk);
+  flex-direction: row;
+  gap: var(--gap-5xs);
+}
+.payToWork {
+  position: relative;
+  display: inline-block;
+  max-width: 100%;
+}
+.theRightWay,
+.toGig {
+  margin: 0;
+}
+.theRightWayContainer {
+  margin: 0;
+  align-self: stretch;
+  position: relative;
+  font-size: var(--font-size-61xl);
+  font-weight: 700;
+  font-family: var(--font-unbounded);
+  color: var(--navy-medium-bk);
+}
+.frameGroup {
+  align-self: stretch;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  gap: var(--gap-5xl);
+  max-width: 100%;
+}
+.beAnEarly,
+.text {
+  position: relative;
+}
+.text {
+  font-size: var(--font-size-5xl);
+  font-family: var(--font-space-mono);
+  color: var(--yellow-bk);
+  text-align: left;
+}
+.btnShadow {
+  cursor: pointer;
+  border: 0;
+  padding: var(--padding-5xs) var(--padding-7xl);
+  background-color: var(--navy-medium-bk);
+  box-shadow: -6px 6px 10px rgba(0, 0, 0, 0.25);
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+.btnShadow:hover {
+  background-color: var(--color-cornflowerblue-100);
+}
+.text1 {
+  position: relative;
+  font-size: var(--font-size-5xl);
+  display: inline-block;
+  font-family: var(--font-space-mono);
+  color: var(--navy-medium-bk);
+  text-align: left;
+  min-width: 89px;
+}
+.btnShadow1 {
+  cursor: pointer;
+  border: 0;
+  padding: var(--padding-5xs) var(--padding-36xl);
+  background-color: var(--yellow-bk);
+  box-shadow: -6px 6px 10px rgba(0, 0, 0, 0.25);
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+.btnShadow1:hover {
+  background-color: var(--color-yellowgreen-100);
+}
+.beAnEarlyBirdParent,
+.btnShadowParent,
+.frameParent {
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+}
+.btnShadowParent {
+  flex-direction: row;
+  gap: var(--gap-base);
+}
+.beAnEarlyBirdParent,
+.frameParent {
+  flex-direction: column;
+  max-width: 100%;
+}
+.beAnEarlyBirdParent {
+  gap: var(--gap-5xs);
+  color: var(--midnight-bold);
+}
+.frameParent {
+  flex: 1;
+  gap: var(--gap-71xl);
+  min-width: 482px;
+}
+.boiNobgIcon {
+  width: 330px;
+  position: relative;
+  max-height: 100%;
+  object-fit: cover;
+  max-width: 100%;
+  flex-shrink: 0;
+}
+.checkSmallIcon {
+  height: 14px;
+  width: 14px;
+  position: relative;
+}
+.status {
+  background-color: var(--navy-medium-bk);
+  overflow: hidden;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: flex-start;
+}
+.taskDone {
+  position: relative;
+  font-size: var(--font-size-xs);
+  display: inline-block;
+  font-family: var(--font-space-mono);
+  color: var(--navy-medium-bk);
+  text-align: left;
+  min-width: 74px;
+}
+.statusParent {
+  cursor: pointer;
+  border: 0;
+  padding: var(--padding-9xs) var(--padding-5xs);
+  background-color: var(--yellow-bk);
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: var(--gap-9xs);
+}
+.frameWrapper1 {
+  align-self: stretch;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+}
+.lovedYourWork {
+  position: relative;
+  font-size: var(--font-size-xs);
+  display: inline-block;
+  font-family: var(--font-space-mono);
+  color: var(--yellow-bk);
+  text-align: left;
+  min-width: 118px;
+}
+.lovedYourWorkWrapper {
+  cursor: pointer;
+  border: 0;
+  padding: var(--padding-9xs) var(--padding-5xs);
+  background-color: var(--navy-medium-bk);
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  white-space: nowrap;
+}
+.lovedYourWorkWrapper:hover {
+  background-color: var(--color-cornflowerblue-100);
+}
+.frameWrapper2 {
+  align-self: stretch;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  justify-content: center;
+}
+.paymentIcon {
+  height: 16px;
+  width: 13.5px;
+  position: relative;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+.paymentReceived {
+  position: relative;
+  font-size: var(--font-size-xs);
+  font-family: var(--font-space-mono);
+  color: var(--navy-medium-bk);
+  text-align: left;
+  display: inline-block;
+  min-width: 118px;
+}
+.paymentParent {
+  cursor: pointer;
+  border: 1px solid var(--navy-medium-bk);
+  padding: var(--padding-11xs) var(--padding-6xs);
+  background-color: transparent;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: var(--gap-9xs);
+}
+.paymentGroup:hover,
+.paymentParent:hover {
+  background-color: var(--color-cornflowerblue-200);
+  border: 1px solid var(--color-cornflowerblue-100);
+  box-sizing: border-box;
+}
+.frameWrapper3 {
+  align-self: stretch;
+  flex-direction: column;
+  justify-content: center;
+}
+.boiNobgParent,
+.frameDiv,
+.frameWrapper3 {
+  display: flex;
+  align-items: flex-start;
+}
+.frameDiv {
+  width: 230px;
+  backdrop-filter: blur(20px);
+  background-color: var(--yellow-bk-40a);
+  overflow: hidden;
+  flex-shrink: 0;
+  flex-direction: column;
+  justify-content: flex-start;
+  padding: var(--padding-7xs);
+  box-sizing: border-box;
+  gap: var(--gap-7xs);
+  z-index: 1;
+}
+.boiNobgParent {
+  align-self: stretch;
+  flex-direction: row;
+  justify-content: space-between;
+  max-width: 100%;
+  gap: var(--gap-123xs);
+}
+.paymentIcon1 {
+  height: 16px;
+  width: 13.5px;
+  position: relative;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+.paymentEscrowed {
+  position: relative;
+  font-size: var(--font-size-xs);
+  font-family: var(--font-space-mono);
+  color: var(--navy-medium-bk);
+  text-align: left;
+  display: inline-block;
+  min-width: 118px;
+}
+.frameWrapper4,
+.paymentGroup {
+  display: flex;
+  justify-content: center;
+}
+.paymentGroup {
+  cursor: pointer;
+  border: 1px solid var(--navy-medium-bk);
+  padding: var(--padding-11xs) var(--padding-6xs);
+  background-color: transparent;
+  flex-direction: row;
+  align-items: center;
+  gap: var(--gap-9xs);
+}
+.frameWrapper4 {
+  align-self: stretch;
+  flex-direction: column;
+  align-items: flex-end;
+}
+.freelanceIcon {
+  height: 16px;
+  width: 13.5px;
+  position: relative;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+.freelanceAccepted {
+  position: relative;
+  font-size: var(--font-size-xs);
+  font-family: var(--font-space-mono);
+  color: var(--yellow-bk);
+  text-align: left;
+}
+.frameWrapper5,
+.freelanceParent {
+  display: flex;
+  justify-content: center;
+}
+.freelanceParent {
+  cursor: pointer;
+  border: 0;
+  padding: var(--padding-9xs) var(--padding-5xs);
+  background-color: var(--navy-medium-bk);
+  flex-direction: row;
+  align-items: center;
+  gap: var(--gap-9xs);
+  white-space: nowrap;
+}
+.freelanceParent:hover {
+  background-color: var(--color-cornflowerblue-100);
+}
+.frameWrapper5 {
+  align-self: stretch;
+  flex-direction: column;
+  align-items: flex-end;
+}
+.workingOnIt {
+  position: relative;
+  font-size: var(--font-size-xs);
+  display: inline-block;
+  font-family: var(--font-space-mono);
+  color: var(--navy-medium-bk);
+  text-align: left;
+  min-width: 103px;
+}
+.workingOnItWrapper {
+  cursor: pointer;
+  border: 0;
+  padding: var(--padding-9xs) var(--padding-5xs);
+  background-color: var(--yellow-bk);
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  white-space: nowrap;
+}
+.workingOnItWrapper:hover {
+  background-color: var(--color-yellowgreen-100);
+}
+.frameParent2,
+.frameWrapper6 {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+.frameWrapper6 {
+  align-self: stretch;
+  justify-content: center;
+}
+.frameParent2 {
+  width: 230px;
+  backdrop-filter: blur(20px);
+  background-color: var(--navy-medium-40a);
+  overflow: hidden;
+  flex-shrink: 0;
+  justify-content: flex-start;
+  padding: var(--padding-7xs);
+  box-sizing: border-box;
+  gap: var(--gap-7xs);
+}
+.gurlNobgIcon {
+  height: 300px;
+  width: 300px;
+  position: relative;
+  object-fit: contain;
+  flex-shrink: 0;
+  z-index: 1;
+}
+.frameParent1 {
+  align-self: stretch;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: var(--gap-93xs);
+  z-index: 2;
+}
+.frameContainer,
+.hero,
+.heroWrapper {
+  display: flex;
+  align-items: flex-start;
+  max-width: 100%;
+}
+.frameContainer {
+  height: 600px;
+  width: 600px;
+  flex-direction: column;
+  justify-content: space-between;
+  min-width: 450px;
+}
+.hero,
+.heroWrapper {
+  flex-direction: row;
+  justify-content: flex-start;
+  box-sizing: border-box;
+}
+.hero {
+  flex: 1;
+  background-color: var(--yellow-bk-10a);
+  overflow: hidden;
+  padding: var(--padding-21xl);
+  gap: var(--gap-101xl);
+}
+.heroWrapper {
+  align-self: stretch;
+  padding: 0 var(--padding-5xl);
+  text-align: left;
+  font-size: var(--font-size-5xl);
+  color: var(--navy-bk);
+  font-family: var(--font-space-mono);
+}
+@media screen and (max-width: 1200px) {
+  .frameContainer {
+    flex: 1;
+  }
+  .hero {
+    flex-wrap: wrap;
+  }
+}
+@media screen and (max-width: 1050px) {
+  .theRightWayContainer {
+    font-size: var(--font-size-21xl);
+  }
+}
+@media screen and (max-width: 750px) {
+  .btnShadowParent {
+    flex-wrap: wrap;
+  }
+  .frameParent {
+    gap: var(--gap-26xl);
+  }
+  .frameContainer,
+  .frameParent {
+    min-width: 100%;
+  }
+  .hero {
+    gap: var(--gap-41xl);
+    padding-top: var(--padding-7xl);
+    padding-bottom: var(--padding-7xl);
+    box-sizing: border-box;
+  }
+}
+@media screen and (max-width: 450px) {
+  .payToWork {
+    font-size: var(--font-size-lgi);
+  }
+  .theRightWayContainer {
+    font-size: var(--font-size-5xl);
+  }
+  .beAnEarly,
+  .text,
+  .text1 {
+    font-size: var(--font-size-lgi);
+  }
+  .frameParent {
+    gap: var(--gap-3xl);
+  }
+  .frameContainer {
+    height: 500px;
+  }
+  .hero {
+    gap: var(--gap-11xl);
+  }
+}

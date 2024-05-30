@@ -1,0 +1,221 @@
+.investOnThe {
+  margin: 0;
+  font-size: inherit;
+  font-weight: 700;
+  font-family: var(--font-unbounded);
+}
+.contactUsAnd,
+.investOnThe,
+.wantToBe {
+  align-self: stretch;
+  position: relative;
+}
+.contactUsAnd {
+  font-size: var(--font-size-base);
+  color: var(--navy-bk);
+}
+.wantToBePartOfAGameChanParent {
+  align-self: stretch;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  font-size: var(--font-size-5xl);
+}
+.mail1Icon {
+  align-self: stretch;
+  height: 40px;
+  position: relative;
+  max-width: 100%;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+.mail1Wrapper {
+  width: 59.6px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  padding: var(--padding-9xs-5) 0 0;
+  box-sizing: border-box;
+}
+.hellogig2hirecom {
+  flex: 1;
+  position: relative;
+  display: inline-block;
+  min-width: 279px;
+  white-space: nowrap;
+  max-width: 100%;
+}
+.contactUsInner,
+.frameParent,
+.investOnTheFutureOfHiringParent {
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  max-width: 100%;
+}
+.frameParent {
+  align-self: stretch;
+  flex-direction: row;
+  gap: var(--gap-base);
+  font-size: var(--font-size-13xl);
+}
+.contactUsInner,
+.investOnTheFutureOfHiringParent {
+  flex-direction: column;
+}
+.investOnTheFutureOfHiringParent {
+  align-self: stretch;
+  gap: var(--gap-base);
+}
+.contactUsInner {
+  flex: 1;
+  padding: var(--padding-13xl) 0 0;
+  box-sizing: border-box;
+  min-width: 499px;
+}
+.vectorIcon {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  max-width: 100%;
+  overflow: hidden;
+  max-height: 100%;
+}
+.vectorIcon1 {
+  height: calc(100% - 4.6px);
+  bottom: 2.3px;
+  left: 2.3px;
+  max-height: 100%;
+  width: 55.4px;
+}
+.groupIcon,
+.vectorIcon1,
+.vectorIcon2 {
+  position: absolute;
+  top: 2.3px;
+  z-index: 1;
+}
+.vectorIcon2 {
+  height: calc(100% - 4.6px);
+  bottom: 2.3px;
+  left: 98.7px;
+  max-height: 100%;
+  width: 55.4px;
+}
+.groupIcon {
+  left: 64.4px;
+  width: 27.7px;
+  height: 55.4px;
+}
+.group,
+.layer5Icon {
+  width: 156.4px;
+  height: 60px;
+  position: relative;
+}
+.layer5Icon {
+  height: 160px;
+  width: 185.1px;
+}
+.layer5Wrapper {
+  align-self: stretch;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: flex-end;
+}
+.contactUs,
+.contactUsWrapper,
+.groupParent {
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  box-sizing: border-box;
+  max-width: 100%;
+}
+.groupParent {
+  width: 400px;
+  background-color: var(--yellow-bk);
+  overflow: hidden;
+  flex-shrink: 0;
+  flex-direction: column;
+  padding: var(--padding-5xl);
+  gap: var(--gap-36xl);
+  min-width: 400px;
+}
+.contactUs,
+.contactUsWrapper {
+  flex-direction: row;
+}
+.contactUs {
+  flex: 1;
+  border: 1px solid var(--yellow-bk);
+  overflow: hidden;
+  padding: 0 0 0 var(--padding-11xl);
+  gap: var(--gap-13xl);
+}
+.contactUsWrapper {
+  align-self: stretch;
+  padding: 0 var(--padding-61xl);
+  text-align: left;
+  font-size: var(--font-size-29xl);
+  color: var(--navy-medium-bk);
+  font-family: var(--font-space-mono);
+}
+@media screen and (max-width: 1200px) {
+  .groupParent {
+    flex: 1;
+  }
+  .contactUs {
+    flex-wrap: wrap;
+    padding-left: var(--padding-xl);
+    padding-right: var(--padding-xl);
+    padding-bottom: var(--padding-xl);
+    box-sizing: border-box;
+  }
+  .contactUsWrapper {
+    padding-left: var(--padding-21xl);
+    padding-right: var(--padding-21xl);
+    box-sizing: border-box;
+  }
+}
+@media screen and (max-width: 1050px) {
+  .investOnThe {
+    font-size: var(--font-size-19xl);
+  }
+  .hellogig2hirecom {
+    font-size: var(--font-size-7xl);
+  }
+  .contactUsInner {
+    min-width: 100%;
+  }
+}
+@media screen and (max-width: 750px) {
+  .frameParent {
+    flex-wrap: wrap;
+  }
+  .groupParent {
+    min-width: 100%;
+  }
+  .contactUs {
+    gap: var(--gap-base);
+  }
+}
+@media screen and (max-width: 450px) {
+  .investOnThe {
+    font-size: var(--font-size-10xl);
+  }
+  .hellogig2hirecom,
+  .wantToBe {
+    font-size: var(--font-size-lgi);
+  }
+  .groupParent {
+    gap: var(--gap-8xl);
+  }
+}

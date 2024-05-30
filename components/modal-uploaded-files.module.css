@@ -1,0 +1,658 @@
+.uploadAndManage {
+  margin: 0;
+  position: relative;
+  font-size: inherit;
+  font-weight: 700;
+  font-family: inherit;
+}
+.closeSmallIcon {
+  height: 10px;
+  width: 10px;
+  position: relative;
+}
+.btnClose,
+.uploadManager {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+.btnClose {
+  width: 21px;
+  background-color: var(--navy-medium-bk);
+  justify-content: center;
+  padding: var(--padding-7xs-5) var(--padding-8xs);
+  box-sizing: border-box;
+  height: 21px;
+}
+.uploadManager {
+  align-self: stretch;
+  background-color: var(--yellow-bk);
+  justify-content: space-between;
+  padding: var(--padding-base) var(--padding-5xl);
+  gap: var(--gap-xl);
+}
+.dragDropAreaChild {
+  height: 16.4px;
+  width: 15px;
+  position: relative;
+}
+.dragAndDrop {
+  margin: 0;
+  position: relative;
+  font-size: inherit;
+  font-weight: 700;
+  font-family: inherit;
+}
+.dragDropArea {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  gap: var(--gap-5xs);
+}
+.uploadIcon {
+  height: 12px;
+  width: 12px;
+  position: relative;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+.browseFileInstead {
+  position: relative;
+  font-size: var(--font-size-xs);
+  font-family: var(--font-space-mono);
+  color: var(--light);
+  text-align: left;
+}
+.btnBrowse,
+.compBoxupload {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.btnBrowse {
+  cursor: pointer;
+  border: 0;
+  padding: var(--padding-9xs) var(--padding-xs);
+  background-color: var(--navy-bk);
+  flex-direction: row;
+  gap: var(--gap-5xs);
+  white-space: nowrap;
+}
+.btnBrowse:hover {
+  background-color: var(--color-royalblue-100);
+}
+.compBoxupload {
+  border: 2px dashed var(--navy-bk-40a);
+  overflow: hidden;
+  flex-direction: column;
+  padding: var(--padding-2xl) var(--padding-3xl);
+  gap: var(--gap-base);
+}
+.separatorChild {
+  height: 1px;
+  flex: 1;
+  position: relative;
+  max-width: 100%;
+  overflow: hidden;
+}
+.or {
+  margin: 0;
+  position: relative;
+  font-size: inherit;
+  font-weight: 400;
+  font-family: inherit;
+  display: inline-block;
+  min-width: 20px;
+}
+.separatorItem {
+  height: 1px;
+  flex: 1;
+  position: relative;
+  max-width: 100%;
+  overflow: hidden;
+}
+.separator {
+  align-self: stretch;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 0 var(--padding-12xs) 0 0;
+  gap: var(--gap-5xs);
+  color: var(--dark-800);
+}
+.paste,
+.typeLinkHere {
+  position: relative;
+  display: inline-block;
+  min-width: 103px;
+}
+.paste {
+  width: calc(100% - 40px);
+  border: 0;
+  outline: 0;
+  font-family: var(--font-space-mono);
+  font-size: var(--font-size-xs);
+  background-color: transparent;
+  height: 18px;
+  flex: 1;
+  font-weight: 700;
+  color: var(--light);
+  text-align: left;
+  min-width: 22px;
+  padding: 0;
+}
+.addLinkIcon {
+  height: 16px;
+  width: 16px;
+  position: relative;
+}
+.btnPastelink,
+.typeLinkHereParent {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+.btnPastelink {
+  width: 81px;
+  background-color: var(--navy-bk);
+  overflow: hidden;
+  flex-shrink: 0;
+  justify-content: center;
+  padding: var(--padding-9xs) var(--padding-xs);
+  box-sizing: border-box;
+  gap: var(--gap-9xs);
+}
+.typeLinkHereParent {
+  align-self: stretch;
+  border: 1px solid var(--navy-bk);
+  justify-content: space-between;
+  padding: var(--padding-11xs) var(--padding-9xs);
+  gap: var(--gap-xl);
+  font-size: var(--font-size-xs);
+  color: var(--navy-bk-40a);
+}
+.compBoxuploadParent {
+  width: 329px;
+  border-right: 1px solid var(--yellow-bk);
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  padding: 0 var(--padding-mini) 260px;
+  gap: var(--gap-5xl);
+  min-width: 329px;
+  max-width: 100%;
+}
+.uploadedFiles {
+  text-decoration: none;
+  position: relative;
+  font-weight: 700;
+  color: inherit;
+}
+.captivePortalIcon {
+  height: 12px;
+  width: 12px;
+  position: relative;
+}
+.httpswwwthisisalinkcommy {
+  margin: 0;
+  align-self: stretch;
+  flex: 1;
+  position: relative;
+  font-size: inherit;
+  font-weight: 400;
+  font-family: inherit;
+  display: inline-block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  max-height: 16px;
+  word-break: break-word;
+}
+.captivePortalParent {
+  align-self: stretch;
+  flex: 1;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  gap: var(--gap-9xs);
+}
+.uploaded {
+  text-decoration: none;
+  color: inherit;
+}
+.div,
+.uploaded {
+  flex: 1;
+  position: relative;
+  display: -webkit-inline-box;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
+.frameParent,
+.uploadedParent {
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+}
+.uploadedParent {
+  width: 98px;
+  flex-direction: row;
+  gap: var(--gap-9xs);
+  font-size: var(--font-size-5xs);
+  color: var(--navy-bk);
+}
+.frameParent {
+  height: 28px;
+  flex: 1;
+  flex-direction: column;
+}
+.deleteIcon {
+  height: 16px;
+  width: 16px;
+  position: relative;
+}
+.btnDelete,
+.proofUrl {
+  background-color: var(--red-light);
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  padding: var(--padding-9xs);
+}
+.proofUrl {
+  flex: 1;
+  background-color: var(--yellow-bk-40a);
+  overflow: hidden;
+  justify-content: flex-start;
+  padding: var(--padding-5xs);
+  box-sizing: border-box;
+  gap: var(--gap-5xs);
+  min-width: 146px;
+}
+.contentPasteIcon {
+  height: 12px;
+  width: 12px;
+  position: relative;
+}
+.finalHamsterzip {
+  margin: 0;
+  align-self: stretch;
+  flex: 1;
+  position: relative;
+  font-size: inherit;
+  font-weight: 400;
+  font-family: inherit;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.contentPasteParent {
+  align-self: stretch;
+  flex: 1;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  gap: var(--gap-9xs);
+}
+.uploaded1 {
+  text-decoration: none;
+  color: inherit;
+}
+.div1,
+.mb,
+.uploaded1 {
+  flex: 1;
+  position: relative;
+  display: -webkit-inline-box;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
+.frameGroup,
+.uploadedGroup {
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+}
+.uploadedGroup {
+  width: 147px;
+  flex-direction: row;
+  gap: var(--gap-9xs);
+  font-size: var(--font-size-5xs);
+  color: var(--navy-bk);
+}
+.frameGroup {
+  height: 28px;
+  flex: 1;
+  flex-direction: column;
+}
+.deleteIcon1 {
+  height: 16px;
+  width: 16px;
+  position: relative;
+}
+.btnDelete1,
+.proofUrlParent,
+.proofdDoc {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+.btnDelete1 {
+  background-color: var(--red-light);
+  justify-content: center;
+  padding: var(--padding-9xs);
+}
+.proofUrlParent,
+.proofdDoc {
+  justify-content: flex-start;
+  gap: var(--gap-5xs);
+}
+.proofdDoc {
+  flex: 1;
+  background-color: var(--yellow-bk-40a);
+  overflow: hidden;
+  padding: var(--padding-5xs);
+  box-sizing: border-box;
+  min-width: 146px;
+}
+.proofUrlParent {
+  align-self: stretch;
+}
+.captivePortalIcon1 {
+  height: 12px;
+  width: 12px;
+  position: relative;
+}
+.httpswwwthisisalinkcommy1 {
+  margin: 0;
+  align-self: stretch;
+  flex: 1;
+  position: relative;
+  font-size: inherit;
+  font-weight: 400;
+  font-family: inherit;
+  display: inline-block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  max-height: 16px;
+  word-break: break-word;
+}
+.captivePortalGroup {
+  align-self: stretch;
+  flex: 1;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  gap: var(--gap-9xs);
+}
+.div2,
+.uploaded2 {
+  flex: 1;
+  position: relative;
+  display: -webkit-inline-box;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
+.frameContainer,
+.uploadedContainer {
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+}
+.uploadedContainer {
+  width: 98px;
+  flex-direction: row;
+  gap: var(--gap-9xs);
+  font-size: var(--font-size-5xs);
+  color: var(--navy-bk);
+}
+.frameContainer {
+  height: 28px;
+  flex: 1;
+  flex-direction: column;
+}
+.deleteIcon2 {
+  height: 16px;
+  width: 16px;
+  position: relative;
+}
+.btnDelete2,
+.proofUrl1 {
+  background-color: var(--red-light);
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  padding: var(--padding-9xs);
+}
+.proofUrl1 {
+  flex: 1;
+  background-color: var(--yellow-bk-40a);
+  overflow: hidden;
+  justify-content: flex-start;
+  padding: var(--padding-5xs);
+  box-sizing: border-box;
+  gap: var(--gap-5xs);
+  min-width: 146px;
+}
+.contentPasteIcon1 {
+  height: 12px;
+  width: 12px;
+  position: relative;
+}
+.finalHamsterzip1 {
+  margin: 0;
+  align-self: stretch;
+  flex: 1;
+  position: relative;
+  font-size: inherit;
+  font-weight: 400;
+  font-family: inherit;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.contentPasteGroup {
+  align-self: stretch;
+  flex: 1;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  gap: var(--gap-9xs);
+}
+.div3,
+.mb1,
+.uploaded3 {
+  flex: 1;
+  position: relative;
+  display: -webkit-inline-box;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
+.frameDiv,
+.uploadedParent1 {
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+}
+.uploadedParent1 {
+  width: 147px;
+  flex-direction: row;
+  gap: var(--gap-9xs);
+  font-size: var(--font-size-5xs);
+  color: var(--navy-bk);
+}
+.frameDiv {
+  height: 28px;
+  flex: 1;
+  flex-direction: column;
+}
+.deleteIcon3 {
+  height: 16px;
+  width: 16px;
+  position: relative;
+}
+.btnDelete3,
+.proofdDoc1 {
+  background-color: var(--red-light);
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  padding: var(--padding-9xs);
+}
+.proofdDoc1 {
+  flex: 1;
+  background-color: var(--yellow-bk-40a);
+  overflow: hidden;
+  align-items: flex-end;
+  justify-content: flex-start;
+  padding: var(--padding-5xs);
+  box-sizing: border-box;
+  gap: var(--gap-5xs);
+  min-width: 146px;
+}
+.fileItems,
+.fileList,
+.proofUrlGroup {
+  align-self: stretch;
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+}
+.proofUrlGroup {
+  flex-direction: row;
+  gap: var(--gap-5xs);
+}
+.fileItems,
+.fileList {
+  flex-direction: column;
+}
+.fileItems {
+  gap: var(--gap-5xs);
+  font-size: var(--font-size-xs);
+}
+.fileList {
+  gap: var(--gap-base);
+}
+.cloudUploadOutline1Icon {
+  height: 30px;
+  width: 30px;
+  position: relative;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+.submitFiles {
+  position: relative;
+  font-size: var(--font-size-5xl);
+  font-weight: 700;
+  font-family: var(--font-space-mono);
+  color: var(--navy-medium-bk);
+  text-align: left;
+}
+.btnSubmitFiles {
+  cursor: pointer;
+  border: 0;
+  padding: var(--padding-5xs) var(--padding-xl);
+  background-color: var(--yellow-bk);
+  align-self: stretch;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: var(--gap-base);
+  white-space: nowrap;
+}
+.btnSubmitFiles:hover {
+  background-color: var(--color-yellowgreen-100);
+}
+.content,
+.fileListParent,
+.modalUploadedFiles {
+  box-sizing: border-box;
+  max-width: 100%;
+  display: flex;
+}
+.fileListParent {
+  flex: 1;
+  flex-direction: column;
+  align-items: flex-end;
+  justify-content: space-between;
+  padding: 0 var(--padding-base);
+  min-width: 319px;
+  min-height: 480px;
+  font-size: var(--font-size-5xl);
+  color: var(--midnight-bold);
+}
+.content,
+.modalUploadedFiles {
+  align-items: flex-start;
+  justify-content: flex-start;
+  text-align: left;
+}
+.content {
+  align-self: stretch;
+  flex-direction: row;
+  padding: var(--padding-base) 0;
+  row-gap: 20px;
+  font-size: var(--font-size-base);
+  color: var(--navy-bk);
+  font-family: var(--font-space-mono);
+}
+.modalUploadedFiles {
+  width: 820px;
+  background-color: var(--light);
+  border: 3px solid var(--yellow-bk);
+  overflow: hidden;
+  flex-direction: column;
+  line-height: normal;
+  letter-spacing: normal;
+  font-size: var(--font-size-5xl);
+  color: var(--navy-medium-bk);
+  font-family: var(--font-unbounded);
+}
+@media screen and (max-width: 675px) {
+  .compBoxuploadParent {
+    flex: 1;
+  }
+  .fileListParent {
+    min-height: auto;
+  }
+  .content {
+    flex-wrap: wrap;
+  }
+}
+@media screen and (max-width: 625px) {
+  .compBoxuploadParent {
+    padding-bottom: 169px;
+    box-sizing: border-box;
+  }
+}
+@media screen and (max-width: 450px) {
+  .uploadAndManage,
+  .uploadedFiles {
+    font-size: var(--font-size-lgi);
+  }
+  .proofUrlGroup,
+  .proofUrlParent {
+    flex-wrap: wrap;
+  }
+}

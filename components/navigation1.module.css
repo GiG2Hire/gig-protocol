@@ -1,0 +1,47 @@
+.vectorIcon {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  max-width: 100%;
+  overflow: hidden;
+  max-height: 100%;
+}
+.groupIcon,
+.logoIcons,
+.logoIcons1 {
+  position: absolute;
+  top: 1.7px;
+  left: 1.7px;
+  width: 41.6px;
+  height: 41.6px;
+  z-index: 1;
+}
+.groupIcon,
+.logoIcons1 {
+  left: 74px;
+}
+.groupIcon {
+  left: 48.3px;
+  width: 20.8px;
+}
+.group {
+  height: 45px;
+  width: 117.3px;
+  position: relative;
+}
+.navigation {
+  align-self: stretch;
+  background-color: var(--yellow-bk-40a);
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: flex-start;
+  padding: var(--padding-xs);
+  top: 0;
+  z-index: 99;
+  position: sticky;
+}

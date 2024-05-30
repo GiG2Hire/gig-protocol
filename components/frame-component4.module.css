@@ -1,0 +1,243 @@
+.freelancer {
+  margin: 0;
+  position: relative;
+  font-size: inherit;
+  font-weight: 700;
+  font-family: inherit;
+}
+.checkSmallIcon {
+  height: 24px;
+  width: 24px;
+  position: relative;
+}
+.status {
+  background-color: var(--yellow-bk);
+  overflow: hidden;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: flex-start;
+}
+.signWithYour {
+  flex: 1;
+  position: relative;
+  display: inline-block;
+  min-width: 289px;
+  max-width: 100%;
+}
+.statusParent {
+  align-self: stretch;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  gap: var(--gap-5xs);
+  max-width: 100%;
+}
+.checkSmallIcon1 {
+  height: 24px;
+  width: 24px;
+  position: relative;
+}
+.status1 {
+  background-color: var(--yellow-bk);
+  overflow: hidden;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: flex-start;
+}
+.exploreJobsMarketplace {
+  flex: 1;
+  position: relative;
+  display: inline-block;
+  min-width: 240px;
+  max-width: 100%;
+}
+.statusGroup {
+  align-self: stretch;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  gap: var(--gap-5xs);
+  max-width: 100%;
+}
+.checkSmallIcon2 {
+  height: 24px;
+  width: 24px;
+  position: relative;
+}
+.status2 {
+  background-color: var(--yellow-bk);
+  overflow: hidden;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: flex-start;
+}
+.applyForJobs {
+  flex: 1;
+  position: relative;
+  display: inline-block;
+  min-width: 143px;
+  max-width: 100%;
+}
+.statusContainer {
+  align-self: stretch;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  gap: var(--gap-5xs);
+  max-width: 100%;
+}
+.checkSmallIcon3 {
+  height: 24px;
+  width: 24px;
+  position: relative;
+}
+.status3 {
+  background-color: var(--yellow-bk);
+  overflow: hidden;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: flex-start;
+}
+.getAcceptedAnd {
+  flex: 1;
+  position: relative;
+  display: inline-block;
+  min-width: 328px;
+  max-width: 100%;
+}
+.frameDiv {
+  align-self: stretch;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  gap: var(--gap-5xs);
+  max-width: 100%;
+}
+.checkSmallIcon4 {
+  height: 24px;
+  width: 24px;
+  position: relative;
+}
+.status4 {
+  background-color: var(--yellow-bk);
+  overflow: hidden;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: flex-start;
+}
+.deliverYourJob {
+  flex: 1;
+  position: relative;
+  display: inline-block;
+  min-width: 162px;
+  max-width: 100%;
+}
+.statusParent1 {
+  align-self: stretch;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  gap: var(--gap-5xs);
+  max-width: 100%;
+}
+.checkSmallIcon5 {
+  height: 24px;
+  width: 24px;
+  position: relative;
+}
+.status5 {
+  background-color: var(--yellow-bk);
+  overflow: hidden;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: flex-start;
+}
+.getPaid {
+  flex: 1;
+  position: relative;
+  display: inline-block;
+  min-width: 83px;
+  max-width: 100%;
+}
+.frameParent,
+.freelancerParent,
+.statusParent2 {
+  display: flex;
+  justify-content: flex-start;
+  max-width: 100%;
+}
+.statusParent2 {
+  align-self: stretch;
+  flex-direction: row;
+  align-items: center;
+  gap: var(--gap-5xs);
+}
+.frameParent,
+.freelancerParent {
+  flex-direction: column;
+}
+.frameParent {
+  align-self: stretch;
+  align-items: flex-start;
+  gap: var(--gap-5xl);
+  font-size: var(--font-size-xl);
+}
+.freelancerParent {
+  flex: 1;
+  background-color: var(--yellow-bk-10a);
+  align-items: center;
+  padding: var(--padding-13xl);
+  box-sizing: border-box;
+  gap: var(--gap-29xl);
+  min-width: 390px;
+  text-align: left;
+  font-size: var(--font-size-29xl);
+  color: var(--midnight-bold);
+  font-family: var(--font-space-mono);
+}
+@media screen and (max-width: 1050px) {
+  .freelancer {
+    font-size: var(--font-size-19xl);
+  }
+}
+@media screen and (max-width: 750px) {
+  .frameDiv,
+  .statusContainer,
+  .statusGroup,
+  .statusParent,
+  .statusParent1,
+  .statusParent2 {
+    flex-wrap: wrap;
+  }
+  .freelancerParent {
+    gap: var(--gap-5xl);
+    padding-top: var(--padding-2xl);
+    padding-bottom: var(--padding-2xl);
+    box-sizing: border-box;
+    min-width: 100%;
+  }
+}
+@media screen and (max-width: 450px) {
+  .freelancer {
+    font-size: var(--font-size-10xl);
+  }
+  .applyForJobs,
+  .deliverYourJob,
+  .exploreJobsMarketplace,
+  .getAcceptedAnd,
+  .getPaid,
+  .signWithYour {
+    font-size: var(--font-size-base);
+  }
+}

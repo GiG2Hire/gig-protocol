@@ -1,0 +1,1003 @@
+.activeJobs,
+.b {
+  position: relative;
+  font-weight: 700;
+}
+.activeJobs {
+  text-align: center;
+}
+.b {
+  font-size: var(--font-size-5xl);
+  display: inline-block;
+  min-width: 15px;
+}
+.trendingUpIcon {
+  height: 24px;
+  width: 24px;
+  position: relative;
+  min-height: 24px;
+}
+.div {
+  position: relative;
+  display: inline-block;
+  min-width: 20px;
+}
+.activeJobsParent,
+.trendingUpParent {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+.trendingUpParent {
+  background-color: var(--navy-medium-bk);
+  justify-content: flex-start;
+  padding: var(--padding-9xs) var(--padding-5xs);
+  gap: var(--gap-9xs);
+  font-size: var(--font-size-base);
+}
+.activeJobsParent {
+  border-right: 1px solid var(--light);
+  justify-content: center;
+  padding: 0 var(--padding-mini) 0 0;
+  gap: var(--gap-5xs);
+}
+.extra2Jobs,
+.thisMonth,
+.youCreated {
+  position: relative;
+  display: inline-block;
+  min-width: 81px;
+}
+.extra2Jobs,
+.thisMonth {
+  min-width: 89px;
+}
+.thisMonth {
+  min-width: 74px;
+}
+.frameDiv,
+.youCreatedParent {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+.youCreatedParent {
+  gap: var(--gap-9xs);
+  text-align: center;
+  font-size: var(--font-size-xs);
+}
+.frameDiv {
+  background-color: var(--navy-bk);
+  overflow: hidden;
+  padding: var(--padding-base) var(--padding-mini);
+  gap: var(--gap-5xs);
+  font-size: var(--font-size-xl);
+}
+.monthlyCreatedJobs {
+  margin: 0;
+  position: relative;
+  font-size: inherit;
+  font-weight: 700;
+  font-family: inherit;
+}
+.monthlyCreatedJobsWrapper {
+  align-self: stretch;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: center;
+  padding: 0 var(--padding-xl);
+}
+.barValues {
+  position: relative;
+  display: inline-block;
+  min-width: 20px;
+}
+.monthsBars {
+  flex: 1;
+  margin: 0 !important;
+  position: absolute;
+  top: 0;
+  left: 0;
+  border-top: 1px dashed var(--navy-bk-40a);
+  overflow: hidden;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: flex-start;
+  padding: 0 var(--padding-11xs) var(--padding-xs-8);
+}
+.div1 {
+  position: relative;
+  display: inline-block;
+  min-width: 15px;
+}
+.monthsBars1 {
+  flex: 1;
+  margin: 0 !important;
+  position: absolute;
+  top: 25.8px;
+  left: 0;
+  border-top: 1px dashed var(--navy-bk-40a);
+  overflow: hidden;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: flex-start;
+  padding: 0 var(--padding-11xs) var(--padding-xs-8);
+}
+.div2 {
+  position: relative;
+  display: inline-block;
+  min-width: 15px;
+}
+.monthsBars2 {
+  flex: 1;
+  margin: 0 !important;
+  position: absolute;
+  top: 51.6px;
+  left: 0;
+  border-top: 1px dashed var(--navy-bk-40a);
+  overflow: hidden;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: flex-start;
+  padding: 0 var(--padding-11xs) var(--padding-xs-8);
+}
+.div3 {
+  position: relative;
+  display: inline-block;
+  min-width: 15px;
+}
+.monthsBars3 {
+  flex: 1;
+  margin: 0 !important;
+  position: absolute;
+  top: 77.4px;
+  left: 0;
+  border-top: 1px dashed var(--navy-bk-40a);
+  overflow: hidden;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: flex-start;
+  padding: 0 var(--padding-11xs) var(--padding-xs-8);
+}
+.div4 {
+  position: relative;
+  display: inline-block;
+  min-width: 15px;
+}
+.monthsBars4 {
+  flex: 1;
+  margin: 0 !important;
+  position: absolute;
+  top: 103.2px;
+  left: 0;
+  border-top: 1px dashed var(--navy-bk-40a);
+  overflow: hidden;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: flex-start;
+  padding: 0 var(--padding-11xs) var(--padding-xs-8);
+}
+.div5 {
+  position: relative;
+  display: inline-block;
+  min-width: 15px;
+}
+.monthsBars5 {
+  flex: 1;
+  margin: 0 !important;
+  position: absolute;
+  top: 129px;
+  left: 0;
+  border-top: 1px dashed var(--navy-bk-40a);
+  overflow: hidden;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: flex-start;
+  padding: 0 var(--padding-11xs) var(--padding-xs-8);
+}
+.div6 {
+  position: relative;
+  display: inline-block;
+  min-width: 15px;
+}
+.monthsBars6 {
+  flex: 1;
+  margin: 0 !important;
+  position: absolute;
+  top: 154.8px;
+  left: 0;
+  border-top: 1px dashed var(--navy-bk-40a);
+  overflow: hidden;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: flex-start;
+  padding: 0 var(--padding-11xs) var(--padding-xs-8);
+}
+.div7 {
+  position: relative;
+  display: inline-block;
+  min-width: 15px;
+}
+.monthsBars7 {
+  flex: 1;
+  margin: 0 !important;
+  position: absolute;
+  top: 180.6px;
+  left: 0;
+  border-top: 1px dashed var(--navy-bk-40a);
+  overflow: hidden;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: flex-start;
+  padding: 0 var(--padding-11xs) var(--padding-xs-8);
+  z-index: 1;
+}
+.div8 {
+  position: relative;
+  display: inline-block;
+  min-width: 15px;
+}
+.monthsBars8 {
+  flex: 1;
+  margin: 0 !important;
+  position: absolute;
+  top: 206.4px;
+  left: 0;
+  border-top: 1px dashed var(--navy-bk-40a);
+  overflow: hidden;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: flex-start;
+  padding: 0 var(--padding-11xs) var(--padding-xs-8);
+}
+.div9 {
+  position: relative;
+  display: inline-block;
+  min-width: 15px;
+}
+.monthsBars9 {
+  flex: 1;
+  margin: 0 !important;
+  position: absolute;
+  top: 232.2px;
+  left: 0;
+  border-top: 1px dashed var(--navy-bk-40a);
+  overflow: hidden;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: flex-start;
+  padding: 0 var(--padding-11xs) var(--padding-xs-8);
+  z-index: 1;
+}
+.sideSpacer,
+.spacer {
+  align-self: stretch;
+  position: relative;
+  display: none;
+}
+.sideSpacer {
+  width: 30px;
+  overflow: hidden;
+  flex-shrink: 0;
+  z-index: 10;
+}
+.spacer {
+  width: 5px;
+  z-index: 11;
+}
+.jan,
+.spacer,
+.spacer1 {
+  overflow: hidden;
+  flex-shrink: 0;
+}
+.jan {
+  height: 141px;
+  width: 36.8px;
+  position: absolute;
+  margin: 0 !important;
+  top: 117px;
+  left: 35px;
+  background: linear-gradient(0deg, rgba(110, 131, 255, 0.4), #6e83ff);
+}
+.spacer1 {
+  align-self: stretch;
+  width: 5px;
+  position: relative;
+  display: none;
+  z-index: 13;
+}
+.feb {
+  height: 236px;
+  width: 36.8px;
+  position: absolute;
+  margin: 0 !important;
+  top: 22px;
+  left: 76.8px;
+  background: linear-gradient(0deg, rgba(110, 131, 255, 0.4), #6e83ff);
+}
+.feb,
+.mar,
+.spacer2 {
+  overflow: hidden;
+  flex-shrink: 0;
+}
+.spacer2 {
+  align-self: stretch;
+  width: 5px;
+  position: relative;
+  display: none;
+  z-index: 15;
+}
+.mar {
+  height: 94px;
+  width: 36.8px;
+  position: absolute;
+  margin: 0 !important;
+  top: 164px;
+  left: 118.5px;
+  background: linear-gradient(0deg, rgba(110, 131, 255, 0.4), #6e83ff);
+}
+.spacer3 {
+  align-self: stretch;
+  width: 5px;
+  position: relative;
+  display: none;
+  z-index: 17;
+}
+.apr,
+.spacer3,
+.spacer4 {
+  overflow: hidden;
+  flex-shrink: 0;
+}
+.apr {
+  height: 122px;
+  width: 36.8px;
+  position: absolute;
+  margin: 0 !important;
+  top: 136px;
+  left: 160.3px;
+  background: linear-gradient(0deg, rgba(110, 131, 255, 0.4), #6e83ff);
+}
+.spacer4 {
+  align-self: stretch;
+  width: 5px;
+  position: relative;
+  display: none;
+  z-index: 19;
+}
+.may {
+  height: 141px;
+  width: 36.8px;
+  position: absolute;
+  margin: 0 !important;
+  top: 117px;
+  left: 202px;
+  background: linear-gradient(0deg, rgba(110, 131, 255, 0.4), #6e83ff);
+}
+.jun,
+.may,
+.spacer5 {
+  overflow: hidden;
+  flex-shrink: 0;
+}
+.spacer5 {
+  align-self: stretch;
+  width: 5px;
+  position: relative;
+  display: none;
+  z-index: 21;
+}
+.jun {
+  height: 189px;
+  width: 36.8px;
+  position: absolute;
+  margin: 0 !important;
+  top: 69px;
+  left: 243.8px;
+  background: linear-gradient(0deg, rgba(110, 131, 255, 0.4), #6e83ff);
+  z-index: 2;
+}
+.spacer6 {
+  align-self: stretch;
+  width: 5px;
+  position: relative;
+  display: none;
+  z-index: 23;
+}
+.jul,
+.spacer6,
+.spacer7 {
+  overflow: hidden;
+  flex-shrink: 0;
+}
+.jul {
+  height: 189px;
+  width: 36.8px;
+  position: absolute;
+  margin: 0 !important;
+  top: 69px;
+  left: 285.5px;
+  background: linear-gradient(0deg, rgba(110, 131, 255, 0.4), #6e83ff);
+  z-index: 4;
+}
+.spacer7 {
+  align-self: stretch;
+  width: 5px;
+  position: relative;
+  display: none;
+  z-index: 25;
+}
+.aug {
+  height: 189px;
+  width: 36.8px;
+  position: absolute;
+  margin: 0 !important;
+  top: 69px;
+  left: 327.3px;
+  background: linear-gradient(0deg, rgba(110, 131, 255, 0.4), #6e83ff);
+  z-index: 6;
+}
+.aug,
+.sep,
+.spacer8 {
+  overflow: hidden;
+  flex-shrink: 0;
+}
+.spacer8 {
+  align-self: stretch;
+  width: 5px;
+  position: relative;
+  display: none;
+  z-index: 27;
+}
+.sep {
+  height: 165px;
+  width: 36.8px;
+  position: absolute;
+  margin: 0 !important;
+  top: 93px;
+  left: 369px;
+  background: linear-gradient(0deg, rgba(110, 131, 255, 0.4), #6e83ff);
+  z-index: 8;
+}
+.spacer9 {
+  align-self: stretch;
+  width: 5px;
+  position: relative;
+  display: none;
+  z-index: 29;
+}
+.oct,
+.spacer10,
+.spacer9 {
+  overflow: hidden;
+  flex-shrink: 0;
+}
+.oct {
+  height: 217px;
+  width: 36.8px;
+  position: absolute;
+  margin: 0 !important;
+  top: 41px;
+  left: 410.8px;
+  background: linear-gradient(0deg, rgba(110, 131, 255, 0.4), #6e83ff);
+  z-index: 10;
+}
+.spacer10 {
+  align-self: stretch;
+  width: 5px;
+  position: relative;
+  display: none;
+  z-index: 31;
+}
+.nov {
+  height: 165px;
+  width: 36.8px;
+  position: absolute;
+  margin: 0 !important;
+  top: 93px;
+  left: 452.5px;
+  background: linear-gradient(0deg, rgba(110, 131, 255, 0.4), #6e83ff);
+  z-index: 12;
+}
+.dec,
+.nov,
+.spacer11 {
+  overflow: hidden;
+  flex-shrink: 0;
+}
+.spacer11 {
+  align-self: stretch;
+  width: 5px;
+  position: relative;
+  display: none;
+  z-index: 33;
+}
+.dec {
+  height: 165px;
+  width: 36.8px;
+  position: absolute;
+  margin: 0 !important;
+  top: 93px;
+  left: 494.3px;
+  background: linear-gradient(0deg, rgba(110, 131, 255, 0.4), #6e83ff);
+  z-index: 14;
+}
+.bars,
+.spacer12 {
+  flex-shrink: 0;
+  position: relative;
+}
+.spacer12 {
+  align-self: stretch;
+  width: 5px;
+  overflow: hidden;
+  display: none;
+  z-index: 35;
+}
+.bars {
+  width: 536px;
+  height: 258px;
+  overflow-x: auto;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-end;
+  justify-content: center;
+  max-width: 100%;
+  z-index: 3;
+}
+.daySpacerChild {
+  height: 28px;
+  width: 30px;
+  display: none;
+}
+.apr1,
+.aug1,
+.dec1,
+.feb1,
+.jan1,
+.jul1,
+.jun1,
+.mar1,
+.may1,
+.nov1,
+.oct1,
+.sep1 {
+  position: relative;
+  display: inline-block;
+  min-width: 15px;
+  z-index: 3;
+}
+.barsParent,
+.daySpacer,
+.frameParent1 {
+  align-self: stretch;
+  display: flex;
+  align-items: flex-start;
+}
+.daySpacer {
+  overflow: hidden;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: var(--padding-5xs) var(--padding-sm) var(--padding-5xs)
+    var(--padding-24xl);
+  gap: var(--gap-xl);
+  z-index: 2;
+}
+.barsParent,
+.frameParent1 {
+  flex-direction: column;
+  justify-content: flex-start;
+  max-width: 100%;
+}
+.barsParent {
+  font-size: var(--font-size-5xs);
+  color: var(--navy-bk);
+}
+.frameParent1 {
+  gap: var(--gap-5xs);
+  color: var(--navy-bold);
+}
+.jobsToApprove {
+  margin: 0;
+  position: relative;
+  font-size: inherit;
+  font-weight: 700;
+  font-family: inherit;
+}
+.emptyPendingJobs,
+.pending {
+  position: relative;
+  display: inline-block;
+}
+.emptyPendingJobs {
+  font-weight: 700;
+  min-width: 10px;
+}
+.pending {
+  min-width: 69px;
+}
+.emptyPendingJobsParent {
+  background-color: var(--navy-bk-40a);
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: flex-start;
+  padding: var(--padding-9xs) var(--padding-base);
+  gap: var(--gap-9xs);
+  text-align: center;
+  font-size: var(--font-size-base);
+  color: var(--navy-medium-bk);
+}
+.jobsToApproveParent {
+  align-self: stretch;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--gap-xl);
+}
+.developerModeTvIcon {
+  height: 16px;
+  width: 16px;
+  position: relative;
+}
+.developmentIt {
+  position: relative;
+  display: inline-block;
+  min-width: 118px;
+}
+.btnDevit {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  gap: var(--gap-5xs);
+}
+.developADefi {
+  margin: 0;
+  align-self: stretch;
+  position: relative;
+  font-size: var(--font-size-5xl);
+  font-weight: 700;
+  font-family: inherit;
+  color: var(--midnight-bold);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.btnDevitParent {
+  align-self: stretch;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+}
+.gig2hire2Icon {
+  height: 16px;
+  width: 16px;
+  position: relative;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+.interested {
+  min-width: 54px;
+}
+.b1,
+.freelance,
+.interested {
+  position: relative;
+  display: inline-block;
+}
+.b1 {
+  font-weight: 700;
+  min-width: 8px;
+}
+.freelance {
+  min-width: 67px;
+}
+.parent {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  gap: var(--gap-9xs);
+  text-align: right;
+  font-size: var(--font-size-xs);
+}
+.interestedParent {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+}
+.gig2hire2Parent {
+  background-color: var(--navy-bk-40a);
+  overflow: hidden;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  padding: var(--padding-9xs) var(--padding-lgi) var(--padding-9xs)
+    var(--padding-5xs);
+  gap: var(--gap-5xs);
+}
+.toBeApproved {
+  position: relative;
+  display: inline-block;
+  min-width: 89px;
+}
+.timerIcon {
+  height: 14px;
+  width: 14px;
+  position: relative;
+}
+.h58m23s {
+  width: 81px;
+  position: relative;
+  display: inline-block;
+  white-space: nowrap;
+}
+.timerParent {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  gap: var(--gap-9xs);
+  text-align: right;
+  font-size: var(--font-size-xs);
+}
+.toBeApprovedInParent {
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  padding: var(--padding-9xs) var(--padding-5xs);
+}
+.frameParent5 {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  gap: var(--gap-9xs);
+}
+.text {
+  position: relative;
+  font-size: var(--font-size-base);
+  font-weight: 700;
+  font-family: var(--font-space-mono);
+  color: var(--yellow-bk);
+  text-align: left;
+  display: inline-block;
+  min-width: 98px;
+}
+.btn,
+.frameParent4 {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+.btn {
+  cursor: pointer;
+  border: 0;
+  padding: var(--padding-5xs) var(--padding-base);
+  background-color: var(--navy-bk);
+  justify-content: center;
+  white-space: nowrap;
+}
+.btn:hover {
+  background-color: var(--color-royalblue-100);
+}
+.frameParent4 {
+  align-self: stretch;
+  justify-content: space-between;
+  gap: var(--gap-xl);
+  font-size: var(--font-size-5xs);
+  color: var(--navy-bold);
+}
+.frameContainer,
+.frameParent2,
+.frameParent3 {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+.frameParent3 {
+  align-self: stretch;
+  border: 1px solid var(--navy-bk-40a);
+  overflow: hidden;
+  align-items: center;
+  padding: var(--padding-sm) var(--padding-mini);
+  gap: var(--gap-base);
+  font-size: var(--font-size-xs);
+  color: var(--midnight-medium);
+}
+.frameContainer,
+.frameParent2 {
+  align-items: flex-start;
+}
+.frameParent2 {
+  align-self: stretch;
+  overflow: hidden;
+  gap: var(--gap-base);
+  color: var(--midnight-bold);
+}
+.frameContainer {
+  width: 536px;
+  gap: var(--gap-21xl);
+  min-width: 536px;
+  max-width: 100%;
+}
+.yourActiveJobs {
+  margin: 0;
+  position: relative;
+  font-size: inherit;
+  font-weight: 700;
+  font-family: inherit;
+}
+.frameParent7,
+.yourActiveJobsWrapper {
+  align-self: stretch;
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+}
+.yourActiveJobsWrapper {
+  border-bottom: 4px solid var(--navy-bk);
+  flex-direction: row;
+  padding: 0 0 var(--padding-10xs);
+}
+.frameParent7 {
+  flex-direction: column;
+  gap: var(--gap-5xs);
+  max-width: 100%;
+}
+.frameGroup,
+.frameParent6 {
+  justify-content: flex-start;
+  gap: var(--gap-13xl);
+}
+.frameParent6 {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  min-width: 411px;
+  max-width: 100%;
+  color: var(--navy-bold);
+}
+.frameGroup {
+  align-self: stretch;
+  flex-direction: row;
+}
+.clientDashboardInner,
+.frameGroup,
+.frameParent {
+  display: flex;
+  align-items: flex-start;
+  max-width: 100%;
+}
+.frameParent {
+  width: 1200px;
+  flex-direction: column;
+  justify-content: flex-start;
+  gap: var(--gap-29xl);
+  text-align: left;
+  font-size: var(--font-size-5xl);
+  color: var(--light);
+  font-family: var(--font-space-mono);
+}
+.clientDashboardInner {
+  align-self: stretch;
+  flex-direction: row;
+  justify-content: center;
+  padding: 0 var(--padding-xl);
+  box-sizing: border-box;
+}
+.clientDashboard {
+  width: 100%;
+  position: relative;
+  background-color: var(--light);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  gap: var(--gap-13xl);
+  line-height: normal;
+  letter-spacing: normal;
+}
+@media screen and (max-width: 1050px) {
+  .frameContainer {
+    flex: 1;
+  }
+  .frameGroup {
+    flex-wrap: wrap;
+  }
+}
+@media screen and (max-width: 750px) {
+  .frameDiv {
+    flex-wrap: wrap;
+  }
+  .apr1,
+  .aug1,
+  .dec1,
+  .feb1,
+  .jan1,
+  .jul1,
+  .jun1,
+  .mar1,
+  .may1,
+  .nov1,
+  .oct1,
+  .sep1 {
+    width: 100%;
+    height: 15px;
+  }
+  .daySpacer {
+    padding-left: var(--padding-2xl);
+    box-sizing: border-box;
+  }
+  .daySpacer,
+  .frameParent4 {
+    flex-wrap: wrap;
+  }
+  .frameContainer {
+    gap: var(--gap-xl);
+    min-width: 100%;
+  }
+  .frameParent6 {
+    min-width: 100%;
+  }
+  .frameGroup,
+  .frameParent6 {
+    gap: var(--gap-base);
+  }
+  .frameParent {
+    gap: var(--gap-5xl);
+  }
+  .clientDashboard {
+    gap: var(--gap-base);
+  }
+}
+@media screen and (max-width: 450px) {
+  .activeJobs {
+    font-size: var(--font-size-base);
+  }
+  .b,
+  .jobsToApprove,
+  .monthlyCreatedJobs {
+    font-size: var(--font-size-lgi);
+  }
+  .jobsToApproveParent {
+    flex-wrap: wrap;
+  }
+  .developADefi,
+  .yourActiveJobs {
+    font-size: var(--font-size-lgi);
+  }
+}

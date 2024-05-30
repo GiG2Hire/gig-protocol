@@ -1,0 +1,85 @@
+.freelanceIcon {
+  align-self: stretch;
+  flex: 1;
+  position: relative;
+  max-width: 100%;
+  overflow: hidden;
+  max-height: 100%;
+}
+.frameWrapper,
+.freelanceWrapper {
+  display: flex;
+  flex-direction: column;
+}
+.freelanceWrapper {
+  cursor: pointer;
+  border: 0;
+  padding: var(--padding-3xs) var(--padding-base);
+  background-color: var(--navy-medium-40a);
+  width: 100px;
+  height: 100px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25);
+  backdrop-filter: blur(30px);
+  overflow: hidden;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  z-index: 2;
+}
+.frameWrapper {
+  align-self: stretch;
+  align-items: flex-start;
+  justify-content: flex-start;
+  padding: 0 var(--padding-5xl);
+}
+.verifyYourTalent {
+  position: relative;
+  display: inline-block;
+  max-width: 100%;
+}
+.getVerifiedWith {
+  align-self: stretch;
+  position: relative;
+  font-size: var(--font-size-5xl);
+}
+.verifyYourTalentParent {
+  align-self: stretch;
+  gap: var(--gap-base);
+}
+.frameContainer,
+.frameParent,
+.verifyYourTalentParent {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  max-width: 100%;
+}
+.frameContainer {
+  align-self: stretch;
+  background-color: var(--yellow-bk-40a);
+  border: 4px solid var(--yellow-bk);
+  box-sizing: border-box;
+  padding: var(--padding-36xl) var(--padding-xl) var(--padding-lgi);
+  z-index: 0;
+  margin-top: -50px;
+}
+.frameParent {
+  flex: 1;
+  text-align: left;
+  font-size: var(--font-size-13xl);
+  color: var(--midnight-bold);
+  font-family: var(--font-space-mono);
+}
+@media screen and (max-width: 1050px) {
+  .verifyYourTalent {
+    font-size: var(--font-size-7xl);
+  }
+}
+@media screen and (max-width: 450px) {
+  .getVerifiedWith,
+  .verifyYourTalent {
+    font-size: var(--font-size-lgi);
+  }
+}

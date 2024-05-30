@@ -1,0 +1,226 @@
+.congratsYouApplied {
+  margin: 0;
+  height: 40px;
+  position: relative;
+  font-size: inherit;
+  font-weight: 700;
+  font-family: inherit;
+  white-space: pre-wrap;
+  display: inline-block;
+}
+.congratsYouAppliedToAGigWrapper {
+  background-color: var(--yellow-bk);
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  padding: var(--padding-base) 77px;
+}
+.mobileAppDesign,
+.youJoinedA {
+  margin: 0;
+  align-self: stretch;
+  position: relative;
+}
+.mobileAppDesign {
+  font-size: inherit;
+  font-weight: 700;
+  font-family: inherit;
+}
+.youJoinedA {
+  font-size: var(--font-size-5xl);
+}
+.mobileAppDesignUxuiSpeciaParent {
+  align-self: stretch;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  gap: var(--gap-base);
+}
+.frameChild {
+  height: 32px;
+  width: 151px;
+  border: 1px solid var(--navy-medium-bk);
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  padding: var(--padding-9xs) var(--padding-5xs);
+}
+.eventIcon {
+  height: 18px;
+  width: 18px;
+  position: relative;
+}
+.delivery,
+.div {
+  position: relative;
+  display: inline-block;
+}
+.delivery {
+  font-weight: 700;
+  min-width: 89px;
+}
+.div {
+  min-width: 98px;
+}
+.eventParent {
+  border: 1px solid var(--navy-medium-bk);
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  padding: var(--padding-11xs) var(--padding-6xs);
+  gap: var(--gap-9xs);
+}
+.moneyBag1Icon {
+  height: 18px;
+  width: 18px;
+  position: relative;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+.projectBudget {
+  position: relative;
+  font-weight: 700;
+}
+.dai,
+.emptyDA {
+  position: relative;
+  display: inline-block;
+  min-width: 30px;
+}
+.frameGroup,
+.moneyBag1Parent {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+.moneyBag1Parent {
+  border: 1px solid var(--navy-medium-bk);
+  padding: var(--padding-11xs) var(--padding-6xs);
+  gap: var(--gap-9xs);
+}
+.frameGroup {
+  padding: 0 51px;
+  gap: var(--gap-5xs);
+  text-align: left;
+  font-size: var(--font-size-base);
+  color: var(--navy-medium-bk);
+}
+.back {
+  position: relative;
+  font-weight: 700;
+  display: inline-block;
+  min-width: 59px;
+}
+.monitorDashboard1Icon {
+  height: 24px;
+  width: 24px;
+  position: relative;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+.goToDashboard {
+  position: relative;
+  font-size: var(--font-size-5xl);
+  font-family: var(--font-space-mono);
+  color: var(--navy-medium-bk);
+  text-align: left;
+}
+.backParent,
+.btnDashboard {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+.btnDashboard {
+  cursor: pointer;
+  border: 0;
+  padding: var(--padding-5xs) var(--padding-base);
+  background-color: var(--yellow-bk);
+  gap: var(--gap-xs);
+  white-space: nowrap;
+}
+.btnDashboard:hover {
+  background-color: var(--color-yellowgreen-100);
+}
+.backParent {
+  padding: 0 0 0 388px;
+  gap: var(--gap-base);
+  font-size: var(--font-size-5xl);
+  color: var(--yellow-bk);
+}
+.frameParent,
+.modalApply {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+}
+.frameParent {
+  align-self: stretch;
+  padding: var(--padding-5xl);
+  gap: var(--gap-13xl);
+  text-align: center;
+  color: var(--midnight-bold);
+  font-family: var(--font-space-mono);
+}
+.modalApply {
+  width: 800px;
+  background-color: var(--light);
+  border: 2px solid var(--yellow-bk);
+  box-sizing: border-box;
+  max-width: 100%;
+  overflow: hidden;
+  line-height: normal;
+  letter-spacing: normal;
+  text-align: left;
+  font-size: var(--font-size-13xl);
+  color: var(--navy-medium-bk);
+  font-family: var(--font-unbounded);
+}
+@media screen and (max-width: 750px) {
+  .congratsYouApplied,
+  .mobileAppDesign {
+    font-size: var(--font-size-7xl);
+  }
+  .backParent,
+  .frameGroup {
+    flex-wrap: wrap;
+    box-sizing: border-box;
+  }
+  .frameGroup {
+    padding-left: var(--padding-6xl);
+    padding-right: var(--padding-6xl);
+  }
+  .backParent {
+    padding-left: 194px;
+  }
+}
+@media screen and (max-width: 450px) {
+  .congratsYouApplied {
+    font-size: var(--font-size-lgi);
+  }
+  .congratsYouAppliedToAGigWrapper {
+    padding-left: var(--padding-xl);
+    padding-right: var(--padding-xl);
+    box-sizing: border-box;
+  }
+  .back,
+  .mobileAppDesign,
+  .youJoinedA {
+    font-size: var(--font-size-lgi);
+  }
+  .backParent {
+    padding-left: var(--padding-xl);
+    box-sizing: border-box;
+  }
+  .frameParent {
+    gap: var(--gap-base);
+  }
+}

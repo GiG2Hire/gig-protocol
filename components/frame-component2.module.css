@@ -1,0 +1,134 @@
+.q1 {
+  position: relative;
+  font-size: var(--font-size-5xl);
+  display: inline-block;
+  font-family: var(--font-unbounded);
+  color: var(--navy-medium-bk);
+  text-align: left;
+  min-width: 36px;
+}
+.q1Wrapper {
+  cursor: pointer;
+  border: 0;
+  padding: var(--padding-mini) var(--padding-xs);
+  background-color: var(--yellow-bk);
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+.q1Wrapper:hover {
+  background-color: var(--color-yellowgreen-100);
+}
+.checkSmallIcon {
+  height: 24px;
+  width: 24px;
+  position: relative;
+}
+.status {
+  background-color: var(--yellow-bk);
+  overflow: hidden;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: flex-start;
+}
+.proofOfTechnology {
+  flex: 1;
+  position: relative;
+  display: inline-block;
+  min-width: 147px;
+}
+.statusParent {
+  align-self: stretch;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: var(--gap-5xs);
+}
+.checkSmallIcon1 {
+  height: 24px;
+  width: 24px;
+  position: relative;
+}
+.status1 {
+  background-color: var(--yellow-bk);
+  overflow: hidden;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: flex-start;
+}
+.ideaValidation {
+  flex: 1;
+  position: relative;
+  display: inline-block;
+  min-width: 115px;
+}
+.statusGroup {
+  align-self: stretch;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: var(--gap-5xs);
+}
+.checkSmallIcon2 {
+  height: 24px;
+  width: 24px;
+  position: relative;
+}
+.status2 {
+  background-color: var(--yellow-bk);
+  overflow: hidden;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: flex-start;
+}
+.proofOfConcept {
+  flex: 1;
+  position: relative;
+  display: inline-block;
+  min-width: 147px;
+}
+.statusContainer {
+  align-self: stretch;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: var(--gap-5xs);
+}
+.frameGroup,
+.frameParent {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+}
+.frameGroup {
+  align-self: stretch;
+  gap: var(--gap-base);
+}
+.frameParent {
+  flex: 1;
+  gap: var(--gap-5xl);
+  min-width: 213px;
+  max-width: 284px;
+  text-align: left;
+  font-size: var(--font-size-base);
+  color: var(--midnight-bold);
+  font-family: var(--font-space-mono);
+}
+@media screen and (max-width: 450px) {
+  .q1 {
+    font-size: var(--font-size-lgi);
+  }
+  .statusContainer,
+  .statusGroup,
+  .statusParent {
+    flex-wrap: wrap;
+  }
+}

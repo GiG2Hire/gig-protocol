@@ -1,0 +1,2380 @@
+.postAGig {
+  text-decoration: none;
+  position: relative;
+  font-size: var(--font-size-13xl);
+  font-family: var(--font-unbounded);
+  color: var(--light);
+  text-align: left;
+}
+.postAGigWrapper {
+  cursor: pointer;
+  border: 0;
+  padding: var(--padding-5xs) var(--padding-5xl);
+  background-color: var(--navy-bk);
+  backdrop-filter: blur(20px);
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  white-space: nowrap;
+}
+.postAGigWrapper:hover {
+  background-color: var(--color-royalblue-100);
+}
+.hireJustVerified {
+  margin: 0;
+  position: relative;
+  font-size: inherit;
+  font-weight: 400;
+  font-family: inherit;
+  display: inline-block;
+  max-width: 100%;
+}
+.frameParent {
+  align-self: stretch;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: space-between;
+  padding: var(--padding-mini) var(--padding-xl) var(--padding-mini)
+    var(--padding-smi);
+  box-sizing: border-box;
+  background-image: url(/frame-16001@3x.png);
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: top;
+  max-width: 100%;
+}
+.titleIcon {
+  position: relative;
+  font-weight: 700;
+  display: inline-block;
+  min-width: 10px;
+}
+.titleInput {
+  background-color: var(--navy-bk);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: var(--padding-10xs) var(--padding-3xs);
+}
+.headlineForYour {
+  position: relative;
+  font-size: var(--font-size-5xl);
+  display: inline-block;
+  color: var(--navy-bold);
+  max-width: 100%;
+}
+.titleField {
+  align-self: stretch;
+  border-bottom: 5px solid var(--navy-bk);
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  padding: var(--padding-3xs) 767px var(--padding-9xs) var(--padding-3xs);
+  gap: var(--gap-3xs);
+  max-width: 100%;
+}
+.addACatchy {
+  position: relative;
+  display: inline-block;
+  max-width: 100%;
+}
+.nameInput,
+.textInput {
+  align-self: stretch;
+  display: flex;
+  justify-content: flex-start;
+}
+.textInput {
+  width: 100%;
+  border: 0;
+  outline: 0;
+  background-color: var(--yellow-bk-10a);
+  height: 50px;
+  flex-direction: row;
+  align-items: center;
+  padding: var(--padding-3xs) var(--padding-base);
+  box-sizing: border-box;
+  font-family: var(--font-space-mono);
+  font-size: var(--font-size-xl);
+  color: var(--navy-medium-40a);
+  min-width: 250px;
+}
+.nameInput {
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--gap-5xs);
+  max-width: 100%;
+}
+.exampleTitles {
+  position: relative;
+  font-weight: 700;
+}
+.buildAResponsive,
+.designAnUi {
+  margin-bottom: 0;
+}
+.buildAResponsiveDappToTra {
+  margin: 0;
+  font-family: inherit;
+  font-size: inherit;
+  padding-left: var(--padding-2xl);
+}
+.buildAResponsiveContainer {
+  margin: 0;
+  width: 510px;
+  position: relative;
+  display: inline-block;
+  max-width: 100%;
+}
+.formFields,
+.nameField,
+.titleExample {
+  align-self: stretch;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  max-width: 100%;
+}
+.titleExample {
+  align-items: flex-start;
+  padding: 0 var(--padding-xl) 0 0;
+  box-sizing: border-box;
+  gap: var(--gap-5xs);
+  color: var(--midnight-medium);
+}
+.formFields,
+.nameField {
+  gap: var(--gap-base);
+}
+.nameField {
+  align-items: flex-start;
+  padding: 0 var(--padding-13xl);
+  box-sizing: border-box;
+  color: var(--midnight-bold);
+}
+.formFields {
+  align-items: center;
+}
+.descriptionLabel {
+  position: relative;
+  font-weight: 700;
+  display: inline-block;
+  min-width: 10px;
+}
+.descriptionIcon {
+  background-color: var(--navy-bk);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: var(--padding-10xs) var(--padding-3xs);
+}
+.describeYourJob {
+  position: relative;
+  font-size: var(--font-size-5xl);
+  display: inline-block;
+  color: var(--navy-bold);
+  max-width: 100%;
+}
+.descriptionInput {
+  align-self: stretch;
+  border-bottom: 5px solid var(--navy-bk);
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  padding: var(--padding-3xs) var(--padding-807xl) var(--padding-9xs)
+    var(--padding-3xs);
+  gap: var(--gap-3xs);
+  max-width: 100%;
+}
+.addADescription {
+  display: inline-block;
+  max-width: 100%;
+}
+.addADescription,
+.searchInGlobal {
+  position: relative;
+}
+.textInput1 {
+  align-self: stretch;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+}
+.categoryField {
+  align-self: stretch;
+  position: relative;
+  font-size: var(--font-size-xs);
+  font-weight: 700;
+  text-align: right;
+}
+.exampleDescription,
+.textInputParent {
+  align-self: stretch;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+.textInputParent {
+  background-color: var(--yellow-bk-10a);
+  overflow: hidden;
+  justify-content: space-between;
+  padding: var(--padding-5xs);
+  box-sizing: border-box;
+  min-height: 130px;
+  color: var(--navy-medium-40a);
+}
+.exampleDescription {
+  justify-content: flex-start;
+  gap: var(--gap-5xs);
+  max-width: 100%;
+}
+.exampleDescription1 {
+  position: relative;
+  font-weight: 700;
+}
+.lookingForAn {
+  margin: 0;
+  align-self: stretch;
+  position: relative;
+}
+.categorySelection,
+.descriptionExample,
+.descriptionField {
+  align-self: stretch;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+.categorySelection {
+  align-items: flex-start;
+  gap: var(--gap-5xs);
+  color: var(--midnight-medium);
+}
+.descriptionExample,
+.descriptionField {
+  gap: var(--gap-base);
+  max-width: 100%;
+}
+.descriptionExample {
+  align-items: flex-start;
+  padding: 0 var(--padding-13xl);
+  box-sizing: border-box;
+  color: var(--midnight-bold);
+}
+.descriptionField {
+  align-items: center;
+}
+.taskLabel {
+  position: relative;
+  font-weight: 700;
+  display: inline-block;
+  min-width: 10px;
+}
+.taskIcon {
+  background-color: var(--navy-bk);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: var(--padding-10xs) var(--padding-3xs);
+}
+.chooseYourJob {
+  position: relative;
+  font-size: var(--font-size-5xl);
+  display: inline-block;
+  color: var(--navy-bold);
+  max-width: 100%;
+}
+.taskInput {
+  align-self: stretch;
+  border-bottom: 5px solid var(--navy-bk);
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  padding: var(--padding-3xs) 797px var(--padding-9xs) var(--padding-3xs);
+  gap: var(--gap-3xs);
+  max-width: 100%;
+}
+.developerModeTvIcon {
+  height: 24px;
+  width: 24px;
+  position: relative;
+  min-height: 24px;
+}
+.developmentIt {
+  position: relative;
+  font-size: var(--font-size-base);
+  font-family: var(--font-space-mono);
+  color: var(--midnight-medium);
+  text-align: left;
+}
+.btnDevit {
+  cursor: pointer;
+  border: 1px solid var(--navy-medium-bk);
+  padding: var(--padding-7xs) var(--padding-mini);
+  background-color: transparent;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  gap: var(--gap-5xs);
+}
+.btnAi:hover,
+.btnDevit:hover {
+  background-color: var(--color-cornflowerblue-200);
+  border: 1px solid var(--color-cornflowerblue-100);
+  box-sizing: border-box;
+}
+.designServicesIcon {
+  height: 24px;
+  width: 24px;
+  position: relative;
+  min-height: 24px;
+}
+.designCreative {
+  position: relative;
+}
+.btnDesign {
+  border: 1px solid var(--navy-medium-bk);
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  padding: var(--padding-7xs) var(--padding-mini);
+  gap: var(--gap-5xs);
+}
+.psychologyIcon {
+  height: 24px;
+  width: 24px;
+  position: relative;
+  min-height: 24px;
+}
+.aiServices {
+  position: relative;
+  font-size: var(--font-size-base);
+  font-family: var(--font-space-mono);
+  color: var(--midnight-medium);
+  text-align: left;
+  display: inline-block;
+  min-width: 108px;
+}
+.btnAi {
+  cursor: pointer;
+  border: 1px solid var(--navy-medium-bk);
+  padding: var(--padding-7xs) var(--padding-mini);
+  background-color: transparent;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  gap: var(--gap-5xs);
+}
+.storeIcon {
+  height: 24px;
+  width: 24px;
+  min-height: 24px;
+}
+.salesMarketing,
+.storeIcon {
+  position: relative;
+}
+.btnSales {
+  border: 1px solid var(--navy-medium-bk);
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  padding: var(--padding-7xs) var(--padding-mini);
+  gap: var(--gap-5xs);
+}
+.supportAgentIcon {
+  height: 24px;
+  width: 24px;
+  position: relative;
+  min-height: 24px;
+}
+.adminCustomer {
+  position: relative;
+}
+.btnAdmin {
+  border: 1px solid var(--navy-medium-bk);
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  padding: var(--padding-7xs) var(--padding-mini);
+  gap: var(--gap-5xs);
+}
+.translateIcon {
+  height: 24px;
+  width: 24px;
+  min-height: 24px;
+}
+.translateIcon,
+.writingTranslation {
+  position: relative;
+}
+.btnLanguages {
+  border: 1px solid var(--navy-medium-bk);
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  padding: var(--padding-7xs) var(--padding-mini);
+  gap: var(--gap-5xs);
+}
+.taskField,
+.taskInstructions {
+  align-self: stretch;
+  display: flex;
+  align-items: flex-start;
+}
+.taskInstructions {
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  padding: 0 160px;
+  box-sizing: border-box;
+  gap: var(--gap-5xs);
+  min-height: 88px;
+  color: var(--midnight-medium);
+}
+.taskField {
+  flex-direction: column;
+  justify-content: flex-start;
+  gap: var(--gap-base);
+  max-width: 100%;
+}
+.deliveryDateLabel {
+  position: relative;
+  font-weight: 700;
+  display: inline-block;
+  min-width: 10px;
+}
+.deliveryDateIcon {
+  background-color: var(--navy-bk);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: var(--padding-10xs) var(--padding-3xs);
+}
+.describeTasks {
+  position: relative;
+  font-size: var(--font-size-5xl);
+  font-weight: 700;
+  color: var(--navy-bold);
+}
+.deliveryDateInput {
+  align-self: stretch;
+  border-bottom: 5px solid var(--navy-bk);
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  padding: var(--padding-3xs) 944px var(--padding-9xs) var(--padding-3xs);
+  gap: var(--gap-3xs);
+}
+.theFreelancerJob {
+  margin: 0;
+  align-self: stretch;
+  position: relative;
+}
+.addDashboardTo,
+.describeTheTasks {
+  position: relative;
+  display: inline-block;
+}
+.describeTheTasks {
+  margin: 0;
+  font-weight: 700;
+  max-width: 100%;
+}
+.addDashboardTo {
+  height: 24px;
+}
+.textInput2 {
+  flex: 1;
+  border-radius: var(--br-5xs);
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  padding: var(--padding-5xs) var(--padding-base);
+  box-sizing: border-box;
+  min-width: 294px;
+  max-width: 100%;
+}
+.delete1Icon {
+  height: 20px;
+  width: 20px;
+  position: relative;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+.delete {
+  align-self: stretch;
+  position: relative;
+}
+.btnDelete {
+  height: 40px;
+  width: 135px;
+  background-color: var(--red-light);
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  padding: var(--padding-5xs) var(--padding-base);
+  box-sizing: border-box;
+  gap: var(--gap-9xs);
+  color: var(--red-bold);
+}
+.textInput3,
+.textInputGroup {
+  flex-direction: row;
+  justify-content: flex-start;
+  max-width: 100%;
+}
+.textInputGroup {
+  width: 719px;
+  display: none;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  gap: var(--gap-13xl);
+}
+.textInput3 {
+  width: 100%;
+  border: 0;
+  outline: 0;
+  background-color: var(--yellow-bk-10a);
+  height: 40px;
+  flex: 1;
+  display: flex;
+  align-items: center;
+  padding: var(--padding-5xs) var(--padding-base);
+  box-sizing: border-box;
+  font-family: var(--font-space-mono);
+  font-size: var(--font-size-base);
+  color: var(--navy-medium-40a);
+  min-width: 300px;
+}
+.taskSquare1Icon {
+  height: 20px;
+  width: 20px;
+  position: relative;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+.addTask {
+  position: relative;
+  font-size: var(--font-size-base);
+  font-weight: 700;
+  font-family: var(--font-space-mono);
+  color: var(--light);
+  text-align: left;
+  display: inline-block;
+  min-width: 79px;
+}
+.btnAdd,
+.taskInputContainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+}
+.btnAdd {
+  cursor: pointer;
+  border: 0;
+  padding: var(--padding-5xs) var(--padding-base);
+  background-color: var(--navy-bk);
+  align-items: center;
+  gap: var(--gap-9xs);
+  white-space: nowrap;
+}
+.btnAdd:hover,
+.btnApprove:hover {
+  background-color: var(--color-royalblue-100);
+}
+.taskInputContainer {
+  align-self: stretch;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  gap: var(--gap-13xl);
+  max-width: 100%;
+}
+.compAddtask {
+  color: var(--dark-800);
+}
+.compAddtask,
+.dateSelector {
+  align-self: stretch;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  gap: var(--gap-5xs);
+  max-width: 100%;
+}
+.exampleTasks {
+  position: relative;
+  font-weight: 700;
+}
+.itShouldBe,
+.theDashboardShould {
+  margin-bottom: 0;
+}
+.theDashboardShouldIncludeA {
+  margin: 0;
+  font-family: inherit;
+  font-size: inherit;
+  padding-left: var(--padding-2xl);
+}
+.theDashboardShouldContainer {
+  margin: 0;
+  width: 530px;
+  height: 72px;
+  position: relative;
+  display: inline-block;
+  max-width: 100%;
+}
+.taskExample {
+  align-self: stretch;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  padding: 0 var(--padding-xl) 0 0;
+  box-sizing: border-box;
+  gap: var(--gap-5xs);
+  max-width: 100%;
+  color: var(--midnight-medium);
+}
+.deliveryDateSelector {
+  padding: 0 var(--padding-13xl);
+  box-sizing: border-box;
+  color: var(--midnight-bold);
+}
+.deliveryDateField,
+.deliveryDateSelector {
+  align-self: stretch;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  gap: var(--gap-base);
+  max-width: 100%;
+}
+.budgetLabel {
+  position: relative;
+  font-weight: 700;
+  display: inline-block;
+  min-width: 10px;
+}
+.budgetIcon {
+  background-color: var(--navy-bk);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: var(--padding-10xs) var(--padding-3xs);
+}
+.specifyDeliveryDate {
+  position: relative;
+  font-size: var(--font-size-5xl);
+  color: var(--navy-bold);
+}
+.budgetInput {
+  align-self: stretch;
+  border-bottom: 5px solid var(--navy-bk);
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  padding: var(--padding-3xs) 841px var(--padding-9xs) var(--padding-3xs);
+  gap: var(--gap-3xs);
+}
+.specifyTheDates,
+.toKeepIn {
+  align-self: stretch;
+  position: relative;
+}
+.deliveryLimitTimeIs2359T {
+  margin: 0;
+  font-family: inherit;
+  font-size: inherit;
+  padding-left: var(--padding-2xl);
+}
+.deliveryLimitTimeContainer {
+  margin: 0;
+  align-self: stretch;
+  position: relative;
+  white-space: nowrap;
+}
+.budgetDescription,
+.escrowExplanation {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  gap: var(--gap-5xs);
+}
+.escrowExplanation {
+  align-self: stretch;
+  color: var(--midnight-medium);
+}
+.budgetDescription {
+  flex: 1;
+  min-width: 536px;
+  max-width: 100%;
+}
+.chevronLeftIcon {
+  height: 24px;
+  width: 24px;
+  position: relative;
+}
+.monthNavigation {
+  background-color: var(--navy-bk);
+  overflow: hidden;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: flex-start;
+  padding: var(--padding-10xs);
+}
+.february {
+  position: relative;
+  font-weight: 700;
+  display: inline-block;
+  min-width: 98px;
+}
+.chevronRightIcon {
+  height: 24px;
+  width: 24px;
+  position: relative;
+}
+.monthNavigation1 {
+  background-color: var(--navy-bk);
+  overflow: hidden;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: flex-start;
+  padding: var(--padding-10xs);
+}
+.monthSelector {
+  align-self: stretch;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--gap-xl);
+}
+.s {
+  position: relative;
+  font-weight: 700;
+  display: inline-block;
+  min-width: 13px;
+}
+.daysOfWeek {
+  flex: 0.5385;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: var(--padding-8xs) var(--padding-smi);
+  box-sizing: border-box;
+  min-width: 38px;
+  color: var(--navy-bold);
+}
+.m {
+  position: relative;
+  display: inline-block;
+  min-width: 13px;
+}
+.daysOfWeek1 {
+  flex: 0.5385;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: var(--padding-8xs) var(--padding-smi);
+  box-sizing: border-box;
+  min-width: 38px;
+  margin-left: -0.7px;
+  color: var(--light);
+}
+.t {
+  position: relative;
+  display: inline-block;
+  min-width: 13px;
+}
+.daysOfWeek2 {
+  flex: 0.5385;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: var(--padding-8xs) var(--padding-smi);
+  box-sizing: border-box;
+  min-width: 38px;
+  margin-left: -0.7px;
+  color: var(--light);
+}
+.w {
+  position: relative;
+  display: inline-block;
+  min-width: 13px;
+}
+.daysOfWeek3 {
+  flex: 0.5385;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: var(--padding-8xs) var(--padding-smi);
+  box-sizing: border-box;
+  min-width: 38px;
+  margin-left: -0.7px;
+  color: var(--light);
+}
+.t1 {
+  position: relative;
+  display: inline-block;
+  min-width: 13px;
+}
+.daysOfWeek4 {
+  flex: 0.5385;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: var(--padding-8xs) var(--padding-smi);
+  box-sizing: border-box;
+  min-width: 38px;
+  margin-left: -0.7px;
+  color: var(--light);
+}
+.f {
+  position: relative;
+  display: inline-block;
+  min-width: 13px;
+}
+.daysOfWeek5 {
+  flex: 0.5385;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: var(--padding-8xs) var(--padding-smi);
+  box-sizing: border-box;
+  min-width: 38px;
+  margin-left: -0.7px;
+  color: var(--light);
+}
+.s1 {
+  position: relative;
+  display: inline-block;
+  min-width: 13px;
+}
+.daysOfWeek6 {
+  flex: 0.5385;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: var(--padding-8xs) var(--padding-smi);
+  box-sizing: border-box;
+  min-width: 38px;
+  margin-left: -0.7px;
+  color: var(--light);
+}
+.div {
+  width: 15px;
+  position: relative;
+  display: none;
+}
+.daysOfWeek7 {
+  height: 40px;
+  flex: 0.7692;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: var(--padding-3xs);
+  box-sizing: border-box;
+  min-width: 38px;
+  margin-left: -0.7px;
+  font-size: var(--font-size-5xl);
+  color: var(--color-black);
+}
+.div1 {
+  width: 15px;
+  position: relative;
+  display: none;
+}
+.daysOfWeek8 {
+  height: 40px;
+  flex: 0.7692;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: var(--padding-3xs);
+  box-sizing: border-box;
+  min-width: 38px;
+  margin-left: -0.7px;
+  font-size: var(--font-size-5xl);
+  color: var(--color-black);
+}
+.div2 {
+  width: 15px;
+  position: relative;
+  display: none;
+}
+.daysOfWeek9 {
+  height: 40px;
+  flex: 0.7692;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: var(--padding-3xs);
+  box-sizing: border-box;
+  min-width: 38px;
+  margin-left: -0.7px;
+  font-size: var(--font-size-5xl);
+  color: var(--color-black);
+}
+.div3 {
+  position: relative;
+  display: inline-block;
+  min-width: 13px;
+}
+.daysOfWeek10 {
+  flex: 0.5385;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: var(--padding-8xs) var(--padding-smi);
+  box-sizing: border-box;
+  min-width: 38px;
+  margin-left: -0.7px;
+}
+.div4 {
+  position: relative;
+  display: inline-block;
+  min-width: 13px;
+}
+.daysOfWeek11 {
+  flex: 0.5385;
+  border-radius: var(--br-5xs) 0 0 var(--br-5xs);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: var(--padding-8xs) var(--padding-smi);
+  box-sizing: border-box;
+  min-width: 38px;
+  margin-left: -0.7px;
+}
+.div5 {
+  position: relative;
+  display: inline-block;
+  min-width: 13px;
+}
+.daysOfWeek12 {
+  flex: 0.5385;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: var(--padding-8xs) var(--padding-smi);
+  box-sizing: border-box;
+  min-width: 38px;
+  margin-left: -0.7px;
+}
+.div6 {
+  position: relative;
+  display: inline-block;
+  min-width: 13px;
+}
+.daysOfWeek13 {
+  flex: 0.5385;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: var(--padding-8xs) var(--padding-smi);
+  box-sizing: border-box;
+  min-width: 38px;
+  margin-left: -0.7px;
+}
+.div7 {
+  position: relative;
+  display: inline-block;
+  min-width: 13px;
+}
+.daysOfWeek14 {
+  flex: 0.5385;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: var(--padding-8xs) var(--padding-smi);
+  box-sizing: border-box;
+  min-width: 38px;
+  margin-left: -0.7px;
+}
+.div8 {
+  position: relative;
+  display: inline-block;
+  min-width: 13px;
+}
+.daysOfWeek15 {
+  flex: 0.5385;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: var(--padding-8xs) var(--padding-smi);
+  box-sizing: border-box;
+  min-width: 38px;
+  margin-left: -0.7px;
+}
+.div9 {
+  position: relative;
+  display: inline-block;
+  min-width: 13px;
+}
+.daysOfWeek16 {
+  flex: 0.5385;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: var(--padding-8xs) var(--padding-smi);
+  box-sizing: border-box;
+  min-width: 38px;
+  margin-left: -0.7px;
+}
+.div10 {
+  position: relative;
+  display: inline-block;
+  min-width: 13px;
+}
+.daysOfWeek17 {
+  flex: 0.5385;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: var(--padding-8xs) var(--padding-smi);
+  box-sizing: border-box;
+  min-width: 38px;
+  margin-left: -0.7px;
+}
+.div11 {
+  position: relative;
+  display: inline-block;
+  min-width: 13px;
+}
+.daysOfWeek18 {
+  flex: 0.5385;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: var(--padding-8xs) var(--padding-smi);
+  box-sizing: border-box;
+  min-width: 38px;
+  margin-left: -0.7px;
+}
+.div12 {
+  position: relative;
+  display: inline-block;
+  min-width: 25px;
+}
+.daysOfWeek19 {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: var(--padding-8xs) var(--padding-6xs);
+  box-sizing: border-box;
+  min-width: 38px;
+  margin-left: -0.7px;
+}
+.div13 {
+  position: relative;
+  display: inline-block;
+  min-width: 25px;
+}
+.daysOfWeek20 {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: var(--padding-8xs) var(--padding-6xs);
+  box-sizing: border-box;
+  min-width: 38px;
+  margin-left: -0.7px;
+}
+.div14 {
+  position: relative;
+  display: inline-block;
+  min-width: 25px;
+}
+.daysOfWeek21 {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: var(--padding-8xs) var(--padding-6xs);
+  box-sizing: border-box;
+  min-width: 38px;
+  margin-left: -0.7px;
+}
+.div15 {
+  position: relative;
+  display: inline-block;
+  min-width: 25px;
+}
+.daysOfWeek22 {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: var(--padding-8xs) var(--padding-6xs);
+  box-sizing: border-box;
+  min-width: 38px;
+  margin-left: -0.7px;
+}
+.div16 {
+  position: relative;
+  display: inline-block;
+  min-width: 25px;
+}
+.daysOfWeek23 {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: var(--padding-8xs) var(--padding-6xs);
+  box-sizing: border-box;
+  min-width: 38px;
+  margin-left: -0.7px;
+}
+.div17 {
+  position: relative;
+  display: inline-block;
+  min-width: 25px;
+}
+.daysOfWeek24 {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: var(--padding-8xs) var(--padding-6xs);
+  box-sizing: border-box;
+  min-width: 38px;
+  margin-left: -0.7px;
+}
+.div18 {
+  position: relative;
+  display: inline-block;
+  min-width: 25px;
+}
+.daysOfWeek25 {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: var(--padding-8xs) var(--padding-6xs);
+  box-sizing: border-box;
+  min-width: 38px;
+  margin-left: -0.7px;
+}
+.div19 {
+  position: relative;
+  display: inline-block;
+  min-width: 25px;
+}
+.daysOfWeek26 {
+  flex: 1;
+  background-color: var(--navy-medium-bk);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: var(--padding-8xs) var(--padding-6xs);
+  box-sizing: border-box;
+  min-width: 38px;
+  margin-left: -0.7px;
+  color: var(--light);
+}
+.div20 {
+  position: relative;
+  display: inline-block;
+  min-width: 25px;
+}
+.daysOfWeek27 {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: var(--padding-8xs) var(--padding-6xs);
+  box-sizing: border-box;
+  min-width: 38px;
+  margin-left: -0.7px;
+}
+.div21 {
+  position: relative;
+  display: inline-block;
+  min-width: 25px;
+}
+.daysOfWeek28 {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: var(--padding-8xs) var(--padding-6xs);
+  box-sizing: border-box;
+  min-width: 38px;
+  margin-left: -0.7px;
+}
+.div22 {
+  position: relative;
+  display: inline-block;
+  min-width: 25px;
+}
+.daysOfWeek29 {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: var(--padding-8xs) var(--padding-6xs);
+  box-sizing: border-box;
+  min-width: 38px;
+  margin-left: -0.7px;
+}
+.div23 {
+  position: relative;
+  display: inline-block;
+  min-width: 25px;
+}
+.daysOfWeek30 {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: var(--padding-8xs) var(--padding-6xs);
+  box-sizing: border-box;
+  min-width: 38px;
+  margin-left: -0.7px;
+}
+.div24 {
+  position: relative;
+  display: inline-block;
+  min-width: 25px;
+}
+.daysOfWeek31 {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: var(--padding-8xs) var(--padding-6xs);
+  box-sizing: border-box;
+  min-width: 38px;
+  margin-left: -0.7px;
+}
+.div25 {
+  position: relative;
+  display: inline-block;
+  min-width: 25px;
+}
+.daysOfWeek32 {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: var(--padding-8xs) var(--padding-6xs);
+  box-sizing: border-box;
+  min-width: 38px;
+  margin-left: -0.7px;
+}
+.div26 {
+  position: relative;
+  display: inline-block;
+  min-width: 25px;
+}
+.daysOfWeek33 {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: var(--padding-8xs) var(--padding-6xs);
+  box-sizing: border-box;
+  min-width: 38px;
+  margin-left: -0.7px;
+}
+.div27 {
+  position: relative;
+  display: inline-block;
+  min-width: 25px;
+}
+.daysOfWeek34 {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: var(--padding-8xs) var(--padding-6xs);
+  box-sizing: border-box;
+  min-width: 38px;
+  margin-left: -0.7px;
+}
+.div28 {
+  position: relative;
+  display: inline-block;
+  min-width: 25px;
+}
+.daysOfWeek35 {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: var(--padding-8xs) var(--padding-6xs);
+  box-sizing: border-box;
+  min-width: 38px;
+  margin-left: -0.7px;
+}
+.div29 {
+  position: relative;
+  display: inline-block;
+  min-width: 25px;
+}
+.daysOfWeek36 {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: var(--padding-8xs) var(--padding-6xs);
+  box-sizing: border-box;
+  min-width: 38px;
+  margin-left: -0.7px;
+}
+.div30 {
+  position: relative;
+  display: inline-block;
+  min-width: 25px;
+}
+.daysOfWeek37 {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: var(--padding-8xs) var(--padding-6xs);
+  box-sizing: border-box;
+  min-width: 38px;
+  margin-left: -0.7px;
+}
+.div31 {
+  position: relative;
+  display: inline-block;
+  min-width: 25px;
+}
+.daysOfWeek38 {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: var(--padding-8xs) var(--padding-6xs);
+  box-sizing: border-box;
+  min-width: 38px;
+  margin-left: -0.7px;
+}
+.div32 {
+  position: relative;
+  display: inline-block;
+  min-width: 25px;
+}
+.daysOfWeek39 {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: var(--padding-8xs) var(--padding-6xs);
+  box-sizing: border-box;
+  min-width: 38px;
+  margin-left: -0.7px;
+}
+.div33 {
+  position: relative;
+  display: inline-block;
+  min-width: 25px;
+}
+.daysOfWeek40 {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: var(--padding-8xs) var(--padding-6xs);
+  box-sizing: border-box;
+  min-width: 38px;
+  margin-left: -0.7px;
+}
+.div34 {
+  width: 15px;
+  position: relative;
+  display: none;
+}
+.daysOfWeek41 {
+  height: 40px;
+  flex: 0.7692;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: var(--padding-3xs);
+  box-sizing: border-box;
+  min-width: 38px;
+  margin-left: -0.7px;
+  font-size: var(--font-size-5xl);
+  color: var(--color-black);
+}
+.calendar,
+.calendar1 {
+  display: flex;
+  justify-content: flex-start;
+}
+.calendar1 {
+  align-self: stretch;
+  border: 3px solid var(--navy-bk);
+  box-sizing: border-box;
+  overflow: hidden;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  min-height: 240px;
+  color: var(--midnight-bold);
+}
+.calendar {
+  width: 280px;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--gap-base);
+  font-size: var(--font-size-xl);
+  color: var(--navy-bold);
+}
+.budgetDescriptionParent,
+.budgetField {
+  align-self: stretch;
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  max-width: 100%;
+}
+.budgetDescriptionParent {
+  flex-direction: row;
+  flex-wrap: wrap;
+  padding: 0 var(--padding-13xl);
+  box-sizing: border-box;
+  gap: var(--gap-13xl);
+  color: var(--midnight-bold);
+}
+.budgetField {
+  flex-direction: column;
+  gap: var(--gap-base);
+}
+.piggyBank {
+  position: relative;
+  font-weight: 700;
+  display: inline-block;
+  min-width: 10px;
+}
+.budgetIcon1 {
+  background-color: var(--navy-bk);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: var(--padding-10xs) var(--padding-3xs);
+}
+.addTheProject {
+  position: relative;
+  font-size: var(--font-size-5xl);
+  display: inline-block;
+  color: var(--navy-bold);
+  max-width: 100%;
+}
+.budgetTitle {
+  align-self: stretch;
+  border-bottom: 5px solid var(--navy-bk);
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  padding: var(--padding-3xs) var(--padding-807xl) var(--padding-9xs)
+    var(--padding-3xs);
+  gap: var(--gap-3xs);
+  max-width: 100%;
+}
+.theProjectBudget,
+.toKeepIn1 {
+  align-self: stretch;
+  position: relative;
+}
+.theEscrowedBudget {
+  margin-bottom: 0;
+}
+.theEscrowedBudgetWillBeKe {
+  margin: 0;
+  font-family: inherit;
+  font-size: inherit;
+  padding-left: var(--padding-2xl);
+}
+.theEscrowedBudgetContainer {
+  margin: 0;
+  align-self: stretch;
+  height: 120px;
+  position: relative;
+  display: inline-block;
+}
+.escrowInfo {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  gap: var(--gap-5xs);
+  min-width: 536px;
+  max-width: 100%;
+}
+.projectBudget {
+  align-self: stretch;
+}
+.chooseYourPreferred,
+.projectBudget {
+  position: relative;
+}
+.usdcSimplified1Icon {
+  width: 24px;
+  height: 23px;
+  position: relative;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+.availableTokens {
+  height: 32px;
+  width: 32px;
+  border-radius: var(--br-81xl);
+  background-color: var(--navy-medium-bk);
+  overflow: hidden;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: var(--padding-8xs-5) var(--padding-9xs);
+  box-sizing: border-box;
+}
+.availableTokensIcon,
+.availableTokensIcon1,
+.dai1Icon {
+  height: 32px;
+  width: 32px;
+  position: relative;
+  overflow: hidden;
+  flex-shrink: 0;
+  min-height: 32px;
+}
+.availableTokensIcon,
+.availableTokensIcon1 {
+  border-radius: var(--br-81xl);
+}
+.tokenOptions {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  gap: var(--gap-5xs);
+}
+.emojiObjectsIcon {
+  height: 16px;
+  width: 16px;
+  position: relative;
+}
+.token1 {
+  position: relative;
+}
+.tokenDetails {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: var(--gap-9xs);
+  color: var(--navy-medium-bk);
+}
+.textInput4,
+.tokenSelection {
+  align-self: stretch;
+  display: flex;
+  justify-content: flex-start;
+}
+.tokenSelection {
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 0 var(--padding-xl) 0 0;
+  gap: var(--gap-5xs);
+  font-size: var(--font-size-xs);
+}
+.textInput4 {
+  width: 100%;
+  border: 0;
+  outline: 0;
+  background-color: var(--light);
+  height: 50px;
+  flex-direction: row;
+  align-items: center;
+  padding: var(--padding-3xs) var(--padding-base);
+  box-sizing: border-box;
+  font-family: var(--font-space-mono);
+  font-size: var(--font-size-xl);
+  color: var(--navy-medium-40a);
+  min-width: 158px;
+}
+.thumbsUp1Icon {
+  height: 16px;
+  width: 16px;
+  position: relative;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+.approveBudget {
+  position: relative;
+  font-size: var(--font-size-base);
+  font-weight: 700;
+  font-family: var(--font-space-mono);
+  color: var(--light);
+  text-align: left;
+}
+.btnApprove,
+.budgetInput1 {
+  background-color: var(--navy-bk);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.btnApprove {
+  cursor: pointer;
+  border: 1px solid var(--navy-medium-bk);
+  padding: var(--padding-7xs) 50px;
+  overflow: hidden;
+  flex-direction: row;
+  gap: var(--gap-5xs);
+  white-space: nowrap;
+}
+.btnApprove:hover {
+  border: 1px solid var(--color-cornflowerblue-100);
+  box-sizing: border-box;
+}
+.budgetInput1 {
+  width: 280px;
+  flex-direction: column;
+  padding: var(--padding-5xs);
+  box-sizing: border-box;
+  gap: var(--gap-base);
+  font-size: var(--font-size-5xl);
+  color: var(--light);
+}
+.budgetDescription1,
+.budgetTitleParent {
+  align-self: stretch;
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  max-width: 100%;
+}
+.budgetDescription1 {
+  flex-direction: row;
+  flex-wrap: wrap;
+  padding: 0 var(--padding-13xl);
+  box-sizing: border-box;
+  gap: var(--gap-13xl);
+  color: var(--midnight-bold);
+}
+.budgetTitleParent {
+  flex-direction: column;
+  gap: var(--gap-base);
+}
+.document {
+  position: relative;
+  font-weight: 700;
+  display: inline-block;
+  min-width: 10px;
+}
+.reviewIcon {
+  background-color: var(--light);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: var(--padding-10xs) var(--padding-3xs);
+}
+.reviewJobOffer {
+  position: relative;
+  font-size: var(--font-size-5xl);
+  display: inline-block;
+  color: var(--light);
+  max-width: 100%;
+}
+.reviewTitle {
+  align-self: stretch;
+  background-color: var(--navy-bold);
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  padding: var(--padding-3xs) 518px var(--padding-3xs) var(--padding-3xs);
+  box-sizing: border-box;
+  gap: var(--gap-3xs);
+  max-width: 100%;
+}
+.developADefi {
+  margin: 0;
+  position: relative;
+  font-size: var(--font-size-13xl);
+  font-weight: 700;
+  font-family: inherit;
+  display: inline-block;
+  max-width: 100%;
+}
+.lookingForAn1 {
+  margin: 0;
+  align-self: stretch;
+  position: relative;
+  font-size: var(--font-size-base);
+  color: var(--midnight-bold);
+}
+.taskSquare1Icon1 {
+  height: 20px;
+  width: 20px;
+  position: relative;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+.tasks {
+  position: relative;
+  font-weight: 700;
+  display: inline-block;
+  min-width: 118px;
+}
+.taskHeader {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  gap: var(--gap-9xs);
+}
+.btnCheck {
+  margin: 0;
+  height: 18px;
+  width: 18px;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+.addSwapSection {
+  position: relative;
+  display: inline-block;
+  min-width: 118px;
+}
+.btnCheckParent {
+  align-self: stretch;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 0 224px 0 0;
+  gap: var(--gap-5xs);
+}
+.btnCheck1 {
+  margin: 0;
+  height: 18px;
+  width: 18px;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+.addBridgeSection {
+  position: relative;
+}
+.btnCheckGroup {
+  align-self: stretch;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 0 var(--padding-190xl) 0 0;
+  gap: var(--gap-5xs);
+}
+.frameGroup,
+.taskList,
+.tasksCheckboxes {
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  max-width: 100%;
+}
+.frameGroup {
+  flex: 1;
+  flex-direction: column;
+  gap: var(--gap-5xs);
+  min-width: 277px;
+}
+.taskList,
+.tasksCheckboxes {
+  align-self: stretch;
+}
+.tasksCheckboxes {
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: var(--gap-mini);
+  font-size: var(--font-size-xs);
+  color: var(--midnight-bold);
+}
+.taskList {
+  flex-direction: column;
+  gap: var(--gap-5xs);
+}
+.eventIcon {
+  height: 20px;
+  width: 20px;
+}
+.eventIcon,
+.jobDeliveryDate {
+  position: relative;
+}
+.deliveryIcon {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  gap: var(--gap-9xs);
+}
+.saturday17OfContainer {
+  height: 36px;
+  position: relative;
+  display: inline-block;
+  max-width: 100%;
+}
+.at2359Of {
+  position: relative;
+  font-size: var(--font-size-xs);
+  white-space: nowrap;
+}
+.deliveryInfo,
+.deliveryTitle {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  max-width: 100%;
+}
+.deliveryInfo {
+  align-self: stretch;
+  border: 1px solid var(--navy-bk);
+  box-sizing: border-box;
+  justify-content: center;
+  padding: var(--padding-7xs) var(--padding-xl) var(--padding-7xs)
+    var(--padding-5xs);
+}
+.deliveryTitle {
+  flex: 1;
+  justify-content: flex-start;
+  gap: var(--gap-5xs);
+  min-width: 520px;
+}
+.moneyBag1Icon {
+  height: 20px;
+  width: 20px;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+.moneyBag1Icon,
+.projectBudget1 {
+  position: relative;
+}
+.budgetTitleIcon {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  gap: var(--gap-9xs);
+}
+.usdcSimplified1Icon1 {
+  width: 24px;
+  height: 23px;
+  position: relative;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+.tokenIconSummary {
+  height: 32px;
+  width: 32px;
+  border-radius: var(--br-81xl);
+  background-color: var(--navy-medium-bk);
+  overflow: hidden;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: var(--padding-8xs-5) var(--padding-9xs);
+  box-sizing: border-box;
+}
+.amount,
+.usdc {
+  position: relative;
+  display: inline-block;
+}
+.amount {
+  font-weight: 700;
+  min-width: 45px;
+}
+.usdc {
+  min-width: 59px;
+}
+.budgetAmountDetails {
+  border: 1px solid var(--navy-bk);
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  padding: var(--padding-mini) 151px var(--padding-mini) var(--padding-mini);
+  gap: var(--gap-5xs);
+}
+.budgetSummary,
+.deliveryDate {
+  display: flex;
+  align-items: flex-start;
+}
+.budgetSummary {
+  flex-direction: column;
+  justify-content: flex-start;
+  gap: var(--gap-5xs);
+  min-width: 320px;
+}
+.deliveryDate {
+  align-self: stretch;
+  flex-direction: row;
+  justify-content: center;
+  gap: var(--gap-base);
+  max-width: 100%;
+}
+.reviewYourOffer {
+  margin: 0;
+  flex: 1;
+  position: relative;
+  display: inline-block;
+  min-width: 397px;
+  max-width: 100%;
+}
+.briefcase1Icon {
+  height: 26px;
+  width: 26px;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+.briefcase1Icon,
+.depositBudgetAnd {
+  position: relative;
+}
+.btnDeposit,
+.depositWarning {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  max-width: 100%;
+}
+.btnDeposit {
+  background-color: var(--navy-bk);
+  overflow: hidden;
+  align-items: center;
+  padding: var(--padding-5xs) var(--padding-base);
+  box-sizing: border-box;
+  gap: var(--gap-5xs);
+  white-space: nowrap;
+  font-size: var(--font-size-5xl);
+  color: var(--light);
+}
+.depositWarning {
+  align-self: stretch;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  gap: var(--gap-13xl);
+  font-size: var(--font-size-3xs);
+  color: var(--midnight-bold);
+}
+.jobReview,
+.jobSummary {
+  align-self: stretch;
+  box-sizing: border-box;
+  display: flex;
+  align-items: flex-start;
+}
+.jobSummary {
+  border-radius: 32px;
+  flex-direction: column;
+  justify-content: flex-start;
+  padding: var(--padding-13xl);
+  gap: var(--gap-13xl);
+  max-width: 100%;
+  font-size: var(--font-size-5xl);
+  color: var(--navy-medium-bk);
+}
+.jobReview {
+  border: 1px solid var(--navy-bold);
+  color: var(--navy-bold);
+}
+.footerContent,
+.jobForm,
+.jobReview {
+  flex-direction: column;
+  justify-content: flex-start;
+  max-width: 100%;
+}
+.jobForm {
+  align-self: stretch;
+  display: flex;
+  align-items: center;
+  gap: 64px;
+  font-size: var(--font-size-base);
+  font-family: var(--font-space-mono);
+}
+.footerContent {
+  width: 1200px;
+  gap: var(--gap-13xl);
+  text-align: left;
+  font-size: var(--font-size-21xl);
+  color: var(--light);
+  font-family: var(--font-unbounded);
+}
+.footerContent,
+.footerContentWrapper,
+.postAJob {
+  display: flex;
+  align-items: flex-start;
+}
+.footerContentWrapper {
+  align-self: stretch;
+  flex-direction: row;
+  justify-content: center;
+  padding: 0 var(--padding-xl);
+  box-sizing: border-box;
+  max-width: 100%;
+}
+.postAJob {
+  width: 100%;
+  position: relative;
+  background-color: var(--light);
+  flex-direction: column;
+  justify-content: flex-start;
+  gap: var(--gap-13xl);
+  line-height: normal;
+  letter-spacing: normal;
+}
+@media screen and (max-width: 1200px) {
+  .titleField {
+    padding-right: 383px;
+  }
+  .descriptionInput,
+  .taskInput,
+  .titleField {
+    flex-wrap: wrap;
+    box-sizing: border-box;
+  }
+  .descriptionInput {
+    padding-right: var(--padding-394xl);
+  }
+  .taskInput {
+    padding-right: 398px;
+  }
+  .taskInstructions {
+    padding-left: var(--padding-61xl);
+    padding-right: var(--padding-61xl);
+    box-sizing: border-box;
+  }
+  .deliveryDateInput {
+    flex-wrap: wrap;
+    padding-right: 472px;
+    box-sizing: border-box;
+  }
+  .budgetInput {
+    padding-right: 420px;
+  }
+  .budgetInput,
+  .budgetTitle,
+  .reviewTitle {
+    flex-wrap: wrap;
+    box-sizing: border-box;
+  }
+  .budgetTitle {
+    padding-right: var(--padding-394xl);
+  }
+  .reviewTitle {
+    padding-right: 259px;
+  }
+  .jobForm {
+    gap: var(--gap-13xl);
+  }
+}
+@media screen and (max-width: 1050px) {
+  .hireJustVerified {
+    font-size: var(--font-size-13xl);
+  }
+  .developADefi {
+    font-size: var(--font-size-7xl);
+  }
+  .budgetSummary {
+    flex: 1;
+  }
+  .deliveryDate {
+    flex-wrap: wrap;
+  }
+}
+@media screen and (max-width: 750px) {
+  .titleField {
+    padding-right: 191px;
+    box-sizing: border-box;
+  }
+  .descriptionInput {
+    padding-right: var(--padding-187xl);
+    box-sizing: border-box;
+  }
+  .taskInput {
+    padding-right: 199px;
+    box-sizing: border-box;
+  }
+  .taskInstructions {
+    padding-left: var(--padding-21xl);
+    padding-right: var(--padding-21xl);
+    box-sizing: border-box;
+  }
+  .deliveryDateInput {
+    padding-right: 236px;
+    box-sizing: border-box;
+  }
+  .taskInputContainer {
+    gap: var(--gap-base);
+  }
+  .budgetInput {
+    padding-right: 210px;
+    box-sizing: border-box;
+  }
+  .budgetDescription {
+    min-width: 100%;
+  }
+  .budgetDescriptionParent {
+    gap: var(--gap-base);
+  }
+  .budgetTitle {
+    padding-right: var(--padding-187xl);
+    box-sizing: border-box;
+  }
+  .escrowInfo {
+    min-width: 100%;
+  }
+  .budgetDescription1 {
+    gap: var(--gap-base);
+  }
+  .reviewTitle {
+    padding-right: 129px;
+    box-sizing: border-box;
+  }
+  .deliveryTitle,
+  .reviewYourOffer {
+    min-width: 100%;
+  }
+  .depositWarning {
+    gap: var(--gap-base);
+  }
+  .jobSummary {
+    padding-top: var(--padding-2xl);
+    padding-bottom: var(--padding-2xl);
+    box-sizing: border-box;
+  }
+  .footerContent,
+  .jobForm,
+  .jobSummary,
+  .postAJob {
+    gap: var(--gap-base);
+  }
+}
+@media screen and (max-width: 450px) {
+  .hireJustVerified {
+    font-size: var(--font-size-5xl);
+  }
+  .headlineForYour {
+    font-size: var(--font-size-lgi);
+  }
+  .titleField {
+    padding-right: var(--padding-xl);
+    box-sizing: border-box;
+  }
+  .describeYourJob {
+    font-size: var(--font-size-lgi);
+  }
+  .descriptionInput {
+    padding-right: var(--padding-xl);
+    box-sizing: border-box;
+  }
+  .chooseYourJob {
+    font-size: var(--font-size-lgi);
+  }
+  .taskInput {
+    padding-right: var(--padding-xl);
+    box-sizing: border-box;
+  }
+  .describeTasks {
+    font-size: var(--font-size-lgi);
+  }
+  .deliveryDateInput {
+    padding-right: var(--padding-xl);
+    box-sizing: border-box;
+  }
+  .specifyDeliveryDate {
+    font-size: var(--font-size-lgi);
+  }
+  .budgetInput {
+    padding-right: var(--padding-xl);
+    box-sizing: border-box;
+  }
+  .february {
+    font-size: var(--font-size-base);
+  }
+  .monthSelector {
+    flex-wrap: wrap;
+  }
+  .f,
+  .m,
+  .s,
+  .s1,
+  .t,
+  .t1,
+  .w {
+    font-size: var(--font-size-base);
+  }
+  .div,
+  .div1,
+  .div2 {
+    font-size: var(--font-size-lgi);
+  }
+  .div10,
+  .div11,
+  .div12,
+  .div13,
+  .div14,
+  .div15,
+  .div16,
+  .div17,
+  .div18,
+  .div19,
+  .div20,
+  .div21,
+  .div22,
+  .div23,
+  .div24,
+  .div25,
+  .div26,
+  .div27,
+  .div28,
+  .div29,
+  .div3,
+  .div30,
+  .div31,
+  .div32,
+  .div33,
+  .div4,
+  .div5,
+  .div6,
+  .div7,
+  .div8,
+  .div9 {
+    font-size: var(--font-size-base);
+  }
+  .addTheProject,
+  .div34 {
+    font-size: var(--font-size-lgi);
+  }
+  .budgetTitle {
+    padding-right: var(--padding-xl);
+    box-sizing: border-box;
+  }
+  .projectBudget {
+    font-size: var(--font-size-lgi);
+  }
+  .btnApprove {
+    padding-left: var(--padding-xl);
+    padding-right: var(--padding-xl);
+    box-sizing: border-box;
+  }
+  .reviewJobOffer {
+    font-size: var(--font-size-lgi);
+  }
+  .reviewTitle {
+    padding-right: var(--padding-xl);
+    box-sizing: border-box;
+  }
+  .developADefi,
+  .tasks {
+    font-size: var(--font-size-lgi);
+  }
+  .btnCheckGroup,
+  .btnCheckParent {
+    padding-right: var(--padding-xl);
+    box-sizing: border-box;
+  }
+  .amount,
+  .jobDeliveryDate,
+  .projectBudget1,
+  .saturday17OfContainer,
+  .usdc {
+    font-size: var(--font-size-lgi);
+  }
+  .budgetAmountDetails {
+    flex-wrap: wrap;
+    padding-right: var(--padding-xl);
+    box-sizing: border-box;
+  }
+}

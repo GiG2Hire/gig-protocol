@@ -1,0 +1,278 @@
+.vectorIcon {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  max-width: 100%;
+  overflow: hidden;
+  max-height: 100%;
+}
+.groupIcon,
+.vectorIcon1,
+.vectorIcon2 {
+  position: absolute;
+  top: 1.7px;
+  left: 1.7px;
+  width: 41.6px;
+  height: 41.6px;
+  z-index: 1;
+}
+.groupIcon,
+.vectorIcon2 {
+  left: 74px;
+}
+.groupIcon {
+  left: 48.3px;
+  width: 20.8px;
+}
+.group,
+.text {
+  position: relative;
+}
+.group {
+  height: 45px;
+  width: 117.3px;
+}
+.text {
+  text-decoration: none;
+  font-weight: 700;
+  color: inherit;
+  display: inline-block;
+  min-width: 98px;
+  white-space: nowrap;
+}
+.navText1 {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  padding: 0 var(--padding-9xs);
+}
+.hlColor {
+  width: 80px;
+  height: 10px;
+  position: relative;
+  background-color: var(--yellow-bk);
+  overflow: hidden;
+  flex-shrink: 0;
+  display: none;
+  z-index: 2;
+}
+.navText {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+}
+.text1 {
+  text-decoration: none;
+  position: relative;
+  font-weight: 700;
+  color: inherit;
+  display: inline-block;
+  min-width: 49px;
+}
+.navText3 {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  padding: 0 var(--padding-9xs);
+}
+.hlColor1 {
+  align-self: stretch;
+  height: 10px;
+  position: relative;
+  background-color: var(--yellow-bk);
+  overflow: hidden;
+  flex-shrink: 0;
+  display: none;
+  z-index: 2;
+}
+.navText2 {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+}
+.text2 {
+  text-decoration: none;
+  position: relative;
+  font-weight: 700;
+  color: inherit;
+  display: inline-block;
+  min-width: 89px;
+}
+.navText5 {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  padding: 0 var(--padding-9xs);
+}
+.hlColor2 {
+  width: 80px;
+  height: 10px;
+  position: relative;
+  background-color: var(--yellow-bk);
+  overflow: hidden;
+  flex-shrink: 0;
+  display: none;
+  z-index: 2;
+}
+.navText4 {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+}
+.navTextParent {
+  align-self: stretch;
+  flex-direction: row;
+  gap: var(--gap-5xl);
+}
+.navTextParent,
+.navbarContainer,
+.navbarContainerInner {
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+}
+.navbarContainerInner {
+  flex: 1;
+  flex-direction: column;
+  padding: var(--padding-2xs-5) 0 0;
+}
+.navbarContainer {
+  width: 449.3px;
+  flex-direction: row;
+  gap: var(--gap-5xl);
+  max-width: 100%;
+}
+.notificationsIcon {
+  height: 24px;
+  width: 24px;
+  position: relative;
+}
+.notificationCount {
+  position: relative;
+  font-weight: 700;
+  display: inline-block;
+  min-width: 8px;
+}
+.notificationBadge {
+  background-color: var(--red-light);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: var(--padding-12xs-5) var(--padding-12xs);
+  z-index: 1;
+  margin-left: -10px;
+}
+.notifications {
+  width: 32px;
+  border-right: 1px solid var(--navy-medium-40a);
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: flex-start;
+  padding: 0 var(--padding-6xs) 0 0;
+}
+.buidlerlens,
+.uSD,
+.usdc {
+  position: relative;
+  display: inline-block;
+}
+.buidlerlens {
+  font-weight: 700;
+  min-width: 89px;
+}
+.uSD,
+.usdc {
+  text-decoration: none;
+  color: inherit;
+  min-width: 20px;
+}
+.uSDCBalance {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  gap: var(--gap-9xs);
+  font-size: var(--font-size-5xs);
+  color: var(--navy-medium-bk);
+}
+.userBalanceContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  font-size: var(--font-size-xs);
+  color: var(--midnight-medium);
+}
+.notificationsContainerChild {
+  height: 32px;
+  width: 32px;
+  position: relative;
+  overflow: hidden;
+  flex-shrink: 0;
+  object-fit: contain;
+  min-height: 32px;
+}
+.notificationsContainer {
+  background-color: var(--yellow-bk);
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  padding: var(--padding-9xs);
+  gap: var(--gap-5xs);
+}
+.rightNavbarItems {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  padding: var(--padding-10xs-5) 0 0;
+  font-size: var(--font-size-7xs);
+  color: var(--yellow-bk);
+}
+.navbar,
+.navbarSpacer {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  max-width: 100%;
+}
+.navbar {
+  flex: 1;
+  backdrop-filter: blur(50px);
+  background-color: var(--yellow-bk-40a);
+  justify-content: space-between;
+  padding: var(--padding-xs) var(--padding-13xl);
+  box-sizing: border-box;
+  gap: var(--gap-xl);
+  z-index: 1;
+}
+.navbarSpacer {
+  align-self: stretch;
+  overflow: hidden;
+  justify-content: flex-start;
+  text-align: left;
+  font-size: var(--font-size-base);
+  color: var(--midnight-bold);
+  font-family: var(--font-space-mono);
+}
+@media screen and (max-width: 725px) {
+  .uSDCBalance {
+    display: none;
+  }
+}

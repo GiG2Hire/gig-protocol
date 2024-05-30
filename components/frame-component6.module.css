@@ -1,0 +1,56 @@
+.upworkLogo1Icon {
+  height: 32px;
+  width: 117.8px;
+  position: relative;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+.upworkLogo1Wrapper {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: flex-end;
+  padding: 0 var(--padding-6xs) 0 var(--padding-5xs);
+}
+.ofEarnings,
+.upTo10 {
+  position: relative;
+}
+.ofEarnings {
+  display: inline-block;
+  min-width: 108px;
+  z-index: 1;
+}
+.ofEarningsWrapper {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: flex-start;
+  padding: 0 var(--padding-base) 0 var(--padding-4xs);
+  margin-top: -9px;
+  font-size: var(--font-size-base);
+}
+.frameParent,
+.upTo10Parent {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+.upTo10Parent {
+  align-self: stretch;
+  align-items: flex-start;
+}
+.frameParent {
+  width: 133px;
+  align-items: flex-end;
+  gap: var(--gap-31xl);
+  text-align: left;
+  font-size: var(--font-size-5xl);
+  color: var(--light);
+  font-family: var(--font-space-mono);
+}
+@media screen and (max-width: 450px) {
+  .upTo10 {
+    font-size: var(--font-size-lgi);
+  }
+}

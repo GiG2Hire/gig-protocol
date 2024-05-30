@@ -1,0 +1,739 @@
+.acceptFreelance {
+  text-decoration: none;
+  position: relative;
+  font-size: var(--font-size-13xl);
+  font-weight: 700;
+  font-family: var(--font-unbounded);
+  color: var(--light);
+  text-align: left;
+}
+.closeSmallIcon {
+  height: 10px;
+  width: 10px;
+  position: relative;
+}
+.btnClose {
+  width: 21px;
+  height: 21px;
+  background-color: var(--light);
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  padding: var(--padding-6xs) var(--padding-8xs);
+  box-sizing: border-box;
+}
+.acceptFreelanceParent,
+.btnCloseWrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  padding: var(--padding-3xs-5) 0 0;
+}
+.acceptFreelanceParent {
+  cursor: pointer;
+  border: 0;
+  padding: var(--padding-base) var(--padding-13xl);
+  background-color: var(--navy-bk);
+  align-self: stretch;
+  flex-direction: row;
+  justify-content: space-between;
+  gap: var(--gap-xl);
+}
+.developADefi,
+.lookingForAn {
+  margin: 0;
+  align-self: stretch;
+  position: relative;
+}
+.developADefi {
+  font-size: var(--font-size-13xl);
+  font-weight: 700;
+  font-family: inherit;
+}
+.lookingForAn {
+  font-size: var(--font-size-base);
+}
+.taskSquare1Icon {
+  height: 20px;
+  width: 20px;
+  position: relative;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+.tasks {
+  position: relative;
+  font-weight: 700;
+  display: inline-block;
+  min-width: 118px;
+}
+.taskSquare1Parent {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  gap: var(--gap-9xs);
+}
+.btnCheck {
+  margin: 0;
+  height: 18px;
+  width: 18px;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+.addSwapSection {
+  position: relative;
+  display: inline-block;
+  min-width: 118px;
+}
+.bridgeCheckbox {
+  align-self: stretch;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 0 var(--padding-111xl) 0 0;
+  gap: var(--gap-5xs);
+}
+.btnCheck1 {
+  margin: 0;
+  height: 18px;
+  width: 18px;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+.addBridgeSection {
+  position: relative;
+}
+.bridgeCheckbox1 {
+  align-self: stretch;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 0 var(--padding-96xl) 0 0;
+  gap: var(--gap-5xs);
+}
+.frameParent,
+.requirementBridge,
+.requirementRowOneParent {
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+}
+.requirementBridge {
+  flex: 1;
+  flex-direction: column;
+  gap: var(--gap-5xs);
+  min-width: 205px;
+}
+.frameParent,
+.requirementRowOneParent {
+  align-self: stretch;
+}
+.requirementRowOneParent {
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: var(--gap-mini);
+  font-size: var(--font-size-xs);
+  color: var(--dark-800);
+}
+.frameParent {
+  flex-direction: column;
+  gap: var(--gap-5xs);
+  color: var(--navy-medium-bk);
+}
+.eventIcon {
+  height: 20px;
+  width: 20px;
+  position: relative;
+}
+.jobDeliveryDate {
+  margin: 0;
+  position: relative;
+  font-size: inherit;
+  font-weight: 700;
+  font-family: inherit;
+}
+.eventParent {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  gap: var(--gap-9xs);
+}
+.saturday17OfContainer {
+  height: 36px;
+  position: relative;
+  display: inline-block;
+  max-width: 100%;
+}
+.at2359Of {
+  position: relative;
+  font-size: var(--font-size-xs);
+  white-space: nowrap;
+}
+.frameContainer,
+.saturday17OfFebruary2024Parent {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  max-width: 100%;
+}
+.saturday17OfFebruary2024Parent {
+  align-self: stretch;
+  border: 1px solid var(--navy-bk);
+  box-sizing: border-box;
+  justify-content: center;
+  padding: var(--padding-7xs) var(--padding-xl) var(--padding-7xs)
+    var(--padding-5xs);
+}
+.frameContainer {
+  flex: 1;
+  justify-content: flex-start;
+  gap: var(--gap-5xs);
+  min-width: 374px;
+}
+.moneyBag1Icon {
+  height: 20px;
+  width: 20px;
+  position: relative;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+.projectBudget {
+  margin: 0;
+  position: relative;
+  font-size: inherit;
+  font-weight: 700;
+  font-family: inherit;
+}
+.moneyBag1Parent {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  gap: var(--gap-9xs);
+}
+.usdcSimplified1Icon {
+  width: 24px;
+  height: 23px;
+  position: relative;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+.usdcSimplified1Wrapper {
+  height: 32px;
+  width: 32px;
+  border-radius: var(--br-81xl);
+  background-color: var(--navy-medium-bk);
+  overflow: hidden;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: var(--padding-8xs-5) var(--padding-9xs);
+  box-sizing: border-box;
+}
+.budgetSeparator,
+.usdc {
+  position: relative;
+  font-weight: 700;
+  display: inline-block;
+  min-width: 45px;
+}
+.usdc {
+  margin: 0;
+  font-size: inherit;
+  font-weight: 400;
+  font-family: inherit;
+  min-width: 59px;
+}
+.frameParent1 {
+  border: 1px solid var(--navy-bk);
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  padding: var(--padding-mini) var(--padding-72xl) var(--padding-mini)
+    var(--padding-mini);
+  gap: var(--gap-5xs);
+}
+.frameDiv,
+.frameGroup {
+  display: flex;
+  align-items: flex-start;
+}
+.frameDiv {
+  flex-direction: column;
+  justify-content: flex-start;
+  gap: var(--gap-5xs);
+  min-width: 260px;
+}
+.frameGroup {
+  align-self: stretch;
+  flex-direction: row;
+  justify-content: center;
+  gap: var(--gap-base);
+  max-width: 100%;
+  color: var(--navy-medium-bk);
+}
+.developADefiDashboardForHParent,
+.modalAcceptInner {
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  max-width: 100%;
+}
+.developADefiDashboardForHParent {
+  flex: 1;
+  flex-direction: column;
+  gap: var(--gap-5xl);
+}
+.modalAcceptInner {
+  align-self: stretch;
+  flex-direction: row;
+  padding: 0 var(--padding-5xl);
+  box-sizing: border-box;
+  text-align: left;
+  font-size: var(--font-size-5xl);
+  color: var(--dark-800);
+  font-family: var(--font-space-mono);
+}
+.gig2hire1Icon {
+  width: 20px;
+  height: 20px;
+  position: relative;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+.gig2hire1Wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  padding: var(--padding-5xs) 0 0;
+}
+.chooseFreelancer {
+  position: relative;
+  font-weight: 700;
+}
+.frameParent3 {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: flex-start;
+  gap: var(--gap-9xs);
+}
+.freelancerCardIcon {
+  height: 60px;
+  width: 60px;
+  position: relative;
+  object-fit: cover;
+  min-height: 60px;
+}
+.max,
+.online {
+  position: relative;
+  font-weight: 700;
+}
+.max {
+  flex: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.online {
+  display: inline-block;
+  min-width: 30px;
+}
+.statusIcon {
+  width: 6px;
+  height: 6px;
+  position: relative;
+  border-radius: var(--br-81xl);
+  background-color: var(--light);
+  overflow: hidden;
+  flex-shrink: 0;
+}
+.statusIconWrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  padding: var(--padding-10xs) 0 0;
+}
+.onlineParent {
+  background-color: var(--navy-bk);
+  flex-direction: row;
+  padding: var(--padding-11xs) var(--padding-9xs);
+  gap: var(--gap-9xs);
+}
+.freelancerStatus,
+.maxParent,
+.onlineParent {
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+}
+.freelancerStatus {
+  flex-direction: column;
+  padding: var(--padding-9xs) 0 0;
+  font-size: var(--font-size-5xs);
+  color: var(--light);
+}
+.maxParent {
+  align-self: stretch;
+  flex-direction: row;
+  font-size: var(--font-size-base);
+  color: var(--navy-medium-bk);
+}
+.months,
+.onGig2hire {
+  position: relative;
+  display: inline-block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.months {
+  width: 59px;
+  font-weight: 700;
+}
+.onGig2hire {
+  width: 81px;
+}
+.monthsParent {
+  align-self: stretch;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: flex-start;
+  gap: var(--gap-9xs);
+}
+.jobs,
+.successful {
+  position: relative;
+  display: inline-block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.jobs {
+  width: 45px;
+  font-weight: 700;
+}
+.successful {
+  width: 74px;
+}
+.btnFreelancer,
+.freelancerInfo,
+.jobsParent {
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+}
+.jobsParent {
+  align-self: stretch;
+  flex-direction: row;
+  gap: var(--gap-9xs);
+}
+.btnFreelancer,
+.freelancerInfo {
+  flex: 1;
+  flex-direction: column;
+}
+.btnFreelancer {
+  border: 1px solid var(--navy-bk);
+  box-sizing: border-box;
+  flex-direction: row;
+  padding: var(--padding-7xs) var(--padding-7xs) var(--padding-7xs)
+    var(--padding-5xs);
+  gap: var(--gap-5xs);
+  min-width: 259px;
+}
+.btnFreelancerChild {
+  height: 60px;
+  width: 60px;
+  position: relative;
+  object-fit: cover;
+  min-height: 60px;
+}
+.max1,
+.online1 {
+  position: relative;
+  font-weight: 700;
+}
+.max1 {
+  flex: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.online1 {
+  display: inline-block;
+  min-width: 30px;
+}
+.freelancerExperience {
+  height: 6px;
+  width: 6px;
+  position: absolute;
+  margin: 0 !important;
+  top: calc(50% - 3px);
+  right: 4px;
+  border-radius: var(--br-81xl);
+  background-color: var(--light);
+  overflow: hidden;
+  flex-shrink: 0;
+}
+.maxGroup,
+.onlineGroup {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: flex-start;
+}
+.onlineGroup {
+  width: 48px;
+  margin: 0 !important;
+  position: absolute;
+  top: calc(50% - 8px);
+  right: 0;
+  background-color: var(--navy-bk);
+  padding: var(--padding-11xs) var(--padding-9xs);
+  box-sizing: border-box;
+  gap: var(--gap-9xs);
+  font-size: var(--font-size-5xs);
+  color: var(--light);
+}
+.maxGroup {
+  align-self: stretch;
+  position: relative;
+  font-size: var(--font-size-base);
+  color: var(--navy-medium-bk);
+}
+.months1,
+.onGig2hire1 {
+  position: relative;
+  display: inline-block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.months1 {
+  width: 59px;
+  font-weight: 700;
+}
+.onGig2hire1 {
+  width: 81px;
+}
+.monthsGroup {
+  align-self: stretch;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: flex-start;
+  gap: var(--gap-9xs);
+}
+.jobs1,
+.successful1 {
+  position: relative;
+  display: inline-block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.jobs1 {
+  width: 45px;
+  font-weight: 700;
+}
+.successful1 {
+  width: 74px;
+}
+.jobsGroup {
+  align-self: stretch;
+  flex-direction: row;
+  gap: var(--gap-9xs);
+}
+.btnFreelancer1,
+.btnFreelancerParent,
+.frameParent4,
+.jobsGroup {
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+}
+.frameParent4 {
+  flex: 1;
+  flex-direction: column;
+}
+.btnFreelancer1,
+.btnFreelancerParent {
+  flex-direction: row;
+}
+.btnFreelancer1 {
+  flex: 1;
+  border: 1px solid var(--navy-bk);
+  box-sizing: border-box;
+  padding: var(--padding-7xs) var(--padding-7xs) var(--padding-7xs)
+    var(--padding-5xs);
+  gap: var(--gap-5xs);
+  min-width: 259px;
+}
+.btnFreelancerParent {
+  align-self: stretch;
+  flex-wrap: wrap;
+  gap: 8px 14px;
+  min-height: 160px;
+  font-size: var(--font-size-xs);
+  color: var(--navy-bk);
+}
+.back {
+  position: relative;
+  font-weight: 700;
+  display: inline-block;
+  min-width: 59px;
+}
+.backWrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  padding: var(--padding-5xs) 0 0;
+}
+.gig2hire1Icon1 {
+  width: 24px;
+  height: 24px;
+  position: relative;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+.gig2hire1Container {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  padding: var(--padding-7xs) 0 0;
+}
+.getStarted {
+  position: relative;
+  font-size: var(--font-size-5xl);
+  font-weight: 700;
+  font-family: var(--font-space-mono);
+  color: var(--light);
+  text-align: left;
+}
+.btnJoingig {
+  cursor: pointer;
+  border: 0;
+  padding: var(--padding-5xs) var(--padding-base);
+  background-color: var(--navy-bk);
+  overflow: hidden;
+  justify-content: flex-start;
+  box-sizing: border-box;
+  gap: var(--gap-base);
+}
+.btnJoingig,
+.frameParent5,
+.frameWrapper {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  max-width: 100%;
+}
+.frameParent5 {
+  justify-content: flex-start;
+  gap: var(--gap-base);
+}
+.frameWrapper {
+  align-self: stretch;
+  justify-content: flex-end;
+  color: var(--navy-bk-40a);
+}
+.frameParent2,
+.modalAccept,
+.modalAcceptChild {
+  max-width: 100%;
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+}
+.frameParent2 {
+  flex: 1;
+  flex-direction: column;
+  gap: var(--gap-5xs);
+}
+.modalAccept,
+.modalAcceptChild {
+  box-sizing: border-box;
+}
+.modalAcceptChild {
+  align-self: stretch;
+  flex-direction: row;
+  padding: 0 var(--padding-5xl);
+  text-align: left;
+  font-size: var(--font-size-5xl);
+  color: var(--navy-medium-bk);
+  font-family: var(--font-space-mono);
+}
+.modalAccept {
+  width: 900px;
+  background-color: var(--light);
+  border: 2px solid var(--navy-bk);
+  overflow: hidden;
+  flex-direction: column;
+  padding: 0 0 var(--padding-2xl);
+  gap: var(--gap-5xl);
+  line-height: normal;
+  letter-spacing: normal;
+}
+@media screen and (max-width: 750px) {
+  .acceptFreelance,
+  .developADefi {
+    font-size: var(--font-size-7xl);
+  }
+  .frameDiv {
+    flex: 1;
+  }
+  .frameGroup {
+    flex-wrap: wrap;
+  }
+}
+@media screen and (max-width: 450px) {
+  .acceptFreelance,
+  .developADefi,
+  .tasks {
+    font-size: var(--font-size-lgi);
+  }
+  .bridgeCheckbox,
+  .bridgeCheckbox1 {
+    padding-right: var(--padding-xl);
+    box-sizing: border-box;
+  }
+  .jobDeliveryDate,
+  .saturday17OfContainer {
+    font-size: var(--font-size-lgi);
+  }
+  .frameContainer {
+    min-width: 100%;
+  }
+  .budgetSeparator,
+  .projectBudget,
+  .usdc {
+    font-size: var(--font-size-lgi);
+  }
+  .frameParent1 {
+    padding-right: var(--padding-xl);
+    box-sizing: border-box;
+  }
+  .back,
+  .chooseFreelancer,
+  .getStarted {
+    font-size: var(--font-size-lgi);
+  }
+  .frameParent5 {
+    flex-wrap: wrap;
+  }
+}

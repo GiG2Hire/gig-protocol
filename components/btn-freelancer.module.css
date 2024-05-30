@@ -1,0 +1,122 @@
+.btnFreelancerChild {
+  height: 60px;
+  width: 60px;
+  position: relative;
+  object-fit: cover;
+  min-height: 60px;
+}
+.max,
+.online {
+  position: relative;
+}
+.max {
+  flex: 1;
+  font-weight: 700;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.online {
+  align-self: stretch;
+}
+.frameChild {
+  height: 6px;
+  width: 6px;
+  position: relative;
+  border-radius: var(--br-81xl);
+  background-color: var(--light);
+  overflow: hidden;
+  flex-shrink: 0;
+}
+.maxParent,
+.onlineParent {
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+}
+.onlineParent {
+  height: 16px;
+  background-color: var(--navy-bk);
+  display: none;
+  padding: var(--padding-11xs) var(--padding-9xs);
+  box-sizing: border-box;
+  gap: var(--gap-9xs);
+  font-size: var(--font-size-5xs);
+  color: var(--light);
+}
+.maxParent {
+  align-self: stretch;
+  display: flex;
+  font-size: var(--font-size-base);
+  color: var(--navy-medium-bk);
+}
+.months,
+.onGig2hire {
+  position: relative;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.months {
+  width: 59px;
+  font-weight: 700;
+  display: inline-block;
+}
+.onGig2hire {
+  flex: 1;
+}
+.monthsParent {
+  align-self: stretch;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 0 var(--padding-26xl) 0 0;
+  gap: var(--gap-9xs);
+}
+.jobs,
+.successful {
+  position: relative;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.jobs {
+  width: 45px;
+  font-weight: 700;
+  display: inline-block;
+}
+.successful {
+  flex: 1;
+}
+.jobsParent {
+  align-self: stretch;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 0 var(--padding-47xl) 0 0;
+  gap: var(--gap-9xs);
+}
+.btnFreelancer,
+.frameParent {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+}
+.btnFreelancer {
+  border: 1px solid var(--navy-bk);
+  box-sizing: border-box;
+  flex-direction: row;
+  justify-content: flex-start;
+  padding: var(--padding-7xs) var(--padding-7xs) var(--padding-7xs)
+    var(--padding-5xs);
+  gap: var(--gap-5xs);
+  min-width: 259px;
+  text-align: left;
+  font-size: var(--font-size-xs);
+  color: var(--navy-bk);
+  font-family: var(--font-space-mono);
+}

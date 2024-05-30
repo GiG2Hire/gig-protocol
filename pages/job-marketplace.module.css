@@ -1,0 +1,106 @@
+.gigsMarketplace {
+  position: relative;
+  font-size: var(--font-size-13xl);
+  font-family: var(--font-unbounded);
+  color: var(--navy-medium-bk);
+  text-align: left;
+}
+.pageTitleContainer {
+  cursor: pointer;
+  border: 0;
+  padding: var(--padding-5xs) var(--padding-5xl);
+  background-color: var(--yellow-bk);
+  backdrop-filter: blur(20px);
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  white-space: nowrap;
+  max-width: 100%;
+}
+.pageTitleContainer:hover {
+  background-color: var(--color-yellowgreen-100);
+}
+.workWithNo {
+  margin: 0;
+  position: relative;
+  font-size: inherit;
+  font-weight: 400;
+  font-family: inherit;
+  display: inline-block;
+  max-width: 100%;
+}
+.contentHeader,
+.pageTitleContainerParent {
+  flex-shrink: 0;
+  flex-direction: column;
+  max-width: 100%;
+}
+.pageTitleContainerParent {
+  align-self: stretch;
+  overflow: hidden;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  padding: var(--padding-mini) var(--padding-xl) var(--padding-mini)
+    var(--padding-smi);
+  box-sizing: border-box;
+  background-image: url(/frame-1600@3x.png);
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: top;
+}
+.contentHeader {
+  width: 1200px;
+  overflow-y: auto;
+  justify-content: flex-start;
+  gap: var(--gap-13xl);
+  text-align: left;
+  font-size: var(--font-size-21xl);
+  color: var(--light);
+  font-family: var(--font-unbounded);
+}
+.contentHeader,
+.jobMarketplace,
+.pageContent {
+  display: flex;
+  align-items: flex-start;
+}
+.pageContent {
+  align-self: stretch;
+  flex-direction: row;
+  justify-content: center;
+  padding: 0 var(--padding-xl);
+  box-sizing: border-box;
+  max-width: 100%;
+}
+.jobMarketplace {
+  width: 100%;
+  position: relative;
+  background-color: var(--light);
+  overflow: hidden;
+  flex-direction: column;
+  justify-content: flex-start;
+  gap: var(--gap-13xl);
+  line-height: normal;
+  letter-spacing: normal;
+}
+@media screen and (max-width: 975px) {
+  .workWithNo {
+    font-size: var(--font-size-13xl);
+  }
+  .jobMarketplace {
+    gap: var(--gap-base);
+  }
+}
+@media screen and (max-width: 725px) {
+  .contentHeader {
+    gap: var(--gap-base);
+  }
+}
+@media screen and (max-width: 450px) {
+  .workWithNo {
+    font-size: var(--font-size-5xl);
+  }
+}

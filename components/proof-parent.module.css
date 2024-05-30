@@ -1,0 +1,167 @@
+.captivePortalIcon {
+  height: 12px;
+  width: 12px;
+  position: relative;
+}
+.httpswwwthisisalinkcommy {
+  align-self: stretch;
+  flex: 1;
+  position: relative;
+  display: inline-block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  max-height: 16px;
+  word-break: break-word;
+}
+.captivePortalParent {
+  align-self: stretch;
+  flex: 1;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  gap: var(--gap-9xs);
+}
+.emptyStatus,
+.uploaded {
+  flex: 1;
+  position: relative;
+  display: -webkit-inline-box;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
+.proofUrlChild,
+.uploadStatusParent {
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+}
+.uploadStatusParent {
+  width: 98px;
+  flex-direction: row;
+  gap: var(--gap-9xs);
+  font-size: var(--font-size-5xs);
+  color: var(--navy-bk);
+}
+.proofUrlChild {
+  align-self: stretch;
+  flex: 1;
+  flex-direction: column;
+}
+.deleteIcon {
+  height: 16px;
+  width: 16px;
+  position: relative;
+}
+.btnDelete,
+.proofUrl {
+  flex-direction: row;
+  align-items: center;
+}
+.btnDelete {
+  background-color: var(--red-light);
+  display: none;
+  justify-content: center;
+  padding: var(--padding-9xs);
+}
+.proofUrl {
+  align-self: stretch;
+  flex: 1;
+  background-color: var(--navy-bk-40a);
+  overflow: hidden;
+  display: flex;
+  justify-content: flex-start;
+  padding: var(--padding-5xs);
+  gap: var(--gap-5xs);
+}
+.contentPasteIcon {
+  height: 12px;
+  width: 12px;
+  position: relative;
+}
+.finalHamsterzip {
+  align-self: stretch;
+  flex: 1;
+  position: relative;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.contentPasteParent {
+  align-self: stretch;
+  flex: 1;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  gap: var(--gap-9xs);
+}
+.empty,
+.mb,
+.uploaded1 {
+  flex: 1;
+  position: relative;
+  display: -webkit-inline-box;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
+.proofDocumentChild,
+.proofDocumentStatus {
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+}
+.proofDocumentStatus {
+  width: 147px;
+  flex-direction: row;
+  gap: var(--gap-9xs);
+  font-size: var(--font-size-5xs);
+  color: var(--navy-bk);
+}
+.proofDocumentChild {
+  align-self: stretch;
+  flex: 1;
+  flex-direction: column;
+}
+.deleteIcon1 {
+  height: 16px;
+  width: 16px;
+  position: relative;
+}
+.btnDelete1 {
+  background-color: var(--red-light);
+  display: none;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  padding: var(--padding-9xs);
+}
+.proofParent,
+.proofdDoc {
+  align-self: stretch;
+  flex: 1;
+  display: flex;
+  gap: var(--gap-5xs);
+}
+.proofdDoc {
+  background-color: var(--navy-bk-40a);
+  overflow: hidden;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  padding: var(--padding-5xs);
+}
+.proofParent {
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  text-align: left;
+  font-size: var(--font-size-xs);
+  color: var(--midnight-bold);
+  font-family: var(--font-space-mono);
+}

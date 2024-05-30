@@ -1,0 +1,67 @@
+.howToStart {
+  margin: 0;
+  position: relative;
+  font-size: inherit;
+  font-weight: 700;
+  font-family: inherit;
+  display: inline-block;
+  max-width: 100%;
+}
+.frameParent {
+  align-self: stretch;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  gap: var(--gap-13xl);
+  color: var(--midnight-bold);
+  font-family: var(--font-space-mono);
+}
+.frameParent,
+.how,
+.howWrapper {
+  display: flex;
+  justify-content: flex-start;
+  max-width: 100%;
+}
+.how {
+  flex: 1;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--gap-21xl);
+}
+.howWrapper {
+  align-self: stretch;
+  flex-direction: row;
+  align-items: flex-start;
+  padding: 0 var(--padding-61xl) var(--padding-5xs);
+  box-sizing: border-box;
+  text-align: left;
+  font-size: var(--font-size-29xl);
+  color: var(--navy-medium-bk);
+  font-family: var(--font-unbounded);
+}
+@media screen and (max-width: 1200px) {
+  .howWrapper {
+    padding-left: var(--padding-21xl);
+    padding-right: var(--padding-21xl);
+    box-sizing: border-box;
+  }
+}
+@media screen and (max-width: 1050px) {
+  .howToStart {
+    font-size: var(--font-size-19xl);
+  }
+}
+@media screen and (max-width: 750px) {
+  .frameParent {
+    gap: var(--gap-base);
+  }
+  .how {
+    gap: var(--gap-xl);
+  }
+}
+@media screen and (max-width: 450px) {
+  .howToStart {
+    font-size: var(--font-size-10xl);
+  }
+}

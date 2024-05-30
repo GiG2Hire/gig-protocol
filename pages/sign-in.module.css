@@ -1,0 +1,628 @@
+.freelancer {
+  margin: 0;
+  position: relative;
+  font-size: inherit;
+  font-weight: 400;
+  font-family: inherit;
+}
+.frameWrapper,
+.freelancerWrapper {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: flex-start;
+}
+.freelancerWrapper {
+  background-color: var(--yellow-bk);
+  padding: var(--padding-6xs) var(--padding-base);
+}
+.frameWrapper {
+  align-self: stretch;
+  height: 200px;
+  overflow: hidden;
+  flex-shrink: 0;
+  padding: var(--padding-29xl) var(--padding-5xl);
+  box-sizing: border-box;
+  background-image: url(/frame-1590@3x.png);
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: top;
+}
+.joinAndStart {
+  align-self: stretch;
+  position: relative;
+}
+.checkSmallIcon {
+  height: 24px;
+  width: 24px;
+  position: relative;
+}
+.status {
+  background-color: var(--yellow-bk);
+  overflow: hidden;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: flex-start;
+}
+.joinForFree {
+  flex: 1;
+  position: relative;
+  display: inline-block;
+  min-width: 132px;
+  max-width: 100%;
+}
+.statusParent {
+  align-self: stretch;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: var(--gap-5xs);
+  max-width: 100%;
+}
+.checkSmallIcon1 {
+  height: 24px;
+  width: 24px;
+  position: relative;
+}
+.status1 {
+  background-color: var(--yellow-bk);
+  overflow: hidden;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: flex-start;
+}
+.noFeesOn {
+  margin: 0;
+  flex: 1;
+  position: relative;
+  display: inline-block;
+  min-width: 250px;
+  max-width: 100%;
+}
+.statusGroup {
+  align-self: stretch;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: var(--gap-5xs);
+  max-width: 100%;
+}
+.checkSmallIcon2 {
+  height: 24px;
+  width: 24px;
+  position: relative;
+}
+.status2 {
+  background-color: var(--yellow-bk);
+  overflow: hidden;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: flex-start;
+}
+.manageYourGigs {
+  flex: 1;
+  position: relative;
+  display: inline-block;
+  min-width: 162px;
+  max-width: 100%;
+}
+.statusContainer {
+  align-self: stretch;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: var(--gap-5xs);
+  max-width: 100%;
+}
+.checkSmallIcon3 {
+  height: 24px;
+  width: 24px;
+  position: relative;
+}
+.status3 {
+  background-color: var(--yellow-bk);
+  overflow: hidden;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: flex-start;
+}
+.getPaidAs {
+  flex: 1;
+  position: relative;
+  display: inline-block;
+  min-width: 279px;
+  max-width: 100%;
+}
+.frameDiv {
+  align-self: stretch;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: var(--gap-5xs);
+  max-width: 100%;
+}
+.checkSmallIcon4 {
+  height: 24px;
+  width: 24px;
+  position: relative;
+}
+.status4 {
+  background-color: var(--yellow-bk);
+  overflow: hidden;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: flex-start;
+}
+.getTipsWithout {
+  margin: 0;
+  flex: 1;
+  position: relative;
+  display: inline-block;
+  min-width: 250px;
+  max-width: 100%;
+}
+.statusParent1 {
+  align-self: stretch;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: var(--gap-5xs);
+  max-width: 100%;
+}
+.frameContainer,
+.joinAndStartGettingGigsRiParent {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  max-width: 100%;
+}
+.frameContainer {
+  width: 536px;
+  gap: var(--gap-base);
+  text-align: left;
+  font-size: var(--font-size-xl);
+  font-family: var(--font-space-mono);
+}
+.joinAndStartGettingGigsRiParent {
+  align-self: stretch;
+  gap: var(--gap-13xl);
+}
+.text {
+  position: relative;
+  font-size: var(--font-size-5xl);
+  font-family: var(--font-space-mono);
+  color: var(--navy-medium-bk);
+  text-align: left;
+}
+.btn {
+  cursor: pointer;
+  border: 0;
+  padding: var(--padding-base) var(--padding-xl);
+  background-color: var(--yellow-bk);
+  align-self: stretch;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+.btn:hover {
+  background-color: var(--color-yellowgreen-100);
+}
+.frameGroup,
+.frameParent,
+.heroInner {
+  display: flex;
+  align-items: flex-start;
+  box-sizing: border-box;
+  max-width: 100%;
+}
+.frameGroup {
+  align-self: stretch;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: var(--padding-base);
+  min-height: 553px;
+  text-align: center;
+  font-size: var(--font-size-5xl);
+  color: var(--midnight-bold);
+}
+.frameParent,
+.heroInner {
+  flex: 1;
+  overflow: hidden;
+  justify-content: flex-start;
+}
+.frameParent {
+  border-top: 20px solid var(--yellow-bk);
+  border-right: 1px solid var(--yellow-bk);
+  border-bottom: 1px solid var(--yellow-bk);
+  border-left: 1px solid var(--yellow-bk);
+  flex-direction: column;
+}
+.heroInner {
+  flex-direction: row;
+  padding: var(--padding-61xl);
+  min-width: 491px;
+}
+.client {
+  margin: 0;
+  position: relative;
+  font-size: inherit;
+  font-weight: 400;
+  font-family: inherit;
+  display: inline-block;
+  min-width: 111px;
+}
+.clientWrapper,
+.frameWrapper1 {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: flex-start;
+}
+.clientWrapper {
+  background-color: var(--navy-bk);
+  padding: var(--padding-6xs) var(--padding-base);
+}
+.frameWrapper1 {
+  align-self: stretch;
+  height: 200px;
+  overflow: hidden;
+  flex-shrink: 0;
+  padding: var(--padding-29xl) var(--padding-5xl);
+  box-sizing: border-box;
+  background-image: url(/frame-15901@3x.png);
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: top;
+}
+.joinToFind {
+  align-self: stretch;
+  position: relative;
+}
+.checkSmallIcon5 {
+  height: 24px;
+  width: 24px;
+  position: relative;
+}
+.status5 {
+  background-color: var(--yellow-bk);
+  overflow: hidden;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: flex-start;
+}
+.joinForFree1 {
+  flex: 1;
+  position: relative;
+  display: inline-block;
+  min-width: 132px;
+  max-width: 100%;
+}
+.statusParent2 {
+  align-self: stretch;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: var(--gap-5xs);
+  max-width: 100%;
+}
+.checkSmallIcon6 {
+  height: 24px;
+  width: 24px;
+  position: relative;
+}
+.status6 {
+  background-color: var(--yellow-bk);
+  overflow: hidden;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: flex-start;
+}
+.payZeroTo {
+  flex: 1;
+  position: relative;
+  display: inline-block;
+  min-width: 210px;
+  max-width: 100%;
+}
+.statusParent3 {
+  align-self: stretch;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: var(--gap-5xs);
+  max-width: 100%;
+}
+.checkSmallIcon7 {
+  height: 24px;
+  width: 24px;
+  position: relative;
+}
+.status7 {
+  background-color: var(--yellow-bk);
+  overflow: hidden;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: flex-start;
+}
+.getJustVerified {
+  flex: 1;
+  position: relative;
+  display: inline-block;
+  min-width: 230px;
+  max-width: 100%;
+}
+.statusParent4 {
+  align-self: stretch;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: var(--gap-5xs);
+  max-width: 100%;
+}
+.checkSmallIcon8 {
+  height: 24px;
+  width: 24px;
+  position: relative;
+}
+.status8 {
+  background-color: var(--yellow-bk);
+  overflow: hidden;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: flex-start;
+}
+.yourMoneySecured {
+  flex: 1;
+  position: relative;
+  display: inline-block;
+  min-width: 182px;
+  max-width: 100%;
+}
+.statusParent5 {
+  align-self: stretch;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: var(--gap-5xs);
+  max-width: 100%;
+}
+.checkSmallIcon9 {
+  height: 24px;
+  width: 24px;
+  position: relative;
+}
+.status9 {
+  background-color: var(--yellow-bk);
+  overflow: hidden;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: flex-start;
+}
+.findAnyTalent {
+  flex: 1;
+  position: relative;
+  display: inline-block;
+  min-width: 144px;
+  max-width: 100%;
+}
+.statusParent6 {
+  align-self: stretch;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: var(--gap-5xs);
+  max-width: 100%;
+}
+.frameParent3,
+.joinToFindVerifiedTalentParent {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  max-width: 100%;
+}
+.frameParent3 {
+  width: 536px;
+  gap: var(--gap-base);
+  text-align: left;
+  font-size: var(--font-size-xl);
+  font-family: var(--font-space-mono);
+}
+.joinToFindVerifiedTalentParent {
+  align-self: stretch;
+  gap: var(--gap-13xl);
+}
+.text1 {
+  position: relative;
+  font-size: var(--font-size-5xl);
+  font-family: var(--font-space-mono);
+  color: var(--yellow-bk);
+  text-align: left;
+}
+.btn1,
+.frameParent2 {
+  align-self: stretch;
+  display: flex;
+}
+.btn1 {
+  cursor: pointer;
+  border: 0;
+  padding: var(--padding-base) var(--padding-xl);
+  background-color: var(--navy-bk);
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+.btn1:hover {
+  background-color: var(--color-royalblue-100);
+}
+.frameParent2 {
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: space-between;
+  padding: var(--padding-base);
+  box-sizing: border-box;
+  min-height: 543px;
+  max-width: 100%;
+  text-align: center;
+  font-size: var(--font-size-5xl);
+  color: var(--midnight-bold);
+}
+.frameParent1,
+.heroChild {
+  flex: 1;
+  overflow: hidden;
+  box-sizing: border-box;
+  max-width: 100%;
+}
+.frameParent1 {
+  border-top: 20px solid var(--navy-bk);
+  border-right: 1px solid var(--navy-bk);
+  border-bottom: 1px solid var(--navy-bk);
+  border-left: 1px solid var(--navy-bk);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  gap: var(--gap-3xs);
+}
+.heroChild {
+  flex-direction: row;
+  padding: var(--padding-61xl);
+  min-width: 491px;
+  color: var(--light);
+}
+.hero,
+.heroChild,
+.signIn {
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+}
+.hero {
+  align-self: stretch;
+  flex-direction: row;
+  flex-wrap: wrap;
+  max-width: 100%;
+  row-gap: 20px;
+  text-align: left;
+  font-size: var(--font-size-13xl);
+  color: var(--navy-medium-bk);
+  font-family: var(--font-unbounded);
+}
+.signIn {
+  width: 100%;
+  position: relative;
+  background-color: var(--light);
+  overflow: hidden;
+  flex-direction: column;
+  line-height: normal;
+  letter-spacing: normal;
+}
+@media screen and (max-width: 925px) {
+  .freelancer {
+    font-size: var(--font-size-7xl);
+  }
+  .heroInner {
+    padding: var(--padding-33xl) var(--padding-21xl);
+    box-sizing: border-box;
+  }
+  .client {
+    font-size: var(--font-size-7xl);
+  }
+  .heroChild {
+    padding: var(--padding-33xl) var(--padding-21xl);
+    box-sizing: border-box;
+  }
+}
+@media screen and (max-width: 700px) {
+  .frameDiv,
+  .statusContainer,
+  .statusGroup,
+  .statusParent,
+  .statusParent1 {
+    flex-wrap: wrap;
+  }
+  .joinAndStartGettingGigsRiParent {
+    gap: var(--gap-base);
+  }
+  .heroInner {
+    min-width: 100%;
+  }
+  .statusParent2,
+  .statusParent3,
+  .statusParent4,
+  .statusParent5,
+  .statusParent6 {
+    flex-wrap: wrap;
+  }
+  .joinToFindVerifiedTalentParent {
+    gap: var(--gap-base);
+  }
+  .heroChild {
+    min-width: 100%;
+  }
+}
+@media screen and (max-width: 450px) {
+  .freelancer,
+  .joinAndStart {
+    font-size: var(--font-size-lgi);
+  }
+  .getPaidAs,
+  .getTipsWithout,
+  .joinForFree,
+  .manageYourGigs,
+  .noFeesOn {
+    font-size: var(--font-size-base);
+  }
+  .text {
+    font-size: var(--font-size-lgi);
+  }
+  .heroInner {
+    padding-top: var(--padding-15xl);
+    padding-bottom: var(--padding-15xl);
+    box-sizing: border-box;
+  }
+  .client,
+  .joinToFind {
+    font-size: var(--font-size-lgi);
+  }
+  .findAnyTalent,
+  .getJustVerified,
+  .joinForFree1,
+  .payZeroTo,
+  .yourMoneySecured {
+    font-size: var(--font-size-base);
+  }
+  .text1 {
+    font-size: var(--font-size-lgi);
+  }
+  .heroChild {
+    padding-top: var(--padding-15xl);
+    padding-bottom: var(--padding-15xl);
+    box-sizing: border-box;
+  }
+}

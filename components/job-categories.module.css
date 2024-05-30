@@ -1,0 +1,818 @@
+.developerModeTvIcon {
+  height: 24px;
+  width: 24px;
+  position: relative;
+  min-height: 24px;
+}
+.developmentIt {
+  position: relative;
+}
+.btnDevit {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  padding: var(--padding-5xs) var(--padding-76xl) var(--padding-5xs)
+    var(--padding-base);
+  gap: var(--gap-5xs);
+}
+.designServicesIcon {
+  height: 24px;
+  width: 24px;
+  position: relative;
+  min-height: 24px;
+}
+.designCreative {
+  position: relative;
+}
+.btnDesign {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  padding: var(--padding-5xs) var(--padding-66xl) var(--padding-5xs)
+    var(--padding-base);
+  gap: var(--gap-5xs);
+}
+.psychologyIcon {
+  height: 24px;
+  width: 24px;
+  position: relative;
+  min-height: 24px;
+}
+.aiServices {
+  position: relative;
+  display: inline-block;
+  min-width: 108px;
+}
+.btnAi {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  padding: var(--padding-5xs) var(--padding-125xl) var(--padding-5xs)
+    var(--padding-base);
+  gap: var(--gap-5xs);
+}
+.storeIcon {
+  height: 24px;
+  width: 24px;
+  min-height: 24px;
+}
+.salesMarketing,
+.storeIcon {
+  position: relative;
+}
+.btnSales {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  padding: var(--padding-5xs) var(--padding-66xl) var(--padding-5xs)
+    var(--padding-base);
+  gap: var(--gap-5xs);
+}
+.supportAgentIcon {
+  height: 24px;
+  width: 24px;
+  position: relative;
+  min-height: 24px;
+}
+.adminCustomer {
+  position: relative;
+}
+.btnAdmin {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  padding: var(--padding-5xs) var(--padding-base);
+  gap: var(--gap-5xs);
+}
+.translateIcon {
+  height: 24px;
+  width: 24px;
+  min-height: 24px;
+}
+.translateIcon,
+.writingTranslation {
+  position: relative;
+}
+.btnLanguages,
+.categoryButtons {
+  display: flex;
+  justify-content: flex-start;
+}
+.btnLanguages {
+  flex-direction: row;
+  align-items: center;
+  padding: var(--padding-5xs) var(--padding-27xl) var(--padding-5xs)
+    var(--padding-base);
+  gap: var(--gap-5xs);
+}
+.categoryButtons {
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--gap-base);
+  min-width: 300px;
+}
+.hAgo,
+.mobileAppDesign,
+.posted {
+  position: relative;
+  display: inline-block;
+}
+.mobileAppDesign {
+  max-width: 100%;
+}
+.hAgo,
+.posted {
+  min-width: 45px;
+}
+.hAgo {
+  font-weight: 700;
+}
+.postedParent {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: flex-start;
+  gap: var(--gap-9xs);
+  font-size: var(--font-size-xs);
+  color: var(--midnight-bold);
+}
+.mobileAppDesignUiuxSpecParent {
+  align-self: stretch;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--gap-xl);
+  max-width: 100%;
+}
+.blankLine,
+.lookingForAn,
+.youMustHave {
+  display: block;
+}
+.lookingForAnContainer {
+  margin: 0;
+  align-self: stretch;
+  position: relative;
+  font-size: var(--font-size-xs);
+  color: var(--midnight-bold);
+  display: -webkit-inline-box;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
+.b,
+.jobTasks {
+  position: relative;
+}
+.jobTasks {
+  height: 30px;
+  flex: 1;
+  display: inline-block;
+}
+.parent {
+  width: 132px;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: flex-start;
+  gap: var(--gap-5xs);
+}
+.checkSmallIcon {
+  width: 20px;
+  height: 20px;
+  position: relative;
+}
+.btnCheck {
+  height: 18px;
+  background-color: var(--navy-medium-bk);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.createAUser {
+  height: 18px;
+  position: relative;
+  display: inline-block;
+}
+.btnCheckParent {
+  flex: 1;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  gap: var(--gap-5xs);
+  min-width: 186px;
+}
+.checkSmallIcon1 {
+  width: 20px;
+  height: 20px;
+  position: relative;
+}
+.btnCheck1 {
+  height: 18px;
+  background-color: var(--navy-medium-bk);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.createLandingPage {
+  height: 18px;
+  position: relative;
+  display: inline-block;
+}
+.btnCheckGroup {
+  flex: 1;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  gap: var(--gap-5xs);
+  min-width: 186px;
+}
+.checkSmallIcon2 {
+  width: 20px;
+  height: 20px;
+  position: relative;
+}
+.btnCheck2 {
+  height: 18px;
+  background-color: var(--navy-medium-bk);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.createAllIcons {
+  height: 18px;
+  position: relative;
+  display: inline-block;
+}
+.btnCheckContainer,
+.frameDiv {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+}
+.btnCheckContainer {
+  flex: 1;
+  align-items: center;
+  gap: var(--gap-5xs);
+  min-width: 186px;
+}
+.frameDiv {
+  align-self: stretch;
+  align-items: flex-start;
+  row-gap: 20px;
+}
+.checkSmallIcon3 {
+  width: 20px;
+  height: 20px;
+  position: relative;
+}
+.btnCheck3 {
+  height: 18px;
+  background-color: var(--navy-medium-bk);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.createMarketplace {
+  height: 18px;
+  position: relative;
+  display: inline-block;
+}
+.btnCheckParent1 {
+  flex: 1;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  gap: var(--gap-5xs);
+  min-width: 173px;
+}
+.checkSmallIcon4 {
+  width: 20px;
+  height: 20px;
+  position: relative;
+}
+.btnCheck4 {
+  height: 18px;
+  background-color: var(--navy-medium-bk);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.designCheckoutModal {
+  height: 18px;
+  position: relative;
+  display: inline-block;
+}
+.btnCheckParent2 {
+  flex: 1;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  gap: var(--gap-5xs);
+  min-width: 173px;
+}
+.checkSmallIcon5 {
+  width: 20px;
+  height: 20px;
+  position: relative;
+}
+.btnCheck5 {
+  height: 18px;
+  background-color: var(--navy-medium-bk);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.designUserCreator {
+  height: 18px;
+  position: relative;
+  display: inline-block;
+}
+.btnCheckParent3,
+.frameParent1 {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+}
+.btnCheckParent3 {
+  flex: 1;
+  align-items: center;
+  gap: var(--gap-5xs);
+  min-width: 173px;
+}
+.frameParent1 {
+  align-self: stretch;
+  align-items: flex-start;
+  row-gap: 20px;
+}
+.checkSmallIcon6 {
+  width: 20px;
+  height: 20px;
+  position: relative;
+}
+.btnCheck6 {
+  height: 18px;
+  background-color: var(--navy-medium-bk);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.createStoreBuilder {
+  height: 18px;
+  position: relative;
+  display: inline-block;
+}
+.btnCheckParent4 {
+  flex: 1;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  gap: var(--gap-5xs);
+  min-width: 161px;
+}
+.checkSmallIcon7 {
+  width: 20px;
+  height: 20px;
+  position: relative;
+}
+.btnCheck7 {
+  height: 18px;
+  background-color: var(--navy-medium-bk);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.designUsermerchantChat {
+  height: 18px;
+  flex: 1;
+  position: relative;
+  display: inline-block;
+}
+.btnCheckParent5 {
+  flex: 0.8468;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 0 var(--padding-19xl) 0 0;
+  box-sizing: border-box;
+  gap: var(--gap-5xs);
+  min-width: 161px;
+}
+.frameChild {
+  height: 18px;
+  width: 248px;
+  flex-shrink: 0;
+}
+.frameContainer,
+.frameParent2,
+.tasks {
+  align-self: stretch;
+  align-items: flex-start;
+  justify-content: flex-start;
+}
+.frameParent2 {
+  display: flex;
+  flex-direction: row;
+  row-gap: 20px;
+}
+.frameContainer,
+.tasks {
+  flex-direction: column;
+  gap: var(--gap-5xs);
+}
+.frameContainer {
+  display: flex;
+  font-size: var(--font-size-xs);
+  color: var(--midnight-medium);
+}
+.tasks {
+  display: none;
+}
+.eventIcon {
+  height: 18px;
+  width: 18px;
+  position: relative;
+}
+.deadline,
+.jun122024 {
+  position: relative;
+  display: inline-block;
+}
+.deadline {
+  font-weight: 700;
+  min-width: 89px;
+}
+.jun122024 {
+  min-width: 118px;
+}
+.eventParent {
+  background-color: var(--yellow-bk-40a);
+  overflow: hidden;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  padding: var(--padding-9xs) var(--padding-base);
+  gap: var(--gap-9xs);
+}
+.groupIcon {
+  height: 18px;
+  width: 18px;
+  position: relative;
+}
+.candidates,
+.div {
+  position: relative;
+  display: inline-block;
+}
+.candidates {
+  font-weight: 700;
+  min-width: 108px;
+}
+.div {
+  min-width: 10px;
+}
+.groupParent {
+  background-color: var(--yellow-bk-40a);
+  overflow: hidden;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  padding: var(--padding-9xs) var(--padding-base);
+  gap: var(--gap-9xs);
+}
+.publicIcon {
+  height: 18px;
+  width: 18px;
+  position: relative;
+}
+.timezone,
+.utc5 {
+  position: relative;
+  display: inline-block;
+}
+.timezone {
+  font-weight: 700;
+  min-width: 89px;
+}
+.utc5 {
+  min-width: 49px;
+}
+.publicParent {
+  background-color: var(--yellow-bk-40a);
+  overflow: hidden;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  padding: var(--padding-9xs) var(--padding-base);
+  gap: var(--gap-9xs);
+}
+.frameGroup,
+.frameParent3 {
+  display: flex;
+  justify-content: flex-start;
+  max-width: 100%;
+}
+.frameParent3 {
+  flex-direction: row;
+  align-items: center;
+  gap: var(--gap-base);
+  font-size: var(--font-size-base);
+  color: var(--midnight-bold);
+}
+.frameGroup {
+  flex: 1;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--gap-5xl);
+}
+.timerIcon {
+  height: 20px;
+  width: 20px;
+  position: relative;
+}
+.timeLeftTo {
+  position: relative;
+  display: inline-block;
+  min-width: 89px;
+}
+.d21h58m23s {
+  align-self: stretch;
+  position: relative;
+  font-size: var(--font-size-xs);
+  text-align: right;
+  white-space: nowrap;
+}
+.timeLeftToApplyParent {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  padding: 0 var(--padding-9xs);
+}
+.timerParent {
+  align-self: stretch;
+  background-color: var(--yellow-bk-40a);
+  overflow: hidden;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  padding: var(--padding-11xs) var(--padding-2xs) var(--padding-11xs)
+    var(--padding-5xs);
+  gap: var(--gap-9xs);
+}
+.showDetails {
+  position: relative;
+  display: inline-block;
+  min-width: 118px;
+}
+.keyboardArrowDownIcon {
+  height: 24px;
+  width: 24px;
+  position: relative;
+  min-height: 24px;
+}
+.btnDetails {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: flex-start;
+  padding: var(--padding-9xs) var(--padding-5xs);
+  gap: var(--gap-9xs);
+  font-size: var(--font-size-base);
+  color: var(--midnight-medium);
+}
+.frameParent4 {
+  height: 146px;
+  width: 162px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  justify-content: space-between;
+  font-size: var(--font-size-5xs);
+  color: var(--midnight-bold);
+}
+.frameParent {
+  align-self: stretch;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: flex-start;
+  gap: var(--gap-base);
+  max-width: 100%;
+}
+.youWillCollect {
+  height: 18px;
+  position: relative;
+  display: inline-block;
+}
+.b1,
+.dai {
+  align-self: stretch;
+  flex: 1;
+  position: relative;
+}
+.group,
+.youWillCollectParent {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+}
+.group {
+  width: 118px;
+  flex: 1;
+  flex-direction: row;
+  padding: 0 var(--padding-3xs);
+  gap: var(--gap-5xs);
+  font-size: var(--font-size-5xl);
+}
+.youWillCollectParent {
+  height: 62px;
+  background-color: var(--navy-bk);
+  flex-direction: column;
+  padding: var(--padding-9xs) var(--padding-base);
+}
+.theJobPayment {
+  height: 60px;
+  width: 360px;
+  position: relative;
+  font-size: var(--font-size-3xs);
+  color: var(--midnight-bold);
+  display: inline-block;
+  flex-shrink: 0;
+  max-width: 100%;
+}
+.frameParent6 {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: flex-start;
+  gap: var(--gap-5xs);
+  max-width: 100%;
+}
+.personRaisedHandIcon {
+  height: 24px;
+  width: 24px;
+  position: relative;
+}
+.apply {
+  position: relative;
+}
+.btnApply {
+  height: 62px;
+  width: 162px;
+  background-color: var(--yellow-bk);
+  overflow: hidden;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  padding: var(--padding-9xs) var(--padding-base);
+  box-sizing: border-box;
+  gap: var(--gap-5xs);
+  font-size: var(--font-size-xl);
+  color: var(--navy-medium-bk);
+}
+.compJoboffer,
+.frameParent5 {
+  align-self: stretch;
+  padding: var(--padding-5xs);
+  box-sizing: border-box;
+}
+.frameParent5 {
+  background-color: var(--light);
+  display: none;
+  flex-direction: row;
+  align-items: flex-end;
+  justify-content: space-between;
+  max-width: 100%;
+  gap: var(--gap-xl);
+  font-size: var(--font-size-xs);
+  color: var(--light);
+}
+.compJoboffer {
+  background-color: var(--yellow-bk-10a);
+  overflow: hidden;
+  flex-direction: column;
+  gap: var(--gap-5xl);
+}
+.compJoboffer,
+.jobCategories,
+.jobListings {
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  max-width: 100%;
+}
+.jobListings {
+  flex: 1;
+  flex-direction: column;
+  gap: var(--gap-5xl);
+  min-width: 570px;
+  font-size: var(--font-size-xl);
+  color: var(--navy-medium-bk);
+}
+.jobCategories {
+  align-self: stretch;
+  flex-direction: row;
+  gap: var(--gap-4xl);
+  text-align: left;
+  font-size: var(--font-size-base);
+  color: var(--midnight-medium);
+  font-family: var(--font-space-mono);
+}
+@media screen and (max-width: 1000px) {
+  .categoryButtons {
+    flex: 1;
+  }
+  .jobCategories {
+    flex-wrap: wrap;
+  }
+}
+@media screen and (max-width: 975px) {
+  .frameParent,
+  .frameParent5 {
+    flex-wrap: wrap;
+  }
+}
+@media screen and (max-width: 725px) {
+  .frameDiv,
+  .frameParent1,
+  .frameParent2,
+  .frameParent3,
+  .mobileAppDesignUiuxSpecParent {
+    flex-wrap: wrap;
+  }
+  .frameGroup {
+    min-width: 100%;
+  }
+  .frameParent6 {
+    flex-wrap: wrap;
+  }
+  .jobListings {
+    min-width: 100%;
+  }
+}
+@media screen and (max-width: 450px) {
+  .btnAi,
+  .btnDesign,
+  .btnDevit,
+  .btnLanguages,
+  .btnSales {
+    padding-right: var(--padding-xl);
+    box-sizing: border-box;
+  }
+  .b,
+  .jobTasks,
+  .mobileAppDesign {
+    font-size: var(--font-size-base);
+  }
+  .btnCheckParent5 {
+    flex: 1;
+  }
+  .frameParent4 {
+    height: 146px;
+  }
+  .b1,
+  .dai {
+    font-size: var(--font-size-lgi);
+  }
+  .apply {
+    font-size: var(--font-size-base);
+  }
+}
