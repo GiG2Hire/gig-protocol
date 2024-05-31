@@ -1,0 +1,58 @@
+.addADescription,
+.searchInGlobal {
+  position: relative;
+  display: inline-block;
+  max-width: 100%;
+}
+.searchInGlobal {
+  border: 0;
+  outline: 0;
+  font-family: var(--font-space-mono);
+  font-size: var(--font-size-base);
+  background-color: transparent;
+  flex: 1;
+  color: var(--navy-medium-40a);
+  text-align: left;
+  min-width: 250px;
+  padding: 0;
+}
+.textInput {
+  align-self: stretch;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  max-width: 100%;
+}
+.empty {
+  align-self: stretch;
+  position: relative;
+  font-weight: 700;
+}
+.descriptionInput,
+.profileDescription {
+  align-self: stretch;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  max-width: 100%;
+}
+.descriptionInput {
+  background-color: var(--yellow-bk-10a);
+  overflow: hidden;
+  justify-content: space-between;
+  padding: var(--padding-5xs);
+  box-sizing: border-box;
+  min-height: 130px;
+  text-align: right;
+  font-size: var(--font-size-xs);
+  color: var(--navy-medium-40a);
+}
+.profileDescription {
+  justify-content: flex-start;
+  gap: var(--gap-5xs);
+  text-align: left;
+  font-size: var(--font-size-base);
+  color: var(--midnight-bold);
+  font-family: var(--font-space-mono);
+}
