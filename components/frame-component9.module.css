@@ -7,6 +7,9 @@
   text-align: left;
   min-width: 89px;
 }
+.spaces{
+  margin-top: 50px;
+}
 .frameChild {
   width: 12px;
   height: 12px;

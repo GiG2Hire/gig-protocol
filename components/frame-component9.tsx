@@ -28,7 +28,7 @@ const FrameComponent9: NextPage<FrameComponent9Type> = ({ className = "" }) => {
       };
     
   return (
-    <div className={[styles.heroWrapper, className].join(" ")}>
+    <div  className={[styles.heroWrapper, className,styles.spaces].join(" ")}>
       <div className={styles.hero} data-scroll-to="heroContainer">
         <div className={styles.frameParent}>
           <div className={styles.frameGroup}>
