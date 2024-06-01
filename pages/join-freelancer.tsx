@@ -17,6 +17,13 @@ const JoinFreelancer: NextPage<JoinFreelancerType> = ({ className = "" }) => {
     },
     });
     };
+  // Handle login with github
+  const githubLogin = () => {
+    const clientId = 'Ov23liyKADrsIpbypKkj'; // Replace with your actual Client ID
+    const redirectUri = 'http://localhost:3000/job-marketplace/'; // Replace with your callback URL
+    const authUrl = `https://github.com/login/oauth/authorize?client_id=${clientId}&redirect_uri=${redirectUri}`;
+    window.location.href = authUrl;
+  }
   return (
     <div className={styles.container23}>
     <div className={[styles.joinFreelancer, className].join(" ")}>
@@ -60,13 +67,14 @@ const JoinFreelancer: NextPage<JoinFreelancerType> = ({ className = "" }) => {
           <div className={styles.skillsVerification}>
             <b className={styles.verifyYourSkills}>Verify Your Skills</b>
             <div className={styles.verifyButton}>
-              <button className={styles.btnVerify} id="btnverify">
-                <div className={styles.iconsParent}>
-                  <img className={styles.icons} alt="" src="/icons.svg" />
-                  <button className={styles.github} id="github">
-                    GitHub
-                  </button>
-                </div>
+                <button className={styles.btnVerify} id="btnverify" onClick={githubLogin}>
+                  <div className={styles.iconsParent}>
+                    <img className={styles.icons} alt="" src="/icons.svg" />
+                    <button className={styles.github} id="github">
+                      GitHub
+                    </button>
+                  </div>
+
                 <div className={styles.btnCheck}>
                   <img
                     className={styles.checkSmallIcon}

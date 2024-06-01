@@ -1,5 +1,5 @@
 import type { NextPage } from "next";
-import { useCallback } from "react";
+import { useCallback, useEffect } from "react";
 import { useRouter } from "next/router";
 import styles from "./freelancer-dashboard.module.css";
 
@@ -10,6 +10,52 @@ const FreelancerDashboard: NextPageFreelancerDashboardType = () => {
     router.push("/freelancer-chat");
   }, [router]);
 
+  // Handles github data decode from redirect url
+  const userData = () => {
+    console.log(window.location.href);
+    const url = window.location.href;
+    const code = url.split("?code=")[1];
+    const clientId = "Ov23liyKADrsIpbypKkj"; // Replace with your actual Client ID
+    const clientSecret = ""; // Replace with your actual Client Secret
+    const redirectUri = "http://localhost:3000/job-marketplace/"; // Replace with your callback URL
+    const authUrl = `https://github.com/login/oauth/access_token?client_id=${clientId}&client_secret=${clientSecret}&code=${code}&redirect_uri=${redirectUri}`;
+    fetch(authUrl, {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json'
+      }
+    })
+    .then(response => response.json())
+    .then(data => {
+      // Handle the response data
+      const accessToken = data.access_token;
+      console.log('Access Token:', accessToken);
+      // You can now use the accessToken to make authenticated requests to the GitHub API
+      // For example, you can fetch the user's profile data:
+      fetch('https://api.github.com/user', {
+        headers: {
+          'Authorization': `Bearer ${accessToken}`
+        }
+      })
+      .then(response => response.json())
+      .then(userData => {
+        // Handle the user data
+        console.log('GitHub User Data:', userData);
+        // You can store the user data in state or perform other operations
+      })
+      .catch(error => {
+        console.error('Error fetching user data:', error);
+      });
+    })
+    .catch(error => {
+      console.error('Error retrieving access token:', error);
+    });
+  }
+
+  // Handle login with github
+  useEffect(() => {
+    userData();
+  }, []);
   return (
     <div className={styles.freelancerDashboard}>
       <div className={styles.headerSpacer}>
