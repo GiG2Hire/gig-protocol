@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-pragma solidity 0.8.19;
+pragma solidity ^0.8.19;
 
 import {IRouterClient} from "@chainlink/contracts-ccip/src/v0.8/ccip/interfaces/IRouterClient.sol";
 import {OwnerIsCreator} from "@chainlink/contracts-ccip/src/v0.8/shared/access/OwnerIsCreator.sol";
@@ -7,7 +7,9 @@ import {CCIPReceiver} from "@chainlink/contracts-ccip/src/v0.8/ccip/applications
 import {Client} from "@chainlink/contracts-ccip/src/v0.8/ccip/libraries/Client.sol";
 import {IERC20} from "@chainlink/contracts-ccip/src/v0.8/vendor/openzeppelin-solidity/v4.8.3/contracts/token/ERC20/IERC20.sol";
 import {SafeERC20} from "@chainlink/contracts-ccip/src/v0.8/vendor/openzeppelin-solidity/v4.8.3/contracts/token/ERC20/utils/SafeERC20.sol";
-import {IPool} from "@aave/core-v3/contracts/interfaces/IPool.sol";
+//import {IPool} from "@aave/core-v3/contracts/interfaces/IPool.sol";
+import {IComet} from "./interfaces/IComet.sol";
+
 
 contract CCIPLendingProtocol is CCIPReceiver, OwnerIsCreator {
     using SafeERC20 for IERC20;
@@ -48,7 +50,6 @@ contract CCIPLendingProtocol is CCIPReceiver, OwnerIsCreator {
 
     event MessageFailed(bytes32 indexed messageId, bytes reason);
 
-    // struct for transaction
     struct Transaction {
         address initiator;
         uint256 amount;
@@ -63,6 +64,7 @@ contract CCIPLendingProtocol is CCIPReceiver, OwnerIsCreator {
     mapping(uint64 => address) public s_receivers; // List of all receivers for Destination Chains
     mapping(uint64 => address) public s_senders; // List of all senders for Source Chains
     mapping(uint64 => address) public s_usdcTokens; // List of all USDC addresses for Destination Chains
+    mapping(uint64 => uint256) public s_gasLimits; // List of gas limit for different chains
 
     mapping(bytes32 => Transaction) private s_transactions; // List of all transactions
 
@@ -90,21 +92,20 @@ contract CCIPLendingProtocol is CCIPReceiver, OwnerIsCreator {
 
     // Main function to open proposal. Used by job provider
     function openProposal(
-        uint256 _amount
+        uint256 _amount,
+        address _usdcToken
     ) external returns (bytes32 transactionID) {
         if (_amount == 0) revert AmountIsZero();
 
         bytes32 uniqueId = generateID(msg.sender, _amount);
 
-        uint64 _destinationChainSelector = 0; // Perhaps for right now
+        uint64 _destinationChainSelector = 16015286601757825753; // Perhaps for right now
 
         bytes memory txData = abi.encodeCall(
-            IPool.supply,
+            IComet.supply,
             (
-                s_usdcTokens[_destinationChainSelector],
-                _amount,
-                s_receivers[_destinationChainSelector],
-                0
+                _usdcToken,
+                _amount
             )
         );
 
@@ -114,53 +115,7 @@ contract CCIPLendingProtocol is CCIPReceiver, OwnerIsCreator {
             txData,
             uniqueId
         );
-        s_transactions[uniqueId] = transaction; // store transaction with key 'id' to sender contract storage
-
-        // send data with token via ccip to receiver
-        transactionID = sendMessage(
-            _destinationChainSelector,
-            _amount,
-            transaction
-        );
-        return transactionID;
-    }
-
-    // Main function to close proposal. Used by job provider
-    function closeProposal(bytes32 id, uint256 _amount) external {
-        uint64 _destinationChainSelector = 0; // Perhaps for right now
-
-        bytes memory txData = abi.encodeCall(
-            IPool.withdraw,
-            (s_usdcTokens[_destinationChainSelector], _amount, msg.sender)
-        );
-
-        Transaction memory transaction = Transaction(
-            msg.sender,
-            _amount,
-            txData,
-            id
-        );
-        s_transactions[id] = transaction; // search for transaction in storage by id
-
-        sendMessage(_destinationChainSelector, _amount, transaction);
-    }
-
-    // NOTE: in future add func that give chain selector of chain with best APY for USDC in Aave
-    function choseBestPrice() internal returns (uint64 chainSelector) {}
-
-    // Sends data and transfer tokens to receiver on the destination chain.
-    function sendMessage(
-        uint64 _destinationChainSelector,
-        uint256 _amount,
-        Transaction memory _transaction
-    )
-        internal
-        validateDestinationChain(_destinationChainSelector)
-        returns (bytes32 messageId)
-    {
-        address receiver = s_receivers[_destinationChainSelector];
-        if (receiver == address(0))
-            revert NoReceiverOnDestinationChain(_destinationChainSelector);
+        s_transactions[uniqueId] = transaction;
 
         Client.EVMTokenAmount[]
             memory tokenAmounts = new Client.EVMTokenAmount[](1);
@@ -170,14 +125,64 @@ contract CCIPLendingProtocol is CCIPReceiver, OwnerIsCreator {
             amount: _amount
         });
 
+        transactionID = sendMessage(
+            _destinationChainSelector,
+            _amount,
+            transaction,
+            tokenAmounts
+        );
+        return transactionID;
+    }
+
+    // Main function to close proposal. Used by job provider
+    function closeProposal(bytes32 id, uint256 _amount, address _usdcToken) external {
+        uint64 _destinationChainSelector = 0; // Perhaps for right now
+
+        bytes memory txData = abi.encodeCall(
+            IComet.withdraw,
+            (_usdcToken, _amount)
+        );
+
+        Transaction memory transaction = Transaction(
+            msg.sender,
+            _amount,
+            txData,
+            id
+        );
+        s_transactions[id] = transaction;
+
+        Client.EVMTokenAmount[]
+            memory tokenAmounts = new Client.EVMTokenAmount[](0); // don't send any tokens
+
+        sendMessage(_destinationChainSelector, _amount, transaction, tokenAmounts);
+    }
+
+    // Sends data and transfer tokens to receiver on the destination chain.
+    function sendMessage(
+        uint64 _destinationChainSelector,
+        uint256 _amount,
+        Transaction memory _transaction,
+        Client.EVMTokenAmount[]
+            memory _tokenAmounts
+    )
+        internal
+        validateDestinationChain(_destinationChainSelector)
+        returns (bytes32 messageId)
+    {
+        address receiver = s_receivers[_destinationChainSelector];
+        if (receiver == address(0))
+            revert NoReceiverOnDestinationChain(_destinationChainSelector);
+        uint256 gasLimit = s_gasLimits[_destinationChainSelector];
+
+
         Client.EVM2AnyMessage memory evm2AnyMessage = Client.EVM2AnyMessage({
-            receiver: abi.encode(receiver), // encoded receiver
-            data: abi.encode(_transaction), // encoded tx data
-            tokenAmounts: tokenAmounts, // tokenAmount (USDC)
+            receiver: abi.encode(receiver),
+            data: abi.encode(_transaction),
+            tokenAmounts: _tokenAmounts,
             extraArgs: Client._argsToBytes(
-                Client.EVMExtraArgsV1({gasLimit: 200000})
+                Client.EVMExtraArgsV1({gasLimit: gasLimit})
             ),
-            feeToken: address(i_linkToken) // link token to pay ccip fee
+            feeToken: address(i_linkToken)
         });
 
         uint256 fees = i_router.getFee(
@@ -228,10 +233,6 @@ contract CCIPLendingProtocol is CCIPReceiver, OwnerIsCreator {
         // check if received data is valid (maybe code will be changed in future)
         if (s_transactions[txReceived.id].initiator == address(0))
             revert WrongTransactionId();
-
-        // earned amount during lending process
-        uint256 amountEarned = mathOperation(txReceived.amount, txReceived.id);
-
         // transfer money to initiator of tx (job provider)
         (bool success, ) = payable(txReceived.initiator).call{
             value: txReceived.amount
@@ -308,9 +309,16 @@ contract CCIPLendingProtocol is CCIPReceiver, OwnerIsCreator {
             revert WrongTransactionId();
 
         uint256 originalAmount = s_transactions[id].amount;
-        if (receivedTokenAmount >= originalAmount)
+        if (originalAmount >= receivedTokenAmount)
             revert IncorrectTokenAmount();
 
         return receivedTokenAmount - originalAmount;
+    }
+
+    function setGasLimitForDestinationChain(
+        uint64 _destinationChainSelector,
+        uint256 _gasLimit
+    ) external onlyOwner validateDestinationChain(_destinationChainSelector) {
+        s_gasLimits[_destinationChainSelector] = _gasLimit;
     }
 }
