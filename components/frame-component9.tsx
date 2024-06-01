@@ -1,11 +1,32 @@
 import type { NextPage } from "next";
 import styles from "./frame-component9.module.css";
-
+import { useRouter } from "next/router";
+import { Route } from "react-router-dom";
 export type FrameComponent9Type = {
   className?: string;
 };
 
 const FrameComponent9: NextPage<FrameComponent9Type> = ({ className = "" }) => {
+  const router = useRouter();
+  const handleClick = () => {
+    router.push({
+    pathname: '/join-freelancer',
+    query: {
+      name: 'Source Freeze',
+      count: 30,
+    },
+    });
+    };
+    const handleClick1 = () => {
+      router.push({
+      pathname: '/join-client',
+      query: {
+        name: 'Source Freeze',
+        count: 30,
+      },
+      });
+      };
+    
   return (
     <div className={[styles.heroWrapper, className].join(" ")}>
       <div className={styles.hero} data-scroll-to="heroContainer">
@@ -28,10 +49,10 @@ const FrameComponent9: NextPage<FrameComponent9Type> = ({ className = "" }) => {
           <div className={styles.beAnEarlyBirdParent}>
             <b className={styles.beAnEarly}>Be an early bird</b>
             <div className={styles.btnShadowParent}>
-              <button className={styles.btnShadow}>
+              <button onClick={handleClick} className={styles.btnShadow}>
                 <b className={styles.text}>Freelancer</b>
               </button>
-              <button className={styles.btnShadow1}>
+              <button onClick={handleClick1} className={styles.btnShadow1}>
                 <b className={styles.text1}>Client</b>
               </button>
             </div>

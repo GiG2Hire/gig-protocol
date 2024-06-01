@@ -1,3 +1,11 @@
+.container23 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh; /* Full viewport height */
+  background-color: #f0f0f0; /* Optional: Add a background color */
+  padding: 0 1rem; /* Optional: Add some padding for small screens */
+}
 .welcomeAbroad {
   margin: 0;
   position: relative;

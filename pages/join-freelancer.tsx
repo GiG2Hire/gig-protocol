@@ -1,13 +1,24 @@
 import type { NextPage } from "next";
 import ProfileDescription from "./profile-description";
 import styles from "./join-freelancer.module.css";
-
+import { useRouter } from "next/router";
 export type JoinFreelancerType = {
   className?: string;
 };
 
 const JoinFreelancer: NextPage<JoinFreelancerType> = ({ className = "" }) => {
+  const router = useRouter();
+  const handleClick = () => {
+    router.push({
+    pathname: '/',
+    query: {
+      name: 'Source Freeze',
+      count: 30,
+    },
+    });
+    };
   return (
+    <div className={styles.container23}>
     <div className={[styles.joinFreelancer, className].join(" ")}>
       <header className={styles.welcomeAbroadWrapper}>
         <h1 className={styles.welcomeAbroad}>Welcome abroad!</h1>
@@ -107,7 +118,7 @@ const JoinFreelancer: NextPage<JoinFreelancerType> = ({ className = "" }) => {
             </div>
           </div>
           <div className={styles.navigation}>
-            <button className={styles.back} id="back">
+            <button onClick={handleClick} className={styles.back} id="back">
               Back
             </button>
             <button className={styles.btnJoingig} id="btnjoingig">
@@ -121,6 +132,7 @@ const JoinFreelancer: NextPage<JoinFreelancerType> = ({ className = "" }) => {
           </div>
         </div>
       </section>
+    </div>
     </div>
   );
 };
