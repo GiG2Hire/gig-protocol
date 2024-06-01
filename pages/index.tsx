@@ -19,7 +19,7 @@ const NewlandingDesktop: NextPageNewlandingDesktopType = () => {
           <FrameComponent7 />
           <FrameComponent5 />
           <FrameComponent3 />
-          <div className={styles.roadMapWrapper}>
+          <div id="roadmap" className={styles.roadMapWrapper}>
             <h1 className={styles.roadMap}>Road Map</h1>
           </div>
           <FrameComponent1 />

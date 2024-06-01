@@ -7,7 +7,7 @@ export type FrameComponentType = {
 
 const FrameComponent: NextPage<FrameComponentType> = ({ className = "" }) => {
   return (
-    <div className={[styles.contactUsWrapper, className].join(" ")}>
+    <div id="contactus" className={[styles.contactUsWrapper, className].join(" ")}>
       <div className={styles.contactUs}>
         <div className={styles.contactUsInner}>
           <div className={styles.investOnTheFutureOfHiringParent}>

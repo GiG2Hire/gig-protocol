@@ -1,7 +1,7 @@
 import type { NextPage } from "next";
 import { useCallback } from "react";
 import styles from "./navbar-spacer.module.css";
-
+import Link from "next/link";
 export type NavbarSpacerType = {
   className?: string;
 };
@@ -15,6 +15,7 @@ const NavbarSpacer: NextPage<NavbarSpacerType> = ({ className = "" }) => {
   }, []);
 
   return (
+    <div className={styles.nnav}>
     <header className={[styles.navbarSpacer, className].join(" ")}>
       <div className={styles.navbar}>
         <div
@@ -50,31 +51,32 @@ const NavbarSpacer: NextPage<NavbarSpacerType> = ({ className = "" }) => {
         </div>
         <div className={styles.menuParent}>
           <nav className={styles.menu}>
-            <div className={styles.navText}>
+            <Link className={styles.Linktag} href="#about"><div className={styles.navText}>
               <div className={styles.navText1}>
                 <b className={styles.text}>About</b>
               </div>
               <div className={styles.hlColor} />
-            </div>
-            <div className={styles.navText2}>
+            </div></Link>
+           <Link className={styles.Linktag} href="#roadmap"> <div className={styles.navText2}>
               <div className={styles.navText3}>
                 <b className={styles.text1}>RoadMap</b>
               </div>
               <div className={styles.hlColor1} />
-            </div>
-            <div className={styles.navText4}>
+            </div></Link>
+           <Link className={styles.Linktag} href="#Team" ><div className={styles.navText4}>
               <div className={styles.navText5}>
                 <b className={styles.text2}>Team</b>
               </div>
               <div className={styles.hlColor2} />
-            </div>
+            </div></Link>
           </nav>
-          <button className={styles.btn}>
+         <Link className={styles.Linktag1} href="#contactus"> <button className={styles.btn}>
             <b className={styles.text3}>Contact Us</b>
-          </button>
+          </button></Link>
         </div>
       </div>
     </header>
+    </div>
   );
 };
 

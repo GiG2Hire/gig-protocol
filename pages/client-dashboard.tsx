@@ -26,6 +26,7 @@ const FreelancerDashboard: NextPageFreelancerDashboardType = () => {
                 src="/group.svg"
               />
             </div>
+         
             <div className={styles.navLinksContainer}>
               <nav className={styles.navLinks}>
                 <div className={styles.navText}>

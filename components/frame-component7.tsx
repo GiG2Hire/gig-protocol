@@ -8,7 +8,7 @@ export type FrameComponent7Type = {
 
 const FrameComponent7: NextPage<FrameComponent7Type> = ({ className = "" }) => {
   return (
-    <div className={[styles.whyWrapper, className].join(" ")}>
+    <div id="about" className={[styles.whyWrapper, className].join(" ")}>
       <div className={styles.why}>
         <h1 className={styles.talentSpeaksLouder}>
           Talent speaks louder than words
