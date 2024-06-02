@@ -38,6 +38,8 @@ GIG2Hire was brought to life with a different set of tools.
 
 >**ChainLink Functions:** Using API functions to read data that will allow to verify users skills, experience, or followers given certain parameters. e.g A developer can join if it’s GitHub profile has more than 10 commits during the last month. An influencer can join if it’s X profile has more than 5000 followers. Or a Designer can join if it’s Behance profile has more than 5 projects.
 
+# Running the dApp
+
   Note: Please ensure you have installed <code><a href="https://nodejs.org/en/download/">nodejs</a></code>
 
   To preview and run the project on your device:
