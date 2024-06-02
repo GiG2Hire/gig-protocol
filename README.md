@@ -27,6 +27,10 @@ Thanks to blockchain we can solve two main issues in current hiring platforms:
 The platform won’t charge any abusive fees to users as escrowed payments will be deposited on lending platforms like AAVE during the duration of the job to collect interests that will be deposited on the platform treasury.
 
 ***
+# **How it works?**
+
+Here's a detailed userflow of the GIG2Hire app.
+[GIG2Hire UserFlow](https://gig2hire.com/assets/userflow.png)
 
 # **How we built it**
 
