@@ -1,8 +1,56 @@
 import type { NextPage } from "next";
 import HeaderSpacer from "../components/header-spacer";
 import styles from "./post-a-job.module.css";
+import { ethers } from "ethers";
+import  CCIPLendingProtocolAbi  from "../constants/abi/CCIPLendingProtocol.json"
 
 const PostAJob: NextPagePostAJobType = () => {
+
+  const openJobProposal = async () =>{
+    const ccipLendingProtocolAddress = "";
+
+    const amount = 100;
+    const usdcToken = "";
+
+    const ccipLendingProtocol = new ethers.Contract(
+      ccipLendingProtocolAddress,
+      CCIPLendingProtocolAbi
+    );
+
+    let transactionResponse = await ccipLendingProtocol.openProposal(
+      amount,
+      usdcToken
+    );
+    const receipt = await transactionResponse.wait(1);
+
+    if (receipt.status == 1) {
+      console.log("Open Job Proposal Successful!");
+    }
+  }
+
+  const closeJobProposal = async () =>{
+    const ccipLendingProtocolAddress = "";
+
+    const id = 1;
+    const amount = 100;
+    const usdcToken = "";
+
+    const ccipLendingProtocol = new ethers.Contract(
+      ccipLendingProtocolAddress,
+      CCIPLendingProtocolAbi
+    );
+
+    let transactionResponse = await ccipLendingProtocol.openProposal(
+      amount,
+      usdcToken
+    );
+    const receipt = await transactionResponse.wait(1);
+
+    if (receipt.status == 1) {
+      console.log("Close Job Proposal Successful!");
+    }
+  }
+
   return (
     <div className={styles.postAJob}>
       <HeaderSpacer />
