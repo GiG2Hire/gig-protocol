@@ -50,6 +50,8 @@ contract CCIPLendingProtocol is CCIPReceiver, OwnerIsCreator {
 
     event MessageFailed(bytes32 indexed messageId, bytes reason);
 
+    event TxSucc(Transaction transaction);
+
     struct Transaction {
         address initiator;
         uint256 amount;
@@ -94,7 +96,7 @@ contract CCIPLendingProtocol is CCIPReceiver, OwnerIsCreator {
     function openProposal(
         uint256 _amount,
         address _usdcToken
-    ) external returns (bytes32 transactionID) {
+    ) external payable { // add `payable` to charge money from EOA
         if (_amount == 0) revert AmountIsZero();
 
         bytes32 uniqueId = generateID(msg.sender, _amount);
@@ -125,14 +127,14 @@ contract CCIPLendingProtocol is CCIPReceiver, OwnerIsCreator {
             amount: _amount
         });
 
-        transactionID = sendMessage(
+        sendMessage(
             _destinationChainSelector,
             _amount,
             transaction,
             tokenAmounts
         );
-        // this might not work. We might need to emit event instead.
-        return transactionID;
+        // change return value to emit event
+        emit TxSucc(transaction);
     }
 
     // Main function to close proposal. Used by job provider
