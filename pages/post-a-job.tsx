@@ -2,25 +2,41 @@ import type { NextPage } from "next";
 import HeaderSpacer from "../components/header-spacer";
 import styles from "./post-a-job.module.css";
 import { ethers } from "ethers";
-import  CCIPLendingProtocolAbi  from "../constants/abi/CCIPLendingProtocol.json"
+import  CCIPLendingProtocolAbi  from "../constants/abi/CCIPLendingProtocol.json";
+import contractAddresses from "../constants/contractAddresses.json";
 
 const PostAJob: NextPagePostAJobType = () => {
 
-  const openJobProposal = async () =>{
-    const ccipLendingProtocolAddress = "";
+  // sender deployed on Avalance Fuji Testnet
+  const ccipLendingProtocolAddress = contractAddresses[43113][0];
+  const usdcToken = process.env.NEXT_PUBLIC_AVALANCHE_FUJI_USDC_TOKEN;
+  const account:any = process.env.NEXT_PUBLIC_FUJI_PRIVATE_KEY;
 
-    const amount = 100;
-    const usdcToken = "";
+  const openJobProposal = async () =>{
+    console.log("Trying to Open Job Proposal");
+    const amount:Number = 1;
+    const signer = new ethers.Wallet(
+      account,
+      new ethers.providers.JsonRpcProvider(process.env.NEXT_PUBLIC_FUJI_RPC_URL),
+    );
+
+    const options = { gasLimit: 600000 };
 
     const ccipLendingProtocol = new ethers.Contract(
       ccipLendingProtocolAddress,
-      CCIPLendingProtocolAbi
+      CCIPLendingProtocolAbi,
+      signer
     );
+
+    console.log(ccipLendingProtocol);
 
     let transactionResponse = await ccipLendingProtocol.openProposal(
       amount,
-      usdcToken
+      usdcToken,
+      options
     );
+
+    console.log(transactionResponse);
     const receipt = await transactionResponse.wait(1);
 
     if (receipt.status == 1) {
@@ -29,21 +45,31 @@ const PostAJob: NextPagePostAJobType = () => {
   }
 
   const closeJobProposal = async () =>{
-    const ccipLendingProtocolAddress = "";
-
+    console.log("Trying to Close Job Proposal");
     const id = 1;
-    const amount = 100;
-    const usdcToken = "";
+    const amount = 1;
+
+    const signer = new ethers.Wallet(
+      account,
+      new ethers.providers.JsonRpcProvider(process.env.NEXT_PUBLIC_FUJI_RPC_URL),
+    );
+
+    const options = { gasLimit: 600000 };
 
     const ccipLendingProtocol = new ethers.Contract(
       ccipLendingProtocolAddress,
-      CCIPLendingProtocolAbi
+      CCIPLendingProtocolAbi,
+      signer
     );
 
-    let transactionResponse = await ccipLendingProtocol.openProposal(
+
+    let transactionResponse = await ccipLendingProtocol.closeProposal(
+      id,
       amount,
-      usdcToken
+      usdcToken,
+      options
     );
+
     const receipt = await transactionResponse.wait(1);
 
     if (receipt.status == 1) {
@@ -691,7 +717,7 @@ const PostAJob: NextPagePostAJobType = () => {
                     job, you will be able to add tasks further on paying an
                     small fee. Check docs for further information.
                   </p>
-                  <div className={styles.btnDeposit}>
+                  <div className={styles.btnDeposit} onClick={openJobProposal}>
                     <img
                       className={styles.briefcase1Icon}
                       loading="lazy"
