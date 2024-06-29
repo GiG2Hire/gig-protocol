@@ -2026,6 +2026,7 @@
   flex-direction: row;
   justify-content: center;
   max-width: 100%;
+  cursor: pointer;
 }
 .btnDeposit {
   background-color: var(--navy-bk);
