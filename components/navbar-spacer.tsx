@@ -20,11 +20,6 @@ const client = createThirdwebClient({
   clientId: process.env.NEXT_PUBLIC_THIRDWEB_CLIENT_ID,
 });
 
-const connectButtonTheme = lightTheme({
-  colors: {
-    modalBg: "red",
-  },
-});
 
 const wallets = [
   createWallet("io.metamask"),
@@ -117,11 +112,12 @@ const NavbarSpacer: NextPage<NavbarSpacerType> = ({ className = "" }) => {
               client={client}
               wallets={wallets}
               theme={lightTheme({
-                colors: { primaryButtonBg: "#6685E0" },
-                fontFamily: "Serif"
+                colors: { primaryButtonBg: "#3F5DBA", modalBg: "#FBFAE2"},
+                fontFamily: "Unbounded",
               })}
               connectButton={{
-                label: "Connect Wallet"
+                label: "Connect Wallet",
+                style:{fontFamily:"Unbounded"}
               }}
               connectModal={{ size: "compact" , showThirdwebBranding: false}}
       />
