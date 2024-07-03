@@ -2,37 +2,22 @@ import { Fragment } from "react";
 import Head from "next/head";
 import type { AppProps } from "next/app";
 import "./global.css";
-import '@rainbow-me/rainbowkit/styles.css';
 import {
-  getDefaultConfig,
-  RainbowKitProvider,
-} from '@rainbow-me/rainbowkit';
-import { WagmiProvider } from 'wagmi';
-import {
-  mainnet,
-  polygon,
-  optimism,
-  arbitrum,
-  base,
-} from 'wagmi/chains';
-import {
-  QueryClientProvider,
-  QueryClient,
-} from "@tanstack/react-query";
+  ThirdwebProvider,
+  ConnectButton,
+} from "thirdweb/react";
 
-const queryClient = new QueryClient();
-const config = getDefaultConfig({
-  appName: 'My RainbowKit App',
-  projectId: 'YOUR_PROJECT_ID',
-  chains: [mainnet, polygon, optimism, arbitrum, base],
-  ssr: true, // If your dApp uses server side rendering (SSR)
-});
+import {
+  createWallet,
+  walletConnect,
+  inAppWallet,
+} from "thirdweb/wallets";
+
+import { createThirdwebClient } from "thirdweb";
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
-    <WagmiProvider config={config}>
-      <QueryClientProvider client={queryClient}>
-        <RainbowKitProvider>
+    <ThirdwebProvider>
           <Fragment>
             <Head>
               <title>gigfreehire</title>
@@ -43,9 +28,7 @@ function MyApp({ Component, pageProps }: AppProps) {
             </Head>
             <Component {...pageProps} />
           </Fragment>
-        </RainbowKitProvider>
-      </QueryClientProvider>
-    </WagmiProvider>
+    </ThirdwebProvider>
   );
 }
 
