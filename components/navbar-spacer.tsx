@@ -31,7 +31,6 @@ const wallets = [
         "email",
         "google",
         "apple",
-        "facebook",
         "phone",
       ],
     },
