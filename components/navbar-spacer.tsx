@@ -1,11 +1,47 @@
 import type { NextPage } from "next";
 import { useCallback } from "react";
-import { ConnectButton } from "@rainbow-me/rainbowkit";
 import styles from "./navbar-spacer.module.css";
 import Link from "next/link";
+import {
+  ThirdwebProvider,
+  ConnectButton,
+} from "thirdweb/react";
+
+import {
+  createWallet,
+  walletConnect,
+  inAppWallet,
+} from "thirdweb/wallets";
+
+import { createThirdwebClient } from "thirdweb";
+import { lightTheme } from "thirdweb/react";
+
+const client = createThirdwebClient({
+  clientId: process.env.NEXT_PUBLIC_THIRDWEB_CLIENT_ID,
+});
+
+
+const wallets = [
+  createWallet("io.metamask"),
+  createWallet("com.coinbase.wallet"),
+  walletConnect(),
+  inAppWallet({
+    auth: {
+      options: [
+        "email",
+        "google",
+        "apple",
+        "phone",
+      ],
+    },
+  }),
+];
+
 export type NavbarSpacerType = {
   className?: string;
 };
+
+
 
 const NavbarSpacer: NextPage<NavbarSpacerType> = ({ className = "" }) => {
   const onGigLogotypeContainerClick = useCallback(() => {
@@ -71,7 +107,20 @@ const NavbarSpacer: NextPage<NavbarSpacerType> = ({ className = "" }) => {
                 <div className={styles.hlColor2} />
               </div></Link>
             </nav>
-            <ConnectButton />
+            <ConnectButton
+              client={client}
+              wallets={wallets}
+              theme={lightTheme({
+                colors: { primaryButtonBg: "#3F5DBA", modalBg: "#FBFAE2"},
+                fontFamily: "Unbounded",
+              })}
+              connectButton={{
+                label: "Connect Wallet",
+                style:{fontFamily:"Unbounded"}
+              }}
+              connectModal={{ size: "compact" , showThirdwebBranding: false}}
+      />
+
           </div>
         </div>
       </header>
