@@ -19,10 +19,16 @@ const JoinFreelancer: NextPage<JoinFreelancerType> = ({ className = "" }) => {
     };
   // Handle login with github
   const githubLogin = () => {
-    const clientId = 'Ov23liyKADrsIpbypKkj'; // Replace with your actual Client ID
+    const clientId = 'Ov23liyKADrsIpbypKkj; // Replace with your actual Client ID
     const redirectUri = 'http://localhost:3000/job-marketplace/'; // Replace with your callback URL
     const authUrl = `https://github.com/login/oauth/authorize?client_id=${clientId}&redirect_uri=${redirectUri}`;
     window.location.href = authUrl;
+  }
+
+  const xLogin  = () =>{
+    const redirectURL = "http://localhost:3000/freelancer-dashboard/";
+    const authURL = `https://twitter.com/i/oauth2/authorize?response_type=code&client_id=${process.env.NEXT_PUBLIC_X_CLIENT_ID}&redirect_uri=${redirectURL}&scope=tweet.read%20users.read%20follows.read&state=state&code_challenge=challenge&code_challenge_method=plain`;
+    window.location.href = authURL;
   }
   return (
     <div className={styles.container23}>
@@ -83,7 +89,7 @@ const JoinFreelancer: NextPage<JoinFreelancerType> = ({ className = "" }) => {
                   />
                 </div>
               </button>
-              <div className={styles.btnVerify1}>
+              <div className={styles.btnVerify1} onClick={xLogin}>
                 <div className={styles.vectorParent}>
                   <img
                     className={styles.vectorIcon}

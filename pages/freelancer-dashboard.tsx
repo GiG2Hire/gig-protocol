@@ -10,8 +10,17 @@ const FreelancerDashboard: NextPageFreelancerDashboardType = () => {
     router.push("/freelancer-chat");
   }, [router]);
 
+  const xUserVerification = async () =>{
+    const url = window.location.href;
+    const code = url.split("&code=")[1];
+    let res = await fetch("/api/twitter?code=" + code);
+    let jsonRes = await res.json();
+    console.log(jsonRes);
+  }
+
   // Handles github data decode from redirect url
   const userData = () => {
+    xUserVerification();
     console.log(window.location.href);
     const url = window.location.href;
     const code = url.split("?code=")[1];
