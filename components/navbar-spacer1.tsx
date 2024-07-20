@@ -1,6 +1,30 @@
 import type { NextPage } from "next";
 import styles from "./navbar-spacer1.module.css";
 
+import { createThirdwebClient } from "thirdweb";
+import { ConnectButton, lightTheme } from "thirdweb/react";
+import { createWallet, inAppWallet, walletConnect } from "thirdweb/wallets";
+
+const client = createThirdwebClient({
+  clientId: process.env.NEXT_PUBLIC_THIRDWEB_CLIENT_ID,
+});
+
+const wallets = [
+  createWallet("io.metamask"),
+  createWallet("com.coinbase.wallet"),
+  walletConnect(),
+  inAppWallet({
+    auth: {
+      options: [
+        "email",
+        "google",
+        "apple",
+        "phone",
+      ],
+    },
+  }),
+];
+
 export type NavbarSpacerType = {
   className?: string;
 };
@@ -82,6 +106,19 @@ const NavbarSpacer: NextPage<NavbarSpacerType> = ({ className = "" }) => {
             />
           </div>
         </div>
+        <ConnectButton
+              client={client}
+              wallets={wallets}
+              theme={lightTheme({
+                colors: { primaryButtonBg: "#3F5DBA", modalBg: "#FBFAE2"},
+                fontFamily: "Unbounded",
+              })}
+              connectButton={{
+                label: "Connect Wallet",
+                style:{fontFamily:"Unbounded"}
+              }}
+              connectModal={{ size: "compact" , showThirdwebBranding: false}}
+      />
       </div>
     </header>
   );

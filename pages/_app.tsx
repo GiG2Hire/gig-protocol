@@ -14,6 +14,7 @@ import {
 } from "thirdweb/wallets";
 
 import { createThirdwebClient } from "thirdweb";
+import NavbarSpacer from "components/navbar-spacer1";
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
@@ -26,6 +27,7 @@ function MyApp({ Component, pageProps }: AppProps) {
                 content="minimum-scale=1, initial-scale=1, width=device-width"
               />
             </Head>
+            <NavbarSpacer />
             <Component {...pageProps} />
           </Fragment>
     </ThirdwebProvider>
