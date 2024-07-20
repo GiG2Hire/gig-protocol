@@ -2,12 +2,17 @@ import type { NextPage } from "next";
 import { useCallback, useEffect } from "react";
 import { useRouter } from "next/router";
 import styles from "./freelancer-dashboard.module.css";
+import { useActiveAccount } from "thirdweb/react";
 
 const FreelancerDashboard: NextPageFreelancerDashboardType = () => {
   const router = useRouter();
 
+  const account = useActiveAccount();
+  console.log(`account:` + account?.address);
+
+
   const onBtnChatContainerClick = useCallback(() => {
-    router.push("/freelancer-chat");
+    router.push("/chat/123/freelancer-chat");
   }, [router]);
 
   const xUserVerification = async () =>{
@@ -20,7 +25,7 @@ const FreelancerDashboard: NextPageFreelancerDashboardType = () => {
 
   // Handles github data decode from redirect url
   const userData = () => {
-    xUserVerification();
+    // xUserVerification();
     console.log(window.location.href);
     const url = window.location.href;
     const code = url.split("?code=")[1];
@@ -68,71 +73,6 @@ const FreelancerDashboard: NextPageFreelancerDashboardType = () => {
   return (
     <div className={styles.freelancerDashboard}>
       <div className={styles.headerSpacer}>
-        <header className={styles.navbar}>
-          <div className={styles.navigationContainer}>
-            <div className={styles.group}>
-              <img className={styles.logoIcon} alt="" src="/vector.svg" />
-              <img className={styles.vectorIcon} alt="" src="/vector-1.svg" />
-              <img className={styles.vectorIcon1} alt="" src="/vector-2.svg" />
-              <img
-                className={styles.groupIcon}
-                loading="lazy"
-                alt=""
-                src="/group.svg"
-              />
-            </div>
-            <div className={styles.navLinksContainer}>
-              <nav className={styles.navLinks}>
-                <div className={styles.navText}>
-                  <div className={styles.navText1}>
-                    <a className={styles.text}>Find a Gig</a>
-                  </div>
-                  <div className={styles.hlColor} />
-                </div>
-                <div className={styles.navText2}>
-                  <div className={styles.navText3}>
-                    <a className={styles.text1}>Teams</a>
-                  </div>
-                  <div className={styles.hlColor1} />
-                </div>
-                <div className={styles.navText4}>
-                  <div className={styles.navText5}>
-                    <a className={styles.text2}>Dashboard</a>
-                  </div>
-                  <div className={styles.hlColor2} />
-                </div>
-              </nav>
-            </div>
-          </div>
-          <div className={styles.pageContent}>
-            <div className={styles.contentWrapper}>
-              <div className={styles.content}>
-                <img
-                  className={styles.notificationsIcon}
-                  loading="lazy"
-                  alt=""
-                  src="/notifications.svg"
-                />
-                <div className={styles.notificationCount}>
-                  <b className={styles.b}>+1</b>
-                </div>
-              </div>
-              <div className={styles.balanceContainer}>
-                <b className={styles.buidlerlens}>buidler.lens</b>
-                <div className={styles.uSDCBalance}>
-                  <a className={styles.uSD}>1000</a>
-                  <a className={styles.usdc}>USDC</a>
-                </div>
-              </div>
-              <img
-                className={styles.contentWrapperChild}
-                loading="lazy"
-                alt=""
-                src="/frame-1565@2x.png"
-              />
-            </div>
-          </div>
-        </header>
       </div>
       <main className={styles.contentAreaWrapper}>
         <section className={styles.contentArea}>

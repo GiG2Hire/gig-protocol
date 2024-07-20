@@ -1,85 +1,112 @@
 import type { NextPage } from "next";
 import styles from "./freelancer-chat.module.css";
+// import {chat} from "../../../constants/chat";
+import { useEffect, useState } from "react";
+import { useParams } from "next/navigation";
+import { useRouter } from "next/router";
+import { supabase } from '../../../utils/supabase';
+import { PostgrestError } from '@supabase/supabase-js';
+import { useActiveAccount } from "thirdweb/react";
+import { pusherClient } from "../../../lib/pusher";
 
-const FreelancerChat: NextPageFreelancerChatType = () => {
+const FreelancerChat = () => {
+  //clientId-FreelancerId-GigId
+  const chatId = "2-1-1";
+
+  useEffect(()=>{
+    const channel = pusherClient.subscribe("chat-messages");
+    console.log("bind to event completed");
+    channel.bind(`chat__${chatId}`, (data) => {
+      // Method to be dispatched on trigger.
+      console.log("Listener received chat message");
+      console.log(data);
+      setMessages((prev) => [...prev, data]);
+    });
+    return () => {
+      console.log("flush previous channel!!");
+      pusherClient.unsubscribe(
+        "chat-messages"
+      );
+      pusherClient.unbind(`chat__${chatId}`);
+    }
+  }, [chatId]);
+
+  const account = useActiveAccount();
+  console.log(`account:` + account?.address);
+  let currentUser:number;
+  if(account == undefined){
+    //user_id=1
+    console.log("logged in as freelancer!!");
+    currentUser = 1;
+  }else{
+    console.log("logged in as client!!");
+    currentUser = 2;
+  }
+
+  const receiverUser:number = currentUser%2 +1;
+  
+  let initialMessages = [];
+  const [messages, setMessages] = useState([]);
+
+  useEffect(() => {
+    async function getChatMessages() {
+      const { data: chats } = await supabase.from('chat_message').select().in('sender_id', [currentUser, receiverUser])
+      .in('receiver_id', [currentUser, receiverUser])
+      .order('sent_timestamp', { ascending: true });
+
+      if (chats.length > 0) {
+        console.log(chats[0].message);
+        console.log(chats);
+        initialMessages = chats;
+        setMessages(initialMessages);
+      }
+    }
+
+    getChatMessages();
+  }, [])
+  
+  const [chatMsg, setChatMsg] = useState("");
+
+  const sendChatMsg = async (chatMsg:string)=>{
+    console.log("Sending chat message");
+    console.log(chatMsg);
+    const { data, error } = await supabase.from('chat_message').insert([
+      {
+        sender_id: currentUser,
+        receiver_id: receiverUser,
+        message:chatMsg,
+        sent_timestamp:new Date()
+      }
+    ]);
+
+    console.log(`data:` + data);
+    if(error){
+      console.log(`error:` + error.message);
+    }
+    
+
+    const options = {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json;charset=UTF-8",
+      },
+      body: JSON.stringify({
+        chatId:chatId,
+        chatMsg:chatMsg,
+        sender_id:currentUser
+      }),
+    };
+
+    let res = await fetch("/api/pusher",options);
+
+  }
+  const {id} = useParams();
+  console.log( `gig Id:` + id);
+  // we can use gig id to get chat id or directly pass chat id in the http route query
   return (
     <div className={styles.freelancerChat}>
       <div className={styles.headerSpacer}>
-        <header className={styles.navbar}>
-          <div className={styles.groupParent}>
-            <div className={styles.group}>
-              <img className={styles.logoIcon} alt="" src="/vector.svg" />
-              <img
-                className={styles.vectorIcon}
-                loading="lazy"
-                alt=""
-                src="/vector-1.svg"
-              />
-              <img
-                className={styles.vectorIcon1}
-                loading="lazy"
-                alt=""
-                src="/vector-2.svg"
-              />
-              <img
-                className={styles.groupIcon}
-                loading="lazy"
-                alt=""
-                src="/group.svg"
-              />
-            </div>
-            <div className={styles.frameWrapper}>
-              <div className={styles.navTextParent}>
-                <div className={styles.navText}>
-                  <div className={styles.navText1}>
-                    <a className={styles.text}>Find a Gig</a>
-                  </div>
-                  <div className={styles.hlColor} />
-                </div>
-                <div className={styles.navText2}>
-                  <div className={styles.navText3}>
-                    <a className={styles.text1}>Teams</a>
-                  </div>
-                  <div className={styles.hlColor1} />
-                </div>
-                <div className={styles.navText4}>
-                  <div className={styles.navText5}>
-                    <a className={styles.text2}>Dashboard</a>
-                  </div>
-                  <div className={styles.hlColor2} />
-                </div>
-              </div>
-            </div>
-          </div>
-          <div className={styles.navbarInner}>
-            <div className={styles.profileContentParent}>
-              <div className={styles.profileContent}>
-                <img
-                  className={styles.notificationsIcon}
-                  loading="lazy"
-                  alt=""
-                  src="/notifications.svg"
-                />
-                <div className={styles.profilePlaceholderWrapper}>
-                  <b className={styles.profilePlaceholder}>+1</b>
-                </div>
-              </div>
-              <div className={styles.buidlerlensParent}>
-                <b className={styles.buidlerlens}>buidler.lens</b>
-                <div className={styles.uSDCBalanceParent}>
-                  <a className={styles.uSD}>1000</a>
-                  <a className={styles.usdc}>USDC</a>
-                </div>
-              </div>
-              <img
-                className={styles.frameChild}
-                loading="lazy"
-                alt=""
-                src="/frame-1565@2x.png"
-              />
-            </div>
-          </div>
-        </header>
       </div>
       <main className={styles.contentWrapper}>
         <section className={styles.content}>
@@ -356,147 +383,37 @@ const FreelancerChat: NextPageFreelancerChatType = () => {
               </div>
               <div className={styles.chatInputContentParent}>
                 <div className={styles.chatInputContent}>
-                  <div className={styles.freenalceemployerChat}>
-                    <div className={styles.chatMessageItemsWrapper}>
-                      <div className={styles.chatMessageItems}>
-                        <p className={styles.hiSophieIve}>
-                          Hi Sophie, I've started working on the "Dashboard for
-                          Hamster Coins" project. I've outlined the initial
-                          wireframes and planned the key functionalities. Any
-                          specific features you're keen on including?
-                        </p>
-                        <b className={styles.emptyChatMessages}>21:33</b>
-                      </div>
-                    </div>
-                    <div className={styles.freenalceemployerChatInner}>
-                      <div className={styles.hiMaxGladToHearItItsParent}>
-                        <p className={styles.hiMaxGlad}>
-                          Hi Max, glad to hear it! It's crucial we have
-                          real-time tracking of coin value and user portfolio
-                          management. Can we also integrate notifications for
-                          significant market movements?
-                        </p>
-                        <b className={styles.b4}>21:33</b>
-                      </div>
-                    </div>
-                    <div className={styles.freenalceemployerChatChild}>
-                      <div className={styles.absolutelyThoseFeaturesAreParent}>
-                        <p className={styles.absolutelyThoseFeatures}>
-                          Absolutely, those features are top of my list. For the
-                          notifications, I'm thinking of customizable triggers
-                          based on user preferences. Sound good?
-                        </p>
-                        <b className={styles.b5}>21:33</b>
-                      </div>
-                    </div>
-                    <div className={styles.freenalceemployerChatInner1}>
-                      <div className={styles.perfectCustomizableTriggersParent}>
-                        <p className={styles.perfectCustomizableTriggers}>
-                          Perfect! Customizable triggers will add great value.
-                          How about security features? Given the nature of the
-                          data, I want to ensure our users feel safe.
-                        </p>
-                        <b className={styles.b6}>21:33</b>
-                      </div>
-                    </div>
-                    <div className={styles.freenalceemployerChatInner2}>
-                      <div className={styles.securityIsAPriorityIllIParent}>
-                        <p className={styles.securityIsA}>
-                          Security is a priority. I'll implement encryption for
-                          user data and two-factor authentication for login. I'm
-                          also considering a secure API for the real-time data.
-                        </p>
-                        <b className={styles.b7}>21:33</b>
-                      </div>
-                    </div>
-                    <div className={styles.freenalceemployerChatInner3}>
-                      <div className={styles.excellentChoicesMaxTwoFaParent}>
-                        <p className={styles.excellentChoicesMax}>
-                          Excellent choices, Max. Two-factor authentication is a
-                          must. How's the timeline looking? Are we on track?
-                        </p>
-                        <b className={styles.b8}>21:33</b>
-                      </div>
-                    </div>
-                    <div className={styles.freenalceemployerChatInner4}>
-                      <div className={styles.progressingWellImCurrentlParent}>
-                        <p className={styles.progressingWellIm}>
-                          Progressing well. I'm currently ahead of schedule.
-                          Planning to start backend development tomorrow.
-                        </p>
-                        <b className={styles.b9}>21:33</b>
-                      </div>
-                    </div>
-                    <div className={styles.freenalceemployerChatInner5}>
-                      <div className={styles.maxRememberTheJobShouldBParent}>
-                        <p className={styles.maxRememberThe}>
-                          Max, remember the job should be delivered in 3 days.
-                          Make sure everything is polished and functional!
-                        </p>
-                        <b className={styles.b10}>21:33</b>
-                      </div>
-                    </div>
-                    <div className={styles.freenalceemployerChatInner6}>
-                      <div className={styles.rachelIThinkYouMeantToSParent}>
-                        <p className={styles.rachelIThink}>
-                          Rachel, I think you meant to send that to another
-                          freelancer, but no worries! Sophie, regarding the
-                          timeline, we're looking good. Rachel's reminder was
-                          for another project, but it's a good checkpoint for us
-                          too.
-                        </p>
-                        <b className={styles.b11}>21:33</b>
-                      </div>
-                    </div>
-                    <div className={styles.freenalceemployerChatInner7}>
-                      <div className={styles.hahaGotALittleConfusedThParent}>
-                        <p className={styles.hahaGotA}>
-                          Haha, got a little confused there! Thanks for the
-                          update, Max. With the 3-day mark in mind, do you
-                          foresee any potential hurdles?
-                        </p>
-                        <b className={styles.b12}>21:33</b>
-                      </div>
-                    </div>
-                    <div className={styles.freenalceemployerChatInner8}>
-                      <div className={styles.noMajorHurdlesAnticipatedParent}>
-                        <p className={styles.noMajorHurdles}>
-                          No major hurdles anticipated. I've allocated extra
-                          time for testing and refining the dashboard. I'll keep
-                          you posted if anything comes up.
-                        </p>
-                        <b className={styles.b13}>21:33</b>
-                      </div>
-                    </div>
-                    <div className={styles.freenalceemployerChatInner9}>
-                      <div className={styles.soundsLikeYouveGotEverythParent}>
-                        <p className={styles.soundsLikeYouve}>
-                          Sounds like you've got everything under control. I
-                          appreciate the frequent updates. Let's aim for a
-                          smooth final delivery.
-                        </p>
-                        <b className={styles.b14}>21:33</b>
-                      </div>
-                    </div>
-                    <div className={styles.freenalceemployerChatInner10}>
-                      <div className={styles.definitelySophieIllEnsurParent}>
-                        <p className={styles.definitelySophieIll}>
-                          Definitely, Sophie. I'll ensure the dashboard not only
-                          meets but exceeds our expectations. I'll send over the
-                          next update by tomorrow evening.
-                        </p>
-                        <b className={styles.b15}>21:33</b>
-                      </div>
-                    </div>
-                    <div className={styles.freenalceemployerChatInner11}>
-                      <div className={styles.lookingForwardToItMaxThParent}>
-                        <p className={styles.lookingForwardTo}>
-                          Looking forward to it, Max. Thanks for your hard work
-                          and dedication on this project!
-                        </p>
-                        <b className={styles.b16}>21:33</b>
-                      </div>
-                    </div>
+                  <div className={styles.freelancerClientChatMsgBox}>
+                    {
+                      messages.map((c) => {
+                        if(c.sender_id != currentUser){
+                          return(
+                            <div className={styles.freenalceemployerChatInner11}>
+                            <div className={styles.lookingForwardToItMaxThParent}>
+                              <p className={styles.lookingForwardTo}>
+                                {c.message}
+                              </p>
+                              <b className={styles.b16}>21:33</b>
+                            </div>
+                          </div>
+                          );
+                        }else{
+                          return(
+                            <div className={styles.freenalceemployerChatInner10}>
+                            <div className={styles.definitelySophieIllEnsurParent}>
+                              <p className={styles.definitelySophieIll}>
+                                { c.message }
+                              </p>
+                              <b className={styles.b15}>21:33</b>
+                            </div>
+                          </div>
+                          )
+
+                        }
+
+                      })
+                    }
+
                   </div>
                   <div className={styles.chatInputContentInner}>
                     <div className={styles.frameParent11}>
@@ -504,8 +421,9 @@ const FreelancerChat: NextPageFreelancerChatType = () => {
                         className={styles.frameInput}
                         placeholder="Type your message..."
                         type="text"
+                        onChange={(e) => setChatMsg(e.target.value)}
                       />
-                      <div className={styles.btnSend}>
+                      <div className={styles.sendChatMsgBtn} onClick={() => chatMsg?sendChatMsg(chatMsg):null}>
                         <div className={styles.send21}>
                           <img
                             className={styles.sendButtonIcon}

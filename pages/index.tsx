@@ -8,8 +8,11 @@ import FrameComponent1 from "../components/frame-component1";
 import FrameComponent from "../components/frame-component";
 import Footer from "../components/footer";
 import styles from "./index.module.css";
+import { useActiveAccount, useActiveWallet } from "thirdweb/react";
 
 const NewlandingDesktop: NextPageNewlandingDesktopType = () => {
+  const account = useActiveAccount();
+  console.log("Account:" + account?.address);
   return (
     <div className={styles.newlandingDesktop}>
       <NavbarSpacer />
