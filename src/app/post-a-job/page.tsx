@@ -1,9 +1,9 @@
 import type { NextPage } from "next";
-import HeaderSpacer from "../components/header-spacer";
+import HeaderSpacer from "../src/app/components/header-spacer";
 import styles from "./post-a-job.module.css";
 import { ethers } from "ethers";
-import  CCIPLendingProtocolAbi  from "../constants/abi/CCIPLendingProtocol.json";
-import contractAddresses from "../constants/contractAddresses.json";
+import  CCIPLendingProtocolAbi  from "../src/constants/abi/CCIPLendingProtocol.json";
+import contractAddresses from "../src/constants/contractAddresses.json";
 
 const PostAJob: NextPagePostAJobType = () => {
 

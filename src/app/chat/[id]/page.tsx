@@ -4,10 +4,10 @@ import styles from "./freelancer-chat.module.css";
 import { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
 import { useRouter } from "next/router";
-import { supabase } from '../../../utils/supabase';
+import { supabase } from "@/src/utils/supabase";
 import { PostgrestError } from '@supabase/supabase-js';
 import { useActiveAccount } from "thirdweb/react";
-import { pusherClient } from "../../../lib/pusher";
+import { pusherClient } from "@/src/app/lib/pusher";
 
 const FreelancerChat = () => {
   //clientId-FreelancerId-GigId

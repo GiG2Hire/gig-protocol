@@ -1,3 +1,4 @@
+"use client"
 import type { NextPage } from "next";
 import styles from "./join-client.module.css";
 import Link from "next/link";

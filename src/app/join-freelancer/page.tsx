@@ -1,7 +1,8 @@
+"use client"
 import type { NextPage } from "next";
 import ProfileDescription from "./profile-description";
 import styles from "./join-freelancer.module.css";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 export type JoinFreelancerType = {
   className?: string;
 };

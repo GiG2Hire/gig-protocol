@@ -1,13 +1,18 @@
+"use client";
 import type { NextPage } from "next";
 import styles from "./navbar-spacer1.module.css";
 
 import { createThirdwebClient } from "thirdweb";
 import { ConnectButton, lightTheme } from "thirdweb/react";
 import { createWallet, inAppWallet, walletConnect } from "thirdweb/wallets";
+import {
+  generatePayload,
+  isLoggedIn,
+  login,
+  logout,
+} from "@/src/app/actions/login";
+import {client} from "@/src/app/lib/client";
 
-const client = createThirdwebClient({
-  clientId: process.env.NEXT_PUBLIC_THIRDWEB_CLIENT_ID,
-});
 
 const wallets = [
   createWallet("io.metamask"),
@@ -108,6 +113,22 @@ const NavbarSpacer: NextPage<NavbarSpacerType> = ({ className = "" }) => {
         </div>
         <ConnectButton
               client={client}
+              auth={{
+                isLoggedIn: async (address) => {
+                  console.log("checking if logged in!", { address });
+                  return await isLoggedIn();
+                },
+                doLogin: async (params) => {
+                  console.log("logging in!");
+                  await login(params);
+                },
+                getLoginPayload: async ({ address }) =>
+                  generatePayload({ address }),
+                doLogout: async () => {
+                  console.log("logging out!");
+                  await logout();
+                },
+              }}
               wallets={wallets}
               theme={lightTheme({
                 colors: { primaryButtonBg: "#3F5DBA", modalBg: "#FBFAE2"},

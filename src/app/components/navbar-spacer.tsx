@@ -1,3 +1,4 @@
+"use client";
 import type { NextPage } from "next";
 import { useCallback } from "react";
 import styles from "./navbar-spacer.module.css";
@@ -15,10 +16,7 @@ import {
 
 import { createThirdwebClient } from "thirdweb";
 import { lightTheme } from "thirdweb/react";
-
-const client = createThirdwebClient({
-  clientId: process.env.NEXT_PUBLIC_THIRDWEB_CLIENT_ID,
-});
+import {client} from "@/src/app/lib/client";
 
 
 const wallets = [
