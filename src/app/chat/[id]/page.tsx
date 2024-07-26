@@ -1,4 +1,4 @@
-import type { NextPage } from "next";
+"use client"
 import styles from "./freelancer-chat.module.css";
 // import {chat} from "../../../constants/chat";
 import { useEffect, useState } from "react";
@@ -98,7 +98,8 @@ const FreelancerChat = () => {
       }),
     };
 
-    let res = await fetch("/api/pusher",options);
+
+    let res = await fetch("/api/message/send",options);
 
   }
   const {id} = useParams();
