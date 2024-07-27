@@ -3,11 +3,17 @@ import type { NextPage } from "next";
 import ProfileDescription from "./profile-description";
 import styles from "./join-freelancer.module.css";
 import { useRouter } from "next/navigation";
+import { getPayload, isLoggedIn, refreshJWTToken } from "../actions/login";
+import { encodeJWT, refreshJWT } from "thirdweb/utils";
+import { LoginTicket } from "google-auth-library";
+import { useActiveAccount } from "thirdweb/react";
+
 export type JoinFreelancerType = {
   className?: string;
 };
 
 const JoinFreelancer: NextPage<JoinFreelancerType> = ({ className = "" }) => {
+  const account = useActiveAccount();
   const router = useRouter();
   const handleClick = () => {
     router.push({
@@ -33,6 +39,34 @@ const JoinFreelancer: NextPage<JoinFreelancerType> = ({ className = "" }) => {
   }
 
   const joinAsFreelancer = async ()=>{
+    let payload = await getPayload();
+    console.log(payload);
+    const userId = payload.ctx.userId;
+    const role = payload.ctx.role;
+    payload.ctx.role = "Freelancer";
+    payload.exp = new Date(Date.now() + 1000 * 60 * 60);
+    payload.nbf = new Date();
+    payload.iat = new Date();
+    
+    const encodeJWTParams = {
+      payload:payload,
+      account,
+    }
+    
+    const jwt = await encodeJWT(encodeJWTParams);
+
+    // const newjwt = await refreshJWT({
+    //   account,
+    //   jwt
+    // });
+
+    await refreshJWTToken(jwt);
+
+    console.log(`newjwt: ${jwt}`);
+
+    const newpayload = await getPayload();
+    console.log(newpayload);
+
     const options = {
       method: "POST",
       headers: {
@@ -47,6 +81,8 @@ const JoinFreelancer: NextPage<JoinFreelancerType> = ({ className = "" }) => {
 
     let res = await fetch("/api/user/freelancer",options);
   }
+
+  
 
   return (
     <div className={styles.container23}>

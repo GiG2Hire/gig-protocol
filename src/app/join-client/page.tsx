@@ -2,11 +2,60 @@
 import type { NextPage } from "next";
 import styles from "./join-client.module.css";
 import Link from "next/link";
+import { useActiveAccount } from "thirdweb/react";
+import { getPayload, refreshJWTToken } from "../actions/login";
+import { encodeJWT } from "thirdweb/utils";
 export type JoinClientType = {
   className?: string;
 };
 
 const JoinClient: NextPage<JoinClientType> = ({ className = "" }) => {
+
+  const account = useActiveAccount();
+
+  const joinAsClient = async ()=>{
+    let payload = await getPayload();
+    console.log(payload);
+    const userId = payload.ctx.userId;
+    const role = payload.ctx.role;
+    payload.ctx.role = "Client";
+    payload.exp = new Date(Date.now() + 1000 * 60 * 60);
+    payload.nbf = new Date();
+    payload.iat = new Date();
+    
+    const encodeJWTParams = {
+      payload:payload,
+      account,
+    }
+    
+    const jwt = await encodeJWT(encodeJWTParams);
+
+    // const newjwt = await refreshJWT({
+    //   account,
+    //   jwt
+    // });
+
+    await refreshJWTToken(jwt);
+
+    console.log(`newjwt: ${jwt}`);
+
+    const newpayload = await getPayload();
+    console.log(newpayload);
+
+    const options = {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json;charset=UTF-8",
+      },
+      body: JSON.stringify({
+        userId:userId,
+        role:"Client"
+      }),
+    };
+
+    let res = await fetch("/api/user/client",options);
+  }
 
   return (
     <div className={styles.container23}>
@@ -70,7 +119,7 @@ const JoinClient: NextPage<JoinClientType> = ({ className = "" }) => {
           </div>
          <div className={styles.backParent}>
          <Link href="/"> <b className={styles.back}>Back</b></Link>
-            <button className={styles.btnJoingig}>
+            <button className={styles.btnJoingig} onClick={joinAsClient}>
               <img
                 className={styles.gig2hire1Icon}
                 alt=""

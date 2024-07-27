@@ -12,6 +12,7 @@ import {
   logout,
 } from "@/src/app/actions/login";
 import {client} from "@/src/app/lib/client";
+import { useState } from "react";
 
 
 const wallets = [
@@ -35,6 +36,13 @@ export type NavbarSpacerType = {
 };
 
 const NavbarSpacer: NextPage<NavbarSpacerType> = ({ className = "" }) => {
+
+  let [role, setRole] = useState<string>("");
+  let [userId, setUserId] = useState<number>(-1);
+
+
+  //executed as soon as wallet is connected and before JWT token is generated
+  // so you can get user Id at this time itself
   async function persistUserInDatabase(wallet:Wallet) {
     const address = wallet.getAccount()?.address;
     console.log("Persisting user in database");
@@ -49,7 +57,25 @@ const NavbarSpacer: NextPage<NavbarSpacerType> = ({ className = "" }) => {
       }),
     };
 
-    let res = await fetch("/api/user",options);
+    //check if user already exists
+    console.log("checking for existing user!!")
+    let existingUser = await fetch(`/api/user/detail?address=${address}`);
+    console.log("existing user", existingUser);
+    let body = await existingUser.json();
+    console.log(body);
+    
+    if(body.length == 1){
+      console.log(`user: ${body[0]}`);
+      setUserId(body[0].user_id);
+      setRole(body[0].role);
+      console.log("User already exists");
+    }else{
+        let res = await fetch("/api/user",options);
+        let asdfg = await res.json();
+        console.log(asdfg);
+        setUserId(asdfg[0].user_id);
+        setRole(asdfg[0].role);
+    }
   }
 
   return (
@@ -137,10 +163,10 @@ const NavbarSpacer: NextPage<NavbarSpacerType> = ({ className = "" }) => {
                 },
                 doLogin: async (params) => {
                   console.log("logging in!");
-                  await login(params);
+                  await login(params, role, userId);
                 },
                 getLoginPayload: async ({ address }) =>
-                  generatePayload({ address }),
+                  generatePayload({ address}),
                 doLogout: async () => {
                   console.log("logging out!");
                   await logout();
@@ -157,8 +183,8 @@ const NavbarSpacer: NextPage<NavbarSpacerType> = ({ className = "" }) => {
               }}
               connectModal={{ size: "compact" , showThirdwebBranding: false}}
               onConnect={(wallet) => {
+                console.log("Wallet is connected");
                 console.log("Connected to ", wallet.getAccount()?.address);
-
                 persistUserInDatabase(wallet);
               }}
       />
