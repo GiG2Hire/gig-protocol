@@ -1,13 +1,13 @@
-import type { NextPage } from "next";
+"use client"
 import styles from "./freelancer-chat.module.css";
 // import {chat} from "../../../constants/chat";
 import { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
 import { useRouter } from "next/router";
-import { supabase } from '../../../utils/supabase';
+import { supabase } from "@/src/utils/supabase";
 import { PostgrestError } from '@supabase/supabase-js';
 import { useActiveAccount } from "thirdweb/react";
-import { pusherClient } from "../../../lib/pusher";
+import { pusherClient } from "@/src/app/lib/pusher";
 
 const FreelancerChat = () => {
   //clientId-FreelancerId-GigId
@@ -98,7 +98,8 @@ const FreelancerChat = () => {
       }),
     };
 
-    let res = await fetch("/api/pusher",options);
+
+    let res = await fetch("/api/message/send",options);
 
   }
   const {id} = useParams();

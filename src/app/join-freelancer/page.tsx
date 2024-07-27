@@ -1,12 +1,19 @@
+"use client"
 import type { NextPage } from "next";
 import ProfileDescription from "./profile-description";
 import styles from "./join-freelancer.module.css";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
+import { getPayload, isLoggedIn, refreshJWTToken } from "../actions/login";
+import { encodeJWT, refreshJWT } from "thirdweb/utils";
+import { LoginTicket } from "google-auth-library";
+import { useActiveAccount } from "thirdweb/react";
+
 export type JoinFreelancerType = {
   className?: string;
 };
 
 const JoinFreelancer: NextPage<JoinFreelancerType> = ({ className = "" }) => {
+  const account = useActiveAccount();
   const router = useRouter();
   const handleClick = () => {
     router.push({
@@ -30,6 +37,53 @@ const JoinFreelancer: NextPage<JoinFreelancerType> = ({ className = "" }) => {
     const authURL = `https://twitter.com/i/oauth2/authorize?response_type=code&client_id=${process.env.NEXT_PUBLIC_X_CLIENT_ID}&redirect_uri=${redirectURL}&scope=tweet.read%20users.read%20follows.read&state=state&code_challenge=challenge&code_challenge_method=plain`;
     window.location.href = authURL;
   }
+
+  const joinAsFreelancer = async ()=>{
+    let payload = await getPayload();
+    console.log(payload);
+    const userId = payload.ctx.userId;
+    const role = payload.ctx.role;
+    payload.ctx.role = "Freelancer";
+    payload.exp = new Date(Date.now() + 1000 * 60 * 60);
+    payload.nbf = new Date();
+    payload.iat = new Date();
+    
+    const encodeJWTParams = {
+      payload:payload,
+      account,
+    }
+    
+    const jwt = await encodeJWT(encodeJWTParams);
+
+    // const newjwt = await refreshJWT({
+    //   account,
+    //   jwt
+    // });
+
+    await refreshJWTToken(jwt);
+
+    console.log(`newjwt: ${jwt}`);
+
+    const newpayload = await getPayload();
+    console.log(newpayload);
+
+    const options = {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json;charset=UTF-8",
+      },
+      body: JSON.stringify({
+        userId:userId,
+        role:"Freelancer"
+      }),
+    };
+
+    let res = await fetch("/api/user/freelancer",options);
+  }
+
+  
+
   return (
     <div className={styles.container23}>
     <div className={[styles.joinFreelancer, className].join(" ")}>
@@ -135,7 +189,7 @@ const JoinFreelancer: NextPage<JoinFreelancerType> = ({ className = "" }) => {
             <button onClick={handleClick} className={styles.back} id="back">
               Back
             </button>
-            <button className={styles.btnJoingig} id="btnjoingig">
+            <button className={styles.btnJoingig} id="btnjoingig" onClick={joinAsFreelancer}>
               <img
                 className={styles.gig2hire1Icon}
                 alt=""
