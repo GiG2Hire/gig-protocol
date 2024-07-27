@@ -4,7 +4,7 @@ import styles from "./navbar-spacer1.module.css";
 
 import { createThirdwebClient } from "thirdweb";
 import { ConnectButton, lightTheme } from "thirdweb/react";
-import { createWallet, inAppWallet, walletConnect } from "thirdweb/wallets";
+import { createWallet, inAppWallet, Wallet, walletConnect } from "thirdweb/wallets";
 import {
   generatePayload,
   isLoggedIn,
@@ -35,6 +35,23 @@ export type NavbarSpacerType = {
 };
 
 const NavbarSpacer: NextPage<NavbarSpacerType> = ({ className = "" }) => {
+  async function persistUserInDatabase(wallet:Wallet) {
+    const address = wallet.getAccount()?.address;
+    console.log("Persisting user in database");
+    const options = {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json;charset=UTF-8",
+      },
+      body: JSON.stringify({
+        address:address
+      }),
+    };
+
+    let res = await fetch("/api/user",options);
+  }
+
   return (
     <header className={[styles.navbarSpacer, className].join(" ")}>
       <div className={styles.navbar}>
@@ -139,6 +156,11 @@ const NavbarSpacer: NextPage<NavbarSpacerType> = ({ className = "" }) => {
                 style:{fontFamily:"Unbounded"}
               }}
               connectModal={{ size: "compact" , showThirdwebBranding: false}}
+              onConnect={(wallet) => {
+                console.log("Connected to ", wallet.getAccount()?.address);
+
+                persistUserInDatabase(wallet);
+              }}
       />
       </div>
     </header>
