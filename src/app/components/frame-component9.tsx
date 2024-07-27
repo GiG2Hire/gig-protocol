@@ -1,7 +1,7 @@
+"use client"
 import type { NextPage } from "next";
 import styles from "./frame-component9.module.css";
-import { useRouter } from "next/router";
-import { Route } from "react-router-dom";
+import { useRouter } from "next/navigation";
 export type FrameComponent9Type = {
   className?: string;
 };
@@ -9,23 +9,11 @@ export type FrameComponent9Type = {
 const FrameComponent9: NextPage<FrameComponent9Type> = ({ className = "" }) => {
   const router = useRouter();
   const handleClick = () => {
-    router.push({
-    pathname: '/join-freelancer',
-    query: {
-      name: 'Source Freeze',
-      count: 30,
-    },
-    });
+    router.push('/join-freelancer');
     };
     const handleClick1 = () => {
-      router.push({
-      pathname: '/join-client',
-      query: {
-        name: 'Source Freeze',
-        count: 30,
-      },
-      });
-      };
+      router.push('/join-client');
+    };
     
   return (
     <div  className={[styles.heroWrapper, className,styles.spaces].join(" ")}>
