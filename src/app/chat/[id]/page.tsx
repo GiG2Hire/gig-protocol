@@ -1,19 +1,22 @@
-"use client"
+"use client";
 import styles from "./freelancer-chat.module.css";
 // import {chat} from "../../../constants/chat";
 import { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
 import { useRouter } from "next/router";
 import { supabase } from "@/src/utils/supabase";
-import { PostgrestError } from '@supabase/supabase-js';
+import { PostgrestError } from "@supabase/supabase-js";
 import { useActiveAccount } from "thirdweb/react";
 import { pusherClient } from "@/src/app/lib/pusher";
+import { prepareConversation } from "@/src/utils/prepare-conversation";
+import ChatSentiment from "../../components/chat-sentiment";
 
 const FreelancerChat = () => {
   //clientId-FreelancerId-GigId
   const chatId = "2-1-1";
+  let [sentiment, setSentiment] = useState("");
 
-  useEffect(()=>{
+  useEffect(() => {
     const channel = pusherClient.subscribe("chat-messages");
     console.log("bind to event completed");
     channel.bind(`chat__${chatId}`, (data) => {
@@ -24,35 +27,37 @@ const FreelancerChat = () => {
     });
     return () => {
       console.log("flush previous channel!!");
-      pusherClient.unsubscribe(
-        "chat-messages"
-      );
+      pusherClient.unsubscribe("chat-messages");
       pusherClient.unbind(`chat__${chatId}`);
-    }
+    };
   }, [chatId]);
 
   const account = useActiveAccount();
   console.log(`account:` + account?.address);
-  let currentUser:number;
-  if(account == undefined){
+  let currentUser: number;
+  if (account == undefined) {
     //user_id=1
     console.log("logged in as freelancer!!");
     currentUser = 1;
-  }else{
+  } else {
     console.log("logged in as client!!");
     currentUser = 2;
   }
 
-  const receiverUser:number = currentUser%2 +1;
-  
+  const receiverUser: number = (currentUser % 2) + 1;
+
   let initialMessages = [];
   const [messages, setMessages] = useState([]);
 
+  // empty dependency array means it runs only on initial render
   useEffect(() => {
     async function getChatMessages() {
-      const { data: chats } = await supabase.from('chat_message').select().in('sender_id', [currentUser, receiverUser])
-      .in('receiver_id', [currentUser, receiverUser])
-      .order('sent_timestamp', { ascending: true });
+      const { data: chats } = await supabase
+        .from("chat_message")
+        .select()
+        .in("sender_id", [currentUser, receiverUser])
+        .in("receiver_id", [currentUser, receiverUser])
+        .order("sent_timestamp", { ascending: true });
 
       if (chats.length > 0) {
         console.log(chats[0].message);
@@ -63,27 +68,26 @@ const FreelancerChat = () => {
     }
 
     getChatMessages();
-  }, [])
-  
+  }, []);
+
   const [chatMsg, setChatMsg] = useState("");
 
-  const sendChatMsg = async (chatMsg:string)=>{
+  const sendChatMsg = async (chatMsg: string) => {
     console.log("Sending chat message");
     console.log(chatMsg);
-    const { data, error } = await supabase.from('chat_message').insert([
-      {
-        sender_id: currentUser,
-        receiver_id: receiverUser,
-        message:chatMsg,
-        sent_timestamp:new Date()
-      }
-    ]);
+    // const { data, error } = await supabase.from("chat_message").insert([
+    //   {
+    //     sender_id: currentUser,
+    //     receiver_id: receiverUser,
+    //     message: chatMsg,
+    //     sent_timestamp: new Date(),
+    //   },
+    // ]);
 
-    console.log(`data:` + data);
-    if(error){
-      console.log(`error:` + error.message);
-    }
-    
+    // console.log(`data:` + data);
+    // if (error) {
+    //   console.log(`error:` + error.message);
+    // }
 
     const options = {
       method: "POST",
@@ -92,23 +96,33 @@ const FreelancerChat = () => {
         "Content-Type": "application/json;charset=UTF-8",
       },
       body: JSON.stringify({
-        chatId:chatId,
-        chatMsg:chatMsg,
-        sender_id:currentUser
+        chatId: chatId,
+        conversation: prepareConversation(messages, true),
       }),
     };
 
+    // let res = await fetch("/api/message/send", options);
 
-    let res = await fetch("/api/message/send",options);
-
-  }
-  const {id} = useParams();
-  console.log( `gig Id:` + id);
+    console.log("Determining chat sentiment via Gemini API");
+    let geminiSentiment = await fetch("/api/chat/sentiment/gemini", options);
+    console.log("Got sentiment from gemini api");
+    console.log(geminiSentiment);
+    const sentimentJson = await geminiSentiment.json();
+    console.log(sentimentJson[0].candidates[0].output);
+    sentiment = sentimentJson[0].candidates[0].output;
+    const jsonSentiment = JSON.parse(sentiment);
+    setSentiment(
+      jsonSentiment["sentiment"] +
+        "\nexplaination:" +
+        jsonSentiment["explanation"]
+    );
+  };
+  const { id } = useParams();
+  console.log(`gig Id:` + id);
   // we can use gig id to get chat id or directly pass chat id in the http route query
   return (
     <div className={styles.freelancerChat}>
-      <div className={styles.headerSpacer}>
-      </div>
+      <div className={styles.headerSpacer}></div>
       <main className={styles.contentWrapper}>
         <section className={styles.content}>
           <div className={styles.frameParent}>
@@ -385,36 +399,35 @@ const FreelancerChat = () => {
               <div className={styles.chatInputContentParent}>
                 <div className={styles.chatInputContent}>
                   <div className={styles.freelancerClientChatMsgBox}>
-                    {
-                      messages.map((c) => {
-                        if(c.sender_id != currentUser){
-                          return(
-                            <div className={styles.freenalceemployerChatInner11}>
-                            <div className={styles.lookingForwardToItMaxThParent}>
+                    {messages.map((c) => {
+                      if (c.sender_id != currentUser) {
+                        return (
+                          <div className={styles.freenalceemployerChatInner11}>
+                            <div
+                              className={styles.lookingForwardToItMaxThParent}
+                            >
                               <p className={styles.lookingForwardTo}>
                                 {c.message}
                               </p>
                               <b className={styles.b16}>21:33</b>
                             </div>
                           </div>
-                          );
-                        }else{
-                          return(
-                            <div className={styles.freenalceemployerChatInner10}>
-                            <div className={styles.definitelySophieIllEnsurParent}>
+                        );
+                      } else {
+                        return (
+                          <div className={styles.freenalceemployerChatInner10}>
+                            <div
+                              className={styles.definitelySophieIllEnsurParent}
+                            >
                               <p className={styles.definitelySophieIll}>
-                                { c.message }
+                                {c.message}
                               </p>
                               <b className={styles.b15}>21:33</b>
                             </div>
                           </div>
-                          )
-
-                        }
-
-                      })
-                    }
-
+                        );
+                      }
+                    })}
                   </div>
                   <div className={styles.chatInputContentInner}>
                     <div className={styles.frameParent11}>
@@ -424,7 +437,10 @@ const FreelancerChat = () => {
                         type="text"
                         onChange={(e) => setChatMsg(e.target.value)}
                       />
-                      <div className={styles.sendChatMsgBtn} onClick={() => chatMsg?sendChatMsg(chatMsg):null}>
+                      <div
+                        className={styles.sendChatMsgBtn}
+                        onClick={() => (chatMsg ? sendChatMsg(chatMsg) : null)}
+                      >
                         <div className={styles.send21}>
                           <img
                             className={styles.sendButtonIcon}
@@ -438,7 +454,8 @@ const FreelancerChat = () => {
                 </div>
                 <div className={styles.jobSubmissionContentParent}>
                   <div className={styles.jobSubmissionContent}>
-                    <div className={styles.collectingContainer}>
+                    <ChatSentiment sentiment={sentiment} />
+                    {/* <div className={styles.collectingContainer}>
                       <div className={styles.collectingHeader}>
                         <div className={styles.collecting}>Collecting:</div>
                         <div className={styles.collectingAmount}>
@@ -462,7 +479,7 @@ const FreelancerChat = () => {
                           </b>
                         </div>
                       </div>
-                    </div>
+                    </div> */}
                     <div className={styles.tasksContentParent}>
                       <div className={styles.tasksContent}>
                         <div className={styles.keepTrackOf}>
