@@ -1,13 +1,12 @@
 import type { NextPage } from "next";
-import NavbarSpacer from "../src/app/components/navbar-spacer1";
-import JobCategories from "../src/app/components/job-categories";
-import Footer from "../src/app/components/footer1";
+import NavbarSpacer from "@/src/app/components/navbar-spacer1";
+import JobCategories from "@/src/app/components/job-categories";
+import Footer from "@/src/app/components/footer1";
 import styles from "./job-marketplace.module.css";
 
 const JobMarketplace: NextPageJobMarketplaceType = () => {
   return (
     <div className={styles.jobMarketplace}>
-      <NavbarSpacer />
       <main className={styles.pageContent}>
         <section className={styles.contentHeader}>
           <div className={styles.pageTitleContainerParent}>
