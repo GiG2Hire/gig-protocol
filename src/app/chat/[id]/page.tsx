@@ -13,16 +13,16 @@ import ChatSentiment from "../../components/chat-sentiment";
 
 const FreelancerChat = () => {
   const sentimentToCodeMapping = {
-    negative: "5",
-    "slightly negative": "4",
-    neutral: "3",
-    "slightly positive": "2",
-    "very positive": "1",
+    negative: ["5", "Not good. Review all tasks."],
+    "slightly negative": ["4", "Is everything ok?"],
+    neutral: ["3", "Something seems missing..."],
+    "slightly positive": ["2", "You are almost there."],
+    "very positive": ["1", "Everything seems on track!"],
   };
   const sentimentObj: Sentiment = {};
   //clientId-FreelancerId-GigId
   const chatId = "2-1-1";
-  let [sentiment, setSentiment] = useState("3");
+  let [sentiment, setSentiment] = useState({});
 
   useEffect(() => {
     const channel = pusherClient.subscribe("chat-messages");
@@ -120,11 +120,12 @@ const FreelancerChat = () => {
     sentiment = sentimentJson[0].candidates[0].output;
     const jsonSentiment = JSON.parse(sentiment);
     const s: string = jsonSentiment["sentiment"];
-    sentimentObj.code = sentimentToCodeMapping[s];
+    sentimentObj.code = sentimentToCodeMapping[s][0];
     sentimentObj.sentiment = jsonSentiment["sentiment"];
     sentimentObj.explaination = jsonSentiment["explanation"];
+    sentimentObj.displayMessage = sentimentToCodeMapping[s][1];
     console.log(sentimentObj);
-    setSentiment(sentimentObj.code);
+    setSentiment(sentimentObj);
   };
   const { id } = useParams();
   console.log(`gig Id:` + id);

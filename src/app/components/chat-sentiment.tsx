@@ -2,15 +2,15 @@ import styles from "./chat-sentiment.module.css";
 export default function ChatSentiment({ sentiment, className = "" }) {
   console.log("Current sentiment number:", sentiment);
   const sentimentBgColor = () => {
-    if (sentiment == "1") {
+    if (sentiment.code == "1") {
       return styles.sentimentExcited;
-    } else if (sentiment == "2") {
+    } else if (sentiment.code == "2") {
       return styles.sentimentSatisfied;
-    } else if (sentiment == "3") {
+    } else if (sentiment.code == "3") {
       return styles.sentimentNeutral;
-    } else if (sentiment == "4") {
+    } else if (sentiment.code == "4") {
       return styles.sentimentDissatisfied;
-    } else if (sentiment == "5") {
+    } else if (sentiment.code == "5") {
       return styles.sentimentVeryDissatisfied;
     } else {
       return styles.sentimentNeutral;
@@ -33,7 +33,7 @@ export default function ChatSentiment({ sentiment, className = "" }) {
             loading="lazy"
             alt=""
             src={
-              sentiment == "5"
+              sentiment.code == "5"
                 ? "/sentiment-very-dissatisfied-lg.svg"
                 : "/sentiment-very-dissatisfied.svg"
             }
@@ -45,7 +45,7 @@ export default function ChatSentiment({ sentiment, className = "" }) {
             loading="lazy"
             alt=""
             src={
-              sentiment == "4"
+              sentiment.code == "4"
                 ? "/sentiment-dissatisfied-lg.svg"
                 : "/sentiment-dissatisfied.svg"
             }
@@ -57,7 +57,7 @@ export default function ChatSentiment({ sentiment, className = "" }) {
             loading="lazy"
             alt=""
             src={
-              sentiment == "3"
+              sentiment.code == "3"
                 ? "/sentiment-neutral-lg.svg"
                 : "/sentiment-neutral.svg"
             }
@@ -69,7 +69,7 @@ export default function ChatSentiment({ sentiment, className = "" }) {
             loading="lazy"
             alt=""
             src={
-              sentiment == "2"
+              sentiment.code == "2"
                 ? "/sentiment-satisfied-lg.svg"
                 : "/sentiment-satisfied.svg"
             }
@@ -81,14 +81,14 @@ export default function ChatSentiment({ sentiment, className = "" }) {
             loading="lazy"
             alt=""
             src={
-              sentiment == "1"
+              sentiment.code == "1"
                 ? "/sentiment-excited-lg.svg"
                 : "/sentiment-excited.svg"
             }
           />
         </div>
       </div>
-      <div className={styles.everythingSeemsOn}>Everything seems on track!</div>
+      <div className={styles.everythingSeemsOn}>{sentiment.displayMessage}</div>
     </div>
   );
 }
