@@ -1,5 +1,6 @@
 import type { NextPage } from "next";
 import styles from "./footer1.module.css";
+import Link from "next/link";
 
 export type FooterType = {
   className?: string;
@@ -21,21 +22,25 @@ const Footer: NextPage<FooterType> = ({ className = "" }) => {
       </div>
       <div className={styles.footerSocialMedia}>
         <div className={styles.socialMedia}>
-          <img
-            className={styles.socialMediaIconFirst}
-            loading="lazy"
-            alt=""
-            src="/vector-7.svg"
-          />
+          <Link href="https://x.com/gig2hire">
+            <img
+              className={styles.socialMediaIconFirst}
+              loading="lazy"
+              alt=""
+              src="/vector-7.svg"
+            />
+          </Link>
         </div>
       </div>
       <div className={styles.socialMedia1}>
+      <Link href="https://discord.com/channels/1201947165455290409/1258067746126823456">
         <img
           className={styles.socialMediaIconSecond}
           loading="lazy"
           alt=""
           src="/vector-8.svg"
         />
+      </Link>
       </div>
     </footer>
   );

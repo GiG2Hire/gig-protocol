@@ -4,16 +4,20 @@ import styles from "./navbar-spacer1.module.css";
 
 import { createThirdwebClient } from "thirdweb";
 import { ConnectButton, lightTheme } from "thirdweb/react";
-import { createWallet, inAppWallet, Wallet, walletConnect } from "thirdweb/wallets";
+import {
+  createWallet,
+  inAppWallet,
+  Wallet,
+  walletConnect,
+} from "thirdweb/wallets";
 import {
   generatePayload,
   isLoggedIn,
   login,
   logout,
 } from "@/src/app/actions/login";
-import {client} from "@/src/app/lib/client";
+import { client } from "@/src/app/lib/client";
 import { useState } from "react";
-
 
 const wallets = [
   createWallet("io.metamask"),
@@ -21,12 +25,7 @@ const wallets = [
   walletConnect(),
   inAppWallet({
     auth: {
-      options: [
-        "email",
-        "google",
-        "apple",
-        "phone",
-      ],
+      options: ["email", "google", "apple", "phone"],
     },
   }),
 ];
@@ -36,45 +35,47 @@ export type NavbarSpacerType = {
 };
 
 const NavbarSpacer: NextPage<NavbarSpacerType> = ({ className = "" }) => {
-
   let [role, setRole] = useState<string>("");
   let [userId, setUserId] = useState<number>(-1);
 
-
-  //executed as soon as wallet is connected and before JWT token is generated
-  // so you can get user Id at this time itself
-  async function persistUserInDatabase(wallet:Wallet) {
+  /**
+   * @notice executed as soon as wallet is connected and before JWT token is generated
+   * @notice The dApp gets user Id or creates a new user in database
+   * @param wallet connect user wallet
+   */
+  async function getOrCreateUserInDatabase(wallet: Wallet) {
+    console.log("Trying to check if user already exists in database...");
     const address = wallet.getAccount()?.address;
-    console.log("Persisting user in database");
-    const options = {
-      method: "POST",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json;charset=UTF-8",
-      },
-      body: JSON.stringify({
-        address:address
-      }),
-    };
-
-    //check if user already exists
-    console.log("checking for existing user!!")
-    let existingUser = await fetch(`/api/user/detail?address=${address}`);
-    console.log("existing user", existingUser);
-    let body = await existingUser.json();
-    console.log(body);
-    
-    if(body.length == 1){
-      console.log(`user: ${body[0]}`);
-      setUserId(body[0].user_id);
-      setRole(body[0].role);
-      console.log("User already exists");
-    }else{
-        let res = await fetch("/api/user",options);
-        let asdfg = await res.json();
-        console.log(asdfg);
-        setUserId(asdfg[0].user_id);
-        setRole(asdfg[0].role);
+    let existingUserResponse: Response = await fetch(
+      `/api/user/detail?address=${address}`
+    );
+    console.log("Exisitng user:", existingUserResponse);
+    if (existingUserResponse.status == 200) {
+      let existingUser: User = await existingUserResponse.json();
+      console.log("------------------------", existingUser);
+      if (existingUser.user_id) {
+        console.log("Existing User Found!!");
+        setUserId(existingUser.user_id);
+        setRole(existingUser.role);
+      }
+      console.log("Set up done as exisitng useer!!");
+    } else {
+      console.log("New User needs to be created. Creating new user...");
+      const options = {
+        method: "POST",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json;charset=UTF-8",
+        },
+        body: JSON.stringify({
+          address: address,
+        }),
+      };
+      let newUserResponse = await fetch("/api/user", options);
+      let newUser = await newUserResponse.json();
+      console.log(newUser);
+      setUserId(newUser.user_id);
+      setRole(newUser.role);
     }
   }
 
@@ -155,39 +156,39 @@ const NavbarSpacer: NextPage<NavbarSpacerType> = ({ className = "" }) => {
           </div>
         </div>
         <ConnectButton
-              client={client}
-              auth={{
-                isLoggedIn: async (address) => {
-                  console.log("checking if logged in!", { address });
-                  return await isLoggedIn();
-                },
-                doLogin: async (params) => {
-                  console.log("logging in!");
-                  await login(params, role, userId);
-                },
-                getLoginPayload: async ({ address }) =>
-                  generatePayload({ address}),
-                doLogout: async () => {
-                  console.log("logging out!");
-                  await logout();
-                },
-              }}
-              wallets={wallets}
-              theme={lightTheme({
-                colors: { primaryButtonBg: "#3F5DBA", modalBg: "#FBFAE2"},
-                fontFamily: "Unbounded",
-              })}
-              connectButton={{
-                label: "Connect Wallet",
-                style:{fontFamily:"Unbounded"}
-              }}
-              connectModal={{ size: "compact" , showThirdwebBranding: false}}
-              onConnect={(wallet) => {
-                console.log("Wallet is connected");
-                console.log("Connected to ", wallet.getAccount()?.address);
-                persistUserInDatabase(wallet);
-              }}
-      />
+          client={client}
+          auth={{
+            isLoggedIn: async (address) => {
+              console.log("checking if logged in!", { address });
+              return await isLoggedIn();
+            },
+            doLogin: async (params) => {
+              console.log("logging in!");
+              await login(params, role, userId);
+            },
+            getLoginPayload: async ({ address }) =>
+              generatePayload({ address }),
+            doLogout: async () => {
+              console.log("logging out!");
+              await logout();
+            },
+          }}
+          wallets={wallets}
+          theme={lightTheme({
+            colors: { primaryButtonBg: "#3F5DBA", modalBg: "#FBFAE2" },
+            fontFamily: "Unbounded",
+          })}
+          connectButton={{
+            label: "Connect Wallet",
+            style: { fontFamily: "Unbounded" },
+          }}
+          connectModal={{ size: "compact", showThirdwebBranding: false }}
+          onConnect={async (wallet) => {
+            console.log("Wallet is connected");
+            console.log("Connected to ", wallet.getAccount()?.address);
+            await getOrCreateUserInDatabase(wallet);
+          }}
+        />
       </div>
     </header>
   );

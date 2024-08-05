@@ -4,7 +4,8 @@ import { privateKeyToAccount } from "thirdweb/wallets";
 import { client } from "@/src/app/lib/client";
 import { cookies } from "next/headers";
 import { useActiveAccount } from "thirdweb/react";
-import { decodeJWT } from "thirdweb/utils";
+import { decodeJWT, encodeJWT, JWTPayload } from "thirdweb/utils";
+import { FREELANCER } from "@/src/constants/appConstants";
 
 const privateKey = process.env.THIRDWEB_ADMIN_PRIVATE_KEY || "";
 
@@ -19,7 +20,11 @@ const thirdwebAuth = createAuth({
 
 export const generatePayload = thirdwebAuth.generatePayload;
 
-export async function login(payload: VerifyLoginPayloadParams, role:string, userId:number) {
+export async function login(
+  payload: VerifyLoginPayloadParams,
+  role: string,
+  userId: number
+) {
   const verifiedPayload = await thirdwebAuth.verifyPayload(payload);
   console.log(verifiedPayload);
   console.log(`role: ${role}`);
@@ -29,7 +34,7 @@ export async function login(payload: VerifyLoginPayloadParams, role:string, user
       payload: verifiedPayload.payload,
       context: {
         role: role,
-        userId: userId
+        userId: userId,
       },
     });
     cookies().set("jwt", jwt);
@@ -45,21 +50,22 @@ export async function isLoggedIn() {
   console.log(jwt.value);
   const authResult = await thirdwebAuth.verifyJWT({ jwt: jwt.value });
   if (!authResult.valid) {
-    return false
+    return false;
   }
   return true;
 }
 
 export async function logout() {
+  console.log("Deleting JWT Token!!");
   cookies().delete("jwt");
 }
 
-export async function getPayload(){
+export async function getPayload() {
   const jwtToken = cookies().get("jwt");
   const { payload, signature } = decodeJWT(jwtToken?.value);
   return payload;
 }
 
-export async function refreshJWTToken(jwt:string){
+export async function refreshJWTToken(jwt: string) {
   cookies().set("jwt", jwt);
 }
