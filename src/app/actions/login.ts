@@ -70,6 +70,12 @@ export async function refreshJWTToken(jwt: string) {
   cookies().set("jwt", jwt);
 }
 
+export async function getUserIdFromPayload() {
+  const jwtToken = cookies().get("jwt");
+  const { payload, signature } = decodeJWT(jwtToken?.value);
+  return payload.ctx.userId;
+}
+
 /**
  * @notice executed as soon as wallet is connected and before JWT token is generated
  * @notice The dApp gets user Id or creates a new user in database

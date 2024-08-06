@@ -10,8 +10,12 @@ import { useActiveAccount } from "thirdweb/react";
 import { pusherClient } from "@/src/app/lib/pusher";
 import { prepareConversation } from "@/src/utils/prepare-conversation";
 import ChatSentiment from "../../components/chat-sentiment";
+import { getUserIdFromPayload } from "../../actions/login";
 
 const FreelancerChat = () => {
+  const { id } = useParams();
+  console.log(`gig Id:` + id);
+
   const sentimentToCodeMapping = {
     negative: ["5", "Not good. Review all tasks."],
     "slightly negative": ["4", "Is everything ok?"],
@@ -21,7 +25,7 @@ const FreelancerChat = () => {
   };
   const sentimentObj: Sentiment = {};
   //clientId-FreelancerId-GigId
-  const chatId = "2-1-1";
+  const chatId = id;
   let [sentiment, setSentiment] = useState({});
 
   useEffect(() => {
@@ -43,16 +47,23 @@ const FreelancerChat = () => {
   const account = useActiveAccount();
   console.log(`account:` + account?.address);
   let currentUser: number;
-  if (account == undefined) {
-    //user_id=1
-    console.log("logged in as freelancer!!");
-    currentUser = 1;
-  } else {
-    console.log("logged in as client!!");
-    currentUser = 2;
+  // if (account == undefined) {
+  //   //user_id=1
+  //   console.log("logged in as freelancer!!");
+  //   currentUser = 1;
+  // } else {
+  //   console.log("logged in as client!!");
+  //   currentUser = 2;
+  // }
+
+  if (!currentUser) {
+    currentUser = Number(chatId.split("-")[1]);
+    console.log("-----------------current suer", currentUser);
   }
 
-  const receiverUser: number = (currentUser % 2) + 1;
+  // const receiverUser: number = (currentUser % 2) + 1;
+  const receiverUser: number = Number(chatId.split("-")[0]);
+  console.log("-------------------------------------------", receiverUser);
 
   let initialMessages = [];
   const [messages, setMessages] = useState([]);
@@ -127,8 +138,7 @@ const FreelancerChat = () => {
     console.log(sentimentObj);
     setSentiment(sentimentObj);
   };
-  const { id } = useParams();
-  console.log(`gig Id:` + id);
+
   // we can use gig id to get chat id or directly pass chat id in the http route query
   return (
     <div className={styles.freelancerChat}>
