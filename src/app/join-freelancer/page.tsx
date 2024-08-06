@@ -91,6 +91,7 @@ const JoinFreelancer: NextPage<JoinFreelancerType> = ({ className = "" }) => {
     let UpdatedUserResponse = await fetch("/api/user/freelancer", options);
     if (UpdatedUserResponse.status == STATUS_200) {
       console.log("User Role Updated as Freelancer");
+      router.push("/freelancer-dashboard");
     }
   };
 
