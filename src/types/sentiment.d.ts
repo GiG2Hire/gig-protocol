@@ -1,6 +1,6 @@
 interface Sentiment {
   code: string;
-  explaination: string;
+  explanation: string;
   sentiment: string;
   displayMessage: string;
 }
