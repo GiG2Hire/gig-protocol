@@ -1,4 +1,5 @@
 import { supabase } from "@/src/utils/supabase";
+import { redirect } from "next/navigation";
 
 export async function POST(req: Request) {
   console.log("Inside POST /user/freelancer/");
@@ -20,4 +21,5 @@ export async function POST(req: Request) {
 
   const updatedUser: User = data[0];
   return Response.json(updatedUser, { status: 200 });
+  // return Response.redirect("http://localhost:3000/freelancer-dashboard");
 }

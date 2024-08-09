@@ -8,7 +8,7 @@ const FreelancerDashboard: NextPageFreelancerDashboardType = () => {
   const router = useRouter();
 
   const onBtnChatContainerClick = useCallback(() => {
-    router.push("/chat/123/");
+    router.push("/chat/2-1-1/");
   }, [router]);
 
   return (

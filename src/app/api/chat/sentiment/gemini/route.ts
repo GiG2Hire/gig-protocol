@@ -1,8 +1,11 @@
 import { TextServiceClient } from "@google-ai/generativelanguage";
 import { GoogleAuth } from "google-auth-library";
 
-import type { NextApiRequest, NextApiResponse } from "next";
-
+/**
+ * @notice Calculate sentiment from conversation using Gemini API
+ * @param req chatId, conversation
+ * @returns sentiment, explaination as json
+ */
 export async function POST(req: Request) {
   const { chatId, conversation } = await req.json();
   console.log(conversation);
@@ -37,5 +40,5 @@ export async function POST(req: Request) {
 
   console.log("got the result from gemini api!!");
   console.log(JSON.stringify(result, null, 2));
-  return Response.json(result);
+  return Response.json(result, { status: 200 });
 }
