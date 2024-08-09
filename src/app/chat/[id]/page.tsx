@@ -68,11 +68,16 @@ const FreelancerChat = ({ params, searchParams }) => {
   let [sentiment, setSentiment] = useState({});
 
   /**
-   * chatId dependency ensures new messages corresponding to new chat id are loaded
+   * chatId dependency ensures new messages corresponding to new chat id are loaded.
+   * channel object:to bind to events on a particular channel.
+   * pusherClient object: to bind to events on all subscribed channels simultaneously.
    */
   useEffect(() => {
+    // pusher client subscribes to a channel
     const channel = pusherClient.subscribe("chat-messages");
     console.log("bind to event completed");
+
+    //bind function to event to  listen to published events
     channel.bind(`chat__${chatId}`, (data: PusherMessage) => {
       // Method to be dispatched on trigger.
       console.log("Listener received chat message");
@@ -85,7 +90,7 @@ const FreelancerChat = ({ params, searchParams }) => {
     return () => {
       console.log("flush previous channel!!");
       pusherClient.unsubscribe("chat-messages");
-      pusherClient.unbind(`chat__${chatId}`);
+      channel.unbind(`chat__${chatId}`);
     };
   }, [chatId]);
 
@@ -123,6 +128,7 @@ const FreelancerChat = ({ params, searchParams }) => {
           console.log("New chat, no sentiment has been generated");
           // Set sentiment indicator when no messages have been exchanged for a chat
         } else {
+          console.log(geminiSentiment);
           const sentimentText = geminiSentiment[0].gemini_sentiment;
           sentimentDetails.code = sentimentToCodeMapping[sentimentText][0];
           sentimentDetails.sentiment = sentimentText;
@@ -130,6 +136,7 @@ const FreelancerChat = ({ params, searchParams }) => {
           sentimentDetails.displayMessage =
             sentimentToCodeMapping[sentimentText][1];
           setSentiment(sentimentDetails);
+          console.log("setting initial sentiment as:", sentimentDetails);
         }
       }
     }
@@ -187,7 +194,7 @@ const FreelancerChat = ({ params, searchParams }) => {
     let res = await fetch("/api/message/send", sendChatMsgOptions);
     if (res.status == 200) {
       setChatMsg("");
-      console.log("Published message successfully to pusher!!");
+      console.log("Published event successfully to pusher!!");
     }
 
     const options = {
@@ -226,7 +233,7 @@ const FreelancerChat = ({ params, searchParams }) => {
     const sentimentType: string = actualGeminiSentiment["sentiment"];
 
     sentimentDetails.code = sentimentToCodeMapping[sentimentType][0];
-    sentimentDetails.sentiment = actualGeminiSentiment["sentiment"];
+    sentimentDetails.sentiment = actualGeminiSentiment["overall_sentiment"];
     sentimentDetails.explanation = actualGeminiSentiment["explanation"];
     sentimentDetails.displayMessage = sentimentToCodeMapping[sentimentType][1];
 

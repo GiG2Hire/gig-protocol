@@ -6,5 +6,5 @@ export const SENTIMENT_TO_CODE_MAPPING = {
   "slightly negative": ["4", "Is everything ok?"],
   neutral: ["3", "Something seems missing..."],
   "slightly positive": ["2", "You are almost there."],
-  positive: ["1", "Everything seems on track!"],
+  "very positive": ["1", "Everything seems on track!"],
 };
