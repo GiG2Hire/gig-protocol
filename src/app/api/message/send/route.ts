@@ -10,12 +10,14 @@ import { STATUS_200 } from "@/src/constants/appConstants";
 export async function POST(req: Request) {
   const { senderId, receiverId, chatMsg, sentTimestamp, chatId } =
     await req.json();
-  console.log("sent message to pusher");
+
   try {
+    // publish an event: chat__chatId to chat-messages channel
     pusherServer.trigger("chat-messages", `chat__${chatId}`, {
       message: chatMsg,
       sender_id: senderId,
     });
+    console.log("Successfully published event to pusher channel!!");
   } catch (error) {
     if (error instanceof Error) {
       return new Response(error.message, { status: 500 });
