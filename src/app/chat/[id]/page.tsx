@@ -180,11 +180,15 @@ const FreelancerChat = ({ params, searchParams }) => {
       sendChatMsgOptions
     );
 
+    let conversation;
+
     if (sendChatMsgResponse.status == 201) {
       console.log("Message stored in database successfully");
       const sentMessage = await sendChatMsgResponse.json();
       console.log("messages list updated - line 145");
-
+      conversation = prepareConversation([...messages, sentMessage], true);
+      // set function only updates the state variable for the next render.
+      // If you read the state variable after calling the set function, you will still get the old value
       setMessages((prev) => [...prev, sentMessage]);
       console.log(messages);
     } else {
@@ -192,6 +196,7 @@ const FreelancerChat = ({ params, searchParams }) => {
     }
 
     let res = await fetch("/api/message/send", sendChatMsgOptions);
+
     if (res.status == 200) {
       setChatMsg("");
       console.log("Published event successfully to pusher!!");
@@ -205,7 +210,7 @@ const FreelancerChat = ({ params, searchParams }) => {
       },
       body: JSON.stringify({
         chatId: chatId,
-        conversation: prepareConversation(messages, true),
+        conversation: conversation,
       }),
     };
 
@@ -222,18 +227,19 @@ const FreelancerChat = ({ params, searchParams }) => {
     }
 
     const geminiSentiment = await geminiSentimentResponse.json();
-    console.log(geminiSentiment[0].candidates[0].output);
+    console.log(geminiSentiment);
+    console.log(geminiSentiment.response.candidates[0].content.parts[0].text);
 
     // contains sentiment type and explanation
     const actualGeminiSentiment = JSON.parse(
-      geminiSentiment[0].candidates[0].output
+      geminiSentiment.response.candidates[0].content.parts[0].text
     );
 
     // positive, negative, neutral etc.
     const sentimentType: string = actualGeminiSentiment["sentiment"];
 
     sentimentDetails.code = sentimentToCodeMapping[sentimentType][0];
-    sentimentDetails.sentiment = actualGeminiSentiment["overall_sentiment"];
+    sentimentDetails.sentiment = actualGeminiSentiment["sentiment"];
     sentimentDetails.explanation = actualGeminiSentiment["explanation"];
     sentimentDetails.displayMessage = sentimentToCodeMapping[sentimentType][1];
 
