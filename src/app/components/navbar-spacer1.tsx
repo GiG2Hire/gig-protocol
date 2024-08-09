@@ -193,6 +193,9 @@ const NavbarSpacer: NextPage<NavbarSpacerType> = ({ className = "" }) => {
             //   await getOrCreateUserInDatabase(wallet);
             // }
           }}
+          onDisconnect={async ({ wallet, account }) => {
+            await logout();
+          }}
         />
       </div>
     </header>

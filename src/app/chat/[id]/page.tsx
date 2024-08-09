@@ -2,40 +2,85 @@
 import styles from "./freelancer-chat.module.css";
 // import {chat} from "../../../constants/chat";
 import { useEffect, useState } from "react";
-import { useParams } from "next/navigation";
-import { useRouter } from "next/router";
+import { useParams, usePathname, useSearchParams } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { supabase } from "@/src/utils/supabase";
 import { PostgrestError } from "@supabase/supabase-js";
 import { useActiveAccount } from "thirdweb/react";
 import { pusherClient } from "@/src/app/lib/pusher";
 import { prepareConversation } from "@/src/utils/prepare-conversation";
 import ChatSentiment from "../../components/chat-sentiment";
-import { getUserIdFromPayload } from "../../actions/login";
+import { getRoleFromPayload, getUserIdFromPayload } from "../../actions/login";
+import {
+  FREELANCER,
+  SENTIMENT_TO_CODE_MAPPING,
+  STATUS_200,
+} from "@/src/constants/appConstants";
 
-const FreelancerChat = () => {
-  const { id } = useParams();
-  console.log(`gig Id:` + id);
+const FreelancerChat = ({ params, searchParams }) => {
+  console.log("----------------------", searchParams);
+  console.log("params --0--------", params);
+  // console.log(params);
+  // const router = useRouter();
+  // console.log(router);
+  // const { id } = useParams();
+  // console.log(useParams());
+  // const searchParams = useSearchParams();
+  // console.log("searchParams", searchParams);
+  // console.log("parmas use kar leo", useParams());
 
-  const sentimentToCodeMapping = {
-    negative: ["5", "Not good. Review all tasks."],
-    "slightly negative": ["4", "Is everything ok?"],
-    neutral: ["3", "Something seems missing..."],
-    "slightly positive": ["2", "You are almost there."],
-    "very positive": ["1", "Everything seems on track!"],
-  };
-  const sentimentObj: Sentiment = {};
+  // const pathname = usePathname();
+  // console.log(pathname);
+
+  // const url = new URL(window.location.href);
+  // console.log(url);
+  // console.log(url.search);
+  // const searchParams = new URLSearchParams(url.search);
+  // console.log(searchParams);
+  // const userId = searchParams.get("userId");
+
+  // console.log("usser id lelo", userId);
+
   //clientId-FreelancerId-GigId
-  const chatId = id;
+  const id = params.id;
+  const chatId: string = id;
+  const currentUser: number = searchParams.userId;
+  let receiverUser: number;
+
+  const client: number = Number(chatId.split("-")[0]);
+  const freelancer: number = Number(chatId.split("-")[1]);
+  if (currentUser == client) {
+    receiverUser = freelancer;
+  } else {
+    receiverUser = client;
+  }
+
+  const sentimentToCodeMapping = SENTIMENT_TO_CODE_MAPPING;
+
+  const [messages, setMessages] = useState([]);
+  const [chatMsg, setChatMsg] = useState<string>("");
+  // const messages = [];
+  // const chatMsg = "";
+  // const sentiment = {};
+
+  let sentimentDetails: Sentiment = {};
+
   let [sentiment, setSentiment] = useState({});
 
+  /**
+   * chatId dependency ensures new messages corresponding to new chat id are loaded
+   */
   useEffect(() => {
     const channel = pusherClient.subscribe("chat-messages");
     console.log("bind to event completed");
-    channel.bind(`chat__${chatId}`, (data) => {
+    channel.bind(`chat__${chatId}`, (data: PusherMessage) => {
       // Method to be dispatched on trigger.
       console.log("Listener received chat message");
       console.log(data);
-      setMessages((prev) => [...prev, data]);
+      if (data.sender_id != currentUser) {
+        console.log("Messages List Updated - line 48");
+        setMessages((prev) => [...prev, data]);
+      }
     });
     return () => {
       console.log("flush previous channel!!");
@@ -44,69 +89,106 @@ const FreelancerChat = () => {
     };
   }, [chatId]);
 
-  const account = useActiveAccount();
-  console.log(`account:` + account?.address);
-  let currentUser: number;
-  // if (account == undefined) {
-  //   //user_id=1
-  //   console.log("logged in as freelancer!!");
-  //   currentUser = 1;
-  // } else {
-  //   console.log("logged in as client!!");
-  //   currentUser = 2;
-  // }
-
-  if (!currentUser) {
-    currentUser = Number(chatId.split("-")[1]);
-    console.log("-----------------current suer", currentUser);
-  }
-
-  // const receiverUser: number = (currentUser % 2) + 1;
-  const receiverUser: number = Number(chatId.split("-")[0]);
-  console.log("-------------------------------------------", receiverUser);
-
-  let initialMessages = [];
-  const [messages, setMessages] = useState([]);
-
-  // empty dependency array means it runs only on initial render
+  /**
+   * empty dependency array means it runs only on initial render
+   * @author mgroovyank(Mayank Chhipa)
+   */
   useEffect(() => {
+    /**
+     * get initial messages to load in chat window
+     */
     async function getChatMessages() {
-      const { data: chats } = await supabase
-        .from("chat_message")
-        .select()
-        .in("sender_id", [currentUser, receiverUser])
-        .in("receiver_id", [currentUser, receiverUser])
-        .order("sent_timestamp", { ascending: true });
+      const initialMessagesResponse: Response = await fetch(
+        `/api/chat/retrieve?senderId=${currentUser}&receiverId=${receiverUser}`
+      );
 
-      if (chats.length > 0) {
-        console.log(chats[0].message);
-        console.log(chats);
-        initialMessages = chats;
+      if (initialMessagesResponse.status == 200) {
+        const initialMessages = await initialMessagesResponse.json();
+        console.log("messages list updated - line 74");
         setMessages(initialMessages);
       }
     }
 
+    /**
+     * get gemini api sentiment for exisiting chat messages
+     */
+    async function getGeminiSentiment() {
+      const geminiSentimentResponse: Response = await fetch(
+        `/api/chat/sentiment/gemini/retrieve?chatId=${chatId}`
+      );
+
+      if (geminiSentimentResponse.status == 200) {
+        const geminiSentiment = await geminiSentimentResponse.json();
+        if (geminiSentiment.length == 0) {
+          console.log("New chat, no sentiment has been generated");
+          // Set sentiment indicator when no messages have been exchanged for a chat
+        } else {
+          const sentimentText = geminiSentiment[0].gemini_sentiment;
+          sentimentDetails.code = sentimentToCodeMapping[sentimentText][0];
+          sentimentDetails.sentiment = sentimentText;
+          sentimentDetails.explanation = "";
+          sentimentDetails.displayMessage =
+            sentimentToCodeMapping[sentimentText][1];
+          setSentiment(sentimentDetails);
+        }
+      }
+    }
     getChatMessages();
+    getGeminiSentiment();
   }, []);
 
-  const [chatMsg, setChatMsg] = useState("");
-
-  const sendChatMsg = async (chatMsg: string) => {
+  /**
+   * Store message in database and publish message to pusher to enable realtime communication
+   * @notice prioritize storing message in database over sending to pusher to enable future retrieval of sent
+   * messages even in case of pusher failure
+   * @dev enable database persistence and pusher publish asynchronously
+   * @param chatMsg message to be sent to receiver user
+   * @author mgroovyank (Mayank Chhipa)
+   */
+  const sendChatMsg = async () => {
+    if (chatMsg == "") {
+      return;
+    }
+    // TODO: enable database persistence and pusher publish asynchronously
     console.log("Sending chat message");
     console.log(chatMsg);
-    // const { data, error } = await supabase.from("chat_message").insert([
-    //   {
-    //     sender_id: currentUser,
-    //     receiver_id: receiverUser,
-    //     message: chatMsg,
-    //     sent_timestamp: new Date(),
-    //   },
-    // ]);
+    console.log("receiver user:--------------", receiverUser);
+    const sendChatMsgOptions = {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json;charset=UTF-8",
+      },
+      body: JSON.stringify({
+        senderId: currentUser,
+        receiverId: receiverUser,
+        chatMsg: chatMsg,
+        sentTimestamp: new Date(),
+        chatId: chatId,
+      }),
+    };
+    console.log(sendChatMsgOptions);
+    const sendChatMsgResponse = await fetch(
+      "/api/chat/send",
+      sendChatMsgOptions
+    );
 
-    // console.log(`data:` + data);
-    // if (error) {
-    //   console.log(`error:` + error.message);
-    // }
+    if (sendChatMsgResponse.status == 201) {
+      console.log("Message stored in database successfully");
+      const sentMessage = await sendChatMsgResponse.json();
+      console.log("messages list updated - line 145");
+
+      setMessages((prev) => [...prev, sentMessage]);
+      console.log(messages);
+    } else {
+      console.log("Failed to store message in database!!");
+    }
+
+    let res = await fetch("/api/message/send", sendChatMsgOptions);
+    if (res.status == 200) {
+      setChatMsg("");
+      console.log("Published message successfully to pusher!!");
+    }
 
     const options = {
       method: "POST",
@@ -120,23 +202,57 @@ const FreelancerChat = () => {
       }),
     };
 
-    // let res = await fetch("/api/message/send", options);
-
     console.log("Determining chat sentiment via Gemini API");
-    let geminiSentiment = await fetch("/api/chat/sentiment/gemini", options);
-    console.log("Got sentiment from gemini api");
-    console.log(geminiSentiment);
-    const sentimentJson = await geminiSentiment.json();
-    console.log(sentimentJson[0].candidates[0].output);
-    sentiment = sentimentJson[0].candidates[0].output;
-    const jsonSentiment = JSON.parse(sentiment);
-    const s: string = jsonSentiment["sentiment"];
-    sentimentObj.code = sentimentToCodeMapping[s][0];
-    sentimentObj.sentiment = jsonSentiment["sentiment"];
-    sentimentObj.explaination = jsonSentiment["explanation"];
-    sentimentObj.displayMessage = sentimentToCodeMapping[s][1];
-    console.log(sentimentObj);
-    setSentiment(sentimentObj);
+
+    let geminiSentimentResponse = await fetch(
+      "/api/chat/sentiment/gemini",
+      options
+    );
+
+    if (geminiSentimentResponse.status == STATUS_200) {
+      console.log("Got sentiment from gemini api");
+      console.log(geminiSentimentResponse);
+    }
+
+    const geminiSentiment = await geminiSentimentResponse.json();
+    console.log(geminiSentiment[0].candidates[0].output);
+
+    // contains sentiment type and explanation
+    const actualGeminiSentiment = JSON.parse(
+      geminiSentiment[0].candidates[0].output
+    );
+
+    // positive, negative, neutral etc.
+    const sentimentType: string = actualGeminiSentiment["sentiment"];
+
+    sentimentDetails.code = sentimentToCodeMapping[sentimentType][0];
+    sentimentDetails.sentiment = actualGeminiSentiment["sentiment"];
+    sentimentDetails.explanation = actualGeminiSentiment["explanation"];
+    sentimentDetails.displayMessage = sentimentToCodeMapping[sentimentType][1];
+
+    console.log(sentimentDetails);
+    setSentiment(sentimentDetails);
+
+    const storeSentimentoptions = {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json;charset=UTF-8",
+      },
+      body: JSON.stringify({
+        chatId: chatId,
+        sentiment: sentimentDetails.sentiment,
+      }),
+    };
+
+    const storeSentimentResponse = await fetch(
+      "/api/chat/sentiment/gemini/store",
+      storeSentimentoptions
+    );
+
+    if (storeSentimentResponse.status == 201) {
+      console.log("Successfully stored sentiment in database!!");
+    }
   };
 
   // we can use gig id to get chat id or directly pass chat id in the http route query
@@ -419,15 +535,16 @@ const FreelancerChat = () => {
               <div className={styles.chatInputContentParent}>
                 <div className={styles.chatInputContent}>
                   <div className={styles.freelancerClientChatMsgBox}>
-                    {messages.map((c) => {
-                      if (c.sender_id != currentUser) {
+                    {messages.map((message) => {
+                      console.log("idhar currebt useer", currentUser);
+                      if (message.sender_id != currentUser) {
                         return (
                           <div className={styles.freenalceemployerChatInner11}>
                             <div
                               className={styles.lookingForwardToItMaxThParent}
                             >
                               <p className={styles.lookingForwardTo}>
-                                {c.message}
+                                {message.message}
                               </p>
                               <b className={styles.b16}>21:33</b>
                             </div>
@@ -440,7 +557,7 @@ const FreelancerChat = () => {
                               className={styles.definitelySophieIllEnsurParent}
                             >
                               <p className={styles.definitelySophieIll}>
-                                {c.message}
+                                {message.message}
                               </p>
                               <b className={styles.b15}>21:33</b>
                             </div>
@@ -459,7 +576,7 @@ const FreelancerChat = () => {
                       />
                       <div
                         className={styles.sendChatMsgBtn}
-                        onClick={() => (chatMsg ? sendChatMsg(chatMsg) : null)}
+                        onClick={sendChatMsg}
                       >
                         <div className={styles.send21}>
                           <img

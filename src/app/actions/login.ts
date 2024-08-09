@@ -76,6 +76,12 @@ export async function getUserIdFromPayload() {
   return payload.ctx.userId;
 }
 
+export async function getRoleFromPayload() {
+  const jwtToken = cookies().get("jwt");
+  const { payload, signature } = decodeJWT(jwtToken?.value);
+  return payload.ctx.role;
+}
+
 /**
  * @notice executed as soon as wallet is connected and before JWT token is generated
  * @notice The dApp gets user Id or creates a new user in database

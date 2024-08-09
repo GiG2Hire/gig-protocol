@@ -1,6 +1,11 @@
 import { supabase } from "@/src/utils/supabase";
 import { redirect } from "next/navigation";
 
+/**
+ * @notice create a new gig by client
+ * @param req clientid, description, gigValue
+ * @returns success/failure of create gig
+ */
 export async function POST(req: Request) {
   console.log("Inside POST /gig/create/");
 

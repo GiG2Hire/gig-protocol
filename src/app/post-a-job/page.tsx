@@ -7,10 +7,10 @@ import CCIPLendingProtocolAbi from "@/src/constants/abi/CCIPLendingProtocol.json
 import contractAddresses from "@/src/constants/contractAddresses.json";
 import { client } from "../lib/client";
 
+/**
+ * Create Gig posting by client
+ */
 const createGig = async () => {
-  console.log(
-    "sdjkhsjhsdjkhsdjkhsdjkshdjksdhjksjsjksddsjksdjksdnjksdnjksdnsjdn"
-  );
   const options = {
     method: "POST",
     headers: {
