@@ -1,4 +1,6 @@
-const abi = [
+import { AbiFunction, AbiEvent } from "thirdweb";
+
+const abi: (AbiFunction | AbiEvent)[] = [
     {
         "inputs": [
             {
@@ -1714,25 +1716,36 @@ const abi = [
     }
 ];
 
+const ethereum_rpc_url = process.env.NEXT_PUBLIC_ETHEREUM_RPC_URL;
+const optimism_rpc_url = process.env.NEXT_PUBLIC_OPTIMISM_RPC_URL;
+const arbitrum_rpc_url = process.env.NEXT_PUBLIC_ARBITRUM_RPC_URL;
+const base_rpc_url = process.env.NEXT_PUBLIC_BASE_RPC_URL;
+
 const testnetAddresses = {
     "ethereum": {
-        "rpcUrl": "https://eth-sepolia.g.alchemy.com/v2/XDxCy7a-8Sc0_oZVpza-UuM_Wmm5bRWo",
+        "rpcUrl": ethereum_rpc_url,
         "selector": 16015286601757825753,
-        "addressContract": "0x6Ae43d3271ff6888e7Fc43Fd7321a503ff738951",
+        "addressPool": "0x6Ae43d3271ff6888e7Fc43Fd7321a503ff738951",
         "addressUsdc": "0x94a9D9AC8a22534E3FaCa9F4e7F2E2cf85d5E4C8"
     },
-    "avalanche": {
-        "rpcUrl": "https://avalanche-fuji-c-chain-rpc.publicnode.com",
-        "selector": 14767482510784806043,
-        "addressContract": "0xccEa5C65f6d4F465B71501418b88FBe4e7071283",
-        "addressUsdc": "0xCaC7Ffa82c0f43EBB0FC11FCd32123EcA46626cf"
-    },
     "arbitrum": {
-        "rpcUrl": "https://arb-sepolia.g.alchemy.com/v2/nwbb5BkUmCyN13FWTAt-OjWi2myd10kX",
+        "rpcUrl": arbitrum_rpc_url,
         "selector": 3478487238524512106,
-        "addressContract": "0xBfC91D59fdAA134A4ED45f7B584cAf96D7792Eff",
+        "addressPool": "0xBfC91D59fdAA134A4ED45f7B584cAf96D7792Eff",
         "addressUsdc": "0x75faf114eafb1BDbe2F0316DF893fd58CE46AA4d"
+    },
+    "base": {
+        "rpcUrl": base_rpc_url,
+        "selector": 10344971235874465080,
+        "addressPool": "0x07eA79F68B2B3df564D0A34F8e19D9B1e339814b",
+        "addressUsdc": "0x036CbD53842c5426634e7929541eC2318f3dCF7e"
+    },
+    "optimism": {
+        "rpcUrl": optimism_rpc_url,
+        "selector": 5224473277236331295,
+        "addressPool": "0xb50201558B00496A145fE76f7424749556E326D8",
+        "addressUsdc": "0x5fd84259d66Cd46123540766Be93DFE6D43130D7"
     }
 }
 
-module.exports = { abi, testnetAddresses };
+export { abi, testnetAddresses };

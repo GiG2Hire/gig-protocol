@@ -3,16 +3,18 @@ import type { NextPage } from "next";
 import HeaderSpacer from "@/src/app/components/header-spacer";
 import styles from "./post-a-job.module.css";
 import { ethers } from "ethers";
-import  CCIPLendingProtocolAbi  from "@/src/constants/abi/CCIPLendingProtocol.json";
+import CCIPLendingProtocolAbi from "@/src/constants/abi/CCIPLendingProtocol.json";
 import contractAddresses from "@/src/constants/contractAddresses.json";
+import { approveUSDCandOpenProposal } from "../actions/choose-and-open";
 
 const PostAJob: NextPagePostAJobType = () => {
 
   // sender deployed on Avalance Fuji Testnet
   const ccipLendingProtocolAddress = contractAddresses[43113][0];
   const usdcToken = process.env.NEXT_PUBLIC_AVALANCHE_FUJI_USDC_TOKEN;
-  const account:any = process.env.NEXT_PUBLIC_FUJI_PRIVATE_KEY;
+  const account: any = process.env.NEXT_PUBLIC_FUJI_PRIVATE_KEY;
 
+  /*
   const openJobProposal = async () =>{
     console.log("Trying to Open Job Proposal");
     const amount:Number = 1;
@@ -44,8 +46,9 @@ const PostAJob: NextPagePostAJobType = () => {
       console.log("Open Job Proposal Successful!");
     }
   }
+  */
 
-  const closeJobProposal = async () =>{
+  const closeJobProposal = async () => {
     console.log("Trying to Close Job Proposal");
     const id = 1;
     const amount = 1;
@@ -718,7 +721,7 @@ const PostAJob: NextPagePostAJobType = () => {
                     job, you will be able to add tasks further on paying an
                     small fee. Check docs for further information.
                   </p>
-                  <div className={styles.btnDeposit} onClick={openJobProposal}>
+                  <div className={styles.btnDeposit} onClick={approveUSDCandOpenProposal(11155111, process.env.NEXT_PUBLIC_ETHEREUM_RPC_URL, process.env.NEXT_PUBLIC_ETHEREUM_POOL)}>
                     <img
                       className={styles.briefcase1Icon}
                       loading="lazy"
