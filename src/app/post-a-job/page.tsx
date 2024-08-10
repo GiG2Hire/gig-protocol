@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import type { NextPage } from "next";
 import HeaderSpacer from "@/src/app/components/header-spacer";
 import styles from "./post-a-job.module.css";
@@ -6,9 +6,34 @@ import { ethers } from "ethers";
 import CCIPLendingProtocolAbi from "@/src/constants/abi/CCIPLendingProtocol.json";
 import contractAddresses from "@/src/constants/contractAddresses.json";
 import { approveUSDCandOpenProposal } from "../actions/choose-and-open";
+import { client } from "../lib/client";
 
+/**
+ * Create Gig posting by client
+ */
+const createGig = async () => {
+  const options = {
+    method: "POST",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json;charset=UTF-8",
+    },
+    body: JSON.stringify({
+      clientId: 2,
+      description:
+        "Create an awesome web3 based Freelance Marketplace that can make us all rich, happy and satisfied!!",
+      gigValue: 108,
+    }),
+  };
+  const createGigResponse = await fetch("/api/gig/create", options);
+  if (createGigResponse.status == 200) {
+    console.log("Gig created successfully!!");
+  } else {
+    const createGigStatus = await createGigResponse.json();
+    console.log(createGigStatus);
+  }
+};
 const PostAJob: NextPagePostAJobType = () => {
-
   // sender deployed on Avalance Fuji Testnet
   const ccipLendingProtocolAddress = contractAddresses[43113][0];
   const usdcToken = process.env.NEXT_PUBLIC_AVALANCHE_FUJI_USDC_TOKEN;
@@ -17,10 +42,10 @@ const PostAJob: NextPagePostAJobType = () => {
   /*
   const openJobProposal = async () =>{
     console.log("Trying to Open Job Proposal");
-    const amount:Number = 1;
+    const amount: Number = 1;
     const signer = new ethers.Wallet(
       account,
-      new ethers.providers.JsonRpcProvider(process.env.NEXT_PUBLIC_FUJI_RPC_URL),
+      new ethers.providers.JsonRpcProvider(process.env.NEXT_PUBLIC_FUJI_RPC_URL)
     );
 
     const options = { gasLimit: 600000 };
@@ -55,7 +80,7 @@ const PostAJob: NextPagePostAJobType = () => {
 
     const signer = new ethers.Wallet(
       account,
-      new ethers.providers.JsonRpcProvider(process.env.NEXT_PUBLIC_FUJI_RPC_URL),
+      new ethers.providers.JsonRpcProvider(process.env.NEXT_PUBLIC_FUJI_RPC_URL)
     );
 
     const options = { gasLimit: 600000 };
@@ -65,7 +90,6 @@ const PostAJob: NextPagePostAJobType = () => {
       CCIPLendingProtocolAbi,
       signer
     );
-
 
     let transactionResponse = await ccipLendingProtocol.closeProposal(
       id,
@@ -79,7 +103,7 @@ const PostAJob: NextPagePostAJobType = () => {
     if (receipt.status == 1) {
       console.log("Close Job Proposal Successful!");
     }
-  }
+  };
 
   return (
     <div className={styles.postAJob}>
@@ -721,7 +745,7 @@ const PostAJob: NextPagePostAJobType = () => {
                     job, you will be able to add tasks further on paying an
                     small fee. Check docs for further information.
                   </p>
-                  <div className={styles.btnDeposit} onClick={approveUSDCandOpenProposal(11155111, process.env.NEXT_PUBLIC_ETHEREUM_RPC_URL, process.env.NEXT_PUBLIC_ETHEREUM_POOL)}>
+                  <div className={styles.btnDeposit} onClick={createGig}>
                     <img
                       className={styles.briefcase1Icon}
                       loading="lazy"

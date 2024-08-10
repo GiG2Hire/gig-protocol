@@ -1,10 +1,11 @@
-"use client"
+"use client";
 import type { NextPage } from "next";
 import { useCallback, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import styles from "./freelancer-dashboard.module.css";
 import { useActiveAccount } from "thirdweb/react";
 import performTwitterVerification from "../actions/verify-twitter";
+import JobCard from "../components/job-card";
 
 const FreelancerDashboard: NextPageFreelancerDashboardType = () => {
   const router = useRouter();
@@ -12,16 +13,16 @@ const FreelancerDashboard: NextPageFreelancerDashboardType = () => {
   const account = useActiveAccount();
   console.log(`account:` + account?.address);
 
+  const onBtnChatContainerClick = () => {
+    console.log("Open chat window!");
+    router.push("/chat/2-1-1/");
+  };
 
-  const onBtnChatContainerClick = useCallback(() => {
-    router.push("/chat/123/");
-  }, [router]);
-
-  const xUserVerification = async () =>{
+  const xUserVerification = async () => {
     const url = window.location.href;
     const code = url.split("&code=")[1];
     performTwitterVerification(code);
-  }
+  };
 
   // Handles github data decode from redirect url
   const userData = () => {
@@ -64,7 +65,7 @@ const FreelancerDashboard: NextPageFreelancerDashboardType = () => {
     // .catch(error => {
     //   console.error('Error retrieving access token:', error);
     // });
-  }
+  };
 
   // Handle login with github
   useEffect(() => {
@@ -72,8 +73,7 @@ const FreelancerDashboard: NextPageFreelancerDashboardType = () => {
   }, []);
   return (
     <div className={styles.freelancerDashboard}>
-      <div className={styles.headerSpacer}>
-      </div>
+      <div className={styles.headerSpacer}></div>
       <main className={styles.contentAreaWrapper}>
         <section className={styles.contentArea}>
           <div className={styles.dashboard}>
@@ -434,6 +434,12 @@ const FreelancerDashboard: NextPageFreelancerDashboardType = () => {
                     </div>
                   </div>
                 </div>
+                {/* <JobCard
+                  initialMessages={[]}
+                  sessionId={1}
+                  chatId={123}
+                  chatPartner={2}
+                /> */}
                 <div className={styles.jobCards1}>
                   <div className={styles.frameGroup}>
                     <img

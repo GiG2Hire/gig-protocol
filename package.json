@@ -11,6 +11,7 @@
   },
   "dependencies": {
     "@google-ai/generativelanguage": "^2.6.0",
+    "@google/generative-ai": "^0.16.0",
     "@supabase/supabase-js": "^2.44.3",
     "ethers": "^6.13.2",
     "google-auth-library": "^9.11.0",
@@ -18,8 +19,8 @@
     "pusher": "^5.2.0",
     "pusher-js": "^8.4.0-rc2",
     "react": "^18.3.1",
-    "thirdweb": "^5.40.0",
-    "web3": "^4.11.1"
+    "react-dom": "^18.3.1",
+    "thirdweb": "^5.40.0"
   },
   "devDependencies": {
     "@types/node": "20.14.9",

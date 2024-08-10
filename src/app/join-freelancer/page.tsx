@@ -18,17 +18,24 @@ export type JoinFreelancerType = {
   className?: string;
 };
 
-const JoinFreelancer: NextPage<JoinFreelancerType> = ({ className = "" }) => {
+const JoinFreelancer: NextPage<JoinFreelancerType> = (
+  {
+    params,
+  }: {
+    params: { slug: string };
+  },
+  { className = "" }
+) => {
   const account = useActiveAccount();
   const router = useRouter();
   const handleClick = () => {
-    router.push({
-      pathname: "/",
-      query: {
-        name: "Source Freeze",
-        count: 30,
-      },
-    });
+    // router.push({
+    //   pathname: "/",
+    //   query: {
+    //     name: "Source Freeze",
+    //     count: 30,
+    //   },
+    // });
   };
   // Handle login with github
   const githubLogin = () => {
@@ -84,13 +91,14 @@ const JoinFreelancer: NextPage<JoinFreelancerType> = ({ className = "" }) => {
       },
       body: JSON.stringify({
         userId: userId,
-        role: role,
+        role: payload.ctx.role,
       }),
     };
 
     let UpdatedUserResponse = await fetch("/api/user/freelancer", options);
     if (UpdatedUserResponse.status == STATUS_200) {
       console.log("User Role Updated as Freelancer");
+      router.push("/freelancer-dashboard");
     }
   };
 
