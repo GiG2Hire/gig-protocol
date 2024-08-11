@@ -38,7 +38,11 @@ export async function login(payload: VerifyLoginPayloadParams) {
     console.log(`userId: ${userId}`);
     console.log(`role: ${role}`);
     cookies().set("jwt", jwt);
-    redirect("/freelancer-dashboard");
+    if (role == FREELANCER) {
+      redirect("/freelancer-dashboard");
+    } else {
+      redirect("/client-dashboard");
+    }
   }
   console.log("Successfully Logged in!!");
 }

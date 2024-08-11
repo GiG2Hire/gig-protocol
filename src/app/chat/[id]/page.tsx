@@ -13,33 +13,32 @@ import ChatSentiment from "../../components/chat-sentiment";
 import { getRoleFromPayload, getUserIdFromPayload } from "../../actions/login";
 import {
   FREELANCER,
+  GIG_COMPLETION_STATUS,
   SENTIMENT_TO_CODE_MAPPING,
   STATUS_200,
 } from "@/src/constants/appConstants";
 
+async function acceptGig() {
+  const options = {
+    method: "POST",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json;charset=UTF-8",
+    },
+    body: JSON.stringify({
+      gigId: 15,
+      completionStatus: GIG_COMPLETION_STATUS.COMPLETE,
+    }),
+  };
+  const acceptGigResponse = await fetch("/api/gig/status", options);
+  if (acceptGigResponse.status == 200) {
+    console.log("Gig marked as complete successfully!!");
+  }
+}
+
 const FreelancerChat = ({ params, searchParams }) => {
   console.log("----------------------", searchParams);
   console.log("params --0--------", params);
-  // console.log(params);
-  // const router = useRouter();
-  // console.log(router);
-  // const { id } = useParams();
-  // console.log(useParams());
-  // const searchParams = useSearchParams();
-  // console.log("searchParams", searchParams);
-  // console.log("parmas use kar leo", useParams());
-
-  // const pathname = usePathname();
-  // console.log(pathname);
-
-  // const url = new URL(window.location.href);
-  // console.log(url);
-  // console.log(url.search);
-  // const searchParams = new URLSearchParams(url.search);
-  // console.log(searchParams);
-  // const userId = searchParams.get("userId");
-
-  // console.log("usser id lelo", userId);
 
   //clientId-FreelancerId-GigId
   const id = params.id;
@@ -782,13 +781,15 @@ const FreelancerChat = ({ params, searchParams }) => {
                       </div>
                     </div>
                   </div>
-                  <button className={styles.btnSubmit}>
+                  <button className={styles.btnSubmit} onClick={acceptGig}>
                     <img
                       className={styles.factCheckIcon}
                       alt=""
                       src="/fact-check.svg"
                     />
-                    <b className={styles.submitJob}>Submit Job</b>
+                    <b className={styles.submitJob}>
+                      {currentUser == client ? "Accept Gig" : "Submit Gig"}
+                    </b>
                   </button>
                 </div>
               </div>
