@@ -5,6 +5,7 @@ import styles from "./post-a-job.module.css";
 import { ethers } from "ethers";
 import CCIPLendingProtocolAbi from "@/src/constants/abi/CCIPLendingProtocol.json";
 import contractAddresses from "@/src/constants/contractAddresses.json";
+import { approveUSDCandOpenProposal } from "../actions/choose-and-open";
 import { client } from "../lib/client";
 
 /**
@@ -38,7 +39,8 @@ const PostAJob: NextPagePostAJobType = () => {
   const usdcToken = process.env.NEXT_PUBLIC_AVALANCHE_FUJI_USDC_TOKEN;
   const account: any = process.env.NEXT_PUBLIC_FUJI_PRIVATE_KEY;
 
-  const openJobProposal = async () => {
+  /*
+  const openJobProposal = async () =>{
     console.log("Trying to Open Job Proposal");
     const amount: Number = 1;
     const signer = new ethers.Wallet(
@@ -68,7 +70,8 @@ const PostAJob: NextPagePostAJobType = () => {
     if (receipt.status == 1) {
       console.log("Open Job Proposal Successful!");
     }
-  };
+  }
+  */
 
   const closeJobProposal = async () => {
     console.log("Trying to Close Job Proposal");

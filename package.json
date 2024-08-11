@@ -2,6 +2,7 @@
   "name": "gigfreehire",
   "version": "0.1.0",
   "private": true,
+  "type": "module",
   "scripts": {
     "dev": "next dev",
     "build": "next build && next export -o build/",
@@ -26,6 +27,7 @@
     "@types/react": "18.3.3",
     "autoprefixer": "^10.4.19",
     "tailwindcss": "^3.4.4",
-    "typescript": "5.5.3"
+    "ts-node": "^10.9.2",
+    "typescript": "^5.5.3"
   }
 }
