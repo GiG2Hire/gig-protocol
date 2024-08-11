@@ -1,4 +1,4 @@
-'use client';
+"use client";
 import NavbarSpacer from "./components/navbar-spacer";
 import FrameComponent9 from "./components/frame-component9";
 import FrameComponent7 from "./components/frame-component7";
@@ -15,7 +15,7 @@ const NewlandingDesktop = () => {
   console.log("Account:" + account?.address);
   return (
     <div className={styles.newlandingDesktop}>
-      <NavbarSpacer />
+      {/* <NavbarSpacer /> */}
       <FrameComponent9 />
       <main className={styles.newlandingDesktopInner}>
         <section className={styles.frameParent}>

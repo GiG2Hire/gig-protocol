@@ -184,7 +184,7 @@ const NavbarSpacer: NextPage<NavbarSpacerType> = ({ className = "" }) => {
             label: "Connect Wallet",
             style: { fontFamily: "Unbounded" },
           }}
-          connectModal={{ size: "compact", showThirdwebBranding: false }}
+          connectModal={{ size: "compact" }}
           onConnect={async (wallet) => {
             console.log("Wallet is connected");
             console.log("Connected to ", wallet.getAccount()?.address);
