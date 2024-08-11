@@ -3,8 +3,22 @@ import NavbarSpacer from "@/src/app/components/navbar-spacer1";
 import JobCategories from "@/src/app/components/job-categories";
 import Footer from "@/src/app/components/footer1";
 import styles from "./job-marketplace.module.css";
+import { useEffect } from "react";
+'use client';
 
 const JobMarketplace: NextPageJobMarketplaceType = () => {
+
+  console.log(window.location.href);
+  const githubVerification = async () => {
+    const url = window.location.href;
+    const code = url.split("&code=")[1];
+    console.log(code);
+    //performTwitterVerification(code);
+  };
+
+  useEffect(() => {
+    githubVerification();
+  }, []);
   return (
     <div className={styles.jobMarketplace}>
       <main className={styles.pageContent}>
