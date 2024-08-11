@@ -17,8 +17,9 @@ import {
   SENTIMENT_TO_CODE_MAPPING,
   STATUS_200,
 } from "@/src/constants/appConstants";
+import { closeProposal } from "../../actions/choose-and-open";
 
-async function acceptGig() {
+async function acceptGigInDatabase() {
   const options = {
     method: "POST",
     headers: {
@@ -34,6 +35,11 @@ async function acceptGig() {
   if (acceptGigResponse.status == 200) {
     console.log("Gig marked as complete successfully!!");
   }
+}
+
+function acceptGig() {
+  acceptGigInDatabase();
+  closeProposal(15);
 }
 
 const FreelancerChat = ({ params, searchParams }) => {

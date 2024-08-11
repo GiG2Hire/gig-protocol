@@ -3,7 +3,7 @@
 import { supabase } from "@/src/utils/supabase";
 import { getUserIdFromPayload } from "./login";
 import { GIG_COMPLETION_STATUS } from "@/src/constants/appConstants";
-import { approveUSDCandOpenProposal } from "./choose-and-open";
+import { approveUSDCandOpenProposal, findBestAPY } from "./choose-and-open";
 import CONTRACT_ADDRESSES from "@/src/constants/contractAddresses.json";
 
 /**
@@ -31,12 +31,13 @@ export async function createGig(formData: FormData) {
   console.log("Gig created successfully!!");
 
   // sender deployed on Avalance Fuji Testnet
-  const ccipLendingProtocolAddress = CONTRACT_ADDRESSES[43113][0];
-  const usdcToken = process.env.NEXT_PUBLIC_AVALANCHE_FUJI_USDC_TOKEN;
-  const account: any = process.env.NEXT_PUBLIC_FUJI_PRIVATE_KEY;
-  const chainId = 43113;
-  const rpcUrl = "";
+  // const ccipLendingProtocolAddress = CONTRACT_ADDRESSES[43113][0];
+  // const usdcToken: string = process.env.NEXT_PUBLIC_AVALANCHE_FUJI_USDC_TOKEN;
+  // const account: any = process.env.NEXT_PUBLIC_FUJI_PRIVATE_KEY;
+  // const chainId = 43113;
+  // const rpcUrl = "";
+  const amount = 250;
 
-  // Create gig on chain
-  await approveUSDCandOpenProposal(chainId, rpcUrl, ccipLendingProtocolAddress);
+  // Find chain with best APY and stake money on the chain with best APY
+  // findBestAPY(amount);
 }
