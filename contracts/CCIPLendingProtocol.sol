@@ -295,11 +295,6 @@ contract CCIPLendingProtocol is CCIPReceiver, OwnerIsCreator {
             );
         }
 
-        // check if transaction succesfull
-        if (!succ_tx) {
-            revert TransferFailed();
-        }
-
         //(bool success, bytes memory returnData) = i_poolContract.call(txReceived.txData);
         s_succ = success;
     }
