@@ -13,33 +13,38 @@ import ChatSentiment from "../../components/chat-sentiment";
 import { getRoleFromPayload, getUserIdFromPayload } from "../../actions/login";
 import {
   FREELANCER,
+  GIG_COMPLETION_STATUS,
   SENTIMENT_TO_CODE_MAPPING,
   STATUS_200,
 } from "@/src/constants/appConstants";
+import { closeProposal } from "../../actions/choose-and-open";
+
+async function acceptGigInDatabase() {
+  const options = {
+    method: "POST",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json;charset=UTF-8",
+    },
+    body: JSON.stringify({
+      gigId: 15,
+      completionStatus: GIG_COMPLETION_STATUS.COMPLETE,
+    }),
+  };
+  const acceptGigResponse = await fetch("/api/gig/status", options);
+  if (acceptGigResponse.status == 200) {
+    console.log("Gig marked as complete successfully!!");
+  }
+}
+
+function acceptGig() {
+  acceptGigInDatabase();
+  closeProposal(15);
+}
 
 const FreelancerChat = ({ params, searchParams }) => {
   console.log("----------------------", searchParams);
   console.log("params --0--------", params);
-  // console.log(params);
-  // const router = useRouter();
-  // console.log(router);
-  // const { id } = useParams();
-  // console.log(useParams());
-  // const searchParams = useSearchParams();
-  // console.log("searchParams", searchParams);
-  // console.log("parmas use kar leo", useParams());
-
-  // const pathname = usePathname();
-  // console.log(pathname);
-
-  // const url = new URL(window.location.href);
-  // console.log(url);
-  // console.log(url.search);
-  // const searchParams = new URLSearchParams(url.search);
-  // console.log(searchParams);
-  // const userId = searchParams.get("userId");
-
-  // console.log("usser id lelo", userId);
 
   //clientId-FreelancerId-GigId
   const id = params.id;
@@ -85,14 +90,54 @@ const FreelancerChat = ({ params, searchParams }) => {
       if (data.sender_id != currentUser) {
         console.log("Messages List Updated - line 48");
         setMessages((prev) => [...prev, data]);
+        getGeminiSentimentForReceivedMessage();
       }
     });
+
     return () => {
       console.log("flush previous channel!!");
       pusherClient.unsubscribe("chat-messages");
       channel.unbind(`chat__${chatId}`);
     };
   }, [chatId]);
+
+  /**
+   * get gemini api sentiment for exisiting chat messages
+   */
+  async function getGeminiSentimentForReceivedMessage() {
+    console.log("Get gemini sentiment from!!");
+    console.log(`${chatId}`);
+    const geminiSentimentResponse: Response = await fetch(
+      `/api/chat/sentiment/gemini/retrieve?chatId=${chatId}`
+    );
+
+    if (geminiSentimentResponse.status == 200) {
+      const geminiSentiment = await geminiSentimentResponse.json();
+      if (geminiSentiment.length == 0) {
+        console.log("New chat, no sentiment has been generated");
+        // Set sentiment indicator when no messages have been exchanged for a chat
+      } else {
+        console.log(
+          "sentiment received from database when message is received",
+          geminiSentiment
+        );
+        // don't mutate existing objects to pass in set state, react will ignore it
+        // instead create new object
+        const sentimentText = geminiSentiment[0].gemini_sentiment;
+        let updatedSentimentDetails: Sentiment = {};
+        updatedSentimentDetails.code = sentimentToCodeMapping[sentimentText][0];
+        updatedSentimentDetails.sentiment = sentimentText;
+        updatedSentimentDetails.explanation = "";
+        updatedSentimentDetails.displayMessage =
+          sentimentToCodeMapping[sentimentText][1];
+        setSentiment(updatedSentimentDetails);
+        console.log(
+          "setting sentiment upon receiving message:",
+          updatedSentimentDetails
+        );
+      }
+    }
+  }
 
   /**
    * empty dependency array means it runs only on initial render
@@ -135,7 +180,9 @@ const FreelancerChat = ({ params, searchParams }) => {
           sentimentDetails.explanation = "";
           sentimentDetails.displayMessage =
             sentimentToCodeMapping[sentimentText][1];
-          setSentiment(sentimentDetails);
+          setSentiment((prev) => {
+            return sentimentDetails;
+          });
           console.log("setting initial sentiment as:", sentimentDetails);
         }
       }
@@ -193,13 +240,6 @@ const FreelancerChat = ({ params, searchParams }) => {
       console.log(messages);
     } else {
       console.log("Failed to store message in database!!");
-    }
-
-    let res = await fetch("/api/message/send", sendChatMsgOptions);
-
-    if (res.status == 200) {
-      setChatMsg("");
-      console.log("Published event successfully to pusher!!");
     }
 
     const options = {
@@ -265,6 +305,13 @@ const FreelancerChat = ({ params, searchParams }) => {
 
     if (storeSentimentResponse.status == 201) {
       console.log("Successfully stored sentiment in database!!");
+    }
+
+    let res = await fetch("/api/message/send", sendChatMsgOptions);
+
+    if (res.status == 200) {
+      setChatMsg("");
+      console.log("Published event successfully to pusher!!");
     }
   };
 
@@ -782,13 +829,15 @@ const FreelancerChat = ({ params, searchParams }) => {
                       </div>
                     </div>
                   </div>
-                  <button className={styles.btnSubmit}>
+                  <button className={styles.btnSubmit} onClick={acceptGig}>
                     <img
                       className={styles.factCheckIcon}
                       alt=""
                       src="/fact-check.svg"
                     />
-                    <b className={styles.submitJob}>Submit Job</b>
+                    <b className={styles.submitJob}>
+                      {currentUser == client ? "Accept Gig" : "Submit Gig"}
+                    </b>
                   </button>
                 </div>
               </div>

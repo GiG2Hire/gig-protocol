@@ -5,39 +5,124 @@ import styles from "./post-a-job.module.css";
 import { ethers } from "ethers";
 import CCIPLendingProtocolAbi from "@/src/constants/abi/CCIPLendingProtocol.json";
 import contractAddresses from "@/src/constants/contractAddresses.json";
-import { approveUSDCandOpenProposal } from "../actions/choose-and-open";
 import { client } from "../lib/client";
+import { createGig } from "../actions/create-gig";
+import { useActiveAccount } from "thirdweb/react";
 
-/**
- * Create Gig posting by client
- */
-const createGig = async () => {
-  const options = {
-    method: "POST",
-    headers: {
-      Accept: "application/json",
-      "Content-Type": "application/json;charset=UTF-8",
-    },
-    body: JSON.stringify({
-      clientId: 2,
-      description:
-        "Create an awesome web3 based Freelance Marketplace that can make us all rich, happy and satisfied!!",
-      gigValue: 108,
-    }),
-  };
-  const createGigResponse = await fetch("/api/gig/create", options);
-  if (createGigResponse.status == 200) {
-    console.log("Gig created successfully!!");
-  } else {
-    const createGigStatus = await createGigResponse.json();
-    console.log(createGigStatus);
-  }
-};
+import {
+  defineChain,
+  getContract,
+  prepareContractCall,
+  sendTransaction,
+} from "thirdweb";
+import { abi } from "../actions/constantAbi";
+import { erc20Abi } from "@/src/constants/erc20";
+
 const PostAJob: NextPagePostAJobType = () => {
-  // sender deployed on Avalance Fuji Testnet
-  const ccipLendingProtocolAddress = contractAddresses[43113][0];
-  const usdcToken = process.env.NEXT_PUBLIC_AVALANCHE_FUJI_USDC_TOKEN;
-  const account: any = process.env.NEXT_PUBLIC_FUJI_PRIVATE_KEY;
+  const account = useActiveAccount();
+
+  async function approveUSDCandOpenProposal() {
+    console.log("Trying to obtain approval from client....");
+    const chainId = 84532;
+    const rpcUrl = process.env.NEXT_PUBLIC_BASE_RPC_URL;
+    const addressProtocol = "0x956b52eB371037CD8F2Ff5DF4Ac21BF0020226FB";
+    const amount = 1000000;
+    const usdcToken = "0x036CbD53842c5426634e7929541eC2318f3dCF7e";
+
+    // const account = useActiveAccount();
+
+    const selectedChain = defineChain({
+      id: chainId,
+      rpc: rpcUrl,
+    });
+
+    const lendingContract = getContract({
+      address: addressProtocol,
+      chain: selectedChain,
+      abi: abi,
+      client,
+    });
+
+    const usdcContract = getContract({
+      address: usdcToken,
+      chain: selectedChain,
+      abi: erc20Abi,
+      client,
+    });
+
+    // get approval from Client to transfer gig budget
+    const tx = prepareContractCall({
+      contract: usdcContract,
+      method: "function approve(address _spender, uint256 _value)",
+      params: [addressProtocol, BigInt(amount)],
+    });
+
+    await sendTransaction({
+      account: account,
+      transaction: tx,
+    });
+
+    console.log("Transaction approval confirmed: ");
+
+    // amount = gig budget, usdcToken = base , destinationChain = Optimism
+    // const txCall = prepareContractCall({
+    //   contract: lendingContract,
+    //   method:
+    //     "function openProposal(uint256 _amount, address _usdcToken, uint64 _destinationChainSelector)",
+    //   params: [BigInt(amount), usdcToken, BigInt("5224473277236331295")],
+    // });
+
+    // console.log("Sending Transaction to chain");
+    // // front it will be showing tx hash or link for ccip explorer with this hash
+    // const { transactionHash } = await sendTransaction({
+    //   account: account,
+    //   transaction: txCall,
+    // });
+
+    // return transactionHash;
+  }
+
+  async function openProposal() {
+    console.log("Trying to obtain approval from client....");
+    const chainId = 84532;
+    const rpcUrl = process.env.NEXT_PUBLIC_BASE_RPC_URL;
+    const addressProtocol = "0x956b52eB371037CD8F2Ff5DF4Ac21BF0020226FB";
+    const amount = 1000000;
+    const usdcToken = "0x036CbD53842c5426634e7929541eC2318f3dCF7e";
+
+    // const account = useActiveAccount();
+
+    const selectedChain = defineChain({
+      id: chainId,
+      rpc: rpcUrl,
+    });
+
+    const lendingContract = getContract({
+      address: addressProtocol,
+      chain: selectedChain,
+      abi: abi,
+      client,
+    });
+
+    // amount = gig budget, usdcToken = base , destinationChain = Optimism
+    const txCall = prepareContractCall({
+      contract: lendingContract,
+      method:
+        "function openProposal(uint256 _amount, address _usdcToken, uint64 _destinationChainSelector)",
+      params: [BigInt(amount), usdcToken, BigInt("5224473277236331295")],
+    });
+
+    console.log("Sending Transaction to chain");
+    // front it will be showing tx hash or link for ccip explorer with this hash
+    const { transactionHash } = await sendTransaction({
+      account: account,
+      transaction: txCall,
+    });
+
+    console.log(transactionHash);
+
+    // return transactionHash;
+  }
 
   /*
   const openJobProposal = async () =>{
@@ -73,37 +158,37 @@ const PostAJob: NextPagePostAJobType = () => {
   }
   */
 
-  const closeJobProposal = async () => {
-    console.log("Trying to Close Job Proposal");
-    const id = 1;
-    const amount = 1;
+  // const closeJobProposal = async () => {
+  //   console.log("Trying to Close Job Proposal");
+  //   const id = 1;
+  //   const amount = 1;
 
-    const signer = new ethers.Wallet(
-      account,
-      new ethers.providers.JsonRpcProvider(process.env.NEXT_PUBLIC_FUJI_RPC_URL)
-    );
+  //   const signer = new ethers.Wallet(
+  //     account,
+  //     new ethers.providers.JsonRpcProvider(process.env.NEXT_PUBLIC_FUJI_RPC_URL)
+  //   );
 
-    const options = { gasLimit: 600000 };
+  //   const options = { gasLimit: 600000 };
 
-    const ccipLendingProtocol = new ethers.Contract(
-      ccipLendingProtocolAddress,
-      CCIPLendingProtocolAbi,
-      signer
-    );
+  //   const ccipLendingProtocol = new ethers.Contract(
+  //     ccipLendingProtocolAddress,
+  //     CCIPLendingProtocolAbi,
+  //     signer
+  //   );
 
-    let transactionResponse = await ccipLendingProtocol.closeProposal(
-      id,
-      amount,
-      usdcToken,
-      options
-    );
+  //   let transactionResponse = await ccipLendingProtocol.closeProposal(
+  //     id,
+  //     amount,
+  //     usdcToken,
+  //     options
+  //   );
 
-    const receipt = await transactionResponse.wait(1);
+  //   const receipt = await transactionResponse.wait(1);
 
-    if (receipt.status == 1) {
-      console.log("Close Job Proposal Successful!");
-    }
-  };
+  //   if (receipt.status == 1) {
+  //     console.log("Close Job Proposal Successful!");
+  //   }
+  // };
 
   return (
     <div className={styles.postAJob}>
@@ -118,6 +203,7 @@ const PostAJob: NextPagePostAJobType = () => {
               Hire just verified freelancers.
             </h1>
           </div>
+
           <div className={styles.jobForm}>
             <div className={styles.formFields}>
               <div className={styles.titleField}>
@@ -137,6 +223,7 @@ const PostAJob: NextPagePostAJobType = () => {
                     className={styles.textInput}
                     placeholder="Add GiG title here"
                     type="text"
+                    name="gigTitle"
                   />
                 </div>
                 <div className={styles.titleExample}>
@@ -167,14 +254,16 @@ const PostAJob: NextPagePostAJobType = () => {
                   <b className={styles.addADescription}>
                     Add a description for your Job post.
                   </b>
-                  <div className={styles.textInputParent}>
-                    <div className={styles.textInput1}>
-                      <div className={styles.searchInGlobal}>
-                        Add GiG title here
-                      </div>
-                    </div>
-                    <b className={styles.categoryField}>0/480</b>
-                  </div>
+                  <textarea
+                    className={styles.textInputParent}
+                    name="description"
+                  >
+                    {/* <div className={styles.textInput1}>
+                        <div className={styles.searchInGlobal}>
+                          Add GiG title here
+                        </div>
+                      </div> */}
+                  </textarea>
                 </div>
                 <div className={styles.categorySelection}>
                   <b className={styles.exampleDescription1}>
@@ -580,8 +669,12 @@ const PostAJob: NextPagePostAJobType = () => {
                     className={styles.textInput4}
                     placeholder="Type amount"
                     type="text"
+                    name="budget"
                   />
-                  <button className={styles.btnApprove}>
+                  <button
+                    className={styles.btnApprove}
+                    onClick={approveUSDCandOpenProposal}
+                  >
                     <img
                       className={styles.thumbsUp1Icon}
                       alt=""
@@ -745,7 +838,7 @@ const PostAJob: NextPagePostAJobType = () => {
                     job, you will be able to add tasks further on paying an
                     small fee. Check docs for further information.
                   </p>
-                  <div className={styles.btnDeposit} onClick={createGig}>
+                  <button className={styles.btnDeposit} onClick={openProposal}>
                     <img
                       className={styles.briefcase1Icon}
                       loading="lazy"
@@ -755,7 +848,7 @@ const PostAJob: NextPagePostAJobType = () => {
                     <b className={styles.depositBudgetAnd}>
                       Deposit Budget and Create GiG
                     </b>
-                  </div>
+                  </button>
                 </div>
               </div>
             </div>

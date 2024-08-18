@@ -15,11 +15,14 @@
     "ethers": "^6.13.2",
     "google-auth-library": "^9.11.0",
     "next": "^14.2.5",
+    "pino": "^9.3.2",
+    "pino-pretty": "^11.2.2",
     "pusher": "^5.2.0",
     "pusher-js": "^8.4.0-rc2",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
-    "thirdweb": "^5.40.0"
+    "thirdweb": "^5.40.0",
+    "web3": "^4.11.1"
   },
   "devDependencies": {
     "@types/node": "20.14.9",

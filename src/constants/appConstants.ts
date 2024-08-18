@@ -8,3 +8,9 @@ export const SENTIMENT_TO_CODE_MAPPING = {
   "slightly positive": ["2", "You are almost there."],
   "very positive": ["1", "Everything seems on track!"],
 };
+export const enum GIG_COMPLETION_STATUS {
+  OPEN = "OPEN",
+  IN_PROGRESS = "IN_PROGRESS",
+  CANCELLED = "CANCELLED",
+  COMPLETE = "COMPLETE",
+}
