@@ -1,0 +1,51 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+model chat {
+  chat_id            String    @id @unique
+  gemini_sentiment   String?
+  created_at         DateTime  @default(now()) @db.Timestamptz(6)
+  updated_at         DateTime? @db.Timestamp(6)
+  gemini_explanation String?
+}
+
+/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
+model chat_message {
+  id             BigInt    @id @default(autoincrement())
+  created_at     DateTime  @default(now()) @db.Timestamptz(6)
+  sender_id      BigInt
+  receiver_id    BigInt
+  message        String?
+  sent_timestamp DateTime? @db.Timestamptz(6)
+  chat_id        String?
+}
+
+model gig {
+  gig_id            BigInt    @id @default(autoincrement())
+  client_id         BigInt
+  freelancer_id     BigInt?
+  description       String?
+  gig_value         Float?
+  start_date        DateTime? @db.Timestamp(6)
+  end_date          DateTime? @db.Timestamp(6)
+  created_at        DateTime  @default(now()) @db.Timestamptz(6)
+  completion_status String?
+}
+
+model user {
+  address        String    @unique @db.VarChar
+  username       String?
+  role           String?
+  x_followers    BigInt?
+  github_commits BigInt?
+  created_at     DateTime  @default(now()) @db.Timestamp(6)
+  user_id        BigInt    @id @default(autoincrement())
+  last_login     DateTime? @db.Timestamp(6)
+}
