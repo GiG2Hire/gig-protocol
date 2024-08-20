@@ -1,3 +1,4 @@
+import { prisma } from "@/src/app/lib/db";
 import { supabase } from "@/src/utils/supabase";
 import { redirect } from "next/navigation";
 
@@ -25,6 +26,21 @@ export async function GET(req: Request) {
 
   if (error) {
     return Response.json(error.message, { status: 500 });
+  }
+
+  try {
+    const testMessages = await prisma.chat_message.findMany({
+      where: {
+        senderId: Number(senderId),
+        receiverId: Number(receiverId),
+      },
+      orderBy: {
+        sentTimestamp: "asc",
+      },
+    });
+    console.log("Messages received using prisma", testMessages);
+  } catch (error) {
+    console.log(error);
   }
 
   console.log(
