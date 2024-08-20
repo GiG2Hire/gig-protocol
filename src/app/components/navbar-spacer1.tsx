@@ -110,7 +110,9 @@ const NavbarSpacer: NextPage<NavbarSpacerType> = ({ className = "" }) => {
             <div className={styles.navTextParent}>
               <div className={styles.navText}>
                 <div className={styles.navText1}>
-                  <a className={styles.text}>Find a Gig</a>
+                  <a className={styles.text} href="/post-a-job">
+                    Create a Gig
+                  </a>
                 </div>
                 <div className={styles.hlColor} />
               </div>
@@ -168,8 +170,8 @@ const NavbarSpacer: NextPage<NavbarSpacerType> = ({ className = "" }) => {
               console.log(`logging in!`);
               await login(params);
             },
-            getLoginPayload: async ({ address }) =>
-              generatePayload({ address }),
+            getLoginPayload: async ({ address, chainId }) =>
+              generatePayload({ address, chainId }),
             doLogout: async () => {
               console.log("logging out!");
               await logout();
@@ -184,7 +186,7 @@ const NavbarSpacer: NextPage<NavbarSpacerType> = ({ className = "" }) => {
             label: "Connect Wallet",
             style: { fontFamily: "Unbounded" },
           }}
-          connectModal={{ size: "compact", showThirdwebBranding: false }}
+          connectModal={{ size: "compact" }}
           onConnect={async (wallet) => {
             console.log("Wallet is connected");
             console.log("Connected to ", wallet.getAccount()?.address);
