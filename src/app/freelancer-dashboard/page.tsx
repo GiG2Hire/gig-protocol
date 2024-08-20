@@ -15,7 +15,7 @@ const FreelancerDashboard: NextPageFreelancerDashboardType = () => {
 
   const onBtnChatContainerClick = () => {
     console.log("Open chat window!");
-    router.push("/chat/2-1-1/");
+    router.push("/chat/17-1-1/");
   };
 
   const xUserVerification = async () => {
