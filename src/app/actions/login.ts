@@ -8,6 +8,7 @@ import { decodeJWT, encodeJWT, JWTPayload } from "thirdweb/utils";
 import { FREELANCER } from "@/src/constants/appConstants";
 import { redirect } from "next/navigation";
 import { supabase } from "@/src/utils/supabase";
+import { prisma } from "../lib/db";
 
 const privateKey = process.env.THIRDWEB_ADMIN_PRIVATE_KEY || "";
 
@@ -32,7 +33,7 @@ export async function login(payload: VerifyLoginPayloadParams) {
       payload: verifiedPayload.payload,
       context: {
         role: role,
-        userId: userId,
+        userId: Number(userId), // bigint to int
       },
     });
     console.log(`userId: ${userId}`);
@@ -93,30 +94,35 @@ export async function getRoleFromPayload() {
  */
 async function getOrCreateUserInDatabase(address: string): Promise<test> {
   console.log("Trying to check if user already exists in database...");
-  let { data, error } = await supabase
-    .from("user")
-    .select()
-    .eq("address", address);
-  if (error) {
-    console.log("Login Failed!!!");
+
+  let data;
+  try {
+    data = await prisma.user.findUnique({ where: { address: address } });
+    console.log(data);
+  } catch (error) {
+    console.log("Login Failed!!!", error);
   }
-  const foundUser: User = data[0];
-  // console.log("Exisitng user:", foundUsers[0]);
+
+  const foundUser: User = data;
+  console.log("Exisitng user:", foundUser);
   if (foundUser) {
-    console.log("Set up done as exisitng useer!!");
-    return { userId: foundUser.user_id, role: foundUser.role };
+    console.log("Set up done as existing user!!");
+    return { userId: foundUser.userId, role: foundUser.role };
   } else {
     console.log("New User needs to be created. Creating new user...");
-    const { data, error } = await supabase
-      .from("user")
-      .insert({ address: address })
-      .select();
-    if (error) {
-      console.log("Login Failed!!!");
+    try {
+      data = await prisma.user.create({
+        data: {
+          address: address,
+        },
+      });
+    } catch (error) {
+      console.log("Login Failed!!!", error);
     }
-    const newUser: User = data[0];
+
+    const newUser: User = data;
     console.log(newUser);
-    return { userId: newUser.user_id, role: newUser.role };
+    return { userId: newUser.userId, role: newUser.role };
   }
 }
 

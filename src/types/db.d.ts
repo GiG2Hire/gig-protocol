@@ -24,5 +24,5 @@ interface User {
   x_followers: number | null;
   github_commits: number | null;
   created_at: string;
-  user_id: number;
+  userId: number;
 }
