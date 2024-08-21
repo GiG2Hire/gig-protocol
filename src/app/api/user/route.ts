@@ -1,4 +1,5 @@
 import { supabase } from "@/src/utils/supabase";
+import { prisma } from "../../lib/db";
 
 /**
  * @notice Creates new user in database with connected wallet
@@ -9,24 +10,19 @@ export async function POST(req: Request) {
   console.log("Inside POST /user/");
 
   const { address } = await req.json();
+  let data;
 
-  const { data, error } = await supabase
-    .from("user")
-    .insert({ address: address })
-    .select();
+  try {
+    data = await prisma.user.create({ data: { address: address } });
+  } catch (error) {
+    console.log(error);
+    return new Response("Unable to complete user sign up!", { status: 500 });
+  }
 
   console.log(
     `POST /user/detail?address response from database: ${JSON.stringify(data)}`
   );
 
-  if (error) {
-    return new Response(error.message, { status: 500 });
-  }
-
-  if (!data) {
-    return new Response("Failed to create user!!", { status: 500 });
-  }
-
-  const newUser: User = data[0];
+  const newUser: User = data;
   return Response.json(newUser, { status: 200 });
 }

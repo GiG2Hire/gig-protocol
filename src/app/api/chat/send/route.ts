@@ -1,3 +1,4 @@
+import { prisma } from "@/src/app/lib/db";
 import { supabase } from "@/src/utils/supabase";
 import { redirect } from "next/navigation";
 
@@ -12,26 +13,26 @@ export async function POST(req: Request) {
 
   const { senderId, receiverId, chatMsg, sentTimestamp, chatId } =
     await req.json();
-  const { data, status, statusText, error } = await supabase
-    .from("chat_message")
-    .insert([
-      {
-        sender_id: senderId,
-        receiver_id: receiverId,
-        message: chatMsg,
-        sent_timestamp: sentTimestamp,
-        chat_id: chatId,
-      },
-    ])
-    .select();
 
-  if (error) {
-    return Response.json(error.message, { status: 500 });
+  let data;
+
+  try {
+    data = await prisma.chatMessage.create({
+      data: {
+        senderId: senderId,
+        receiverId: receiverId,
+        message: chatMsg,
+        sentTimestamp: sentTimestamp,
+        chatId: chatId,
+      },
+    });
+  } catch (error) {
+    console.log(error);
+    return Response.json("Unable to store message in database!", {
+      status: 500,
+    });
   }
 
-  console.log(`POST /chat/send response from database: ${statusText}`);
-
-  return Response.json(data[0], {
-    status: status,
-  });
+  console.log(`POST /chat/send response from database: ${data}`);
+  return Response.json(data, { status: 200 });
 }

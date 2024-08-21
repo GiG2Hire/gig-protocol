@@ -1,23 +1,11 @@
-"use client";
 import styles from "./freelancer-chat.module.css";
 // import {chat} from "../../../constants/chat";
-import { useEffect, useState } from "react";
-import { useParams, usePathname, useSearchParams } from "next/navigation";
-import { useRouter } from "next/navigation";
-import { supabase } from "@/src/utils/supabase";
-import { PostgrestError } from "@supabase/supabase-js";
-import { useActiveAccount } from "thirdweb/react";
-import { pusherClient } from "@/src/app/lib/pusher";
-import { prepareConversation } from "@/src/utils/prepare-conversation";
 import ChatSentiment from "../../components/chat-sentiment";
-import { getRoleFromPayload, getUserIdFromPayload } from "../../actions/login";
-import {
-  FREELANCER,
-  GIG_COMPLETION_STATUS,
-  SENTIMENT_TO_CODE_MAPPING,
-  STATUS_200,
-} from "@/src/constants/appConstants";
+import { GIG_COMPLETION_STATUS } from "@/src/constants/appConstants";
 import { closeProposal } from "../../actions/choose-and-open";
+import ChatWindow from "@/src/app/components/chat/chat-window";
+import ChatInput from "../../components/chat/chat-input";
+import { prisma } from "../../lib/db";
 
 async function acceptGigInDatabase() {
   const options = {
@@ -42,14 +30,14 @@ function acceptGig() {
   closeProposal(15);
 }
 
-const FreelancerChat = ({ params, searchParams }) => {
+const FreelancerChat = async ({ params, searchParams }) => {
   console.log("----------------------", searchParams);
   console.log("params --0--------", params);
 
   //clientId-FreelancerId-GigId
   const id = params.id;
   const chatId: string = id;
-  const currentUser: number = searchParams.userId;
+  const currentUser: number = Number(searchParams.userId);
   let receiverUser: number;
 
   const client: number = Number(chatId.split("-")[0]);
@@ -60,260 +48,55 @@ const FreelancerChat = ({ params, searchParams }) => {
     receiverUser = client;
   }
 
-  const sentimentToCodeMapping = SENTIMENT_TO_CODE_MAPPING;
-
-  const [messages, setMessages] = useState([]);
-  const [chatMsg, setChatMsg] = useState<string>("");
-  // const messages = [];
-  // const chatMsg = "";
-  // const sentiment = {};
-
-  let sentimentDetails: Sentiment = {};
-
-  let [sentiment, setSentiment] = useState({});
+  let sentimentText: string;
+  let messages;
 
   /**
-   * chatId dependency ensures new messages corresponding to new chat id are loaded.
-   * channel object:to bind to events on a particular channel.
-   * pusherClient object: to bind to events on all subscribed channels simultaneously.
+   * get initial messages to load in chat window
    */
-  useEffect(() => {
-    // pusher client subscribes to a channel
-    const channel = pusherClient.subscribe("chat-messages");
-    console.log("bind to event completed");
-
-    //bind function to event to  listen to published events
-    channel.bind(`chat__${chatId}`, (data: PusherMessage) => {
-      // Method to be dispatched on trigger.
-      console.log("Listener received chat message");
-      console.log(data);
-      if (data.sender_id != currentUser) {
-        console.log("Messages List Updated - line 48");
-        setMessages((prev) => [...prev, data]);
-        getGeminiSentimentForReceivedMessage();
-      }
-    });
-
-    return () => {
-      console.log("flush previous channel!!");
-      pusherClient.unsubscribe("chat-messages");
-      channel.unbind(`chat__${chatId}`);
-    };
-  }, [chatId]);
+  async function getChatMessages() {
+    try {
+      messages = await prisma.chatMessage.findMany({
+        where: {
+          chatId: chatId,
+        },
+        orderBy: {
+          sentTimestamp: "asc",
+        },
+      });
+    } catch (error) {
+      console.log(error);
+    }
+    console.log(messages);
+  }
 
   /**
    * get gemini api sentiment for exisiting chat messages
    */
-  async function getGeminiSentimentForReceivedMessage() {
-    console.log("Get gemini sentiment from!!");
-    console.log(`${chatId}`);
-    const geminiSentimentResponse: Response = await fetch(
-      `/api/chat/sentiment/gemini/retrieve?chatId=${chatId}`
-    );
+  async function getGeminiSentiment() {
+    try {
+      const sentimentTextResponse = await prisma.chat.findUnique({
+        where: { chatId: chatId },
+        select: {
+          geminiSentiment: true,
+        },
+      });
+      console.log(sentimentTextResponse);
+      sentimentText = sentimentTextResponse?.geminiSentiment;
+    } catch (error) {
+      console.log(error);
+    }
 
-    if (geminiSentimentResponse.status == 200) {
-      const geminiSentiment = await geminiSentimentResponse.json();
-      if (geminiSentiment.length == 0) {
-        console.log("New chat, no sentiment has been generated");
-        // Set sentiment indicator when no messages have been exchanged for a chat
-      } else {
-        console.log(
-          "sentiment received from database when message is received",
-          geminiSentiment
-        );
-        // don't mutate existing objects to pass in set state, react will ignore it
-        // instead create new object
-        const sentimentText = geminiSentiment[0].gemini_sentiment;
-        let updatedSentimentDetails: Sentiment = {};
-        updatedSentimentDetails.code = sentimentToCodeMapping[sentimentText][0];
-        updatedSentimentDetails.sentiment = sentimentText;
-        updatedSentimentDetails.explanation = "";
-        updatedSentimentDetails.displayMessage =
-          sentimentToCodeMapping[sentimentText][1];
-        setSentiment(updatedSentimentDetails);
-        console.log(
-          "setting sentiment upon receiving message:",
-          updatedSentimentDetails
-        );
-      }
+    if (sentimentText == "null") {
+      console.log("New chat, no sentiment has been generated");
+      // Set sentiment indicator when no messages have been exchanged for a chat
+      sentimentText = "neutral";
+    } else {
+      console.log("setting initial sentiment as:", sentimentText);
     }
   }
 
-  /**
-   * empty dependency array means it runs only on initial render
-   * @author mgroovyank(Mayank Chhipa)
-   */
-  useEffect(() => {
-    /**
-     * get initial messages to load in chat window
-     */
-    async function getChatMessages() {
-      const initialMessagesResponse: Response = await fetch(
-        `/api/chat/retrieve?senderId=${currentUser}&receiverId=${receiverUser}`
-      );
-
-      if (initialMessagesResponse.status == 200) {
-        const initialMessages = await initialMessagesResponse.json();
-        console.log("messages list updated - line 74");
-        setMessages(initialMessages);
-      }
-    }
-
-    /**
-     * get gemini api sentiment for exisiting chat messages
-     */
-    async function getGeminiSentiment() {
-      const geminiSentimentResponse: Response = await fetch(
-        `/api/chat/sentiment/gemini/retrieve?chatId=${chatId}`
-      );
-
-      if (geminiSentimentResponse.status == 200) {
-        const geminiSentiment = await geminiSentimentResponse.json();
-        if (geminiSentiment.length == 0) {
-          console.log("New chat, no sentiment has been generated");
-          // Set sentiment indicator when no messages have been exchanged for a chat
-        } else {
-          console.log(geminiSentiment);
-          const sentimentText = geminiSentiment[0].gemini_sentiment;
-          sentimentDetails.code = sentimentToCodeMapping[sentimentText][0];
-          sentimentDetails.sentiment = sentimentText;
-          sentimentDetails.explanation = "";
-          sentimentDetails.displayMessage =
-            sentimentToCodeMapping[sentimentText][1];
-          setSentiment((prev) => {
-            return sentimentDetails;
-          });
-          console.log("setting initial sentiment as:", sentimentDetails);
-        }
-      }
-    }
-    getChatMessages();
-    getGeminiSentiment();
-  }, []);
-
-  /**
-   * Store message in database and publish message to pusher to enable realtime communication
-   * @notice prioritize storing message in database over sending to pusher to enable future retrieval of sent
-   * messages even in case of pusher failure
-   * @dev enable database persistence and pusher publish asynchronously
-   * @param chatMsg message to be sent to receiver user
-   * @author mgroovyank (Mayank Chhipa)
-   */
-  const sendChatMsg = async () => {
-    if (chatMsg == "") {
-      return;
-    }
-    // TODO: enable database persistence and pusher publish asynchronously
-    console.log("Sending chat message");
-    console.log(chatMsg);
-    console.log("receiver user:--------------", receiverUser);
-    const sendChatMsgOptions = {
-      method: "POST",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json;charset=UTF-8",
-      },
-      body: JSON.stringify({
-        senderId: currentUser,
-        receiverId: receiverUser,
-        chatMsg: chatMsg,
-        sentTimestamp: new Date(),
-        chatId: chatId,
-      }),
-    };
-    console.log(sendChatMsgOptions);
-    const sendChatMsgResponse = await fetch(
-      "/api/chat/send",
-      sendChatMsgOptions
-    );
-
-    let conversation;
-
-    if (sendChatMsgResponse.status == 201) {
-      console.log("Message stored in database successfully");
-      const sentMessage = await sendChatMsgResponse.json();
-      console.log("messages list updated - line 145");
-      conversation = prepareConversation([...messages, sentMessage], true);
-      // set function only updates the state variable for the next render.
-      // If you read the state variable after calling the set function, you will still get the old value
-      setMessages((prev) => [...prev, sentMessage]);
-      console.log(messages);
-    } else {
-      console.log("Failed to store message in database!!");
-    }
-
-    const options = {
-      method: "POST",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json;charset=UTF-8",
-      },
-      body: JSON.stringify({
-        chatId: chatId,
-        conversation: conversation,
-      }),
-    };
-
-    console.log("Determining chat sentiment via Gemini API");
-
-    let geminiSentimentResponse = await fetch(
-      "/api/chat/sentiment/gemini",
-      options
-    );
-
-    if (geminiSentimentResponse.status == STATUS_200) {
-      console.log("Got sentiment from gemini api");
-      console.log(geminiSentimentResponse);
-    }
-
-    const geminiSentiment = await geminiSentimentResponse.json();
-    console.log(geminiSentiment);
-    console.log(geminiSentiment.response.candidates[0].content.parts[0].text);
-
-    // contains sentiment type and explanation
-    const actualGeminiSentiment = JSON.parse(
-      geminiSentiment.response.candidates[0].content.parts[0].text
-    );
-
-    // positive, negative, neutral etc.
-    const sentimentType: string = actualGeminiSentiment["sentiment"];
-
-    sentimentDetails.code = sentimentToCodeMapping[sentimentType][0];
-    sentimentDetails.sentiment = actualGeminiSentiment["sentiment"];
-    sentimentDetails.explanation = actualGeminiSentiment["explanation"];
-    sentimentDetails.displayMessage = sentimentToCodeMapping[sentimentType][1];
-
-    console.log(sentimentDetails);
-    setSentiment(sentimentDetails);
-
-    const storeSentimentoptions = {
-      method: "POST",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json;charset=UTF-8",
-      },
-      body: JSON.stringify({
-        chatId: chatId,
-        sentiment: sentimentDetails.sentiment,
-      }),
-    };
-
-    const storeSentimentResponse = await fetch(
-      "/api/chat/sentiment/gemini/store",
-      storeSentimentoptions
-    );
-
-    if (storeSentimentResponse.status == 201) {
-      console.log("Successfully stored sentiment in database!!");
-    }
-
-    let res = await fetch("/api/message/send", sendChatMsgOptions);
-
-    if (res.status == 200) {
-      setChatMsg("");
-      console.log("Published event successfully to pusher!!");
-    }
-  };
+  await Promise.all([getChatMessages(), getGeminiSentiment()]);
 
   // we can use gig id to get chat id or directly pass chat id in the http route query
   return (
@@ -594,64 +377,26 @@ const FreelancerChat = ({ params, searchParams }) => {
               </div>
               <div className={styles.chatInputContentParent}>
                 <div className={styles.chatInputContent}>
-                  <div className={styles.freelancerClientChatMsgBox}>
-                    {messages.map((message) => {
-                      console.log("idhar currebt useer", currentUser);
-                      if (message.sender_id != currentUser) {
-                        return (
-                          <div className={styles.freenalceemployerChatInner11}>
-                            <div
-                              className={styles.lookingForwardToItMaxThParent}
-                            >
-                              <p className={styles.lookingForwardTo}>
-                                {message.message}
-                              </p>
-                              <b className={styles.b16}>21:33</b>
-                            </div>
-                          </div>
-                        );
-                      } else {
-                        return (
-                          <div className={styles.freenalceemployerChatInner10}>
-                            <div
-                              className={styles.definitelySophieIllEnsurParent}
-                            >
-                              <p className={styles.definitelySophieIll}>
-                                {message.message}
-                              </p>
-                              <b className={styles.b15}>21:33</b>
-                            </div>
-                          </div>
-                        );
-                      }
-                    })}
-                  </div>
+                  <ChatWindow
+                    initialMessages={messages}
+                    currentUser={currentUser}
+                    chatId={chatId}
+                  />
                   <div className={styles.chatInputContentInner}>
-                    <div className={styles.frameParent11}>
-                      <input
-                        className={styles.frameInput}
-                        placeholder="Type your message..."
-                        type="text"
-                        onChange={(e) => setChatMsg(e.target.value)}
-                      />
-                      <div
-                        className={styles.sendChatMsgBtn}
-                        onClick={sendChatMsg}
-                      >
-                        <div className={styles.send21}>
-                          <img
-                            className={styles.sendButtonIcon}
-                            alt=""
-                            src="/vector-3.svg"
-                          />
-                        </div>
-                      </div>
-                    </div>
+                    <ChatInput
+                      currentUser={currentUser}
+                      receiverUser={receiverUser}
+                      chatId={chatId}
+                      messages={messages}
+                    />
                   </div>
                 </div>
                 <div className={styles.jobSubmissionContentParent}>
                   <div className={styles.jobSubmissionContent}>
-                    <ChatSentiment sentiment={sentiment} />
+                    <ChatSentiment
+                      initialSentiment={sentimentText}
+                      chatId={chatId}
+                    />
                     {/* <div className={styles.collectingContainer}>
                       <div className={styles.collectingHeader}>
                         <div className={styles.collecting}>Collecting:</div>
@@ -829,7 +574,7 @@ const FreelancerChat = ({ params, searchParams }) => {
                       </div>
                     </div>
                   </div>
-                  <button className={styles.btnSubmit} onClick={acceptGig}>
+                  <button className={styles.btnSubmit}>
                     <img
                       className={styles.factCheckIcon}
                       alt=""
