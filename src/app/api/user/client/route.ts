@@ -1,6 +1,12 @@
 import { prisma } from "@/src/app/lib/db";
 import { supabase } from "@/src/utils/supabase";
 
+/**
+ * Join user as Client role
+ * @param req userId and role=Client
+ * @returns OK response upon success/ error upon failure
+ * @author mgroovyank(MAYANK CHHIPA)
+ */
 export async function POST(req: Request) {
   const { userId, role } = await req.json();
   try {

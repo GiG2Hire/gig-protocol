@@ -9,43 +9,45 @@ datasource db {
 }
 
 model chat {
-  chat_id            String    @id @unique
-  gemini_sentiment   String?
-  created_at         DateTime  @default(now()) @db.Timestamptz(6)
-  updated_at         DateTime? @db.Timestamp(6)
-  gemini_explanation String?
+  chatId             String    @id @unique @map("chat_id")
+  geminiSentiment   String?   @map("gemini_sentiment")
+  createdAt         DateTime  @default(now()) @db.Timestamptz(6) @map("created_at")
+  updatedAt         DateTime? @db.Timestamp(6) @map("updated_at")
+  geminiExplanation String?   @map("gemini_explanation")
 }
 
 /// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
-model chat_message {
-  id             BigInt    @id @default(autoincrement())
-  created_at     DateTime  @default(now()) @db.Timestamptz(6)
-  senderId      BigInt    @map("sender_id")    
-  receiverId    BigInt    @map("receiver_id")
+model chatMessage {
+  id             Int    @id @default(autoincrement())
+  createdAt     DateTime  @default(now()) @db.Timestamptz(6) @map("created_at")
+  senderId      Int    @map("sender_id")    
+  receiverId    Int    @map("receiver_id")
   message        String?
   sentTimestamp DateTime? @db.Timestamptz(6) @map("sent_timestamp")
-  chat_id        String?
+  chatId        String? @map("chat_id")
+
+  @@map("chat_message")
 }
 
 model gig {
-  gig_id            BigInt    @id @default(autoincrement())
-  client_id         BigInt
-  freelancer_id     BigInt?
-  description       String?
-  gig_value         Float?
-  start_date        DateTime? @db.Timestamp(6)
-  end_date          DateTime? @db.Timestamp(6)
-  created_at        DateTime  @default(now()) @db.Timestamptz(6)
-  completion_status String?
+  gigId            Int    @id @default(autoincrement()) @map("gig_id")
+  clientId         Int   @map("client_id")
+  freelancerId     Int?  @map("freelancer_id")
+  description      String?
+  gigValue         Float?   @map("gig_value")
+  startDate        DateTime? @db.Timestamp(6) @map("start_date")
+  endDate          DateTime? @db.Timestamp(6) @map("end_date")
+  createdAt        DateTime  @default(now()) @db.Timestamptz(6) @map("created_at")
+  completionStatus String?   @map("completion_status")
 }
 
 model user {
   address        String    @unique @db.VarChar
-  username       String?
+  username       String?  
   role           String?
-  x_followers    BigInt?
-  github_commits BigInt?
-  created_at     DateTime  @default(now()) @db.Timestamp(6)
+  xFollowers    Int?   @map("x_followers")
+  githubCommits Int?   @map("github_commits")
+  createdAt      DateTime  @default(now()) @db.Timestamp(6) @map("created_at")
   userId         Int    @id @default(autoincrement()) @map("user_id")
-  last_login     DateTime? @db.Timestamp(6)
+  lastLogin     DateTime? @db.Timestamp(6) @map("last_login")
 }

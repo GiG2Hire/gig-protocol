@@ -1,3 +1,4 @@
+import { prisma } from "@/src/app/lib/db";
 import { supabase } from "@/src/utils/supabase";
 
 /**
@@ -10,18 +11,22 @@ export async function POST(req: Request) {
   console.log("Inside POST /chat/sentiment/gemini/store");
 
   const { sentiment, chatId } = await req.json();
-  const { data, status, statusText, error } = await supabase
-    .from("chat")
-    .upsert([
-      {
-        gemini_sentiment: sentiment,
-        chat_id: chatId,
-      },
-    ])
-    .select();
+  let data;
 
-  if (error) {
-    return Response.json(error.message, { status: 500 });
+  try {
+    data = await prisma.chat.upsert({
+      where: { chatId: chatId },
+      update: { geminiSentiment: sentiment },
+      create: {
+        chatId: chatId,
+        geminiSentiment: sentiment,
+      },
+    });
+  } catch (error) {
+    console.log(error);
+    return Response.json("Unable to store sentiment in database!", {
+      status: 500,
+    });
   }
 
   console.log(
@@ -31,6 +36,6 @@ export async function POST(req: Request) {
   );
 
   return Response.json("Stored sentiment in database successfully", {
-    status: status,
+    status: 200,
   });
 }

@@ -8,14 +8,15 @@ import { STATUS_200 } from "@/src/constants/appConstants";
  * @author mgroovyank (Mayank Chhipa)
  */
 export async function POST(req: Request) {
-  const { senderId, receiverId, chatMsg, sentTimestamp, chatId } =
+  const { senderId, receiverId, chatMsg, sentTimestamp, chatId, sentiment } =
     await req.json();
 
   try {
     // publish an event: chat__chatId to chat-messages channel
     pusherServer.trigger("chat-messages", `chat__${chatId}`, {
       message: chatMsg,
-      sender_id: senderId,
+      senderId: senderId,
+      sentiment: sentiment,
     });
     console.log("Successfully published event to pusher channel!!");
   } catch (error) {

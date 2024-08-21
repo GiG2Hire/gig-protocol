@@ -1,5 +1,4 @@
-import { supabase } from "@/src/utils/supabase";
-import { redirect } from "next/navigation";
+import { prisma } from "@/src/app/lib/db";
 
 /**
  * @notice Get stored gemini sentiment for current chat
@@ -11,16 +10,16 @@ export async function GET(req: Request) {
 
   const { searchParams } = new URL(req.url);
   const chatId = searchParams.get("chatId");
-  console.log();
 
-  const { data, status, statusText, error } = await supabase
-    .from("chat")
-    .select()
-    .in("chat_id", [chatId]);
+  let data;
 
-  if (error) {
-    console.log("-------sdjsdk=----------------", error.message);
-    return Response.json(error.message, { status: 500 });
+  try {
+    data = await prisma.chat.findUnique({ where: { chatId: chatId } });
+  } catch (error) {
+    console.log(error);
+    return Response.json("Unable to get sentiment for chat from database", {
+      status: 500,
+    });
   }
 
   console.log(
@@ -29,9 +28,5 @@ export async function GET(req: Request) {
     )})`
   );
 
-  if (!data) {
-    return Response.json(statusText, { status: status });
-  }
-
-  return Response.json(data, { status: status });
+  return Response.json(data, { status: 200 });
 }
