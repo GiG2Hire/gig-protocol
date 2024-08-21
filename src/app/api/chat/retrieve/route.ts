@@ -28,21 +28,6 @@ export async function GET(req: Request) {
     return Response.json(error.message, { status: 500 });
   }
 
-  try {
-    const testMessages = await prisma.chat_message.findMany({
-      where: {
-        senderId: Number(senderId),
-        receiverId: Number(receiverId),
-      },
-      orderBy: {
-        sentTimestamp: "asc",
-      },
-    });
-    console.log("Messages received using prisma", testMessages);
-  } catch (error) {
-    console.log(error);
-  }
-
   console.log(
     `POST /chat/retrieve/ response from database. Count of messages received: ${data.length})`
   );
