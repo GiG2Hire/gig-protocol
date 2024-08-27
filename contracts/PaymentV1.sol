@@ -12,7 +12,6 @@ contract USDCPayment {
 
     mapping(bytes32 => uint256) private s_transactions; // list of amounts per ID
 
-    address payable public immutable i_owner;
     IPool public immutable i_pool;
     IERC20 private immutable i_usdc;
 
@@ -28,7 +27,6 @@ contract USDCPayment {
 
     constructor(address _addressPool, address _usdcAddress) {
         if (_usdcAddress == address(0)) revert InvalidUsdcToken();
-        i_owner = payable(msg.sender);
         i_pool = IPool(_addressPool);
         i_usdc = IERC20(_usdcAddress);
         i_usdc.safeApprove(_addressPool, type(uint256).max);
@@ -73,11 +71,6 @@ contract USDCPayment {
         return IERC20(_tokenAddress).balanceOf(address(this));
     }
 
-    function withdraw(address _tokenAddress) external onlyOwner {
-        IERC20 token = IERC20(_tokenAddress);
-        token.transfer(msg.sender, token.balanceOf(address(this)));
-    }
-
     // generate unique Indetifier for cross-chain transaction
     /// @param _beneficiary The address of the client.
     function generateID(
@@ -88,12 +81,6 @@ contract USDCPayment {
             keccak256(abi.encodePacked(_beneficiary, _amount, block.timestamp));
     }
 
-    modifier onlyOwner() {
-        if (msg.sender != i_owner) {
-            revert NotOwner();
-        }
-        _;
-    }
 
     receive() external payable {}
 }
