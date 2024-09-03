@@ -14,6 +14,7 @@ import { LoginTicket } from "google-auth-library";
 import { useActiveAccount } from "thirdweb/react";
 import { FREELANCER, STATUS_200 } from "@/src/constants/appConstants";
 
+
 export type JoinFreelancerType = {
   className?: string;
 };
