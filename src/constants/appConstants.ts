@@ -14,3 +14,34 @@ export const enum GIG_COMPLETION_STATUS {
   CANCELLED = "CANCELLED",
   COMPLETE = "COMPLETE",
 }
+
+export const enum GIG_TASK_STATUS {
+  PENDING = "PENDING",
+  IN_PROGRESS = "IN_PROGRESS",
+  COMPLETE = "COMPLETE",
+}
+
+export const MONTH_NAMES: string[] = [
+  "January",
+  "February",
+  "March",
+  "April",
+  "May",
+  "June",
+  "July",
+  "August",
+  "September",
+  "October",
+  "November",
+  "December",
+];
+
+export const WEEK_DAYS: string[] = [
+  "Sunday",
+  "Monday",
+  "Tuesday",
+  "Wednesday",
+  "Thursday",
+  "Friday",
+  "Saturday",
+];
