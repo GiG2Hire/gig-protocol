@@ -14,6 +14,7 @@ import {
   getContract,
   prepareContractCall,
   sendTransaction,
+  waitForReceipt,
 } from "thirdweb";
 import { abi } from "../actions/constantAbi";
 import { erc20Abi } from "@/src/constants/erc20";
@@ -107,13 +108,26 @@ const PostAJob = () => {
       params: [addressProtocol, BigInt(amount)],
     });
 
-    await sendTransaction({
+    const { transactionHash } = await sendTransaction({
       account: account,
       transaction: tx,
     });
 
+    const receipt = await waitForReceipt({
+      client: client,
+      chain: selectedChain,
+      transactionHash: transactionHash,
+      maxBlocksWaitTime: 6,
+    });
+
+    if (receipt.status != "success") {
+      return;
+    }
+
     console.log("Transaction approval confirmed: ");
     setProjectBudget(amount);
+
+    openProposal();
 
     // amount = gig budget, usdcToken = base , destinationChain = Optimism
     // const txCall = prepareContractCall({
@@ -172,11 +186,21 @@ const PostAJob = () => {
 
     console.log(transactionHash);
 
+    const { receipt } = await waitForReceipt({
+      client: client,
+      chain: selectedChain,
+      transactionHash: transactionHash,
+    });
+
+    if (receipt.status != "success") {
+      return;
+    }
+
     // return transactionHash;
   }
 
   const openProposalAndCreateGig = (formData: FormData) => {
-    // openProposal();
+    approveUSDCandOpenProposal();
     createGig(formData, deliveryDate, projectBudget, activeJobCategory, tasks);
   };
 
