@@ -2,7 +2,7 @@ import { PrismaClient } from "@prisma/client";
 
 /**
  * global variable required only in development mode as nextjs hot reloads the client on changes and creates
-    lot of connections
+   lot of connections
  */
 const globalForPrisma = globalThis as unknown as { prisma: PrismaClient };
 
