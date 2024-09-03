@@ -27,14 +27,20 @@ export async function createGig(
   const clientId = await getUserIdFromPayload();
   const description: string = formData.get("description");
   const budget: number = Number(formData.get("budget"));
+  const title: string = formData.get("gigTitle");
 
   // form data validation
   //nextjs.org/docs/app/building-your-application/data-fetching/server-actions-and-mutations#server-side-form-validation
 
-  https: try {
+  if (description == "" || clientId == null || title == "") {
+    return;
+  }
+
+  try {
     const gig = await prisma.gig.create({
       data: {
         clientId: clientId,
+        title: title,
         description: description,
         gigValue: budget,
         completionStatus: GIG_COMPLETION_STATUS.OPEN,
