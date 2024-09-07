@@ -1,97 +1,76 @@
+//actions/verify-github
 "use server"
-export default async function githubVerification(code: any) {
-    // const urlParams = new URLSearchParams(window.location.search);
-    // const code = urlParams.get('code');
-    const clientSecret = "73d257ec4248e9b39f0553402443ddc82e0e305b"; // Replace with your actual Client Secret
-    
-    const authUrl = `https://github.com/login/oauth/access_token?client_id=${clientId}&client_secret=${clientSecret}&code=${code}&redirect_uri=${redirectUri}`;
-    
-    fetch(authUrl, {
-        method: 'POST',
-        headers: {
-            'Accept': 'application/json'
-        }
-    })
-    .then(response => response.json())
-    .then(data => {
+import { NextResponse } from "next/server";
+export default async function gtihubVerification(code:any) {
+
+    if (!code) {
+        console.log("Error no code")
+    }
+
+    const clientId = process.env.GITHUB_CLIENT_ID;
+    const clientSecret = process.env.GITHUB_CLIENT_SECRET;
+    const tokenUrl = `https://github.com/login/oauth/access_token`;
+
+    try {
+        // Exchange code for access token
+        const response = await fetch(tokenUrl, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json',
+            },
+            body: JSON.stringify({
+                client_id: clientId,
+                client_secret: clientSecret,
+                code,
+            }),
+        });
+
+        const data = await response.json();
+
+        // if (data.error) {
+        //     return res.status(400).json({ error: data.error_description });
+        // }
+
         const accessToken = data.access_token;
-        console.log('Access Token:', accessToken);
 
-        // Fetch user details with the access token
-        fetchGitHubUser(accessToken);
-        fetchUserCommits(accessToken);
-    })
-    .catch(error => {
-        console.error('Error retrieving access token:', error);
-    });
-
-
-}
-
-// Function to fetch user data
-function fetchGitHubUser(accessToken) {
-    fetch('https://api.github.com/user', {
-        headers: {
-            'Authorization': `Bearer ${accessToken}`
-        }
-    })
-    .then(response => response.json())
-    .then(userData => {
-        console.log('GitHub User Data:', userData);
-        // Handle the user data (e.g., display it in the UI)
-    })
-    .catch(error => {
-        console.error('Error fetching user data:', error);
-    });
-}
-
-// Function to fetch user repositories
-async function fetchUserRepos(accessToken) {
-    try {
-        const response = await fetch('https://api.github.com/user/repos', {
+        // Fetch GitHub user data using the access token
+        const userResponse = await fetch('https://api.github.com/user', {
             headers: {
-                'Authorization': `Bearer ${accessToken}`
-            }
+                Authorization: `Bearer ${accessToken}`,
+            },
         });
-        return await response.json();
-    } catch (error) {
-        console.error('Error fetching user repositories:', error);
-    }
-}
 
-// Function to fetch commits for a repository
-async function fetchRepoCommits(accessToken, owner, repo) {
-    try {
-        const response = await fetch(`https://api.github.com/repos/${owner}/${repo}/commits`, {
+        const userData = await userResponse.json();
+
+        const reposResponse = await fetch('https://api.github.com/user/repos', {
             headers: {
-                'Authorization': `Bearer ${accessToken}`
-            }
+                Authorization: `Bearer ${accessToken}`,
+            },
         });
-        return await response.json();
+        
+        const repos = await reposResponse.json();
+        
+        const commitPromises = repos.map(repo =>
+            fetch(`https://api.github.com/repos/${repo.owner.login}/${repo.name}/commits`, {
+                headers: {
+                    Authorization: `Bearer ${accessToken}`,
+                },
+            }).then(res => res.json())
+        );
+        
+        const allCommits = await Promise.all(commitPromises);
+        
+        console.log(userData.login, allCommits.length);
+
+        // Store userData and commits in session or database as needed
+
+        // Redirect after verification
+        //const redirectUrl = '/freelancer-dashboard';  // Replace this with your target URL
+        return true;
+
     } catch (error) {
-        console.error(`Error fetching commits for repo ${repo}:`, error);
+        console.log("Error fetching data")
+        //return res.status(500).json({ error: 'An error occurred during GitHub verification' });
     }
-}
-
-// Function to fetch user commits from all repositories
-function fetchUserCommits(accessToken) {
-    fetchUserRepos(accessToken)
-        .then(repos => {
-            const commitPromises = repos.map(repo => 
-                fetchRepoCommits(accessToken, repo.owner.login, repo.name)
-            );
-
-            return Promise.all(commitPromises);
-        })
-        .then(allCommits => {
-            const commits = allCommits.flat();
-            // Get the total number of commits
-            const totalCommits = commits.length;
-            console.log('Total Commits:', totalCommits);
-
-            // You can also display the totalCommits in your UI if needed
-        })
-        .catch(error => {
-            console.error('Error fetching user commits:', error);
-        });
 }
