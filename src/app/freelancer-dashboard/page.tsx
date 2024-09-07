@@ -21,7 +21,7 @@ const FreelancerDashboard: NextPageFreelancerDashboardType = () => {
   const xUserVerification = async () => {
     const url = window.location.href;
     const code = url.split("&code=")[1];
-    performTwitterVerification(code);
+    //performTwitterVerification(code);
   };
 
   // Handles github data decode from redirect url
