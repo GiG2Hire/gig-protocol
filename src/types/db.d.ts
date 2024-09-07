@@ -9,10 +9,18 @@ interface ChatMessage {
 
 interface Gig {
   id: number; // Primary key
-  client_id: number;
-  freelancer_id: number;
+  clientId: number;
+  freelancerId: number[];
+  freelancerCount: number; // starting from 0
+  title: string;
   description: string;
-  chat_id: number;
+  budget: number;
+  paymentId: BigInt; // Id from Smart Contract
+  deadlinePeriod: Date;
+  timeCreation: Date;
+  tasks: string[];
+  jobCategory: string;
+  chatId: number;
 }
 
 interface User {

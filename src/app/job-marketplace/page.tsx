@@ -3,8 +3,11 @@ import NavbarSpacer from "@/src/app/components/navbar-spacer1";
 import JobCategories from "@/src/app/components/job-categories";
 import Footer from "@/src/app/components/footer1";
 import styles from "./job-marketplace.module.css";
+import { getActiveProposals } from "../actions/get-proposals";
 
-const JobMarketplace: NextPageJobMarketplaceType = () => {
+const JobMarketplace: NextPageJobMarketplaceType = async () => {
+  const initialData = await getActiveProposals(0, 5);
+  console.log(initialData)
   return (
     <div className={styles.jobMarketplace}>
       <main className={styles.pageContent}>
@@ -17,7 +20,7 @@ const JobMarketplace: NextPageJobMarketplaceType = () => {
               Work with no fees, as it must.
             </h1>
           </div>
-          <JobCategories />
+          <JobCategories initialData={initialData} />
         </section>
       </main>
       <Footer />

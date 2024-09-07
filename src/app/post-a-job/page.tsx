@@ -8,6 +8,8 @@ import contractAddresses from "@/src/constants/contractAddresses.json";
 import { client } from "../lib/client";
 import { createGig } from "../actions/create-gig";
 import { useActiveAccount } from "thirdweb/react";
+import { useState } from 'react';
+
 
 import {
   defineChain,
@@ -20,13 +22,17 @@ import { erc20Abi } from "@/src/constants/erc20";
 
 const PostAJob: NextPagePostAJobType = () => {
   const account = useActiveAccount();
+  const [approvalAmount, setApprovalAmount] = useState<any | null>(null);
+  const [budget, setBudget] = useState<number | null>(0);
 
   async function approveUSDCandOpenProposal() {
     console.log("Trying to obtain approval from client....");
+    const DECIMALS = 10 ** 6; // Decimals of USDC token
+
     const chainId = 84532;
     const rpcUrl = process.env.NEXT_PUBLIC_BASE_RPC_URL;
     const addressProtocol = "0x956b52eB371037CD8F2Ff5DF4Ac21BF0020226FB";
-    const amount = 1000000;
+    const amount = approvalAmount * DECIMALS;
     const usdcToken = "0x036CbD53842c5426634e7929541eC2318f3dCF7e";
 
     // const account = useActiveAccount();
@@ -63,6 +69,7 @@ const PostAJob: NextPagePostAJobType = () => {
     });
 
     console.log("Transaction approval confirmed: ");
+    setBudget(approvalAmount);
 
     // amount = gig budget, usdcToken = base , destinationChain = Optimism
     // const txCall = prepareContractCall({
@@ -667,6 +674,7 @@ const PostAJob: NextPagePostAJobType = () => {
                   </div>
                   <input
                     className={styles.textInput4}
+                    onChange={el => { setApprovalAmount(el.currentTarget.value); }}
                     placeholder="Type amount"
                     type="text"
                     name="budget"
@@ -826,7 +834,7 @@ const PostAJob: NextPagePostAJobType = () => {
                           src="/usdc-simplified-1.svg"
                         />
                       </div>
-                      <b className={styles.amount}>250</b>
+                      <b className={styles.amount}>{budget}</b>
                       <div className={styles.usdc}>USDC</div>
                     </div>
                   </div>

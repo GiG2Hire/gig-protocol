@@ -2,17 +2,19 @@ import type { NextPage } from "next";
 import styles from "./comp-joboffer.module.css";
 
 export type CompJobofferType = {
+  title: string,
+  description: string,
   className?: string;
 };
 
-const CompJoboffer: NextPage<CompJobofferType> = ({ className = "" }) => {
+const CompJoboffer: NextPage<CompJobofferType> = ({ title, description, budget, deadlinePeriod, timeCreation, tasks, className = "" }) => {
   return (
     <div className={[styles.compJoboffer, className].join(" ")}>
       <div className={styles.jobListingContainers}>
         <div className={styles.jobListingContent}>
           <div className={styles.jobListingDetails}>
             <b className={styles.mobileAppDesign}>
-              Mobile App Design - UI/UX Specialist
+              {title}
             </b>
             <div className={styles.jobListingMetadata}>
               <div className={styles.posted}>Posted</div>
@@ -21,10 +23,7 @@ const CompJoboffer: NextPage<CompJobofferType> = ({ className = "" }) => {
           </div>
           <p className={styles.lookingForAnContainer}>
             <span className={styles.lookingForAn}>
-              Looking for an experienced UX/UI designer to design a stunning
-              e-Commerce platform.  This platform will be designed as a PWA app
-              meaning it will render on regular desktops as well as smart
-              devices (phones/tablets).
+              {description}
             </span>
             <span className={styles.blankLine}>&nbsp;</span>
             <span className={styles.youMustHave}>
@@ -38,6 +37,9 @@ const CompJoboffer: NextPage<CompJobofferType> = ({ className = "" }) => {
             <div className={styles.parent}>
               <b className={styles.b}>8</b>
               <div className={styles.jobTasks}>Job Tasks</div>
+              {tasks.map((singleTask) => (
+                <div>{singleTask}</div>
+              ))}
             </div>
             <div className={styles.frameParent}>
               <div className={styles.frameGroup}>

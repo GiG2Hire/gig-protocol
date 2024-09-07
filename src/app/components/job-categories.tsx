@@ -1,12 +1,40 @@
+"use client";
 import type { NextPage } from "next";
+import { useEffect, useState } from "react";
+import { useInView } from "react-intersection-observer";
 import CompJoboffer from "./comp-joboffer";
+import { getActiveProposals } from "../actions/get-proposals";
 import styles from "./job-categories.module.css";
 
 export type JobCategoriesType = {
   className?: string;
+  initialData: any[];
 };
 
-const JobCategories: NextPage<JobCategoriesType> = ({ className = "" }) => {
+const PROPOSALS_TO_FETCH = 5; // Amount of proposals that would be loaded after scroll
+
+const JobCategories: NextPage<JobCategoriesType> = ({ initialData, className = "" }) => {
+  const [gigData, setGigData] = useState<any[]>(initialData); // further replace any[] to Gig[] Type from @types
+  const [offset, setOffset] = useState(PROPOSALS_TO_FETCH);
+  const [hasMore, setHasMore] = useState(true);
+  const [scrollTrigger, isView] = useInView();
+
+  const loadMoreProposals = async () => {
+    const apiGigData = await getActiveProposals(offset, offset + PROPOSALS_TO_FETCH);
+    setGigData([...gigData, ...apiGigData]);
+    if (apiGigData?.length == 0) {
+      setHasMore(false);
+    }
+    setOffset(offset + PROPOSALS_TO_FETCH);
+  }
+
+  useEffect(() => {
+    loadMoreProposals();
+    console.log(offset, "TAG here")
+
+  }, [isView, hasMore])
+
+
   return (
     <div className={[styles.jobCategories, className].join(" ")}>
       <div className={styles.categoryButtons}>
@@ -70,15 +98,15 @@ const JobCategories: NextPage<JobCategoriesType> = ({ className = "" }) => {
         </div>
       </div>
       <div className={styles.jobListings}>
-        <CompJoboffer />
-        <CompJoboffer />
-        <CompJoboffer />
+        {gigData.map((singleGig) => (
+          <CompJoboffer description={singleGig.description} title={singleGig.title} budget={singleGig.budget} />
+        ))}
         <div className={styles.compJoboffer}>
           <div className={styles.frameParent}>
             <div className={styles.frameGroup}>
               <div className={styles.mobileAppDesignUiuxSpecParent}>
                 <b className={styles.mobileAppDesign}>
-                  Mobile App Design - UI/UX Specialist
+                  Mobile App Design - UI/UX Specialist FUCK
                 </b>
                 <div className={styles.postedParent}>
                   <div className={styles.posted}>Posted</div>
