@@ -1,76 +1,87 @@
-//actions/verify-github
-"use server"
-import { NextResponse } from "next/server";
-export default async function gtihubVerification(code:any) {
+"use server";
+import { prisma } from "../lib/db";
+import { supabase } from "@/src/utils/supabase";
+import { getPayload, isLoggedIn } from "./login";
 
-    if (!code) {
-        console.log("Error no code")
-    }
+export default async function githubVerification(code: any) {
+  if (!code) {
+    console.log("Error: No code provided.");
+  }
 
-    const clientId = process.env.GITHUB_CLIENT_ID;
-    const clientSecret = process.env.GITHUB_CLIENT_SECRET;
-    const tokenUrl = `https://github.com/login/oauth/access_token`;
+  const clientId = process.env.GITHUB_CLIENT_ID;
+  const clientSecret = process.env.GITHUB_CLIENT_SECRET;
+  const tokenUrl = `https://github.com/login/oauth/access_token`;
 
-    try {
-        // Exchange code for access token
-        const response = await fetch(tokenUrl, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'Accept': 'application/json',
-            },
-            body: JSON.stringify({
-                client_id: clientId,
-                client_secret: clientSecret,
-                code,
-            }),
-        });
+  try {
+    //confirm user is logged in
+    const payload = await getPayload();
+    // Exchange code for access token
+    const response = await fetch(tokenUrl, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+      },
+      body: JSON.stringify({
+        client_id: clientId,
+        client_secret: clientSecret,
+        code,
+      }),
+    });
 
-        const data = await response.json();
+    const data = await response.json();
+    const accessToken = data.access_token;
 
-        // if (data.error) {
-        //     return res.status(400).json({ error: data.error_description });
-        // }
+    // Fetch GitHub user data
+    const userResponse = await fetch("https://api.github.com/user", {
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+    });
 
-        const accessToken = data.access_token;
+    const userData = await userResponse.json();
+    const reposResponse = await fetch("https://api.github.com/user/repos", {
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+    });
 
-        // Fetch GitHub user data using the access token
-        const userResponse = await fetch('https://api.github.com/user', {
-            headers: {
-                Authorization: `Bearer ${accessToken}`,
-            },
-        });
+    const repos = await reposResponse.json();
 
-        const userData = await userResponse.json();
+    const commitPromises = repos.map((repo: any) =>
+      fetch(`https://api.github.com/repos/${repo.owner.login}/${repo.name}/commits`, {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      }).then((res) => res.json())
+    );
 
-        const reposResponse = await fetch('https://api.github.com/user/repos', {
-            headers: {
-                Authorization: `Bearer ${accessToken}`,
-            },
-        });
-        
-        const repos = await reposResponse.json();
-        
-        const commitPromises = repos.map(repo =>
-            fetch(`https://api.github.com/repos/${repo.owner.login}/${repo.name}/commits`, {
-                headers: {
-                    Authorization: `Bearer ${accessToken}`,
-                },
-            }).then(res => res.json())
-        );
-        
-        const allCommits = await Promise.all(commitPromises);
-        
-        console.log(userData.login, allCommits.length);
+    const allCommits = await Promise.all(commitPromises);
 
-        // Store userData and commits in session or database as needed
+    // Calculate total commits
+    const totalCommits = allCommits.reduce(
+      (sum, repoCommits) => sum + repoCommits.length,
+      0
+    );
+    console.log(userData.login, totalCommits)
 
-        // Redirect after verification
-        //const redirectUrl = '/freelancer-dashboard';  // Replace this with your target URL
-        return true;
+    // Get user wallet address from session or cookie
+    const walletAddress = payload.iss; // Replace with actual method to get the address
 
-    } catch (error) {
-        console.log("Error fetching data")
-        //return res.status(500).json({ error: 'An error occurred during GitHub verification' });
-    }
+    // Update user details in database
+    const updatedUser = await prisma.user.update({
+      where: { address: walletAddress },
+      data: {
+        role: "Freelancer",
+        githubCommits: totalCommits,
+      },
+    });
+
+    console.log("User updated:", updatedUser);
+
+    return true;
+
+  } catch (error) {
+    console.log("Error during GitHub verification:", error);
+  }
 }
