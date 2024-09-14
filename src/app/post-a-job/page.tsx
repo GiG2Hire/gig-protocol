@@ -206,7 +206,7 @@ const PostAJob = () => {
 
   return (
     <div className={styles.postAJob}>
-      <HeaderSpacer />
+      {/* <HeaderSpacer /> */}
       <main className={styles.footerContentWrapper}>
         <section className={styles.footerContent}>
           <div className={styles.frameParent}>
