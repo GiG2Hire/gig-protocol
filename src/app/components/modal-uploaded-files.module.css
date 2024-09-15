@@ -1,3 +1,12 @@
+.modalBackdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.8);
+  z-index: 100000;
+}
 .uploadAndManage {
   margin: 0;
   position: relative;
@@ -23,6 +32,7 @@
   padding: var(--padding-7xs-5) var(--padding-8xs);
   box-sizing: border-box;
   height: 21px;
+  cursor: pointer;
 }
 .uploadManager {
   align-self: stretch;
@@ -628,6 +638,7 @@
   font-size: var(--font-size-5xl);
   color: var(--navy-medium-bk);
   font-family: var(--font-unbounded);
+  margin: 0 auto;
 }
 @media screen and (max-width: 675px) {
   .compBoxuploadParent {
