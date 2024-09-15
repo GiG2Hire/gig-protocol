@@ -1,12 +1,37 @@
+"use client";
 import type { NextPage } from "next";
+import { useEffect, useState } from "react";
+import { useInView } from "react-intersection-observer";
 import CompJoboffer from "./comp-joboffer";
+import { getActiveProposals } from "../actions/read-gigs";
 import styles from "./job-categories.module.css";
+
 
 export type JobCategoriesType = {
   className?: string;
+  initialData: any[]; // Further replace any[] with Gig[] type from @types
 };
 
-const JobCategories: NextPage<JobCategoriesType> = ({ className = "" }) => {
+const PROPOSALS_TO_FETCH = 10;
+
+const JobCategories: NextPage<JobCategoriesType> = ({ initialData, className = "" }) => {
+  const [gigData, setGigData] = useState<any[]>(initialData); // Further replace any[] with Gig[] type from @types
+  const [offset, setOffset] = useState(1); // Next page
+  const { ref, inView } = useInView();
+
+  const loadMoreProposals = async () => {
+    const apiGigData = await getActiveProposals(offset, PROPOSALS_TO_FETCH);
+    setGigData(gigs => [...gigs, ...apiGigData]);
+
+    setOffset(offset => offset + 1);
+  };
+
+  useEffect(() => {
+    if (inView) {
+      loadMoreProposals();
+    }
+  }, [inView]);
+
   return (
     <div className={[styles.jobCategories, className].join(" ")}>
       <div className={styles.categoryButtons}>
@@ -70,10 +95,19 @@ const JobCategories: NextPage<JobCategoriesType> = ({ className = "" }) => {
         </div>
       </div>
       <div className={styles.jobListings}>
-        <CompJoboffer />
-        <CompJoboffer />
-        <CompJoboffer />
-        <div className={styles.compJoboffer}>
+        {gigData.map((singleGig) => (
+          <CompJoboffer
+            title={singleGig.title}
+            description={singleGig.description}
+            budget={singleGig.budget}
+            freelancerCount={0}
+            deadlinePeriod={singleGig.deadlinePeriod}
+            timeCreation={singleGig.timeCreation}
+            tasks={singleGig.tasks}
+            jobCategory={singleGig.jobCategory}
+          />
+        ))}
+        {/* <div className={styles.compJoboffer}>
           <div className={styles.frameParent}>
             <div className={styles.frameGroup}>
               <div className={styles.mobileAppDesignUiuxSpecParent}>
@@ -271,7 +305,7 @@ const JobCategories: NextPage<JobCategoriesType> = ({ className = "" }) => {
               </div>
             </div>
           </div>
-          <div className={styles.frameParent5}>
+          <div className={styles.frameParent5} ref={ref}>
             <div className={styles.frameParent6}>
               <div className={styles.youWillCollectParent}>
                 <div className={styles.youWillCollect}>You will collect</div>
@@ -296,7 +330,9 @@ const JobCategories: NextPage<JobCategoriesType> = ({ className = "" }) => {
               <b className={styles.apply}>Apply</b>
             </div>
           </div>
-        </div>
+        </div> */}
+        <div ref={ref} />
+        {/* Further add animation for loading new proposals */}
       </div>
     </div>
   );

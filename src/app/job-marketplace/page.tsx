@@ -1,29 +1,21 @@
-"use client";
 import type { NextPage } from "next";
 import NavbarSpacer from "@/src/app/components/navbar-spacer1";
 import JobCategories from "@/src/app/components/job-categories";
 import Footer from "@/src/app/components/footer1";
 import styles from "./job-marketplace.module.css";
-import { useEffect } from "react";
-import githubVerification from "../actions/verify-github";
+import GitHubProcess from "../components/github-process"
+import { getActiveProposals } from "../actions/read-gigs";
 
-const JobMarketplace: NextPage = () => {
+const INITIAL_PROPOSALS_AMOUNT = 10;
 
-  useEffect(() => {
-    const githubVerificationProcess = async () => {
-      const url = window.location.href;
-      const code = url.split("?code=")[1];
-      if (code && await githubVerification(code)) {
-        console.log("GitHub verification done!!!");
-        window.location.href = "/freelancer-dashboard";
-      }
-    };
+const JobMarketplace: NextPage = async () => {
+  const initialData = await getActiveProposals(0, INITIAL_PROPOSALS_AMOUNT); // fetch latest 10 proposals
 
-    githubVerificationProcess();
-  }, []);
   return (
     <div className={styles.jobMarketplace}>
       <main className={styles.pageContent}>
+        <GitHubProcess />
+        {/* Load Github process from different file with Client Component flag */}
         <section className={styles.contentHeader}>
           <div className={styles.pageTitleContainerParent}>
             <button className={styles.pageTitleContainer}>
@@ -33,7 +25,7 @@ const JobMarketplace: NextPage = () => {
               Work with no fees, as it must.
             </h1>
           </div>
-          <JobCategories />
+          <JobCategories initialData={initialData} />
         </section>
       </main>
       <Footer />

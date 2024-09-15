@@ -9,6 +9,8 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@aave/core-v3": "^1.19.3",
+    "@chainlink/contracts-ccip": "^1.4.0",
     "@google-ai/generativelanguage": "^2.6.0",
     "@google/generative-ai": "^0.16.0",
     "@prisma/client": "^5.19.1",
@@ -16,14 +18,15 @@
     "ethers": "^6.13.2",
     "google-auth-library": "^9.11.0",
     "next": "^14.2.5",
+    "next-auth": "^4.24.7",
     "pino": "^9.3.2",
     "pino-pretty": "^11.2.2",
-    "next-auth": "^4.24.7",
     "pusher": "^5.2.0",
     "pusher-js": "^8.4.0-rc2",
     "react": "^18.3.1",
     "react-calendar": "^5.0.0",
     "react-dom": "^18.3.1",
+    "react-intersection-observer": "^9.13.1",
     "thirdweb": "^5.40.0",
     "web3": "^4.11.1"
   },

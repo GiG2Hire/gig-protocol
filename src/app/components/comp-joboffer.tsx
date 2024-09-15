@@ -2,37 +2,52 @@ import type { NextPage } from "next";
 import styles from "./comp-joboffer.module.css";
 
 export type CompJobofferType = {
+  title: string;
+  description: string;
+  freelancerCount: number;
+  budget: number;
+  deadlinePeriod: string;
+  timeCreation: number;
+  tasks: string[];
+  jobCategory: string;
   className?: string;
 };
 
-const CompJoboffer: NextPage<CompJobofferType> = ({ className = "" }) => {
+const CompJoboffer: NextPage<CompJobofferType> = ({
+  title,
+  description,
+  freelancerCount,
+  budget,
+  deadlinePeriod,
+  timeCreation,
+  tasks,
+  jobCategory,
+  className = ""
+}) => {
   return (
     <div className={[styles.compJoboffer, className].join(" ")}>
       <div className={styles.jobListingContainers}>
         <div className={styles.jobListingContent}>
           <div className={styles.jobListingDetails}>
             <b className={styles.mobileAppDesign}>
-              Mobile App Design - UI/UX Specialist
+              {title}
             </b>
             <div className={styles.jobListingMetadata}>
               <div className={styles.posted}>Posted</div>
-              <b className={styles.hAgo}>6h ago</b>
+              <b className={styles.hAgo}>{timeCreation}</b>
             </div>
           </div>
           <p className={styles.lookingForAnContainer}>
             <span className={styles.lookingForAn}>
-              Looking for an experienced UX/UI designer to design a stunning
-              e-Commerce platform.  This platform will be designed as a PWA app
-              meaning it will render on regular desktops as well as smart
-              devices (phones/tablets).
+              {description}
             </span>
             <span className={styles.blankLine}>&nbsp;</span>
-            <span className={styles.youMustHave}>
+            {/* <span className={styles.youMustHave}>
               You must have created similar projects in the past to be
               considered.  when replying to this post please confirm that you
               are available on a full-time basis for this project.  We are
               looking for talented individuals to join our growing team.
-            </span>
+            </span> */}
           </p>
           <div className={styles.tasks}>
             <div className={styles.parent}>
@@ -146,7 +161,7 @@ const CompJoboffer: NextPage<CompJobofferType> = ({ className = "" }) => {
                 src="/event.svg"
               />
               <b className={styles.deadline}>Deadline:</b>
-              <div className={styles.jun122024}>Jun 12, 2024</div>
+              <div className={styles.jun122024}>{deadlinePeriod}</div>
             </div>
             <div className={styles.jobListingApplicationCandid}>
               <img
