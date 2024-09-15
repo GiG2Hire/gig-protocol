@@ -93,6 +93,13 @@
   color: var(--navy-bk-40a);
 }
 
+.btnUploadJob:hover {
+  background: rgb(110, 131, 255, 0.6);
+  cursor: pointer;
+  transition: ease-out 0.3s;
+  color: var(--navy-600);
+}
+
 @media screen and (max-width: 900px) {
   .frameParent2 {
     display: none;
