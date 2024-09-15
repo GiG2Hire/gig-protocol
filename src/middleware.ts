@@ -24,6 +24,7 @@ export async function middleware(request: NextRequest) {
   if (isFreelancerDashboard) {
     console.log("Inside freelancer dashboard!!!!!");
     const userDetails = await getPayload();
+    console.log(userDetails)
     if (!userDetails.ctx.role) {
       console.log("User has not been assigned any role!!");
       return NextResponse.redirect(new URL("/", request.url));

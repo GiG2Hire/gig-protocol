@@ -9,45 +9,65 @@ datasource db {
 }
 
 model chat {
-  chatId             String    @id @unique @map("chat_id")
+  chatId            String    @id @unique @map("chat_id")
   geminiSentiment   String?   @map("gemini_sentiment")
-  createdAt         DateTime  @default(now()) @db.Timestamptz(6) @map("created_at")
-  updatedAt         DateTime? @db.Timestamp(6) @map("updated_at")
+  createdAt         DateTime  @default(now()) @map("created_at") @db.Timestamptz(6)
+  updatedAt         DateTime? @map("updated_at") @db.Timestamp(6)
   geminiExplanation String?   @map("gemini_explanation")
 }
 
 /// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
 model chatMessage {
-  id             Int    @id @default(autoincrement())
-  createdAt     DateTime  @default(now()) @db.Timestamptz(6) @map("created_at")
-  senderId      Int    @map("sender_id")    
-  receiverId    Int    @map("receiver_id")
-  message        String?
-  sentTimestamp DateTime? @db.Timestamptz(6) @map("sent_timestamp")
-  chatId        String? @map("chat_id")
+  id            BigInt    @id @default(autoincrement())
+  createdAt     DateTime  @default(now()) @map("created_at") @db.Timestamptz(6)
+  senderId      BigInt    @map("sender_id")
+  receiverId    BigInt    @map("receiver_id")
+  message       String?
+  sentTimestamp DateTime? @map("sent_timestamp") @db.Timestamptz(6)
+  chatId        String?   @map("chat_id")
 
   @@map("chat_message")
 }
 
 model gig {
-  gigId            Int    @id @default(autoincrement()) @map("gig_id")
-  clientId         Int   @map("client_id")
-  freelancerId     Int?  @map("freelancer_id")
-  description      String?
-  gigValue         Float?   @map("gig_value")
-  startDate        DateTime? @db.Timestamp(6) @map("start_date")
-  endDate          DateTime? @db.Timestamp(6) @map("end_date")
-  createdAt        DateTime  @default(now()) @db.Timestamptz(6) @map("created_at")
-  completionStatus String?   @map("completion_status")
+  gigId                BigInt    @id @default(autoincrement()) @map("gig_id")
+  clientId             BigInt    @map("client_id")
+  freelancerId         BigInt?   @map("freelancer_id")
+  description          String    @map("description")
+  gigValue             Float     @map("gig_value")
+  startDate            DateTime? @map("start_date") @db.Timestamp(6)
+  endDate              DateTime? @map("end_date") @db.Timestamp(6)
+  createdAt            DateTime  @default(now()) @map("created_at") @db.Timestamptz(6)
+  completionStatus     String?   @map("completion_status")
+  expectedDeliveryDate DateTime? @map("expected_delivery_date") @db.Timestamptz(6)
+  category             BigInt?   @map("category")
+  title                String?
+  gig_task             gigTask[]
 }
 
 model user {
-  address        String    @unique @db.VarChar
-  username       String?  
-  role           String?
-  xFollowers    Int?   @map("x_followers")
-  githubCommits Int?   @map("github_commits")
-  createdAt      DateTime  @default(now()) @db.Timestamp(6) @map("created_at")
-  userId         Int    @id @default(autoincrement()) @map("user_id")
-  lastLogin     DateTime? @db.Timestamp(6) @map("last_login")
+  address       String    @unique @db.VarChar
+  username      String?
+  role          String?
+  xFollowers    BigInt?   @map("x_followers")
+  githubCommits BigInt?   @map("github_commits")
+  createdAt     DateTime  @default(now()) @map("created_at") @db.Timestamp(6)
+  userId        BigInt    @id @default(autoincrement()) @map("user_id")
+  lastLogin     DateTime? @map("last_login") @db.Timestamp(6)
+}
+
+model gigTask {
+  taskId      BigInt    @id @default(autoincrement()) @map("task_id")
+  gigId       BigInt?   @map("gig_id")
+  description String?
+  status      String?
+  createdAt   DateTime  @default(now()) @map("created_at") @db.Timestamptz(6)
+  updatedAt   DateTime? @map("updated_at") @db.Timestamptz(6)
+  gig         gig?      @relation(fields: [gigId], references: [gigId], onDelete: Restrict, onUpdate: NoAction)
+
+  @@map("gig_task")
+}
+
+model proposal {
+  freelancerId      BigInt?   @map("freelancer_id")
 }

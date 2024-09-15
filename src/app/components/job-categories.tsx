@@ -3,37 +3,34 @@ import type { NextPage } from "next";
 import { useEffect, useState } from "react";
 import { useInView } from "react-intersection-observer";
 import CompJoboffer from "./comp-joboffer";
-import { getActiveProposals } from "../actions/get-proposals";
+import { getActiveProposals } from "../actions/read-gigs";
 import styles from "./job-categories.module.css";
+
 
 export type JobCategoriesType = {
   className?: string;
-  initialData: any[];
+  initialData: any[]; // Further replace any[] with Gig[] type from @types
 };
 
-const PROPOSALS_TO_FETCH = 5; // Amount of proposals that would be loaded after scroll
+const PROPOSALS_TO_FETCH = 10;
 
 const JobCategories: NextPage<JobCategoriesType> = ({ initialData, className = "" }) => {
-  const [gigData, setGigData] = useState<any[]>(initialData); // further replace any[] to Gig[] Type from @types
-  const [offset, setOffset] = useState(PROPOSALS_TO_FETCH);
-  const [hasMore, setHasMore] = useState(true);
-  const [scrollTrigger, isView] = useInView();
+  const [gigData, setGigData] = useState<any[]>(initialData); // Further replace any[] with Gig[] type from @types
+  const [offset, setOffset] = useState(1); // Next page
+  const { ref, inView } = useInView();
 
   const loadMoreProposals = async () => {
-    const apiGigData = await getActiveProposals(offset, offset + PROPOSALS_TO_FETCH);
-    setGigData([...gigData, ...apiGigData]);
-    if (apiGigData?.length == 0) {
-      setHasMore(false);
-    }
-    setOffset(offset + PROPOSALS_TO_FETCH);
-  }
+    const apiGigData = await getActiveProposals(offset, PROPOSALS_TO_FETCH);
+    setGigData(gigs => [...gigs, ...apiGigData]);
+
+    setOffset(offset => offset + 1);
+  };
 
   useEffect(() => {
-    loadMoreProposals();
-    console.log(offset, "TAG here")
-
-  }, [isView, hasMore])
-
+    if (inView) {
+      loadMoreProposals();
+    }
+  }, [inView]);
 
   return (
     <div className={[styles.jobCategories, className].join(" ")}>
@@ -99,9 +96,18 @@ const JobCategories: NextPage<JobCategoriesType> = ({ initialData, className = "
       </div>
       <div className={styles.jobListings}>
         {gigData.map((singleGig) => (
-          <CompJoboffer description={singleGig.description} title={singleGig.title} budget={singleGig.budget} />
+          <CompJoboffer
+            title={singleGig.title}
+            description={singleGig.description}
+            budget={singleGig.budget}
+            freelancerCount={0}
+            deadlinePeriod={singleGig.deadlinePeriod}
+            timeCreation={singleGig.timeCreation}
+            tasks={singleGig.tasks}
+            jobCategory={singleGig.jobCategory}
+          />
         ))}
-        <div className={styles.compJoboffer}>
+        {/* <div className={styles.compJoboffer}>
           <div className={styles.frameParent}>
             <div className={styles.frameGroup}>
               <div className={styles.mobileAppDesignUiuxSpecParent}>
@@ -299,7 +305,7 @@ const JobCategories: NextPage<JobCategoriesType> = ({ initialData, className = "
               </div>
             </div>
           </div>
-          <div className={styles.frameParent5}>
+          <div className={styles.frameParent5} ref={ref}>
             <div className={styles.frameParent6}>
               <div className={styles.youWillCollectParent}>
                 <div className={styles.youWillCollect}>You will collect</div>
@@ -324,7 +330,9 @@ const JobCategories: NextPage<JobCategoriesType> = ({ initialData, className = "
               <b className={styles.apply}>Apply</b>
             </div>
           </div>
-        </div>
+        </div> */}
+        <div ref={ref} />
+        {/* Further add animation for loading new proposals */}
       </div>
     </div>
   );
