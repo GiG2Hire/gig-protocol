@@ -68,6 +68,6 @@ model gigTask {
   @@map("gig_task")
 }
 
-model proposal {
-  freelancerId      BigInt?   @map("freelancer_id")
-}
+// model proposal {
+//   freelancerId      BigInt?   @map("freelancer_id")
+// }

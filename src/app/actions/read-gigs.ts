@@ -1,16 +1,17 @@
 "use server";
 import { prisma } from "../lib/db";
 
-export const getActiveProposals = async (currPage: number, amount: number) => {
-    let skip = currPage * amount; // amount of proposals to skip per page
+export const getActiveProposals = async () => {
+  //   let skip = currPage * amount; // amount of proposals to skip per page
 
-    let gigs = await prisma.gig.findMany({
-        orderBy: {
-            createdAt: 'desc',
-        },
-        skip: skip,
-        take: amount
-    })
+  let gigs = await prisma.gig.findMany({
+    orderBy: {
+      createdAt: "desc",
+    },
+    include: {
+      gig_task: true,
+    },
+  });
 
-    return gigs;
-}
+  return gigs;
+};

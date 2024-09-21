@@ -747,7 +747,7 @@
   font-size: var(--font-size-xl);
   color: var(--navy-medium-bk);
 }
-.jobCategories {
+/* .jobCategories {
   align-self: stretch;
   flex-direction: row;
   gap: var(--gap-4xl);
@@ -755,7 +755,7 @@
   font-size: var(--font-size-base);
   color: var(--midnight-medium);
   font-family: var(--font-space-mono);
-}
+} */
 @media screen and (max-width: 1000px) {
   .categoryButtons {
     flex: 1;
