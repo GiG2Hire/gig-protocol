@@ -1,5 +1,6 @@
 import { prisma } from "@/src/app/lib/db";
 import { supabase } from "@/src/utils/supabase";
+import { verify } from "crypto";
 import { redirect } from "next/navigation";
 
 /**
@@ -8,6 +9,7 @@ import { redirect } from "next/navigation";
  * @returns OK response upon success/ error upon failure
  * @author mgroovyank(MAYANK CHHIPA)
  */
+// /user/freelancer/verify-github
 export async function POST(req: Request) {
   console.log("Inside POST /user/freelancer/");
 
