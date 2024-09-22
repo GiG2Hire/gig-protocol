@@ -11,7 +11,7 @@ export type JoinClientType = {
   className?: string;
 };
 
-const JoinClient: NextPage<JoinClientType> = ({ className = "" }) => {
+const JoinClient = () => {
   const account = useActiveAccount();
   const router = useRouter();
 
