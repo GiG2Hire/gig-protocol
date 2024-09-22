@@ -9,7 +9,7 @@ export async function GET(req: Request) {
   console.log("Inside GET /chat/sentiment/gemini/retrieve/");
 
   const { searchParams } = new URL(req.url);
-  const chatId = searchParams.get("chatId");
+  const chatId: string = searchParams.get("chatId")!;
 
   let data;
 
