@@ -9,11 +9,12 @@ datasource db {
 }
 
 model chat {
-  chatId            String    @id @unique @map("chat_id")
-  geminiSentiment   String?   @map("gemini_sentiment")
-  createdAt         DateTime  @default(now()) @map("created_at") @db.Timestamptz(6)
-  updatedAt         DateTime? @map("updated_at") @db.Timestamp(6)
-  geminiExplanation String?   @map("gemini_explanation")
+  chatId            String     @id @unique @map("chat_id")
+  geminiSentiment   String?    @map("gemini_sentiment")
+  createdAt         DateTime   @default(now()) @map("created_at") @db.Timestamptz(6)
+  updatedAt         DateTime?  @map("updated_at") @db.Timestamp(6)
+  geminiExplanation String?    @map("gemini_explanation")
+  gigOffer          gigOffer[]
 }
 
 /// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
@@ -68,6 +69,15 @@ model gigTask {
   @@map("gig_task")
 }
 
-model proposal {
-  freelancerId      BigInt?   @map("freelancer_id")
+model gigOffer {
+  offerId      BigInt   @id @default(autoincrement()) @map("offer_id")
+  createdAt    DateTime @default(now()) @map("created_at") @db.Timestamptz(6)
+  gigId        BigInt?  @map("gig_id")
+  status       String?  @map("status")
+  comment      String?  @map("comment")
+  freelancerId BigInt?  @map("freelancer_id")
+  chatId       String?  @map("chat_id")
+  chat         chat?    @relation(fields: [chatId], references: [chatId], onDelete: NoAction, onUpdate: NoAction)
+
+  @@map("gig_offer")
 }
