@@ -53,9 +53,6 @@ const CompJoboffer: NextPage<CompJobofferType> = ({
             <div className={styles.parent}>
               <b className={styles.b}>8</b>
               <div className={styles.jobTasks}>Job Tasks</div>
-              {tasks.map((singleTask) => (
-                <div>{singleTask}</div>
-              ))}
             </div>
             <div className={styles.frameParent}>
               <div className={styles.frameGroup}>
