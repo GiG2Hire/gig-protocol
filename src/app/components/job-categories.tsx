@@ -112,7 +112,7 @@ const JobCategories: NextPage<JobCategoriesType> = ({ initialData, className = "
             <div className={styles.frameGroup}>
               <div className={styles.mobileAppDesignUiuxSpecParent}>
                 <b className={styles.mobileAppDesign}>
-                  Mobile App Design - UI/UX Specialist FUCK
+                  Mobile App Design - UI/UX Specialist
                 </b>
                 <div className={styles.postedParent}>
                   <div className={styles.posted}>Posted</div>
