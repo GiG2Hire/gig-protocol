@@ -9,11 +9,12 @@ datasource db {
 }
 
 model chat {
-  chatId            String    @id @unique @map("chat_id")
-  geminiSentiment   String?   @map("gemini_sentiment")
-  createdAt         DateTime  @default(now()) @map("created_at") @db.Timestamptz(6)
-  updatedAt         DateTime? @map("updated_at") @db.Timestamp(6)
-  geminiExplanation String?   @map("gemini_explanation")
+  chatId            String     @id @unique @map("chat_id")
+  geminiSentiment   String?    @map("gemini_sentiment")
+  createdAt         DateTime   @default(now()) @map("created_at") @db.Timestamptz(6)
+  updatedAt         DateTime?  @map("updated_at") @db.Timestamp(6)
+  geminiExplanation String?    @map("gemini_explanation")
+  gigOffer          gigOffer[]
 }
 
 /// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
@@ -30,19 +31,20 @@ model chatMessage {
 }
 
 model gig {
-  gigId                BigInt    @id @default(autoincrement()) @map("gig_id")
-  clientId             BigInt    @map("client_id")
-  freelancerId         BigInt?   @map("freelancer_id")
-  description          String    @map("description")
-  gigValue             Float     @map("gig_value")
-  startDate            DateTime? @map("start_date") @db.Timestamp(6)
-  endDate              DateTime? @map("end_date") @db.Timestamp(6)
-  createdAt            DateTime  @default(now()) @map("created_at") @db.Timestamptz(6)
-  completionStatus     String?   @map("completion_status")
-  expectedDeliveryDate DateTime? @map("expected_delivery_date") @db.Timestamptz(6)
-  category             BigInt?   @map("category")
+  gigId                BigInt     @id @default(autoincrement()) @map("gig_id")
+  clientId             BigInt     @map("client_id")
+  freelancerId         BigInt?    @map("freelancer_id")
+  description          String     @map("description")
+  gigValue             Float      @map("gig_value")
+  startDate            DateTime?  @map("start_date") @db.Timestamp(6)
+  endDate              DateTime?  @map("end_date") @db.Timestamp(6)
+  createdAt            DateTime   @default(now()) @map("created_at") @db.Timestamptz(6)
+  completionStatus     String?    @map("completion_status")
+  expectedDeliveryDate DateTime?  @map("expected_delivery_date") @db.Timestamptz(6)
+  category             BigInt?    @map("category")
   title                String?
   gig_task             gigTask[]
+  gigOffer             gigOffer[]
 }
 
 model user {
@@ -66,4 +68,19 @@ model gigTask {
   gig         gig?      @relation(fields: [gigId], references: [gigId], onDelete: Restrict, onUpdate: NoAction)
 
   @@map("gig_task")
+}
+
+model gigOffer {
+  offerId      BigInt   @id @default(autoincrement()) @map("offer_id")
+  createdAt    DateTime @default(now()) @map("created_at") @db.Timestamptz(6)
+  gigId        BigInt?  @map("gig_id")
+  status       String?  @map("status")
+  comment      String?  @map("comment")
+  freelancerId BigInt?  @map("freelancer_id")
+  chatId       String?  @map("chat_id")
+
+  gig  gig?  @relation(fields: [gigId], references: [gigId], onDelete: Restrict, onUpdate: NoAction)
+  chat chat? @relation(fields: [chatId], references: [chatId], onDelete: Restrict, onUpdate: NoAction)
+
+  @@map("gig_offer")
 }
