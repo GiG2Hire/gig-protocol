@@ -70,11 +70,6 @@ model gigTask {
   @@map("gig_task")
 }
 
-<<<<<<< HEAD
-model proposal {
-  freelancerId      BigInt?   @map("freelancer_id")
-}
-=======
 model gigOffer {
   offerId      BigInt   @id @default(autoincrement()) @map("offer_id")
   createdAt    DateTime @default(now()) @map("created_at") @db.Timestamptz(6)
@@ -89,4 +84,3 @@ model gigOffer {
 
   @@map("gig_offer")
 }
->>>>>>> d1fe531a4ea6a1e0c7c266262e8f07e2afd84a65
