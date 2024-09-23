@@ -3,7 +3,7 @@ import type { NextPage } from "next";
 import { useEffect, useState } from "react";
 import { useInView } from "react-intersection-observer";
 import CompJoboffer from "./comp-joboffer";
-import { getActiveProposals } from "../actions/read-gigs";
+import { getActiveOffers } from "../actions/read-gigs";
 import styles from "./job-categories.module.css";
 
 
@@ -12,15 +12,15 @@ export type JobCategoriesType = {
   initialData: any[]; // Further replace any[] with Gig[] type from @types
 };
 
-const PROPOSALS_TO_FETCH = 10;
+const OFFERS_TO_FETCH = 10;
 
 const JobCategories: NextPage<JobCategoriesType> = ({ initialData, className = "" }) => {
   const [gigData, setGigData] = useState<any[]>(initialData); // Further replace any[] with Gig[] type from @types
   const [offset, setOffset] = useState(1); // Next page
   const { ref, inView } = useInView();
 
-  const loadMoreProposals = async () => {
-    const apiGigData = await getActiveProposals(offset, PROPOSALS_TO_FETCH);
+  const loadMoreOffers = async () => {
+    const apiGigData = await getActiveOffers(offset, OFFERS_TO_FETCH);
     setGigData(gigs => [...gigs, ...apiGigData]);
 
     setOffset(offset => offset + 1);
@@ -28,7 +28,7 @@ const JobCategories: NextPage<JobCategoriesType> = ({ initialData, className = "
 
   useEffect(() => {
     if (inView) {
-      loadMoreProposals();
+      loadMoreOffers();
     }
   }, [inView]);
 
@@ -112,7 +112,7 @@ const JobCategories: NextPage<JobCategoriesType> = ({ initialData, className = "
             <div className={styles.frameGroup}>
               <div className={styles.mobileAppDesignUiuxSpecParent}>
                 <b className={styles.mobileAppDesign}>
-                  Mobile App Design - UI/UX Specialist
+                  Mobile App Design - UI/UX Specialist FUCK
                 </b>
                 <div className={styles.postedParent}>
                   <div className={styles.posted}>Posted</div>
