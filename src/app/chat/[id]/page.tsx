@@ -6,6 +6,7 @@ import { closeProposal } from "../../actions/choose-and-open";
 import ChatWindow from "@/src/app/components/chat/chat-window";
 import ChatInput from "../../components/chat/chat-input";
 import { prisma } from "../../lib/db";
+import FileUpload from "../../components/chat/file-upload";
 
 async function acceptGigInDatabase() {
   const options = {
@@ -149,6 +150,7 @@ const FreelancerChat = async ({ params, searchParams }) => {
           </div>
           <div className={styles.frameParent1}>
             <div className={styles.frameParent2}>
+              <FileUpload />
               <button className={styles.ongoingGigsWrapper}>
                 <b className={styles.ongoingGigs}>Ongoing GiGs</b>
               </button>
@@ -397,31 +399,6 @@ const FreelancerChat = async ({ params, searchParams }) => {
                       initialSentiment={sentimentText}
                       chatId={chatId}
                     />
-                    {/* <div className={styles.collectingContainer}>
-                      <div className={styles.collectingHeader}>
-                        <div className={styles.collecting}>Collecting:</div>
-                        <div className={styles.collectingAmount}>
-                          <b className={styles.emptyCollectingAmount}>2500</b>
-                          <h1 className={styles.dai}>DAI</h1>
-                        </div>
-                      </div>
-                      <div className={styles.btnUploadJob}>
-                        <div className={styles.uploadButtonContent}>
-                          <img
-                            className={styles.cloudUploadOutline1Icon}
-                            loading="lazy"
-                            alt=""
-                            src="/clouduploadoutline-1.svg"
-                          />
-                          <b className={styles.uploadFiles}>Upload Files</b>
-                        </div>
-                        <div className={styles.uploadedFiles}>
-                          <b className={styles.filesUploaded}>
-                            4 files uploaded
-                          </b>
-                        </div>
-                      </div>
-                    </div> */}
                     <div className={styles.tasksContentParent}>
                       <div className={styles.tasksContent}>
                         <div className={styles.keepTrackOf}>

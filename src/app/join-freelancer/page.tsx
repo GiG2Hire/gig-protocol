@@ -41,7 +41,7 @@ const JoinFreelancer: NextPage<JoinFreelancerType> = (
   // Handle login with github
   const githubLogin = () => {
     const clientId = "Ov23liyKADrsIpbypKkj"; // Replace with your actual Client ID
-    const redirectUri = "http://localhost:3000/job-marketplace/"; // Replace with your callback URL
+    const redirectUri = "http://localhost:3000/api/user/freelancer/verify-github"; // Replace with your callback URL
     const authUrl = `https://github.com/login/oauth/authorize?client_id=${clientId}&redirect_uri=${redirectUri}`;
     window.location.href = authUrl;
   };
