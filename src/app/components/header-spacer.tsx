@@ -1,4 +1,5 @@
-"use client"
+// @ts-nocheck
+"use client";
 import type { NextPage } from "next";
 import { useMemo, type CSSProperties } from "react";
 import styles from "./header-spacer.module.css";

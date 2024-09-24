@@ -4,7 +4,7 @@ import { useCallback } from "react";
 import { useRouter } from "next/navigation";
 import styles from "./freelancer-dashboard.module.css";
 
-const FreelancerDashboard: NextPageFreelancerDashboardType = () => {
+const FreelancerDashboard = () => {
   const router = useRouter();
 
   const onBtnChatContainerClick = useCallback(() => {

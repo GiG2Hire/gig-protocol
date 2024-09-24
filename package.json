@@ -4,11 +4,14 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build && next export -o build/",
+    "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "export": "next export"
   },
   "dependencies": {
+    "@aave/core-v3": "^1.19.3",
+    "@chainlink/contracts-ccip": "^1.4.0",
     "@google-ai/generativelanguage": "^2.6.0",
     "@google/generative-ai": "^0.16.0",
     "@prisma/client": "^5.19.1",
@@ -23,6 +26,7 @@
     "react": "^18.3.1",
     "react-calendar": "^5.0.0",
     "react-dom": "^18.3.1",
+    "react-intersection-observer": "^9.13.1",
     "thirdweb": "^5.40.0",
     "web3": "^4.11.1"
   },

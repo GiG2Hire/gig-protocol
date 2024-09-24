@@ -24,7 +24,7 @@ export async function GET(req: Request) {
     return new Response(error.message, { status: 500 });
   }
 
-  const foundUsers: User[] = data;
+  const foundUsers: User[] = data!;
 
   if (foundUsers.length == 0 || foundUsers.length > 1) {
     return new Response("User not Found!", { status: 404 });

@@ -1,11 +1,9 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.19;
 
-
-import {IERC20} from "@chainlink/contracts-ccip/src/v0.8/vendor/openzeppelin-solidity/v4.8.3/contracts/token/ERC20/IERC20.sol";
-import {SafeERC20} from "@chainlink/contracts-ccip/src/v0.8/vendor/openzeppelin-solidity/v4.8.3/contracts/token/ERC20/utils/SafeERC20.sol";
+import {IERC20} from "@chainlink/contracts-ccip/src/v0.8/vendor/openzeppelin-solidity/v4.8.0/contracts/token/ERC20/IERC20.sol";
+import {SafeERC20} from "@chainlink/contracts-ccip/src/v0.8/vendor/openzeppelin-solidity/v4.8.0/contracts/token/ERC20/utils/SafeERC20.sol";
 import {IPool} from "@aave/core-v3/contracts/interfaces/IPool.sol";
-
 
 contract USDCPayment {
     using SafeERC20 for IERC20;
@@ -24,7 +22,6 @@ contract USDCPayment {
     event ProposalOpened(bytes32 id, uint256 amount, address initiator);
     event ProposalClosed(bytes32 id, address freelancer);
 
-
     constructor(address _addressPool, address _usdcAddress) {
         if (_usdcAddress == address(0)) revert InvalidUsdcToken();
         i_pool = IPool(_addressPool);
@@ -39,7 +36,7 @@ contract USDCPayment {
             revert TransferFailed();
         }
         bytes32 uniqueId = generateID(msg.sender, _amount);
-        
+
         s_transactions[uniqueId] = _amount;
         i_pool.supply(address(i_usdc), _amount, address(this), 0);
 
@@ -80,7 +77,6 @@ contract USDCPayment {
         return
             keccak256(abi.encodePacked(_beneficiary, _amount, block.timestamp));
     }
-
 
     receive() external payable {}
 }
