@@ -1,6 +1,6 @@
 "use client";
 import styles from "./job-categories.module.css";
-import CompJoboffer from "./comp-joboffer";
+import CompJoboffer from "../comp-joboffer";
 import { useEffect, useState } from "react";
 import { getActiveProposals } from "../../actions/read-gigs";
 import { useInView } from "react-intersection-observer";
