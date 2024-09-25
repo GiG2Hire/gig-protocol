@@ -1,3 +1,4 @@
+"use client";
 import type { NextPage } from "next";
 import styles from "./comp-joboffer.module.css";
 
@@ -13,34 +14,28 @@ export type CompJobofferType = {
   className?: string;
 };
 
-const CompJoboffer: NextPage<CompJobofferType> = ({
+const CompJoboffer = ({
   title,
   description,
   freelancerCount,
   budget,
-  deadlinePeriod,
-  timeCreation,
   tasks,
   jobCategory,
-  className = ""
+  className = "",
 }) => {
   return (
     <div className={[styles.compJoboffer, className].join(" ")}>
       <div className={styles.jobListingContainers}>
         <div className={styles.jobListingContent}>
           <div className={styles.jobListingDetails}>
-            <b className={styles.mobileAppDesign}>
-              {title}
-            </b>
+            <b className={styles.mobileAppDesign}>{title}</b>
             <div className={styles.jobListingMetadata}>
               <div className={styles.posted}>Posted</div>
-              <b className={styles.hAgo}>{timeCreation}</b>
+              <b className={styles.hAgo}>asjsah</b>
             </div>
           </div>
           <p className={styles.lookingForAnContainer}>
-            <span className={styles.lookingForAn}>
-              {description}
-            </span>
+            <span className={styles.lookingForAn}>{description}</span>
             <span className={styles.blankLine}>&nbsp;</span>
             {/* <span className={styles.youMustHave}>
               You must have created similar projects in the past to be
@@ -53,6 +48,9 @@ const CompJoboffer: NextPage<CompJobofferType> = ({
             <div className={styles.parent}>
               <b className={styles.b}>8</b>
               <div className={styles.jobTasks}>Job Tasks</div>
+              {tasks.map((singleTask) => (
+                <div>{singleTask.description}</div>
+              ))}
             </div>
             <div className={styles.frameParent}>
               <div className={styles.frameGroup}>
@@ -161,7 +159,7 @@ const CompJoboffer: NextPage<CompJobofferType> = ({
                 src="/event.svg"
               />
               <b className={styles.deadline}>Deadline:</b>
-              <div className={styles.jun122024}>{deadlinePeriod}</div>
+              <div className={styles.jun122024}>sjhds</div>
             </div>
             <div className={styles.jobListingApplicationCandid}>
               <img

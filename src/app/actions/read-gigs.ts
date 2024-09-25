@@ -6,11 +6,12 @@ export const getActiveOffers = async (currPage: number, amount: number) => {
 
     let gigs = await prisma.gig.findMany({
         orderBy: {
-            createdAt: 'desc',
+            createdAt: "desc",
         },
-        skip: skip,
-        take: amount
-    })
+        include: {
+            gig_task: true,
+        },
+    });
 
     return gigs;
-}
+};
