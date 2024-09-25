@@ -1,3 +1,4 @@
+// @ts-nocheck
 import type { NextPage } from "next";
 import styles from "./header-spacer1.module.css";
 

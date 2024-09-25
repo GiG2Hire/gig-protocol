@@ -51,10 +51,10 @@ model user {
   address       String    @unique @db.VarChar
   username      String?
   role          String?
-  xFollowers    BigInt?   @map("x_followers")
-  githubCommits BigInt?   @map("github_commits")
+  xFollowers    Int?   @map("x_followers")
+  githubCommits Int?   @map("github_commits")
   createdAt     DateTime  @default(now()) @map("created_at") @db.Timestamp(6)
-  userId        BigInt    @id @default(autoincrement()) @map("user_id")
+  userId        Int    @id @default(autoincrement()) @map("user_id")
   lastLogin     DateTime? @map("last_login") @db.Timestamp(6)
 }
 

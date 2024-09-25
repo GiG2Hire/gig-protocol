@@ -7,6 +7,11 @@ const ChatWindow = ({
   currentUser,
   chatId,
   className = "",
+}: {
+  initialMessages: any;
+  currentUser: number;
+  chatId: string;
+  className: string;
 }) => {
   const [messages, setMessages] = useState(initialMessages);
 
@@ -28,7 +33,7 @@ const ChatWindow = ({
       console.log("Messages List Updated - line 48");
       // set function only updates the state variable for the next render.
       // If you read the state variable after calling the set function, you will still get the old value
-      setMessages((prev) => [...prev, data]);
+      setMessages((prev: any) => [...prev, data]);
       console.log(messages);
       // getGeminiSentimentForReceivedMessage();
     });
@@ -42,7 +47,7 @@ const ChatWindow = ({
   return (
     <div>
       <div className={styles.freelancerClientChatMsgBox}>
-        {messages.map((message) => {
+        {messages.map((message: any) => {
           if (message.senderId != currentUser) {
             return (
               <div className={styles.freenalceemployerChatInner11}>

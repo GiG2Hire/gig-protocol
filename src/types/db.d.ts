@@ -21,6 +21,6 @@ interface User {
   role: string | null;
   xFollowers: number | null;
   githubCommits: number | null;
-  createdAt: string;
+  createdAt: Date;
   userId: number;
 }

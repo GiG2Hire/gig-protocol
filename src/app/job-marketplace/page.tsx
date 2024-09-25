@@ -11,6 +11,13 @@ const INITIAL_PROPOSALS_AMOUNT = 10;
 const JobMarketplace: NextPage = async () => {
   const initialData = await getActiveProposals(0, INITIAL_PROPOSALS_AMOUNT); // fetch latest 10 proposals
 
+  // const [selectedCategory, setSelectedCategory] = useState(0);
+  // const categories = [];
+
+  // const changeCategory = (category: number) => {
+  //   setSelectedCategory(category);
+  // };
+
   return (
     <div className={styles.jobMarketplace}>
       <main className={styles.pageContent}>
@@ -26,6 +33,13 @@ const JobMarketplace: NextPage = async () => {
             </h1>
           </div>
           <JobCategories initialData={initialData} />
+          {/* <div className={styles.jobCategories}>
+            <JobCategories
+              selectedCategory={selectedCategory}
+              changeCategory={changeCategory}
+            />
+            <JobList selectedCategory={selectedCategory} />
+          </div> */}
         </section>
       </main>
       <Footer />

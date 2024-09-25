@@ -25,9 +25,9 @@ export async function createGig(
 ) {
   console.log("Trying to create a gig for client...");
   const clientId = await getUserIdFromPayload();
-  const description: string = formData.get("description");
+  const description: any = formData.get("description")?.toString;
   const budget: number = Number(formData.get("budget"));
-  const title: string = formData.get("gigTitle");
+  const title: any = formData.get("gigTitle");
 
   // form data validation
   //nextjs.org/docs/app/building-your-application/data-fetching/server-actions-and-mutations#server-side-form-validation
