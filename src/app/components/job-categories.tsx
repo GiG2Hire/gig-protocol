@@ -3,7 +3,7 @@ import type { NextPage } from "next";
 import { useEffect, useState } from "react";
 import { useInView } from "react-intersection-observer";
 import CompJoboffer from "./comp-joboffer";
-import { getActiveOffers } from "../actions/read-gigs";
+import { getActiveProposals } from "../actions/read-gigs";
 import styles from "./job-categories.module.css";
 
 
@@ -12,15 +12,15 @@ export type JobCategoriesType = {
   initialData: any[]; // Further replace any[] with Gig[] type from @types
 };
 
-const OFFERS_TO_FETCH = 10;
+const PROPOSALS_TO_FETCH = 10;
 
 const JobCategories: NextPage<JobCategoriesType> = ({ initialData, className = "" }) => {
   const [gigData, setGigData] = useState<any[]>(initialData); // Further replace any[] with Gig[] type from @types
   const [offset, setOffset] = useState(1); // Next page
   const { ref, inView } = useInView();
 
-  const loadMoreOffers = async () => {
-    const apiGigData = await getActiveOffers(offset, OFFERS_TO_FETCH);
+  const loadMoreProposals = async () => {
+    const apiGigData = await getActiveProposals(offset, PROPOSALS_TO_FETCH);
     setGigData(gigs => [...gigs, ...apiGigData]);
 
     setOffset(offset => offset + 1);
@@ -28,7 +28,7 @@ const JobCategories: NextPage<JobCategoriesType> = ({ initialData, className = "
 
   useEffect(() => {
     if (inView) {
-      loadMoreOffers();
+      loadMoreProposals();
     }
   }, [inView]);
 

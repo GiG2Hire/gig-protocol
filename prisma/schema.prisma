@@ -15,12 +15,6 @@ model chat {
   updatedAt         DateTime?  @map("updated_at") @db.Timestamp(6)
   geminiExplanation String?    @map("gemini_explanation")
   gigOffer          gigOffer[]
-  chatId            String     @id @unique @map("chat_id")
-  geminiSentiment   String?    @map("gemini_sentiment")
-  createdAt         DateTime   @default(now()) @map("created_at") @db.Timestamptz(6)
-  updatedAt         DateTime?  @map("updated_at") @db.Timestamp(6)
-  geminiExplanation String?    @map("gemini_explanation")
-  gigOffer          gigOffer[]
 }
 
 /// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
