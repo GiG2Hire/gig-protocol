@@ -1,15 +1,65 @@
 import type { NextPage } from "next";
 import styles from "./modal-uploaded-files.module.css";
+import { useState } from "react";
+import { getPresignedUrl } from "../actions/get-presigned-url";
 
 export type ModalUploadedFilesType = {
   closeModal: any;
   className?: string;
 };
 
+async function computeSHA256(file: File) {
+  console.log("Computing checksum of file...");
+  const buffer = await file.arrayBuffer();
+  const hashBuffer = await crypto.subtle.digest("SHA-256", buffer);
+  const hashArray = Array.from(new Uint8Array(hashBuffer));
+  const hashHex = hashArray
+    .map((b) => b.toString(16).padStart(2, "0"))
+    .join("");
+  return hashHex;
+}
+
 const ModalUploadedFiles: NextPage<ModalUploadedFilesType> = ({
   closeModal,
   className = "",
 }) => {
+  const [uploadedFile, setUploadedFile] = useState<File | undefined>();
+  const [uploadedFileUrl, setUploadedFileUrl] = useState<string>();
+
+  //
+  const handleFileUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    console.log(e.target.files?.[0]);
+    const uploadedFile: File | undefined = e.target.files?.[0] || undefined;
+    setUploadedFile(uploadedFile);
+    if (uploadedFile) {
+      // const url = URL.createObjectURL(uploadedFile);
+      const checksum = await computeSHA256(uploadedFile);
+      console.log(checksum);
+      const presignedUrl: string = await getPresignedUrl(
+        uploadedFile.type,
+        uploadedFile.size,
+        checksum
+      );
+      if (presignedUrl == undefined) {
+        console.log("Unable to get presigned URL");
+      }
+      console.log(presignedUrl); //blob:http://localhost:3000/655e7c6a-85c8-4216-88dd-fb816afde7a3
+      await fetch(presignedUrl, {
+        method: "PUT",
+        body: uploadedFile,
+        headers: {
+          "Content-Type": uploadedFile.type,
+        },
+      });
+      // setUploadedFileUrl(url);
+    }
+  };
+
+  const removeFile = () => {
+    setUploadedFile(undefined);
+    setUploadedFileUrl(undefined);
+  };
+
   return (
     <div className={styles.modalBackdrop}>
       <div className={[styles.modalUploadedFiles, className].join(" ")}>
@@ -41,7 +91,12 @@ const ModalUploadedFiles: NextPage<ModalUploadedFilesType> = ({
               <button className={styles.btnBrowse}>
                 <img className={styles.uploadIcon} alt="" src="/upload.svg" />
                 <div className={styles.browseFileInstead}>
-                  Browse file instead
+                  <input
+                    type="file"
+                    accept="image/jpeg,image/png,image/webp,image/gif,video/mp4,video/webm,.txt,.doc,.pdf"
+                    onChange={handleFileUpload}
+                  />
+                  {/* Browse file instead */}
                 </div>
               </button>
             </div>
@@ -75,6 +130,7 @@ const ModalUploadedFiles: NextPage<ModalUploadedFilesType> = ({
                 />
               </div>
             </div>
+            <video src={uploadedFileUrl} autoPlay></video>
           </div>
           <div className={styles.fileListParent}>
             <div className={styles.fileList}>
@@ -108,6 +164,8 @@ const ModalUploadedFiles: NextPage<ModalUploadedFilesType> = ({
                       />
                     </div>
                   </div>
+                </div>
+                <div className={styles.proofUrlParent}>
                   <div className={styles.proofdDoc}>
                     <div className={styles.frameGroup}>
                       <div className={styles.contentPasteParent}>
@@ -130,63 +188,6 @@ const ModalUploadedFiles: NextPage<ModalUploadedFilesType> = ({
                     <div className={styles.btnDelete1}>
                       <img
                         className={styles.deleteIcon1}
-                        loading="lazy"
-                        alt=""
-                        src="/delete.svg"
-                      />
-                    </div>
-                  </div>
-                </div>
-                <div className={styles.proofUrlGroup}>
-                  <div className={styles.proofUrl1}>
-                    <div className={styles.frameContainer}>
-                      <div className={styles.captivePortalGroup}>
-                        <img
-                          className={styles.captivePortalIcon1}
-                          loading="lazy"
-                          alt=""
-                          src="/captive-portal.svg"
-                        />
-                        <h3 className={styles.httpswwwthisisalinkcommy1}>
-                          https://www.thisisalink.com/myproject/31ge5457efe
-                        </h3>
-                      </div>
-                      <div className={styles.uploadedContainer}>
-                        <div className={styles.uploaded2}>Uploaded:</div>
-                        <div className={styles.div2}>02.08.2024</div>
-                      </div>
-                    </div>
-                    <div className={styles.btnDelete2}>
-                      <img
-                        className={styles.deleteIcon2}
-                        loading="lazy"
-                        alt=""
-                        src="/delete.svg"
-                      />
-                    </div>
-                  </div>
-                  <div className={styles.proofdDoc1}>
-                    <div className={styles.frameDiv}>
-                      <div className={styles.contentPasteGroup}>
-                        <img
-                          className={styles.contentPasteIcon1}
-                          loading="lazy"
-                          alt=""
-                          src="/content-paste.svg"
-                        />
-                        <h3 className={styles.finalHamsterzip1}>
-                          final-hamster.zip
-                        </h3>
-                      </div>
-                      <div className={styles.uploadedParent1}>
-                        <div className={styles.uploaded3}>Uploaded:</div>
-                        <div className={styles.div3}>02.08.2024</div>
-                        <div className={styles.mb1}>(5.25 MB)</div>
-                      </div>
-                    </div>
-                    <div className={styles.btnDelete3}>
-                      <img
-                        className={styles.deleteIcon3}
                         loading="lazy"
                         alt=""
                         src="/delete.svg"

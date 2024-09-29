@@ -2,7 +2,7 @@
 import { useEffect, useState } from "react";
 import styles from "./chat-sentiment.module.css";
 import { SENTIMENT_TO_CODE_MAPPING } from "@/src/constants/appConstants";
-import { pusherClient } from "../lib/pusher";
+import { pusherClient } from "../../lib/pusher";
 export default function ChatSentiment({
   initialSentiment,
   chatId,
@@ -12,8 +12,8 @@ export default function ChatSentiment({
 
   const sentimentToCodeMapping = SENTIMENT_TO_CODE_MAPPING;
 
-  const code = sentimentToCodeMapping[sentiment][0];
-  const displayMessage = sentimentToCodeMapping[sentiment][1];
+  const code = sentimentToCodeMapping["negative"][0];
+  const displayMessage = sentimentToCodeMapping["negative"][1];
 
   /**
    * chatId dependency ensures new messages corresponding to new chat id are loaded.

@@ -1,6 +1,6 @@
 import styles from "./freelancer-chat.module.css";
 // import {chat} from "../../../constants/chat";
-import ChatSentiment from "../../components/chat-sentiment";
+import ChatSentiment from "@/src/app/components/chat/chat-sentiment";
 import { GIG_COMPLETION_STATUS } from "@/src/constants/appConstants";
 import { closeProposal } from "../../actions/choose-and-open";
 import ChatWindow from "@/src/app/components/chat/chat-window";
@@ -98,6 +98,7 @@ const FreelancerChat = async ({ params, searchParams }) => {
   }
 
   await Promise.all([getChatMessages(), getGeminiSentiment()]);
+  // await Promise.all([getChatMessages()]);
 
   // we can use gig id to get chat id or directly pass chat id in the http route query
   return (

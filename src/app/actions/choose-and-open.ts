@@ -35,9 +35,9 @@ async function getReserveData(
 }
 
 export async function closeProposal(
-  //   chainId: number,
-  //   rpcUrl: string,
-  //   addressProtocol: string,
+  chainId: number,
+  rpcUrl: string,
+  addressProtocol: string,
   id: number
 ) {
   const account = await metamaskWallet.connect({
@@ -60,7 +60,7 @@ export async function closeProposal(
     contract: lendingContract,
     method:
       "function closeProposal(bytes32 id,address freelancer,uint256 _amount,address _usdcToken,uint64 _destinationChainSelector)",
-    params: [id, "0xd", BigInt(98998)],
+    params: [id, "0xd", BigInt(98998), "0xd", BigInt(123)],
   });
 
   // front it will be showing tx hash or link for ccip explorer with this hash

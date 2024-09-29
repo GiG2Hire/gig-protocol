@@ -185,7 +185,7 @@
   color: var(--navy-bk-40a);
 }
 .compBoxuploadParent {
-  width: 329px;
+  width: 360px;
   border-right: 1px solid var(--yellow-bk);
   box-sizing: border-box;
   display: flex;
@@ -629,7 +629,7 @@
   font-family: var(--font-space-mono);
 }
 .modalUploadedFiles {
-  width: 820px;
+  width: 720px;
   background-color: var(--light);
   border: 3px solid var(--yellow-bk);
   overflow: hidden;

@@ -9,6 +9,8 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@aws-sdk/client-s3": "^3.658.1",
+    "@aws-sdk/s3-request-presigner": "^3.658.1",
     "@google-ai/generativelanguage": "^2.6.0",
     "@google/generative-ai": "^0.16.0",
     "@prisma/client": "^5.19.1",
