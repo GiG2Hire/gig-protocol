@@ -39,6 +39,10 @@ const FreelancerChat = async ({ params, searchParams }) => {
   const id = params.id;
   const chatId: string = id;
   const currentUser: number = Number(searchParams.userId);
+
+  // TODO: Try to see if this is a secure way to get Gig Id
+  const gigId: string = chatId.split("-")[2];
+  console.log("Gig Id derived from chat Id: ", gigId);
   let receiverUser: number;
 
   const client: number = Number(chatId.split("-")[0]);
@@ -151,7 +155,7 @@ const FreelancerChat = async ({ params, searchParams }) => {
           </div>
           <div className={styles.frameParent1}>
             <div className={styles.frameParent2}>
-              <FileUpload />
+              <FileUpload gigId={gigId} />
               <button className={styles.ongoingGigsWrapper}>
                 <b className={styles.ongoingGigs}>Ongoing GiGs</b>
               </button>

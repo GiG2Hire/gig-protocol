@@ -4,7 +4,7 @@ import styles from "./file-upload.module.css";
 import ModalUploadedFiles from "../modal-uploaded-files";
 import { getPresignedUrl } from "../../actions/get-presigned-url";
 
-const FileUpload = () => {
+const FileUpload = ({ gigId }) => {
   const [showFileUploadModal, setShowFileUploadModal] =
     useState<boolean>(false);
 
@@ -40,7 +40,7 @@ const FileUpload = () => {
         </div>
       </div>
       {showFileUploadModal && (
-        <ModalUploadedFiles closeModal={closeFileUploadModal} />
+        <ModalUploadedFiles gigId={gigId} closeModal={closeFileUploadModal} />
       )}
     </div>
   );

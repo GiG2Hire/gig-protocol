@@ -2,8 +2,10 @@ import type { NextPage } from "next";
 import styles from "./modal-uploaded-files.module.css";
 import { useState } from "react";
 import { getPresignedUrl } from "../actions/get-presigned-url";
+import { createGigFile } from "../actions/create-gig-file";
 
 export type ModalUploadedFilesType = {
+  gigId: string;
   closeModal: any;
   className?: string;
 };
@@ -19,10 +21,7 @@ async function computeSHA256(file: File) {
   return hashHex;
 }
 
-const ModalUploadedFiles: NextPage<ModalUploadedFilesType> = ({
-  closeModal,
-  className = "",
-}) => {
+const ModalUploadedFiles = ({ gigId, closeModal, className = "" }) => {
   const [uploadedFile, setUploadedFile] = useState<File | undefined>();
   const [uploadedFileUrl, setUploadedFileUrl] = useState<string>();
 
@@ -50,6 +49,11 @@ const ModalUploadedFiles: NextPage<ModalUploadedFilesType> = ({
         headers: {
           "Content-Type": uploadedFile.type,
         },
+      }).then((res) => {
+        if (res.status == 200) {
+          const url = presignedUrl.split("?")[0];
+          createGigFile(gigId, uploadedFile.name, uploadedFile.type, url);
+        }
       });
       // setUploadedFileUrl(url);
     }
