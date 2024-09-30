@@ -5,7 +5,7 @@ import { client } from "@/src/app/lib/client";
 import { cookies } from "next/headers";
 import { useActiveAccount } from "thirdweb/react";
 import { decodeJWT, encodeJWT, JWTPayload } from "thirdweb/utils";
-import { FREELANCER } from "@/src/constants/appConstants";
+import { CLIENT, FREELANCER } from "@/src/constants/appConstants";
 import { redirect } from "next/navigation";
 import { supabase } from "@/src/utils/supabase";
 import { prisma } from "../lib/db";
@@ -41,8 +41,10 @@ export async function login(payload: VerifyLoginPayloadParams) {
     cookies().set("jwt", jwt);
     if (role == FREELANCER) {
       redirect("/freelancer-dashboard");
-    } else {
+    } else if (role == CLIENT) {
       redirect("/client-dashboard");
+    } else {
+      redirect("/sign-in");
     }
   }
   console.log("Successfully Logged in!!");
@@ -76,12 +78,22 @@ export async function refreshJWTToken(jwt: string) {
 }
 
 export async function getUserIdFromPayload() {
+  const isJWTValid = await isLoggedIn(); // make user JWT token is there, but it should be VALID as well !!!
+  if (!isJWTValid) {
+    await logout();
+    return;
+  }
   const jwtToken = cookies().get("jwt");
   const { payload, signature } = decodeJWT(jwtToken?.value);
   return payload.ctx.userId;
 }
 
 export async function getRoleFromPayload() {
+  const isJWTValid = await isLoggedIn(); // make user JWT token is there, but it should be VALID as well !!!
+  if (!isJWTValid) {
+    await logout();
+    return;
+  }
   const jwtToken = cookies().get("jwt");
   const { payload, signature } = decodeJWT(jwtToken?.value);
   return payload.ctx.role;
