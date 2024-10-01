@@ -31,31 +31,34 @@ model chatMessage {
 }
 
 model gig {
-  gigId                BigInt     @id @default(autoincrement()) @map("gig_id")
-  clientId             BigInt     @map("client_id")
-  freelancerId         BigInt?    @map("freelancer_id")
-  description          String     @map("description")
-  gigValue             Float      @map("gig_value")
-  startDate            DateTime?  @map("start_date") @db.Timestamp(6)
-  endDate              DateTime?  @map("end_date") @db.Timestamp(6)
-  createdAt            DateTime   @default(now()) @map("created_at") @db.Timestamptz(6)
-  completionStatus     String?    @map("completion_status")
-  expectedDeliveryDate DateTime?  @map("expected_delivery_date") @db.Timestamptz(6)
-  category             BigInt?    @map("category")
+  gigId                BigInt    @id @default(autoincrement()) @map("gig_id")
+  clientId             BigInt    @map("client_id")
+  freelancerId         BigInt?   @map("freelancer_id")
+  description          String    @map("description")
+  gigValue             Float     @map("gig_budget")
+  startDate            DateTime? @map("start_date") @db.Timestamp(6)
+  endDate              DateTime? @map("end_date") @db.Timestamp(6)
+  createdAt            DateTime  @default(now()) @map("created_at") @db.Timestamptz(6)
+  completionStatus     String?   @map("completion_status")
+  expectedDeliveryDate DateTime? @map("expected_delivery_date") @db.Timestamptz(6)
+  category             BigInt?   @map("category")
   title                String?
+  updated_at           DateTime? @db.Timestamptz(6)
   gig_task             gigTask[]
-  gigOffer             gigOffer[]
 }
 
 model user {
   address       String    @unique @db.VarChar
   username      String?
   role          String?
-  xFollowers    Int?   @map("x_followers")
-  githubCommits Int?   @map("github_commits")
+  xFollowers    BigInt?   @map("x_followers")
+  githubCommits BigInt?   @map("github_commits")
   createdAt     DateTime  @default(now()) @map("created_at") @db.Timestamp(6)
-  userId        Int    @id @default(autoincrement()) @map("user_id")
+  userId        BigInt    @id @default(autoincrement()) @map("user_id")
   lastLogin     DateTime? @map("last_login") @db.Timestamp(6)
+  email         String?   @unique
+  description   String?
+  updated_at    DateTime? @db.Timestamptz(6)
 }
 
 model gigTask {
@@ -71,16 +74,53 @@ model gigTask {
 }
 
 model gigOffer {
-  offerId      BigInt   @id @default(autoincrement()) @map("offer_id")
-  createdAt    DateTime @default(now()) @map("created_at") @db.Timestamptz(6)
-  gigId        BigInt?  @map("gig_id")
-  status       String?  @map("status")
-  comment      String?  @map("comment")
-  freelancerId BigInt?  @map("freelancer_id")
-  chatId       String?  @map("chat_id")
-
-  gig  gig?  @relation(fields: [gigId], references: [gigId], onDelete: Restrict, onUpdate: NoAction)
-  chat chat? @relation(fields: [chatId], references: [chatId], onDelete: Restrict, onUpdate: NoAction)
+  offerId      BigInt    @id @default(autoincrement()) @map("offer_id")
+  createdAt    DateTime  @default(now()) @map("created_at") @db.Timestamptz(6)
+  gigId        BigInt?   @map("gig_id")
+  status       String?   @map("status")
+  comment      String?   @map("comment")
+  freelancerId BigInt?   @map("freelancer_id")
+  chatId       String?   @map("chat_id")
+  updated_at   DateTime? @db.Timestamptz(6)
+  chat         chat?     @relation(fields: [chatId], references: [chatId], onDelete: NoAction, onUpdate: NoAction)
 
   @@map("gig_offer")
+}
+
+/// This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
+model dispute {
+  dispute_id  BigInt    @id @default(autoincrement())
+  gig_id      BigInt?
+  plaintiff   BigInt?
+  defendant   BigInt?
+  arbitrator  BigInt?
+  category    String?   @db.VarChar
+  status      String?   @db.VarChar
+  title       String?
+  description String?
+  created_at  DateTime? @db.Timestamptz(6)
+  updated_at  DateTime? @db.Timestamptz(6)
+}
+
+/// This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
+model dispute_evidence {
+  id           BigInt    @id @default(autoincrement())
+  dispute_id   BigInt?
+  url          BigInt?
+  submitted_by BigInt?
+  created_at   DateTime? @db.Timestamptz(6)
+  updated_at   DateTime? @db.Timestamptz(6)
+}
+
+/// This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
+model dispute_verdict {
+  verdict_id             BigInt    @id @default(autoincrement())
+  dispute_id             BigInt?
+  extended_delivery_days Int?
+  freelancer_split       Int?
+  client_split           Int?
+  reasoning              String?
+  status                 String?   @db.VarChar
+  created_at             DateTime? @db.Timestamptz(6)
+  updated_at             DateTime? @db.Timestamptz(6)
 }

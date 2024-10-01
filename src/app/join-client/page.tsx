@@ -1,6 +1,6 @@
 "use client";
-import type { NextPage } from "next";
-import styles from "./join-client.module.css";
+import Head from 'next/head';
+import styles from "../../utils/root-style.css";
 import Link from "next/link";
 import { useActiveAccount } from "thirdweb/react";
 import { getPayload, refreshJWTToken } from "../actions/login";
@@ -67,84 +67,40 @@ const JoinClient = () => {
   };
 
   return (
-    <div className={styles.container23}>
-      <div className={[styles.joinClient, className].join(" ")}>
-        <div className={styles.welcomeAbroadWrapper}>
-          <h1 className={styles.welcomeAbroad}>Welcome abroad!</h1>
-        </div>
-        <section className={styles.frameParent}>
-          <div className={styles.addPhotoAlternateParent}>
-            <img
-              className={styles.addPhotoAlternateIcon}
-              loading="lazy"
-              alt=""
-              src="/add-photo-alternate1.svg"
-            />
-            <b className={styles.addAProfile}>
-              Add a Profile Picture
-              <input
-                className={styles.profilePicture}
-                type="file"
-                accept="image/*"
-              />
-            </b>
-          </div>
-          <div className={styles.nameInputFieldsParent}>
-            <div className={styles.nameInputFields}>
-              <b className={styles.howDoYou}>
-                How do you want other freelanceres to call you?
-              </b>
-              <input
-                className={styles.textInput1}
-                placeholder="e.g Roaring kitty"
-                type="text"
-              />
+    <div id="join-freelance" className={styles.modal}>
+      <header>
+        <h1 className={styles.high}>Welcome Abroad!</h1>
+        <form>
+          <div className={styles['form-top']}>
+            <div>
+              <label htmlFor="profile-pic" className={styles['profile-pic']}>
+                <p className="material-symbols-outlined">add_photo_alternate</p>
+                <p className={styles['txt-medium']}>Add a Profile Picture</p>
+              </label>
+              <input type="file" name="profile-pic" id="profile-pic" accept="image/jpeg,image/png,image/webp" />
             </div>
-            <div className={styles.nameInputFields1}>
-              <b className={styles.yourCompanyName}>Your company Name</b>
-              <input
-                className={styles.textInput1}
-                placeholder="e.g Roaring Production"
-                type="text"
-              />
-            </div>
-            <div className={styles.yourCompanyNameParent}>
-              <b className={styles.yourCompanyName1}>Your company Name</b>
-              <div className={styles.textInput2}>
-                <div className={styles.searchInGlobal1}>
-                  e.g. Kitty Productions
-                </div>
-              </div>
-            </div>
-            <div className={styles.addADescriptionForYourProParent}>
-              <b className={styles.addADescription}>
-                Add a description for your Profile
-              </b>
-
-              <input
-                className={styles.textInput1}
-                placeholder="Looking for great feline minds, that are top notch at their
-              jobs"
-                type="text"
-              />
-            </div>
-            <div className={styles.backParent}>
-              <Link href="/">
-                {" "}
-                <b className={styles.back}>Back</b>
-              </Link>
-              <button className={styles.btnJoingig} onClick={joinAsClient}>
-                <img
-                  className={styles.gig2hire1Icon}
-                  alt=""
-                  src="/gig2hire-111.svg"
-                />
-                <b className={styles.getStarted}>Create GiGs</b>
-              </button>
+            <div className={styles['fields-top']}>
+              <label htmlFor="user-name" className={`${styles['user-name']} ${styles['txt-primary']}`}><strong>1. Choose an Username</strong></label>
+              <input type="text" name="user-name" id="user-name" placeholder="0xDegen" />
+              <label htmlFor="user-mail" className={`${styles['user-mail']} ${styles['txt-primary']}`}><strong>2. Add a mail to get notifications</strong></label>
+              <input type="email" name="user-mail" id="user-mail" placeholder="0xdegen@webtree.com" />
             </div>
           </div>
-        </section>
-      </div>
+          <div className={styles['form-bottom']}>
+            <label htmlFor="company-name" className={`${styles['company-name']} ${styles['txt-primary']}`}><strong>3. Your company-name</strong></label>
+            <input type="text" name="company-name" id="company-name" placeholder="WebTree VC" />
+            <label htmlFor="user-desc" className={`${styles['user-desc']} ${styles['txt-primary']}`}><strong>3. Add a description for your Profile</strong></label>
+            <div className={styles['user-desc-area']}>
+              <textarea name="user-desc" id="user-desc" placeholder="We are an incubator and VC rooting for multiple web3 projects."></textarea>
+              <p className={`${styles['char-count']} ${styles['txt-small']}`}><span id="charCount">0</span>/480</p>
+            </div>
+            <div className={styles['btn-group-submit']}>
+              <input type="submit" name="action" value="Continue to Dashboard" className={styles['btn-secondary']} />
+              <input type="submit" name="action" value="Save and Create GIG" className={`${styles['btn-m']} ${styles['btn-navy']}`} />
+            </div>
+          </div>
+        </form>
+      </header>
     </div>
   );
 };

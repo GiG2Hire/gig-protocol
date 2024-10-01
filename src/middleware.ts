@@ -11,7 +11,7 @@ export async function middleware(request: NextRequest) {
   console.log("pathansdjdsk:", pathname);
   const isFreelancerDashboard = pathname.startsWith("/freelancer-dashboard");
   const isChatWindow = pathname.startsWith("/chat");
-  const isAuth = true; //await isLoggedIn();
+  const isAuth = await isLoggedIn();
   console.log("Inside Middleware!!----------------");
 
   if (!isAuth) {
@@ -19,14 +19,14 @@ export async function middleware(request: NextRequest) {
     return NextResponse.redirect(new URL("/", request.url));
   }
 
-  const payload: JWTPayload = {}; //await getPayload();
+  const payload: JWTPayload = await getPayload();
   const payloadContext: any = payload.ctx;
   if (payload.ctx!.role == FREELANCER) {
     console.log("Role is freelancer confirmed!!");
   }
   if (isFreelancerDashboard) {
     console.log("Inside freelancer dashboard!!!!!");
-    const userDetails = {}; //await getPayload();
+    const userDetails = await getPayload();
     console.log(userDetails);
     if (!userDetails.ctx.role) {
       console.log("User has not been assigned any role!!");

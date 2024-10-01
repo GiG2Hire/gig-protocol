@@ -1,13 +1,68 @@
 "use client";
-import type { NextPage } from "next";
-import { useCallback } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import styles from "./freelancer-dashboard.module.css";
+import { usdcAddresses } from "@/src/constants/usdcConstants";
+import { getTime } from "@/src/utils/getCurrTime";
+import { getPayload, isLoggedIn } from "../actions/login";
+import { client } from "../lib/client";
+import {
+  useActiveAccount,
+  useActiveWalletChain,
+  useActiveWalletConnectionStatus,
+  useWalletBalance
+} from "thirdweb/react";
 
-const FreelancerDashboard = () => {
+const ClientDashboard = () => {
   const router = useRouter();
+  const [walletBalance, setWalletBalance] = useState("N/A");
+  const walletStatus = useActiveWalletConnectionStatus();
+  const walletAddress = useActiveAccount();
+  const walletChain = useActiveWalletChain();
 
-  const onBtnChatContainerClick = useCallback(() => {
+  const getClientData = async () => {
+    try {
+      const payload = await getPayload();
+      if (!payload || !payload.ctx?.userId) {
+        throw new Error("User not authenticated");
+      }
+
+      const id = payload.ctx.userId;
+      const response = await fetch(`/api/gig/client-proposals?client_id=${id}`);
+
+      if (!response.ok) {
+        throw new Error("Failed to fetch data");
+      }
+
+      const data = await response.json();
+      console.log(data);
+      return data;
+    } catch (error) {
+      console.error("Error fetching client data:", error);
+      // Handle error (e.g., show error message to user)
+    }
+  }
+  getClientData();
+  const timeNow = getTime();
+
+  const usdcAddress = usdcAddresses[walletChain?.id];
+  const { data, isLoading, isError } = useWalletBalance({
+    chain: walletChain,
+    address: walletAddress?.address,
+    client,
+    tokenAddress: usdcAddress,
+  });
+
+  useEffect(() => {
+    if (walletStatus == "connected") {
+      setWalletBalance(data?.displayValue);
+    }
+    if (walletStatus == "disconnected") {
+      setWalletBalance("N/A");
+    }
+  }, [walletStatus,]);
+
+  const onBtnChatContainerClick = useCallback(async () => {
     router.push("/chat/17-1-1/");
   }, [router]);
 
@@ -67,14 +122,14 @@ const FreelancerDashboard = () => {
                       src="/account-balance-wallet.svg"
                     />
                     <a className={styles.wallet}>Wallet</a>
-                    <b className={styles.b1}>$100</b>
+                    <b className={styles.b1}>${walletBalance}</b>
                   </div>
                 </div>
               </div>
             </div>
             <div className={styles.date}>
               <h1 className={styles.todayIs}>Today is</h1>
-              <div className={styles.may232024}>May 23, 2024</div>
+              <div className={styles.may232024}>{timeNow}</div>
             </div>
           </div>
           <div className={styles.earningsChart}>
@@ -766,4 +821,4 @@ const FreelancerDashboard = () => {
   );
 };
 
-export default FreelancerDashboard;
+export default ClientDashboard;

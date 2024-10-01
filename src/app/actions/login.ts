@@ -88,7 +88,7 @@ export async function getRoleFromPayload() {
   const { payload, signature }: { payload: JWTPayload; signature: string } =
     decodeJWT(jwtToken);
   const payloadContext: any = payload.ctx;
-  return payloadContext.userId;
+  return payloadContext.role;
 }
 
 /**
