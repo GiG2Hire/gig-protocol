@@ -74,12 +74,10 @@ const PostAJob = () => {
 
   async function approveUSDCandOpenProposal() {
     console.log("Trying to obtain approval from client....");
-    const DECIMALS = 10 ** 6; // Decimals of USDC token
-
     const chainId = 84532;
     const rpcUrl = process.env.NEXT_PUBLIC_BASE_RPC_URL;
     const addressProtocol = "0x956b52eB371037CD8F2Ff5DF4Ac21BF0020226FB";
-    const amount = approvalAmount * DECIMALS;
+    const amount = 1000000;
     const usdcToken = "0x036CbD53842c5426634e7929541eC2318f3dCF7e";
 
     // const account = useActiveAccount();
@@ -312,10 +310,11 @@ const PostAJob = () => {
                   {jobCategories.map((category) => (
                     <div
                       key={category.id}
-                      className={`${styles.btnDevit} ${activeJobCategory === category.id
+                      className={`${styles.btnDevit} ${
+                        activeJobCategory === category.id
                           ? styles.activeBtnDevit
                           : ""
-                        }`}
+                      }`}
                       onClick={() => {
                         setActiveJobCategory(category.id);
                       }}
