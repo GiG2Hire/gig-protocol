@@ -22,21 +22,26 @@ async function computeSHA256(file: File) {
 }
 
 const ModalUploadedFiles = ({ gigId, closeModal, className = "" }) => {
-  const [uploadedFile, setUploadedFile] = useState<File | undefined>();
+  const [uploadedFiles, setUploadedFiles] = useState<File[]>([]);
   const [uploadedFileUrl, setUploadedFileUrl] = useState<string>();
 
+  const submitFiles = () => {
+    console.log("Submitting Files to Gig2Hire!!");
+    uploadedFiles.forEach(async (file) => {
+      await handleFileUpload(file);
+    });
+    removeFiles();
+  };
+
   //
-  const handleFileUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    console.log(e.target.files?.[0]);
-    const uploadedFile: File | undefined = e.target.files?.[0] || undefined;
-    setUploadedFile(uploadedFile);
-    if (uploadedFile) {
+  const handleFileUpload = async (file: File) => {
+    if (file) {
       // const url = URL.createObjectURL(uploadedFile);
-      const checksum = await computeSHA256(uploadedFile);
+      const checksum = await computeSHA256(file);
       console.log(checksum);
       const presignedUrl: string = await getPresignedUrl(
-        uploadedFile.type,
-        uploadedFile.size,
+        file.type,
+        file.size,
         checksum
       );
       if (presignedUrl == undefined) {
@@ -45,22 +50,44 @@ const ModalUploadedFiles = ({ gigId, closeModal, className = "" }) => {
       console.log(presignedUrl); //blob:http://localhost:3000/655e7c6a-85c8-4216-88dd-fb816afde7a3
       await fetch(presignedUrl, {
         method: "PUT",
-        body: uploadedFile,
+        body: file,
         headers: {
-          "Content-Type": uploadedFile.type,
+          "Content-Type": file.type,
         },
       }).then((res) => {
         if (res.status == 200) {
           const url = presignedUrl.split("?")[0];
-          createGigFile(gigId, uploadedFile.name, uploadedFile.type, url);
+          createGigFile(gigId, file.name, file.type, file.size, url);
         }
       });
-      // setUploadedFileUrl(url);
     }
   };
 
-  const removeFile = () => {
-    setUploadedFile(undefined);
+  const addToUploadFilesList = async (
+    e: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    const fileList: FileList | null = e.target.files;
+    console.log(fileList);
+    const files: File[] = [];
+    for (let i = 0; i < fileList.length; i++) {
+      files.push(fileList[i]);
+    }
+    setUploadedFiles(files);
+  };
+
+  const removeFileFromUploadsList = (index: number) => {
+    const files: File[] = [];
+    for (let i = 0; i < uploadedFiles.length; i++) {
+      if (i == index) {
+        continue;
+      }
+      files.push(uploadedFiles[i]);
+    }
+    setUploadedFiles(files);
+  };
+
+  const removeFiles = () => {
+    setUploadedFiles([]);
     setUploadedFileUrl(undefined);
   };
 
@@ -98,7 +125,8 @@ const ModalUploadedFiles = ({ gigId, closeModal, className = "" }) => {
                   <input
                     type="file"
                     accept="image/jpeg,image/png,image/webp,image/gif,video/mp4,video/webm,.txt,.doc,.pdf"
-                    onChange={handleFileUpload}
+                    onChange={addToUploadFilesList}
+                    multiple
                   />
                   {/* Browse file instead */}
                 </div>
@@ -134,13 +162,54 @@ const ModalUploadedFiles = ({ gigId, closeModal, className = "" }) => {
                 />
               </div>
             </div>
-            <video src={uploadedFileUrl} autoPlay></video>
+            {/* <video src={uploadedFileUrl} autoPlay></video> */}
           </div>
           <div className={styles.fileListParent}>
             <div className={styles.fileList}>
               <a className={styles.uploadedFiles}>Uploaded Files</a>
               <div className={styles.fileItems}>
-                <div className={styles.proofUrlParent}>
+                {uploadedFiles.map((file, index) => (
+                  <div className={styles.proofUrlParent} key={index}>
+                    <div className={styles.proofUrl}>
+                      <div className={styles.frameParent}>
+                        <div className={styles.captivePortalParent}>
+                          <img
+                            className={styles.captivePortalIcon}
+                            loading="lazy"
+                            alt=""
+                            src={
+                              file.type == "link"
+                                ? "/captive-portal.svg"
+                                : "/content-paste.svg"
+                            }
+                          />
+                          <h3 className={styles.httpswwwthisisalinkcommy}>
+                            {file.name}
+                          </h3>
+                        </div>
+                        {/* <div className={styles.uploadedParent}>
+                          <a className={styles.uploaded}>Uploaded:</a>
+                          <div className={styles.div}>02.08.2024</div>
+                        </div> */}
+                      </div>
+                      <div
+                        className={styles.btnDelete}
+                        key={index}
+                        onClick={() => {
+                          removeFileFromUploadsList(index);
+                        }}
+                      >
+                        <img
+                          className={styles.deleteIcon}
+                          loading="lazy"
+                          alt=""
+                          src="/delete.svg"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                ))}
+                {/* <div className={styles.proofUrlParent}>
                   <div className={styles.proofUrl}>
                     <div className={styles.frameParent}>
                       <div className={styles.captivePortalParent}>
@@ -198,10 +267,10 @@ const ModalUploadedFiles = ({ gigId, closeModal, className = "" }) => {
                       />
                     </div>
                   </div>
-                </div>
+                </div> */}
               </div>
             </div>
-            <button className={styles.btnSubmitFiles}>
+            <button className={styles.btnSubmitFiles} onClick={submitFiles}>
               <img
                 className={styles.cloudUploadOutline1Icon}
                 alt=""

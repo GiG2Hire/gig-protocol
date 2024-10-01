@@ -7,6 +7,8 @@ import ChatWindow from "@/src/app/components/chat/chat-window";
 import ChatInput from "../../components/chat/chat-input";
 import { prisma } from "../../lib/db";
 import FileUpload from "../../components/chat/file-upload";
+import { CallTracker } from "assert";
+import FileList from "../../components/files/file-list";
 
 async function acceptGigInDatabase() {
   const options = {
@@ -55,6 +57,9 @@ const FreelancerChat = async ({ params, searchParams }) => {
 
   let sentimentText: string;
   let messages;
+  let submittedFiles = [];
+  let filesSharedByUser = [];
+  let filesSharedByPartner = [];
 
   /**
    * get initial messages to load in chat window
@@ -101,7 +106,34 @@ const FreelancerChat = async ({ params, searchParams }) => {
     }
   }
 
-  await Promise.all([getChatMessages(), getGeminiSentiment()]);
+  async function getSubmittedFiles() {
+    try {
+      submittedFiles = await prisma.gigFile.findMany({
+        where: {
+          gigId: Number(gigId),
+        },
+      });
+    } catch (error) {
+      console.log(error);
+    }
+    submittedFiles.forEach((file) => {
+      if (file.uploadedBy == currentUser) {
+        filesSharedByUser.push(file);
+      } else {
+        filesSharedByPartner.push(file);
+      }
+    });
+  }
+
+  const removeFile = (index: any) => {
+    return;
+  };
+
+  await Promise.all([
+    getChatMessages(),
+    getGeminiSentiment(),
+    getSubmittedFiles(),
+  ]);
   // await Promise.all([getChatMessages()]);
 
   // we can use gig id to get chat id or directly pass chat id in the http route query
@@ -154,8 +186,15 @@ const FreelancerChat = async ({ params, searchParams }) => {
             </div>
           </div>
           <div className={styles.frameParent1}>
-            <div className={styles.frameParent2}>
+            <div>
               <FileUpload gigId={gigId} />
+              <FileList
+                files={filesSharedByPartner}
+                title={"Shared By Freelancer"}
+              />
+              <FileList files={filesSharedByUser} title={"Shared By Client"} />
+            </div>
+            {/* <div className={styles.frameParent2}>
               <button className={styles.ongoingGigsWrapper}>
                 <b className={styles.ongoingGigs}>Ongoing GiGs</b>
               </button>
@@ -341,7 +380,7 @@ const FreelancerChat = async ({ params, searchParams }) => {
                   <div className={styles.div3}>02.24.2024</div>
                 </div>
               </div>
-            </div>
+            </div> */}
             <div className={styles.ongoingGigContentParent}>
               <div className={styles.ongoingGigContent}>
                 <div className={styles.ongoingGigDetails}>

@@ -269,15 +269,7 @@
   width: 16px;
   position: relative;
 }
-.btnDelete,
-.proofUrl {
-  background-color: var(--red-light);
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: center;
-  padding: var(--padding-9xs);
-}
+
 .proofUrl {
   flex: 1;
   background-color: var(--yellow-bk-40a);
@@ -288,6 +280,17 @@
   gap: var(--gap-5xs);
   min-width: 146px;
 }
+
+.btnDelete,
+.proofUrl {
+  background-color: var(--red-light);
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  padding: var(--padding-9xs);
+}
+
 .contentPasteIcon {
   height: 12px;
   width: 12px;
