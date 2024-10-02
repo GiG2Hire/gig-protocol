@@ -191,8 +191,13 @@ const FreelancerChat = async ({ params, searchParams }) => {
               <FileList
                 files={filesSharedByPartner}
                 title={"Shared By Freelancer"}
+                currentUser={currentUser}
               />
-              <FileList files={filesSharedByUser} title={"Shared By Client"} />
+              <FileList
+                files={filesSharedByUser}
+                title={"Shared By Client"}
+                currentUser={currentUser}
+              />
             </div>
             {/* <div className={styles.frameParent2}>
               <button className={styles.ongoingGigsWrapper}>

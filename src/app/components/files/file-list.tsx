@@ -1,12 +1,34 @@
 "use client";
+import { useState } from "react";
+import { removeUploadedFile } from "../../actions/create-gig-file";
 import styles from "./file-list.module.css";
-const FileList = ({ files, title }) => {
+
+const FileList = ({ files, title, currentUser }) => {
+  const [uploadedFiles, setUploadedFiles] = useState(files);
+
+  const removeFileUploadedByUser = (id, index) => {
+    removeUploadedFile(id).then((res) => {
+      removeFileFromUploadsList(index);
+    });
+  };
+
+  const removeFileFromUploadsList = (index: number) => {
+    const files: File[] = [];
+    for (let i = 0; i < uploadedFiles.length; i++) {
+      if (i == index) {
+        continue;
+      }
+      files.push(uploadedFiles[i]);
+    }
+    setUploadedFiles(files);
+  };
+
   return (
     <div className={styles.fileListParent}>
       <div className={styles.fileList}>
         <a className={styles.uploadedFiles}>{title}</a>
         <div className={styles.fileItems}>
-          {files.map((file, index) => (
+          {uploadedFiles.map((file, index) => (
             <div className={styles.proofUrlParent} key={index}>
               <div className={styles.proofUrl}>
                 <div className={styles.frameParent}>
@@ -30,14 +52,23 @@ const FileList = ({ files, title }) => {
                       <div className={styles.div}>02.08.2024</div>
                     </div> */}
                 </div>
-                <div className={styles.btnDelete} key={index}>
-                  <img
-                    className={styles.deleteIcon}
-                    loading="lazy"
-                    alt=""
-                    src="/delete.svg"
-                  />
-                </div>
+
+                {file.uploadedBy == currentUser && (
+                  <div
+                    className={styles.btnDelete}
+                    key={file.id}
+                    onClick={() => {
+                      removeFileUploadedByUser(file.id, index);
+                    }}
+                  >
+                    <img
+                      className={styles.deleteIcon}
+                      loading="lazy"
+                      alt=""
+                      src="/delete.svg"
+                    />
+                  </div>
+                )}
               </div>
             </div>
           ))}
