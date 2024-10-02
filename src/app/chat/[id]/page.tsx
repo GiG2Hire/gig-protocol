@@ -1,12 +1,14 @@
 import styles from "./freelancer-chat.module.css";
 // import {chat} from "../../../constants/chat";
-import ChatSentiment from "../../components/chat-sentiment";
+import ChatSentiment from "@/src/app/components/chat/chat-sentiment";
 import { GIG_COMPLETION_STATUS } from "@/src/constants/appConstants";
 import { closeProposal } from "../../actions/choose-and-open";
 import ChatWindow from "@/src/app/components/chat/chat-window";
 import ChatInput from "../../components/chat/chat-input";
 import { prisma } from "../../lib/db";
 import FileUpload from "../../components/chat/file-upload";
+import { CallTracker } from "assert";
+import FileList from "../../components/files/file-list";
 
 async function acceptGigInDatabase() {
   const options = {
@@ -45,6 +47,10 @@ const FreelancerChat = async ({
   const id = params?.id;
   const chatId: string = id;
   const currentUser: number = Number(searchParams.userId);
+
+  // TODO: Try to see if this is a secure way to get Gig Id
+  const gigId: string = chatId.split("-")[2];
+  console.log("Gig Id derived from chat Id: ", gigId);
   let receiverUser: number;
 
   const client: number = Number(chatId.split("-")[0]);
@@ -55,8 +61,11 @@ const FreelancerChat = async ({
     receiverUser = client;
   }
 
-  let sentimentText: string = "";
-  let messages: any;
+  let sentimentText: string;
+  let messages;
+  let submittedFiles = [];
+  let filesSharedByUser = [];
+  let filesSharedByPartner = [];
 
   /**
    * get initial messages to load in chat window
@@ -103,7 +112,35 @@ const FreelancerChat = async ({
     }
   }
 
-  await Promise.all([getChatMessages(), getGeminiSentiment()]);
+  async function getSubmittedFiles() {
+    try {
+      submittedFiles = await prisma.gigFile.findMany({
+        where: {
+          gigId: Number(gigId),
+        },
+      });
+    } catch (error) {
+      console.log(error);
+    }
+    submittedFiles.forEach((file) => {
+      if (file.uploadedBy == currentUser) {
+        filesSharedByUser.push(file);
+      } else {
+        filesSharedByPartner.push(file);
+      }
+    });
+  }
+
+  const removeFile = (index: any) => {
+    return;
+  };
+
+  await Promise.all([
+    getChatMessages(),
+    getGeminiSentiment(),
+    getSubmittedFiles(),
+  ]);
+  // await Promise.all([getChatMessages()]);
 
   // we can use gig id to get chat id or directly pass chat id in the http route query
   return (
@@ -155,8 +192,20 @@ const FreelancerChat = async ({
             </div>
           </div>
           <div className={styles.frameParent1}>
-            <div className={styles.frameParent2}>
-              <FileUpload />
+            <div>
+              <FileUpload gigId={gigId} />
+              <FileList
+                files={filesSharedByPartner}
+                title={"Shared By Freelancer"}
+                currentUser={currentUser}
+              />
+              <FileList
+                files={filesSharedByUser}
+                title={"Shared By Client"}
+                currentUser={currentUser}
+              />
+            </div>
+            {/* <div className={styles.frameParent2}>
               <button className={styles.ongoingGigsWrapper}>
                 <b className={styles.ongoingGigs}>Ongoing GiGs</b>
               </button>
@@ -342,7 +391,7 @@ const FreelancerChat = async ({
                   <div className={styles.div3}>02.24.2024</div>
                 </div>
               </div>
-            </div>
+            </div> */}
             <div className={styles.ongoingGigContentParent}>
               <div className={styles.ongoingGigContent}>
                 <div className={styles.ongoingGigDetails}>

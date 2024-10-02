@@ -1125,7 +1125,7 @@
   max-width: 100%;
   gap: var(--gap-xl);
 }
-.emptyChatMessages{
+.emptyChatMessages {
   align-self: stretch;
   position: relative;
   display: inline-block;
@@ -1153,7 +1153,7 @@
   padding: var(--padding-9xs) var(--padding-5xs);
   flex-shrink: 0;
 }
-.b4{
+.b4 {
   align-self: stretch;
   position: relative;
   display: inline-block;
@@ -1167,7 +1167,7 @@
   text-align: right;
   white-space: nowrap;
 }
-.freenalceemployerChatInner{
+.freenalceemployerChatInner {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -1225,7 +1225,7 @@
   text-align: right;
   white-space: nowrap;
 }
-.freenalceemployerChatInner1{
+.freenalceemployerChatInner1 {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -1308,7 +1308,7 @@
   text-align: right;
   white-space: nowrap;
 }
-.freenalceemployerChatInner4{
+.freenalceemployerChatInner4 {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -1322,7 +1322,7 @@
   padding: var(--padding-9xs) var(--padding-5xs);
   flex-shrink: 0;
 }
-.b10{
+.b10 {
   align-self: stretch;
   position: relative;
   display: inline-block;
@@ -1336,7 +1336,7 @@
   text-align: right;
   white-space: nowrap;
 }
-.freenalceemployerChatInner5{
+.freenalceemployerChatInner5 {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -1350,7 +1350,7 @@
   padding: var(--padding-9xs) var(--padding-5xs);
   flex-shrink: 0;
 }
-.b11{
+.b11 {
   align-self: stretch;
   position: relative;
 }
@@ -1376,7 +1376,7 @@
   padding: var(--padding-9xs) var(--padding-5xs);
   flex-shrink: 0;
 }
-.b12{
+.b12 {
   align-self: stretch;
   position: relative;
 }
@@ -1388,7 +1388,7 @@
   text-align: right;
   white-space: nowrap;
 }
-.freenalceemployerChatInner7{
+.freenalceemployerChatInner7 {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -1414,7 +1414,7 @@
   text-align: right;
   white-space: nowrap;
 }
-.freenalceemployerChatInner8{
+.freenalceemployerChatInner8 {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -1440,7 +1440,7 @@
   text-align: right;
   white-space: nowrap;
 }
-.freenalceemployerChatInner9{
+.freenalceemployerChatInner9 {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -2336,4 +2336,27 @@
     padding-right: var(--padding-xl);
     box-sizing: border-box;
   }
+}
+
+/* Uploaded Files section */
+
+.uploadedFilesParent {
+  align-self: stretch;
+}
+
+.uploadedFilesParentFirstChild {
+  flex: 1;
+  background-color: var(--yellow-bk-40a);
+  overflow: hidden;
+  justify-content: flex-start;
+  padding: var(--padding-5xs);
+  box-sizing: border-box;
+  gap: var(--gap-5xs);
+  min-width: 146px;
+}
+
+.uploadedFilesframe {
+  height: 28px;
+  flex: 1;
+  flex-direction: column;
 }
