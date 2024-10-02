@@ -33,8 +33,9 @@ body {
   /* Colors */
   --light: #fffcf0;
   --navy-bk: #6e83ff;
-  --color-royalblue-100: #5469e6;
+  --navy-600: #3f5dba;
   --navy-medium-bk: #3f5dba;
+  --color-royalblue-100: #5469e6;
   --navy-bk-40a: rgba(110, 131, 255, 0.4);
   --navy-medium-40a: rgba(63, 93, 186, 0.4);
   --yellow-bk: #d6ea5e;

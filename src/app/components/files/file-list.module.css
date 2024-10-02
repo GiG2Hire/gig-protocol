@@ -1,0 +1,138 @@
+.fileListParent {
+  flex: 1;
+  flex-direction: column;
+  align-items: flex-end;
+  justify-content: space-between;
+  padding: 0 var(--padding-base);
+  min-width: 319px;
+  min-height: 480px;
+  font-size: var(--font-size-5xl);
+  color: var(--midnight-bold);
+}
+
+.content,
+.fileListParent,
+.modalUploadedFiles {
+  box-sizing: border-box;
+  max-width: 100%;
+  display: flex;
+}
+
+.uploadedFiles {
+  text-decoration: none;
+  position: relative;
+  font-weight: 700;
+  color: inherit;
+}
+
+.fileItems {
+  gap: var(--gap-5xs);
+  font-size: var(--font-size-xs);
+}
+
+.fileList {
+  gap: var(--gap-base);
+}
+
+.fileItems,
+.fileList {
+  align-self: stretch;
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+}
+
+.fileItems,
+.fileList {
+  flex-direction: column;
+}
+
+.proofUrlParent {
+  align-self: stretch;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  gap: var(--gap-5xs);
+}
+
+.btnDelete,
+.proofUrl {
+  background-color: var(--red-light);
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  padding: var(--padding-9xs);
+}
+
+.proofUrl {
+  flex: 1;
+  background-color: var(--yellow-bk-40a);
+  overflow: hidden;
+  justify-content: flex-start;
+  padding: var(--padding-5xs);
+  box-sizing: border-box;
+  gap: var(--gap-5xs);
+  min-width: 146px;
+}
+
+.frameParent {
+  height: 28px;
+  flex: 1;
+  flex-direction: column;
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+}
+
+.captivePortalParent {
+  align-self: stretch;
+  flex: 1;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  gap: var(--gap-9xs);
+}
+
+.captivePortalIcon {
+  height: 12px;
+  width: 12px;
+  position: relative;
+}
+
+.httpswwwthisisalinkcommy {
+  margin: 0;
+  align-self: stretch;
+  flex: 1;
+  position: relative;
+  font-size: inherit;
+  font-weight: 400;
+  font-family: inherit;
+  display: inline-block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  max-height: 16px;
+  word-break: break-word;
+}
+
+.deleteIcon {
+  height: 16px;
+  width: 16px;
+  position: relative;
+  cursor: pointer;
+}
+
+@media screen and (max-width: 675px) {
+  .fileListParent {
+    min-height: auto;
+  }
+}
+
+@media screen and (max-width: 450px) {
+  .proofUrlParent {
+    flex-wrap: wrap;
+  }
+}
