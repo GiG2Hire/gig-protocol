@@ -1,3 +1,13 @@
+.modalBackdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgb(214, 234, 94, 0.4);
+  z-index: 100000;
+  transition: ease-out 0.3s;
+}
 .uploadAndManage {
   margin: 0;
   position: relative;
@@ -23,6 +33,7 @@
   padding: var(--padding-7xs-5) var(--padding-8xs);
   box-sizing: border-box;
   height: 21px;
+  cursor: pointer;
 }
 .uploadManager {
   align-self: stretch;
@@ -174,7 +185,7 @@
   color: var(--navy-bk-40a);
 }
 .compBoxuploadParent {
-  width: 329px;
+  width: 360px;
   border-right: 1px solid var(--yellow-bk);
   box-sizing: border-box;
   display: flex;
@@ -258,15 +269,7 @@
   width: 16px;
   position: relative;
 }
-.btnDelete,
-.proofUrl {
-  background-color: var(--red-light);
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: center;
-  padding: var(--padding-9xs);
-}
+
 .proofUrl {
   flex: 1;
   background-color: var(--yellow-bk-40a);
@@ -277,6 +280,17 @@
   gap: var(--gap-5xs);
   min-width: 146px;
 }
+
+.btnDelete,
+.proofUrl {
+  background-color: var(--red-light);
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  padding: var(--padding-9xs);
+}
+
 .contentPasteIcon {
   height: 12px;
   width: 12px;
@@ -618,7 +632,7 @@
   font-family: var(--font-space-mono);
 }
 .modalUploadedFiles {
-  width: 820px;
+  width: 720px;
   background-color: var(--light);
   border: 3px solid var(--yellow-bk);
   overflow: hidden;
@@ -628,6 +642,8 @@
   font-size: var(--font-size-5xl);
   color: var(--navy-medium-bk);
   font-family: var(--font-unbounded);
+  margin: 0 auto;
+  transition: ease-out 0.3s;
 }
 @media screen and (max-width: 675px) {
   .compBoxuploadParent {

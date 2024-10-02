@@ -73,19 +73,7 @@ export async function middleware(request: NextRequest) {
   //   return NextResponse.redirect(new URL("/freelancer-dashboard", request.url));
 }
 
+// See "Matching Paths" below to learn more
 export const config = {
   matcher: ["/freelancer-dashboard/:path*", "/chat/:path*"],
-  unstable_allowDynamic: [
-    "/node_modules/lodash.isequal/index.js",
-    "/node_modules/@walletconnect/core/dist/index.es.js",
-    "/node_modules/@walletconnect/sign-client/dist/index.es.js",
-    "/node_modules/thirdweb/dist/esm/wallets/wallet-connect/receiver/index.js",
-    "/node_modules/thirdweb/dist/esm/exports/wallets.js",
-    "/node_modules/@walletconnect/universal-provider/dist/index.es.js",
-    "/node_modules/@walletconnect/ethereum-provider/dist/index.es.js",
-    "/node_modules/thirdweb/dist/esm/wallets/wallet-connect/controller.js",
-    "/node_modules/thirdweb/dist/esm/wallets/create-wallet.js",
-    "/node_modules/thirdweb/dist/esm/exports/wallets.js",
-    "/node_modules/thirdweb/dist/esm/exports/wallets.js",
-  ],
 };
