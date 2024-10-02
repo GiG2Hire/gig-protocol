@@ -68,8 +68,8 @@ export async function logout() {
 }
 
 export async function getPayload() {
-  const jwtToken = cookies().get("jwt");
-  const { payload, signature } = decodeJWT(jwtToken?.value);
+  const jwtToken: string = cookies().get("jwt")?.value!;
+  const { payload, signature } = decodeJWT(jwtToken);
   return payload;
 }
 
@@ -115,7 +115,7 @@ async function getOrCreateUserInDatabase(address: string): Promise<test> {
     console.log("Login Failed!!!", error);
   }
 
-  const foundUser: User = data;
+  const foundUser: User | undefined | null = data;
   console.log("Exisitng user:", foundUser);
   if (foundUser) {
     console.log("Set up done as existing user!!");
@@ -132,9 +132,9 @@ async function getOrCreateUserInDatabase(address: string): Promise<test> {
       console.log("Login Failed!!!", error);
     }
 
-    const newUser: User = data;
+    const newUser: User | undefined | null = data;
     console.log(newUser);
-    return { userId: newUser.userId, role: newUser.role };
+    return { userId: newUser!.userId, role: newUser!.role };
   }
 }
 

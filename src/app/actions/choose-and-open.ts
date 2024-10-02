@@ -60,7 +60,7 @@ export async function closeProposal(
     contract: lendingContract,
     method:
       "function closeProposal(bytes32 id,address freelancer,uint256 _amount,address _usdcToken,uint64 _destinationChainSelector)",
-    params: [id, "0xd", BigInt(98998), "0xd", BigInt(123)],
+    params: ["0xd", "0xd", BigInt(98998), "0xd", BigInt(98998)],
   });
 
   // front it will be showing tx hash or link for ccip explorer with this hash
@@ -79,7 +79,6 @@ export async function findBestAPY(amount: number) {
   // let url: string;
   // let poolAddress;
   // let usdcToken: string = "";
-
   // for (const [name, value] of Object.entries(testnetAddresses)) {
   //   const {
   //     rpcUrl,
@@ -92,7 +91,6 @@ export async function findBestAPY(amount: number) {
   //     addressUsdc: string;
   //     selector: number;
   //   };
-
   //   const result = await getReserveData(rpcUrl, addressPool, addressUsdc);
   //   console.log(`For chain ${name} APY: ${result.toFixed(2)}%`);
   //   if (result > final_result) {
@@ -104,7 +102,6 @@ export async function findBestAPY(amount: number) {
   //     usdcToken = addressUsdc;
   //   }
   // }
-
   // if (final_result !== -Infinity) {
   //   console.log(
   //     `\nBest APY in ${chainName} ${final_result.toFixed(
@@ -112,15 +109,14 @@ export async function findBestAPY(amount: number) {
   //     )}%\nChain selector: ${selector}`
   //   );
   // here will be call approveUSDCandOpenProposal
-  const txHash = await approveUSDCandOpenProposal(
-    84532,
-    process.env.NEXT_PUBLIC_BASE_RPC_URL,
-    "0x07eA79F68B2B3df564D0A34F8e19D9B1e339814b",
-    1000000,
-    "0x036CbD53842c5426634e7929541eC2318f3dCF7e"
-  );
-
-  return txHash;
+  // const txHash = await approveUSDCandOpenProposal(
+  //   84532,
+  //   process.env.NEXT_PUBLIC_BASE_RPC_URL,
+  //   "0x07eA79F68B2B3df564D0A34F8e19D9B1e339814b",
+  //   1000000,
+  //   "0x036CbD53842c5426634e7929541eC2318f3dCF7e"
+  // );
+  // return txHash;
   // } else {
   //   console.log(`\nNo valid APY data found.`);
   // }

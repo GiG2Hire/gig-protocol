@@ -30,15 +30,21 @@ async function acceptGigInDatabase() {
 
 function acceptGig() {
   acceptGigInDatabase();
-  closeProposal(15);
+  // closeProposal(15);
 }
 
-const FreelancerChat = async ({ params, searchParams }) => {
+const FreelancerChat = async ({
+  params,
+  searchParams,
+}: {
+  params: any;
+  searchParams: any;
+}) => {
   console.log("----------------------", searchParams);
   console.log("params --0--------", params);
 
   //clientId-FreelancerId-GigId
-  const id = params.id;
+  const id = params?.id;
   const chatId: string = id;
   const currentUser: number = Number(searchParams.userId);
 
@@ -92,7 +98,7 @@ const FreelancerChat = async ({ params, searchParams }) => {
         },
       });
       console.log(sentimentTextResponse);
-      sentimentText = sentimentTextResponse?.geminiSentiment;
+      sentimentText = sentimentTextResponse?.geminiSentiment!;
     } catch (error) {
       console.log(error);
     }
@@ -432,6 +438,7 @@ const FreelancerChat = async ({ params, searchParams }) => {
                     initialMessages={messages}
                     currentUser={currentUser}
                     chatId={chatId}
+                    className=""
                   />
                   <div className={styles.chatInputContentInner}>
                     <ChatInput
@@ -447,6 +454,7 @@ const FreelancerChat = async ({ params, searchParams }) => {
                     <ChatSentiment
                       initialSentiment={sentimentText}
                       chatId={chatId}
+                      className=""
                     />
                     <div className={styles.tasksContentParent}>
                       <div className={styles.tasksContent}>

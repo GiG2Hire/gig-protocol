@@ -1,6 +1,5 @@
-import { AbiFunction, AbiEvent } from "thirdweb";
-
-const abi: (AbiFunction | AbiEvent)[] = [
+import { Abi } from "abitype/src/abi";
+const abi: Abi = [
   {
     inputs: [],
     name: "acceptOwnership",

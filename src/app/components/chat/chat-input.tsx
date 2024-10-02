@@ -4,7 +4,17 @@ import styles from "./chat-input.module.css";
 import { prepareConversation } from "@/src/utils/prepare-conversation";
 import { STATUS_200 } from "@/src/constants/appConstants";
 
-const ChatInput = ({ currentUser, receiverUser, chatId, messages }) => {
+const ChatInput = ({
+  currentUser,
+  receiverUser,
+  chatId,
+  messages,
+}: {
+  currentUser: number;
+  receiverUser: number;
+  chatId: string;
+  messages: any;
+}) => {
   const [chatMsg, setChatMsg] = useState<string>("");
 
   /**
