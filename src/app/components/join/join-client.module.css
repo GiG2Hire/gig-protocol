@@ -29,6 +29,11 @@
   height: 48px;
   position: relative;
 }
+.addPhotoUser {
+  width: 154px;
+  height: 154px;
+  position: relative;
+}
 .addAProfile {
   align-self: stretch;
   position: relative;
