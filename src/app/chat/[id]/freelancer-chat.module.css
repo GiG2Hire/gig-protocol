@@ -2147,7 +2147,7 @@
   align-self: stretch;
   display: flex;
   flex-direction: row;
-  align-items: center;
+  /* align-items: center; */
   justify-content: flex-start;
   gap: var(--gap-base);
   max-width: 100%;
