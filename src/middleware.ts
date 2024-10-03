@@ -72,3 +72,8 @@ export async function middleware(request: NextRequest) {
 
   //   return NextResponse.redirect(new URL("/freelancer-dashboard", request.url));
 }
+
+// See "Matching Paths" below to learn more
+export const config = {
+  matcher: ["/freelancer-dashboard/:path*", "/chat/:path*"],
+};

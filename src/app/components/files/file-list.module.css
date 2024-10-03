@@ -5,7 +5,7 @@
   justify-content: space-between;
   padding: 0 var(--padding-base);
   min-width: 319px;
-  min-height: 480px;
+  /* min-height: 480px; */
   font-size: var(--font-size-5xl);
   color: var(--midnight-bold);
 }
