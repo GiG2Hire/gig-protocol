@@ -7,6 +7,7 @@ import { FREELANCER, STATUS_200 } from "@/src/constants/appConstants";
 import { useActiveAccount } from "thirdweb/react";
 import { useRouter } from "next/navigation";
 import { JoinAsFreelancer } from "../../actions/join-user";
+import { useState } from "react";
 
 export type JoinFreelancerType = {
   className?: string;
@@ -15,6 +16,10 @@ export type JoinFreelancerType = {
 const JoinFreelancer = ({ closeJoinAsFreelancerModal, className = "" }) => {
   const account = useActiveAccount();
   const router = useRouter();
+
+  const [localProfileImageUrl, setLocalProfileImageUrl] = useState(
+    "/add-photo-alternate.svg"
+  );
 
   // Handle login with github
   const githubLogin = () => {
@@ -88,6 +93,17 @@ const JoinFreelancer = ({ closeJoinAsFreelancerModal, className = "" }) => {
     });
   };
 
+  const displayProfileImage = (e: any) => {
+    console.log(e.target.files);
+    if (e.target.files.length == 0) {
+      setLocalProfileImageUrl("/add-photo-alternate1.svg");
+    } else {
+      const profileImageFile: File = e.target.files[0];
+      const url: string = URL.createObjectURL(profileImageFile);
+      setLocalProfileImageUrl(url);
+    }
+  };
+
   return (
     <div className={styles.modalBackdrop}>
       <div className={[styles.joinFreelancer, className].join(" ")}>
@@ -100,10 +116,14 @@ const JoinFreelancer = ({ closeJoinAsFreelancerModal, className = "" }) => {
         >
           <div className={styles.addPhotoAlternateParent}>
             <img
-              className={styles.addPhotoAlternateIcon}
+              className={
+                localProfileImageUrl == "/add-photo-alternate.svg"
+                  ? styles.addPhotoAlternateIcon
+                  : styles.addPhotoUser
+              }
               loading="lazy"
               alt=""
-              src="/add-photo-alternate.svg"
+              src={localProfileImageUrl}
             />
             <b className={styles.addAProfile}>
               Add a Profile Picture
@@ -112,6 +132,7 @@ const JoinFreelancer = ({ closeJoinAsFreelancerModal, className = "" }) => {
                 type="file"
                 accept="image/*"
                 name="profile-image"
+                onChange={displayProfileImage}
               />
             </b>
           </div>
