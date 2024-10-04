@@ -14,15 +14,16 @@ model chat {
   createdAt         DateTime   @default(now()) @map("created_at") @db.Timestamptz(6)
   updatedAt         DateTime?  @map("updated_at") @db.Timestamp(6)
   geminiExplanation String?    @map("gemini_explanation")
+  chat_uuid         String?    @db.Uuid
   gigOffer          gigOffer[]
 }
 
 /// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
 model chatMessage {
-  id            Int    @id @default(autoincrement())
+  id            Int       @id @default(autoincrement())
   createdAt     DateTime  @default(now()) @map("created_at") @db.Timestamptz(6)
-  senderId      Int    @map("sender_id")
-  receiverId    Int    @map("receiver_id")
+  senderId      Int       @map("sender_id")
+  receiverId    Int       @map("receiver_id")
   message       String?
   sentTimestamp DateTime? @map("sent_timestamp") @db.Timestamptz(6)
   chatId        String?   @map("chat_id")
@@ -31,19 +32,20 @@ model chatMessage {
 }
 
 model gig {
-  gigId                Int    @id @default(autoincrement()) @map("gig_id")
-  clientId             Int    @map("client_id")
-  freelancerId         Int?   @map("freelancer_id")
-  description          String    @map("description")
+  gigId                Int        @id @default(autoincrement()) @map("gig_id")
+  clientId             Int        @map("client_id")
+  freelancerId         Int?       @map("freelancer_id")
+  description          String     @map("description")
   gig_budget           Float
-  startDate            DateTime? @map("start_date") @db.Timestamp(6)
-  endDate              DateTime? @map("end_date") @db.Timestamp(6)
-  createdAt            DateTime  @default(now()) @map("created_at") @db.Timestamptz(6)
-  completionStatus     String?   @map("completion_status")
-  expectedDeliveryDate DateTime? @map("expected_delivery_date") @db.Timestamptz(6)
-  category             Int?   @map("category")
+  startDate            DateTime?  @map("start_date") @db.Timestamp(6)
+  endDate              DateTime?  @map("end_date") @db.Timestamp(6)
+  createdAt            DateTime   @default(now()) @map("created_at") @db.Timestamptz(6)
+  completionStatus     String?    @map("completion_status")
+  expectedDeliveryDate DateTime?  @map("expected_delivery_date") @db.Timestamptz(6)
+  category             Int?       @map("category")
   title                String?
-  updated_at           DateTime? @db.Timestamptz(6)
+  updated_at           DateTime?  @db.Timestamptz(6)
+  gig_offer            gigOffer[]
   gig_task             gigTask[]
 }
 
@@ -51,10 +53,10 @@ model user {
   address       String    @unique @db.VarChar
   username      String?
   role          String?
-  xFollowers    Int?   @map("x_followers")
-  githubCommits Int?   @map("github_commits")
+  xFollowers    Int?      @map("x_followers")
+  githubCommits Int?      @map("github_commits")
   createdAt     DateTime  @default(now()) @map("created_at") @db.Timestamp(6)
-  userId        Int    @id @default(autoincrement()) @map("user_id")
+  userId        Int       @id @default(autoincrement()) @map("user_id")
   lastLogin     DateTime? @map("last_login") @db.Timestamp(6)
   email         String?   @unique
   description   String?
@@ -64,8 +66,8 @@ model user {
 }
 
 model gigTask {
-  taskId      Int    @id @default(autoincrement()) @map("task_id")
-  gigId       Int?   @map("gig_id")
+  taskId      Int       @id @default(autoincrement()) @map("task_id")
+  gigId       Int?      @map("gig_id")
   description String?
   status      String?
   createdAt   DateTime  @default(now()) @map("created_at") @db.Timestamptz(6)
@@ -77,7 +79,7 @@ model gigTask {
 
 /// This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
 model dispute {
-  dispute_id  Int    @id @default(autoincrement())
+  dispute_id  Int       @id @default(autoincrement())
   gig_id      Int?
   plaintiff   Int?
   defendant   Int?
@@ -92,7 +94,7 @@ model dispute {
 
 /// This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
 model dispute_evidence {
-  id           Int    @id @default(autoincrement())
+  id           Int       @id @default(autoincrement())
   dispute_id   Int?
   url          Int?
   submitted_by Int?
@@ -102,7 +104,7 @@ model dispute_evidence {
 
 /// This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
 model dispute_verdict {
-  verdict_id             Int    @id @default(autoincrement())
+  verdict_id             Int       @id @default(autoincrement())
   dispute_id             Int?
   extended_delivery_days Int?
   freelancer_split       Int?
@@ -115,12 +117,12 @@ model dispute_verdict {
 
 /// This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
 model GigFile {
-  id         Int    @id(map: "gig_files_pkey") @default(autoincrement())
-  gigId      Int    @map("gig_id")
+  id         Int       @id(map: "gig_files_pkey") @default(autoincrement())
+  gigId      Int       @map("gig_id")
   name       String?   @map("name")
   type       String?   @map("type")
   url        String?   @map("url")
-  uploadedBy Int?   @map("uploaded_by")
+  uploadedBy Int?      @map("uploaded_by")
   createdAt  DateTime? @map("created_at") @db.Timestamptz(6)
   updatedAt  DateTime? @map("updated_at") @db.Timestamptz(6)
   size       Int?      @map("size")
@@ -131,15 +133,18 @@ model GigFile {
 /// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
 /// This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
 model gigOffer {
-  offerId      Int    @id @default(autoincrement()) @map("offer_id")
+  offerId      Int       @id @default(autoincrement()) @map("offer_id")
   createdAt    DateTime  @default(now()) @map("created_at") @db.Timestamptz(6)
-  gigId        Int?   @map("gig_id")
+  gigId        Int       @map("gig_id")
   status       String?   @map("status")
   comment      String?   @map("comment")
-  freelancerId Int?   @map("freelancer_id")
+  freelancerId Int?      @map("freelancer_id")
   chatId       String?   @map("chat_id")
   updated_at   DateTime? @db.Timestamptz(6)
+  chat_uuid    String?   @db.Uuid
+  clientId     Int?      @map("client_id")
   chat         chat?     @relation(fields: [chatId], references: [chatId], onDelete: NoAction, onUpdate: NoAction)
+  gig          gig       @relation(fields: [gigId], references: [gigId], onDelete: NoAction, onUpdate: NoAction)
 
   @@map("gig_offer")
 }

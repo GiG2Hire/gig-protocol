@@ -2,11 +2,9 @@
 import { NextResponse } from 'next/server';
 import { prisma } from '@/src/app/lib/db';
 
-//
 export async function POST(req: Request) {
     try {
-        const body = await req.json();
-        const { gigId, freelancerId } = body;
+        const { gigId, freelancerId } = await req.json();
 
         // Check if gigId is provided
         if (!gigId) {
@@ -18,36 +16,36 @@ export async function POST(req: Request) {
         }
         // Check if gigId exists
         const gig = await prisma.gig.findUnique({
-            where: { gigId: gigId },
+            where: { gigId },
         });
+
         if (!gig) {
-            return NextResponse.json({ message: "gigId does not exist" }, { status: 400 });
+            return NextResponse.json({ message: "Gig not found" }, { status: 404 });
         }
-        // Check if gig.status is not "submitted"
-        if (gig.completionStatus == "submitted") {
-            return NextResponse.json({ message: "Already Submitted" }, { status: 400 });
+
+        
+        if (gig.completionStatus === "OPEN") {
+            return NextResponse.json({ message: "Gig not assigned" }, { status: 400 });
         }
-        // Check if freelancerId exists
-        const freelancer = await prisma.user.findUnique({
-            where: { userId: freelancerId },
-        });
-        if (!freelancer) {
-            return NextResponse.json({ message: "freelancerId does not exist" }, { status: 400 });
+        
+        if (gig.completionStatus === "submitted") {
+            return NextResponse.json({ message: "Gig already submitted" }, { status: 400 });
         }
-        // Check if freelancerId is the same as gig.freelancerId
-        //console.log(freelancerId, Number(gig.freelancerId))
+
         if (freelancerId !== Number(gig.freelancerId)) {
-            return NextResponse.json({ message: "freelancerId does not match gig.freelancerId" }, { status: 400 });
+            return NextResponse.json({ message: "Unauthorized: Freelancer ID does not match gig's freelancer" }, { status: 403 });
         }
         // Update the gig.completionStatus to "submitted"
         await prisma.gig.update({
-            where: { gigId: gigId },
+            where: { gigId },
             data: { completionStatus: "submitted" },
         });
-        return NextResponse.json({ message: "gig submitted successfully" }, { status: 200 });
+
+        return NextResponse.json({ message: "Gig submitted successfully" }, { status: 200 });
         
     } catch (error) {
-        console.error('Error accepting offer: ', error);
+
+        console.error('Error submitting gig: ', error);
         return NextResponse.json({ message: 'Internal Server Error' }, { status: 500 });
     }
 }

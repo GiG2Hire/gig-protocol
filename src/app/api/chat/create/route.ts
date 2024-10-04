@@ -15,7 +15,7 @@ export async function POST(req: Request) {
   try {
     // Extract parameters from the request
     const body = await req.json();
-    const { offerId } = body;
+    const { offerId, clientId } = body;
 
     if (!offerId) {
       return NextResponse.json({ message: 'Invalid data. Offer ID is required' }, { status: 400 });
@@ -30,12 +30,17 @@ export async function POST(req: Request) {
       return NextResponse.json({ message: 'Offer not found' }, { status: 404 });
     }
 
+    if (clientId != offer.clientId) {
+      return NextResponse.json({ message: 'You cant create a chat!!! ' }, { status: 404 });
+    }
+
     if (offer.chatId) {
-        return NextResponse.json({ message: 'Chat already created!!!' }, { status: 404 });
-      }
+      return NextResponse.json({ message: 'Chat already created!!!' }, { status: 404 });
+    }
 
     // Generate a unique chatId
-    const chatId = uuidv4();
+    // 17-1-2 
+    const chatId = `${offer.clientId}-${offer.freelancerId}-${offer.gigId}`;
     console.log(chatId)
 
     // Create a new chat
