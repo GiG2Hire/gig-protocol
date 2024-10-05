@@ -55,7 +55,6 @@ const ClientDashboard = () => {
         const offersCount = JSON.parse(await offersResponse.json()).length; // parse data from response and then get length
         data[i]["offersCount"] = offersCount;
       }
-      console.log(data)
       setClientProposals(data);
 
     } catch (error) {
