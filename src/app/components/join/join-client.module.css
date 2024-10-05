@@ -1,40 +1,48 @@
+.container23 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  /* Full viewport height */
+  background-color: #f0f0f0;
+  /* Optional: Add a background color */
+  padding: 0 1rem;
+  /* Optional: Add some padding for small screens */
+}
+
 .welcomeAbroad {
   margin: 0;
   position: relative;
   font-size: inherit;
   font-weight: 700;
   font-family: inherit;
-  white-space: nowrap;
 }
+
 .welcomeAbroadWrapper {
   align-self: stretch;
-  background-color: var(--yellow-bk);
+  background-color: var(--navy-bk);
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: center;
   padding: var(--padding-base) var(--padding-xl);
-  top: 0;
-  z-index: 99;
-  position: sticky;
-  text-align: left;
-  font-size: var(--font-size-13xl);
-  color: var(--navy-bold);
-  font-family: var(--font-unbounded);
 }
+
 .addPhotoAlternateIcon {
   width: 48px;
   height: 48px;
   position: relative;
 }
+
 .addAProfile {
   align-self: stretch;
   position: relative;
 }
-.profilePicture {
+
+.addPhotoAlternateParent {
   width: 183px;
-  background-color: var(--yellow-bk-10a);
-  border: 3px dashed var(--yellow-bk);
+  background-color: var(--navy-bk-40a);
+  border: 3px dashed var(--navy-bk);
   box-sizing: border-box;
   overflow: hidden;
   flex-shrink: 0;
@@ -46,15 +54,24 @@
   gap: var(--gap-3xs);
   min-width: 183px;
 }
-.howDoYou {
+
+.howDoYou,
+.searchInGlobal {
   position: relative;
 }
-.nameInput,
+
+.searchInGlobal {
+  text-decoration: none;
+  color: inherit;
+}
+
+.nameInputFields,
 .textInput {
   align-self: stretch;
   display: flex;
   justify-content: flex-start;
 }
+
 .textInput {
   background-color: var(--yellow-bk-10a);
   flex-direction: row;
@@ -64,21 +81,58 @@
   font-size: var(--font-size-xl);
   color: var(--navy-medium-40a);
 }
-.nameInput {
+
+.nameInputFields {
   flex-direction: column;
   align-items: flex-start;
   gap: var(--gap-5xs);
 }
+
 .yourCompanyName {
+  position: relative;
+}
+
+.nameInputFields1,
+.textInput1 {
+  align-self: stretch;
+  display: flex;
+  justify-content: flex-start;
+}
+
+.textInput1 {
+  width: 100%;
+  border: 0;
+  outline: 0;
+  background-color: var(--yellow-bk-10a);
+  height: 50px;
+  flex-direction: row;
+  align-items: center;
+  padding: var(--padding-3xs) var(--padding-base);
+  box-sizing: border-box;
+  font-family: var(--font-space-mono);
+  font-size: var(--font-size-xl);
+  color: var(--navy-medium-40a);
+  min-width: 250px;
+}
+
+.nameInputFields1 {
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--gap-5xs);
+}
+
+.yourCompanyName1 {
   height: 21px;
   position: relative;
   display: inline-block;
 }
-.searchInGlobal {
+
+.searchInGlobal1 {
   position: relative;
   font-weight: 300;
 }
-.textInput1 {
+
+.textInput2 {
   align-self: stretch;
   border-radius: var(--br-5xs);
   background-color: var(--mint-100);
@@ -92,6 +146,7 @@
   font-size: var(--font-size-xl);
   color: var(--dark-800-30);
 }
+
 .yourCompanyNameParent {
   width: 444px;
   display: none;
@@ -103,40 +158,49 @@
   color: var(--dark-800);
   font-family: var(--font-hanken-grotesk);
 }
+
 .addADescription,
-.searchInGlobal1 {
+.searchInGlobal2 {
   position: relative;
   display: inline-block;
   max-width: 100%;
 }
-.searchInGlobal1 {
+
+.searchInGlobal2 {
   margin: 0;
   flex: 1;
 }
-.textInput2 {
+
+.b,
+.textInput3 {
   align-self: stretch;
+}
+
+.textInput3 {
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: flex-start;
   max-width: 100%;
 }
-.empty {
-  align-self: stretch;
+
+.b {
   position: relative;
   font-size: var(--font-size-xs);
   font-weight: 700;
   text-align: right;
 }
-.descriptionInput,
-.profileDescription {
+
+.addADescriptionForYourProParent,
+.textInputParent {
   align-self: stretch;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   max-width: 100%;
 }
-.descriptionInput {
+
+.textInputParent {
   background-color: var(--yellow-bk-10a);
   overflow: hidden;
   justify-content: space-between;
@@ -145,167 +209,19 @@
   min-height: 130px;
   color: var(--navy-medium-40a);
 }
-.profileDescription {
+
+.addADescriptionForYourProParent {
   justify-content: flex-start;
   gap: var(--gap-5xs);
 }
-.github,
-.icons,
-.verifyYourSkills {
-  position: relative;
-}
-.icons {
-  height: 20px;
-  width: 20.5px;
-}
-.github {
-  font-size: var(--font-size-xl);
-  font-weight: 700;
-  font-family: var(--font-space-mono);
-  color: var(--navy-bk);
-  text-align: left;
-  display: inline-block;
-  min-width: 74px;
-}
-.iconsParent {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: flex-start;
-  gap: var(--gap-5xs);
-}
-.checkSmallIcon {
-  width: 20px;
-  height: 20px;
-  position: relative;
-}
-.btnCheck,
-.btnVerify {
-  align-items: center;
-  justify-content: center;
-}
-.btnCheck {
-  height: 18px;
-  background-color: var(--light);
-  overflow: hidden;
-  display: none;
-  flex-direction: column;
-}
-.btnVerify {
-  cursor: pointer;
-  border: 1px solid var(--navy-bk);
-  padding: 0 23px;
-  background-color: transparent;
-  display: flex;
-  flex-direction: row;
-  gap: var(--gap-xs);
-}
-.vectorIcon {
-  height: 20px;
-  width: 19.6px;
-  position: relative;
-}
-.xcom {
-  position: relative;
-  font-weight: 700;
-  display: inline-block;
-  min-width: 62px;
-}
-.vectorParent {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: flex-start;
-  gap: var(--gap-5xs);
-}
-.checkSmallIcon1 {
-  width: 20px;
-  height: 20px;
-  position: relative;
-}
-.btnCheck1,
-.btnVerify1 {
-  align-items: center;
-  justify-content: center;
-}
-.btnCheck1 {
-  height: 18px;
-  background-color: var(--light);
-  overflow: hidden;
-  display: none;
-  flex-direction: column;
-}
-.btnVerify1 {
-  border: 1px solid var(--navy-bk);
-  display: flex;
-  flex-direction: row;
-  padding: 0 var(--padding-11xl);
-  gap: var(--gap-xs);
-}
-.groupIcon {
-  height: 20px;
-  width: 31.8px;
-  position: relative;
-}
-.behance {
-  position: relative;
-  font-weight: 700;
-  display: inline-block;
-  min-width: 86px;
-}
-.groupParent {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: flex-start;
-  gap: var(--gap-5xs);
-}
-.checkSmallIcon2 {
-  width: 20px;
-  height: 20px;
-  position: relative;
-}
-.btnCheck2,
-.btnVerify2 {
-  align-items: center;
-  justify-content: center;
-}
-.btnCheck2 {
-  height: 18px;
-  background-color: var(--light);
-  overflow: hidden;
-  display: none;
-  flex-direction: column;
-}
-.btnVerify2 {
-  border: 1px solid var(--navy-bk);
-  display: flex;
-  flex-direction: row;
-  padding: 0 var(--padding-2xs);
-  gap: var(--gap-xs);
-}
-.skillsVerification,
-.verifyButton {
-  align-self: stretch;
-  display: flex;
-  align-items: flex-start;
-  justify-content: flex-start;
-  gap: var(--gap-5xs);
-}
-.verifyButton {
-  flex-direction: row;
-  font-size: var(--font-size-xl);
-  color: var(--navy-bk);
-}
-.skillsVerification {
-  flex-direction: column;
-}
+
 .back {
   position: relative;
   font-weight: 700;
   display: inline-block;
   min-width: 40px;
 }
+
 .gig2hire1Icon {
   height: 24px;
   width: 24px;
@@ -314,6 +230,7 @@
   flex-shrink: 0;
   min-height: 24px;
 }
+
 .getStarted {
   position: relative;
   font-size: var(--font-size-base);
@@ -322,14 +239,16 @@
   color: var(--light);
   text-align: left;
   display: inline-block;
-  min-width: 89px;
+  min-width: 108px;
 }
-.btnJoingig,
-.navigation {
+
+.backParent,
+.btnJoingig {
   display: flex;
   flex-direction: row;
   align-items: center;
 }
+
 .btnJoingig {
   cursor: pointer;
   border: 0;
@@ -340,24 +259,28 @@
   gap: var(--gap-base);
   white-space: nowrap;
 }
+
 .btnJoingig:hover {
   background-color: var(--color-royalblue-100);
 }
-.navigation {
+
+.backParent {
   align-self: stretch;
   justify-content: flex-end;
-  padding: 0 0 0 257px;
+  padding: 0 0 0 238px;
   gap: var(--gap-3xs);
   color: var(--navy-bk-40a);
 }
-.joinFreelancer,
-.profileName,
-.profileSetup {
+
+.frameParent,
+.joinClient,
+.nameInputFieldsParent {
   max-width: 100%;
   display: flex;
   align-items: flex-start;
 }
-.profileName {
+
+.nameInputFieldsParent {
   flex: 1;
   flex-direction: column;
   justify-content: flex-start;
@@ -367,56 +290,61 @@
   font-size: var(--font-size-base);
   color: var(--midnight-bold);
 }
-.joinFreelancer,
-.profileSetup {
+
+.frameParent,
+.joinClient {
   box-sizing: border-box;
 }
-.profileSetup {
+
+.frameParent {
   align-self: stretch;
   flex-direction: row;
   justify-content: center;
-  padding: var(--padding-5xl) var(--padding-2xl) var(--padding-5xl)
-    var(--padding-5xl);
+  padding: var(--padding-5xl) var(--padding-2xl) var(--padding-5xl) var(--padding-5xl);
   gap: var(--gap-5xl);
   text-align: center;
   font-size: var(--font-size-xl);
-  color: var(--yellow-bk);
+  color: var(--navy-bk);
   font-family: var(--font-space-mono);
 }
-.joinFreelancer {
+
+.joinClient {
   width: 720px;
   background-color: var(--light);
-  border: 2px solid var(--yellow-bk);
+  border: 2px solid var(--navy-bk);
   overflow: hidden;
   flex-direction: column;
   justify-content: flex-start;
   line-height: normal;
   letter-spacing: normal;
+  text-align: left;
+  font-size: var(--font-size-13xl);
+  color: var(--light);
+  font-family: var(--font-unbounded);
 }
+
 @media screen and (max-width: 600px) {
-  .profilePicture {
+  .addPhotoAlternateParent {
     flex: 1;
   }
-  .verifyButton {
-    flex-wrap: wrap;
-  }
-  .navigation {
-    padding-left: var(--padding-109xl);
+
+  .backParent {
+    padding-left: var(--padding-100xl);
     box-sizing: border-box;
   }
-  .navigation,
-  .profileSetup {
+
+  .backParent,
+  .frameParent {
     flex-wrap: wrap;
   }
 }
+
 @media screen and (max-width: 450px) {
-  .addAProfile,
-  .behance,
-  .github,
-  .xcom {
+  .addAProfile {
     font-size: var(--font-size-base);
   }
-  .profileSetup {
+
+  .frameParent {
     padding-top: var(--padding-xl);
     padding-bottom: var(--padding-xl);
     box-sizing: border-box;

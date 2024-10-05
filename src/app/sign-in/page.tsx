@@ -1,11 +1,29 @@
+"use client";
 import type { NextPage } from "next";
 import Navigation1 from "../components/navigation1";
 import styles from "./sign-in.module.css";
+import JoinFreelancer from "../components/join/join-freelancer";
+import { useState } from "react";
+import JoinClient from "../components/join/join-client";
 
-const SignIn: NextPageSignInType = () => {
+const SignIn = () => {
+  const [showJoinAsFreelancerModal, setShowJoinAsFreelancerModal] =
+    useState<boolean>(false);
+
+  const [showJoinAsClientModal, setShowJoinAsClientModal] =
+    useState<boolean>(false);
+
+  const closeJoinAsFreelancerModal = () => {
+    setShowJoinAsFreelancerModal(false);
+  };
+
+  const closeJoinAsClientModal = () => {
+    setShowJoinAsClientModal(false);
+  };
+
   return (
     <div className={styles.signIn}>
-      <Navigation1 />
+      {/* <Navigation1 /> */}
       <main className={styles.hero}>
         <div className={styles.heroInner}>
           <div className={styles.frameParent}>
@@ -85,7 +103,10 @@ const SignIn: NextPageSignInType = () => {
                   </div>
                 </div>
               </div>
-              <button className={styles.btn}>
+              <button
+                className={styles.btn}
+                onClick={() => setShowJoinAsFreelancerModal(true)}
+              >
                 <b className={styles.text}>Join as a Freelancer</b>
               </button>
             </div>
@@ -167,13 +188,25 @@ const SignIn: NextPageSignInType = () => {
                   </div>
                 </div>
               </div>
-              <button className={styles.btn1}>
+              <button
+                className={styles.btn1}
+                onClick={() => setShowJoinAsClientModal(true)}
+              >
                 <b className={styles.text1}>Join as a Client</b>
               </button>
             </div>
           </div>
         </div>
       </main>
+      {showJoinAsFreelancerModal && (
+        <JoinFreelancer
+          closeJoinAsFreelancerModal={closeJoinAsFreelancerModal}
+        />
+      )}
+
+      {showJoinAsClientModal && (
+        <JoinClient closeJoinAsClientModal={closeJoinAsClientModal} />
+      )}
     </div>
   );
 };
