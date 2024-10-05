@@ -12,7 +12,6 @@ export async function middleware(request: NextRequest) {
   const isFreelancerDashboard = pathname.startsWith("/freelancer-dashboard");
   const isChatWindow = pathname.startsWith("/chat");
   const isAuth = await isLoggedIn();
-  const isAuth = await isLoggedIn();
   console.log("Inside Middleware!!----------------");
 
   if (!isAuth) {
@@ -21,14 +20,12 @@ export async function middleware(request: NextRequest) {
   }
 
   const payload: JWTPayload = await getPayload();
-  const payload: JWTPayload = await getPayload();
   const payloadContext: any = payload.ctx;
   if (payload.ctx!.role == FREELANCER) {
     console.log("Role is freelancer confirmed!!");
   }
   if (isFreelancerDashboard) {
     console.log("Inside freelancer dashboard!!!!!");
-    const userDetails = await getPayload();
     const userDetails = await getPayload();
     console.log(userDetails);
     if (!userDetails.ctx.role) {
