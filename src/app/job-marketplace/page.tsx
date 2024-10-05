@@ -3,7 +3,6 @@ import NavbarSpacer from "@/src/app/components/navbar-spacer1";
 import JobCategories from "@/src/app/components/job-categories";
 import Footer from "@/src/app/components/footer1";
 import styles from "./job-marketplace.module.css";
-import GitHubProcess from "../components/github-process"
 import { getActiveProposals } from "../actions/read-gigs";
 
 const INITIAL_PROPOSALS_AMOUNT = 10;
@@ -21,8 +20,6 @@ const JobMarketplace: NextPage = async () => {
   return (
     <div className={styles.jobMarketplace}>
       <main className={styles.pageContent}>
-        <GitHubProcess />
-        {/* Load Github process from different file with Client Component flag */}
         <section className={styles.contentHeader}>
           <div className={styles.pageTitleContainerParent}>
             <button className={styles.pageTitleContainer}>

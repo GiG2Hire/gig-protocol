@@ -1,13 +1,90 @@
 "use client";
-import type { NextPage } from "next";
-import { useCallback } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import styles from "./freelancer-dashboard.module.css";
+import { usdcAddresses } from "@/src/constants/usdcConstants";
+import { getTime } from "@/src/utils/getCurrTime";
+import { getPayload, isLoggedIn } from "../actions/login";
+import { client } from "../lib/client";
+import PendingProposal from "../components/client-dashboard/pending-proposal";
+import {
+  useActiveAccount,
+  useActiveWalletChain,
+  useActiveWalletConnectionStatus,
+  useWalletBalance
+} from "thirdweb/react";
 
-const FreelancerDashboard = () => {
+
+const ClientDashboard = () => {
   const router = useRouter();
+  const [walletBalance, setWalletBalance] = useState("N/A");
+  const [clientProposals, setClientProposals] = useState<any[]>();
+  const walletStatus = useActiveWalletConnectionStatus();
+  const walletAddress = useActiveAccount();
+  const walletChain = useActiveWalletChain();
+  const timeNow = getTime();
 
-  const onBtnChatContainerClick = useCallback(() => {
+  const getClientData = async () => {
+    try {
+      const payload = await getPayload();
+      if (!payload || !payload.ctx?.userId) {
+        throw new Error("User not authenticated");
+      }
+
+      const id = payload.ctx.userId;
+      const response = await fetch(`/api/gig/client-proposals?client_id=${id}`);
+
+      if (!response.ok) {
+        throw new Error("Failed to fetch data");
+      }
+
+      const data = JSON.parse(await response.json());
+      for (let i = 0; i < data.length; i++) {
+        const offersResponse = await fetch(`/api/gig/get-offers/?gig_id=${data[i].gigId}`);
+
+        if (!offersResponse.ok) {
+          if (offersResponse.status == 404) {
+            data[i]["offersCount"] = 0; // mark offers as 0
+            continue; // go to next iteration of offers
+          }
+          else {
+            throw new Error(`HTTP error! status: ${offersResponse.status}`);
+          }
+        }
+
+        const offersCount = JSON.parse(await offersResponse.json()).length; // parse data from response and then get length
+        data[i]["offersCount"] = offersCount;
+      }
+      setClientProposals(data);
+
+    } catch (error) {
+      console.error("Error fetching client data:", error);
+      setClientProposals([]);
+    }
+  }
+
+  const usdcAddress = usdcAddresses[walletChain?.id];
+  const { data, isLoading, isError } = useWalletBalance({
+    chain: walletChain,
+    address: walletAddress?.address,
+    client,
+    tokenAddress: usdcAddress,
+  });
+
+  useEffect(() => {
+    if (walletStatus == "connected") {
+      setWalletBalance(data?.displayValue);
+    }
+    if (walletStatus == "disconnected") {
+      setWalletBalance("N/A");
+    }
+    const fetchData = async () => {
+      await getClientData();
+    };
+    fetchData();
+  }, [walletStatus,]);
+
+  const onBtnChatContainerClick = useCallback(async () => {
     router.push("/chat/17-1-1/");
   }, [router]);
 
@@ -67,14 +144,14 @@ const FreelancerDashboard = () => {
                       src="/account-balance-wallet.svg"
                     />
                     <a className={styles.wallet}>Wallet</a>
-                    <b className={styles.b1}>$100</b>
+                    <b className={styles.b1}>${walletBalance}</b>
                   </div>
                 </div>
               </div>
             </div>
             <div className={styles.date}>
               <h1 className={styles.todayIs}>Today is</h1>
-              <div className={styles.may232024}>May 23, 2024</div>
+              <div className={styles.may232024}>{timeNow}</div>
             </div>
           </div>
           <div className={styles.earningsChart}>
@@ -202,77 +279,29 @@ const FreelancerDashboard = () => {
               </div>
               <div className={styles.pendingJobs}>
                 <div className={styles.pendingJobsContainer}>
-                  <h1 className={styles.jobsToBe}>Jobs to be approved</h1>
+                  <h1 className={styles.jobsToBe}>Proposals to be approved</h1>
                   <div className={styles.pendingJobsCount}>
-                    <b className={styles.pendingJobsNumber}>1</b>
+                    <b className={styles.pendingJobsNumber}>{clientProposals?.length}</b>
                     <div className={styles.pending}>pending</div>
                   </div>
                 </div>
-                <div className={styles.featuredJob}>
-                  <div className={styles.jobContainer}>
-                    <div className={styles.btnDevit}>
-                      <img
-                        className={styles.developerModeTvIcon}
-                        loading="lazy"
-                        alt=""
-                        src="/developer-mode-tv1.svg"
-                      />
-                      <div
-                        className={styles.developmentIt}
-                      >{`Development & IT`}</div>
-                    </div>
-                    <h1 className={styles.developADefi}>
-                      Develop a DeFi Dashboard for Hamster Coins
-                    </h1>
-                  </div>
-                  <div className={styles.jobActions}>
-                    <div className={styles.jobApplication}>
-                      <div className={styles.applyButton}>
-                        <img
-                          className={styles.gig2hire2Icon}
-                          loading="lazy"
-                          alt=""
-                          src="/gig2hire-2.svg"
-                        />
-                        <div className={styles.applicationStatus}>
-                          <div className={styles.interested}>Interested:</div>
-                          <div className={styles.jobCategory}>
-                            <b className={styles.categoryIcon}>5</b>
-                            <div className={styles.freelance}>Freelance</div>
-                          </div>
-                        </div>
-                      </div>
-                      <div className={styles.approvalTimer}>
-                        <div className={styles.toBeApproved}>
-                          To Be approved in:
-                        </div>
-                        <div className={styles.timerContainer}>
-                          <img
-                            className={styles.timerIcon}
-                            alt=""
-                            src="/timer2.svg"
-                          />
-                          <div className={styles.h58m23s}>
-                            <span>48</span>
-                            <b>H:</b>
-                            <span>58</span>
-                            <b>M:</b>
-                            <span>23</span>
-                            <b>S</b>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <button className={styles.btn}>
-                      <b className={styles.viewMoreLabel}>View Offer</b>
-                    </button>
-                  </div>
-                </div>
+                {Array.isArray(clientProposals) && clientProposals.length > 0 ? (
+                  clientProposals.map((proposal, index) => (
+                    <PendingProposal
+                      key={index}
+                      category={proposal.category}
+                      description={proposal.description}
+                      freelancersOffers={proposal.offersCount}
+                    />
+                  ))
+                ) : (
+                  <div>No proposals available.</div>
+                )}
               </div>
             </div>
             <div className={styles.activeJobsContainerParent}>
               <div className={styles.activeJobsContainer}>
-                <h1 className={styles.yourActiveJobs}>Your Active Jobs</h1>
+                <h1 className={styles.yourActiveJobs}>Your Active Proposals</h1>
               </div>
               <div className={styles.jobsList}>
                 <div className={styles.jobCards}>
@@ -766,4 +795,4 @@ const FreelancerDashboard = () => {
   );
 };
 
-export default FreelancerDashboard;
+export default ClientDashboard;

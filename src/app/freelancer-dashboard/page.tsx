@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import styles from "./freelancer-dashboard.module.css";
 import { useActiveAccount } from "thirdweb/react";
 import performTwitterVerification from "../actions/verify-twitter";
+import { getTime } from "@/src/utils/getCurrTime";
 import JobCard from "../components/job-card";
 
 const FreelancerDashboard: NextPageFreelancerDashboardType = () => {
@@ -12,6 +13,8 @@ const FreelancerDashboard: NextPageFreelancerDashboardType = () => {
 
   const account = useActiveAccount();
   console.log(`account:` + account?.address);
+
+  const timeNow = getTime();
 
   const onBtnChatContainerClick = () => {
     console.log("Open chat window!");
@@ -135,7 +138,7 @@ const FreelancerDashboard: NextPageFreelancerDashboardType = () => {
             </div>
             <div className={styles.date}>
               <h1 className={styles.todayIs}>Today is</h1>
-              <div className={styles.may232024}>May 23, 2024</div>
+              <div className={styles.may232024}>{timeNow}</div>
             </div>
           </div>
           <div className={styles.earningsChart}>
