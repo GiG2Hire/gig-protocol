@@ -27,6 +27,22 @@ export async function POST(req: Request) {
       );
     }
 
+    //Check if gig exists
+    const gig = await prisma.gig.findUnique({
+      where: { gigId: gigId },
+    });
+    if (!gig) {
+      return NextResponse.json({ message: 'Gig not found' }, { status: 404 });
+    }
+
+    //Check if gig is OPEN
+    if (gig.completionStatus != 'OPEN') {
+      return NextResponse.json(
+        { message: "Cannot submit an offer to this gig" },
+        { status: 400 }
+      );
+    }
+
     // Check if the freelancer has already applied to this gig
     const existingOffer = await prisma.gigOffer.findFirst({
       where: {
@@ -47,6 +63,7 @@ export async function POST(req: Request) {
       data: {
         gigId: gigId,
         freelancerId: freelancerId,
+        clientId: gig.clientId,
         comment: comment,
         status: "Pending",
         chatId: null, // assuming chat will be created later

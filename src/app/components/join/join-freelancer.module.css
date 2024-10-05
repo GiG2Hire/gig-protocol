@@ -32,6 +32,11 @@
   color: var(--navy-bold);
   font-family: var(--font-unbounded);
 }
+.addPhotoUser {
+  width: 154px;
+  height: 154px;
+  position: relative;
+}
 .addPhotoAlternateIcon {
   width: 48px;
   height: 48px;
