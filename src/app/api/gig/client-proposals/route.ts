@@ -34,7 +34,7 @@ export async function GET(req: NextRequest) {
 
     if (payloadUserId !== client_id || payloadUserRole !== "Client") {
         return NextResponse.json(
-            { message: "Unexpected occur with verify user payload." },
+            { message: "User don't have access to data." },
             { status: 401 }
         )
     }
