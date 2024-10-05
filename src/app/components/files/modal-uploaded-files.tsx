@@ -1,25 +1,14 @@
 import type { NextPage } from "next";
 import styles from "./modal-uploaded-files.module.css";
 import { useState } from "react";
-import { getPresignedUrl } from "../actions/get-presigned-url";
-import { createGigFile } from "../actions/create-gig-file";
+import { getPresignedUrl } from "../../actions/get-presigned-url";
+import { createGigFile } from "../../actions/create-gig-file";
 
 export type ModalUploadedFilesType = {
   gigId: string;
   closeModal: any;
   className?: string;
 };
-
-async function computeSHA256(file: File) {
-  console.log("Computing checksum of file...");
-  const buffer = await file.arrayBuffer();
-  const hashBuffer = await crypto.subtle.digest("SHA-256", buffer);
-  const hashArray = Array.from(new Uint8Array(hashBuffer));
-  const hashHex = hashArray
-    .map((b) => b.toString(16).padStart(2, "0"))
-    .join("");
-  return hashHex;
-}
 
 const ModalUploadedFiles = ({ gigId, closeModal, className = "" }) => {
   const [uploadedFiles, setUploadedFiles] = useState<File[]>([]);
@@ -32,6 +21,17 @@ const ModalUploadedFiles = ({ gigId, closeModal, className = "" }) => {
     });
     removeFiles();
   };
+
+  async function computeSHA256(file: File) {
+    console.log("Computing checksum of file...");
+    const buffer = await file.arrayBuffer();
+    const hashBuffer = await crypto.subtle.digest("SHA-256", buffer);
+    const hashArray = Array.from(new Uint8Array(hashBuffer));
+    const hashHex = hashArray
+      .map((b) => b.toString(16).padStart(2, "0"))
+      .join("");
+    return hashHex;
+  }
 
   //
   const handleFileUpload = async (file: File) => {

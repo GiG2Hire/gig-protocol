@@ -32,16 +32,36 @@
   color: var(--navy-bold);
   font-family: var(--font-unbounded);
 }
+.addPhotoUser {
+  width: 154px;
+  height: 154px;
+  position: relative;
+}
 .addPhotoAlternateIcon {
   width: 48px;
   height: 48px;
   position: relative;
 }
+.addPhotoAlternateParent {
+  width: 183px;
+  background-color: var(--lime-bk-10a);
+  border: 3px dashed var(--lime-bk);
+  box-sizing: border-box;
+  overflow: hidden;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: var(--padding-8xl) var(--padding-7xs);
+  gap: var(--gap-3xs);
+  min-width: 183px;
+}
 .addAProfile {
   align-self: stretch;
   position: relative;
 }
-.profilePicture {
+/* .profilePicture {
   width: 183px;
   background-color: var(--yellow-bk-10a);
   border: 3px dashed var(--yellow-bk);
@@ -55,7 +75,7 @@
   padding: var(--padding-8xl) var(--padding-7xs);
   gap: var(--gap-3xs);
   min-width: 183px;
-}
+} */
 .howDoYou {
   position: relative;
 }
@@ -89,18 +109,19 @@
   font-weight: 300;
 }
 .textInput1 {
-  align-self: stretch;
-  border-radius: var(--br-5xs);
-  background-color: var(--mint-100);
-  border: 1px solid var(--dark-800-30);
-  display: flex;
+  width: 100%;
+  border: 0;
+  outline: 0;
+  background-color: var(--yellow-bk-10a);
+  height: 50px;
   flex-direction: row;
   align-items: center;
-  justify-content: flex-start;
-  padding: var(--padding-5xs) var(--padding-base);
-  white-space: nowrap;
+  padding: var(--padding-3xs) var(--padding-base);
+  box-sizing: border-box;
+  font-family: var(--font-space-mono);
   font-size: var(--font-size-xl);
-  color: var(--dark-800-30);
+  color: var(--navy-medium-40a);
+  min-width: 250px;
 }
 .yourCompanyNameParent {
   width: 444px;

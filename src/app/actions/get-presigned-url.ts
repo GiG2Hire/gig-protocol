@@ -1,6 +1,11 @@
 "use server";
 
-import { PutObjectCommand, S3Client, S3ClientConfig } from "@aws-sdk/client-s3";
+import {
+  DeleteObjectCommand,
+  PutObjectCommand,
+  S3Client,
+  S3ClientConfig,
+} from "@aws-sdk/client-s3";
 import { getPayload, getUserIdFromPayload, isLoggedIn } from "./login";
 import { getSignedUrl } from "@aws-sdk/s3-request-presigner";
 import { JWTPayload } from "thirdweb/utils";
@@ -71,4 +76,19 @@ export async function getPresignedUrl(
     },
   });
   return getSignedUrl(client, command, { expiresIn: 3600 }); // 1 minute
+}
+
+export async function removeFileFromS3(key: string) {
+  const isAuth = await isLoggedIn();
+  if (!isAuth) {
+    console.log("User Not Authenticated!!");
+    return;
+  }
+
+  const command = new DeleteObjectCommand({
+    Bucket: process.env.AWS_BUCKET_NAME,
+    Key: key,
+  });
+
+  await client.send(command);
 }
