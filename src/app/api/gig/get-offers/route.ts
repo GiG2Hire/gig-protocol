@@ -36,10 +36,8 @@ export async function GET(req: Request) {
       );
     }
 
-    console.log(offers)
-
     // Return the list of offers
-    return NextResponse.json("Done", { status: 200 });
+    return NextResponse.json(offers, { status: 200 });
 
   } catch (error) {
     console.error("Error fetching gig offers:", error);
