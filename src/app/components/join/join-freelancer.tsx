@@ -1,42 +1,26 @@
-"use client";
 import type { NextPage } from "next";
-import ProfileDescription from "./profile-description";
+import SearchInGlobalChat from "../search-in-global-chat";
 import styles from "./join-freelancer.module.css";
-import { useRouter } from "next/navigation";
-import {
-  getPayload,
-  isLoggedIn,
-  refreshJWTToken,
-  updateJwtForFreelancer,
-} from "../actions/login";
-import { encodeJWT, JWTPayload, refreshJWT } from "thirdweb/utils";
-import { LoginTicket } from "google-auth-library";
-import { useActiveAccount } from "thirdweb/react";
+import { getPayload, refreshJWTToken } from "../../actions/login";
+import { encodeJWT, JWTPayload } from "thirdweb/utils";
 import { FREELANCER, STATUS_200 } from "@/src/constants/appConstants";
+import { useActiveAccount } from "thirdweb/react";
+import { useRouter } from "next/navigation";
+import { JoinAsFreelancer } from "../../actions/join-user";
+import { useState } from "react";
 
 export type JoinFreelancerType = {
   className?: string;
 };
 
-const JoinFreelancer: NextPage<JoinFreelancerType> = (
-  {
-    params,
-  }: {
-    params: { slug: string };
-  },
-  { className = "" }
-) => {
+const JoinFreelancer = ({ closeJoinAsFreelancerModal, className = "" }) => {
   const account = useActiveAccount();
   const router = useRouter();
-  const handleClick = () => {
-    // router.push({
-    //   pathname: "/",
-    //   query: {
-    //     name: "Source Freeze",
-    //     count: 30,
-    //   },
-    // });
-  };
+
+  const [localProfileImageUrl, setLocalProfileImageUrl] = useState(
+    "/add-photo-alternate.svg"
+  );
+
   // Handle login with github
   const githubLogin = () => {
     const clientId = "Ov23liyKADrsIpbypKkj"; // Replace with your actual Client ID
@@ -54,7 +38,7 @@ const JoinFreelancer: NextPage<JoinFreelancerType> = (
   /**
    * Update connected user's role as Freelancer and update JWT Token Payload
    */
-  const joinAsFreelancer = async () => {
+  const updateJWTForFreelancer = async () => {
     console.log("Trying to Join as Freelancer...");
     let payload: JWTPayload = await getPayload();
     const payloadContext: any = payload.ctx;
@@ -102,61 +86,101 @@ const JoinFreelancer: NextPage<JoinFreelancerType> = (
     }
   };
 
+  const joinAsFreelancerAndUpdateJWT = (formData: FormData) => {
+    JoinAsFreelancer(formData).then(async (res) => {
+      console.log("Freelancer Joined Success!!");
+      await updateJWTForFreelancer();
+    });
+  };
+
+  const displayProfileImage = (e: any) => {
+    console.log(e.target.files);
+    if (e.target.files.length == 0) {
+      setLocalProfileImageUrl("/add-photo-alternate1.svg");
+    } else {
+      const profileImageFile: File = e.target.files[0];
+      const url: string = URL.createObjectURL(profileImageFile);
+      setLocalProfileImageUrl(url);
+    }
+  };
+
   return (
-    <div className={styles.container23}>
+    <div className={styles.modalBackdrop}>
       <div className={[styles.joinFreelancer, className].join(" ")}>
         <header className={styles.welcomeAbroadWrapper}>
-          <h1 className={styles.welcomeAbroad}>Welcome abroad!</h1>
+          <h1 className={styles.welcomeAbroad}>Welcome aboard!</h1>
         </header>
-        <section className={styles.profileSetup}>
-          <span className={styles.profilePicture}>
-            Add Profile Picture
-            <input
-              className={styles.profilePicture}
-              type="file"
-              accept="image/*"
+        <form
+          className={styles.profileSetup}
+          action={joinAsFreelancerAndUpdateJWT}
+        >
+          <div className={styles.addPhotoAlternateParent}>
+            <img
+              className={
+                localProfileImageUrl == "/add-photo-alternate.svg"
+                  ? styles.addPhotoAlternateIcon
+                  : styles.addPhotoUser
+              }
+              loading="lazy"
+              alt=""
+              src={localProfileImageUrl}
             />
-          </span>
-
+            <b className={styles.addAProfile}>
+              Add a Profile Picture
+              <input
+                className={styles.profilePicture}
+                type="file"
+                accept="image/*"
+                name="profile-image"
+                onChange={displayProfileImage}
+              />
+            </b>
+          </div>
           <div className={styles.profileName}>
             <div className={styles.nameInput}>
               <b className={styles.howDoYou}>
-                How do you want other freelanceres to call you?
-              </b>
-              <div className={styles.textInput}>
+                Choose a username
                 <input
-                  className={styles.searchInGlobal}
-                  name="freelancer-name"
-                  id="freelancerId"
-                  placeholder="e.g Roaring Kitty"
+                  className={styles.textInput1}
+                  placeholder="e.g Roaring kitty"
                   type="text"
+                  name="username"
+                  required
                 />
-              </div>
+              </b>
             </div>
-            <div className={styles.yourCompanyNameParent}>
-              <b className={styles.yourCompanyName}>Your company Name</b>
-              <div className={styles.textInput1}>
-                <div className={styles.searchInGlobal1}>
-                  e.g. Kitty Productions
-                </div>
-              </div>
+            <div className={styles.nameInput}>
+              <b className={styles.howDoYou}>
+                Add an email to get notifications
+                <input
+                  className={styles.textInput1}
+                  placeholder="e.g hello@gig2hire.com"
+                  type="email"
+                  name="email"
+                  required
+                />
+              </b>
             </div>
-            <ProfileDescription />
+            <div className={styles.profileDescription}>
+              <b className={styles.addADescription}>
+                Add a description for your Profile
+              </b>
+              <input
+                className={styles.textInput1}
+                placeholder="Looking for great feline minds, that are top notch at their
+                  jobs"
+                type="text"
+                name="description"
+              />
+            </div>
             <div className={styles.skillsVerification}>
               <b className={styles.verifyYourSkills}>Verify Your Skills</b>
               <div className={styles.verifyButton}>
-                <button
-                  className={styles.btnVerify}
-                  id="btnverify"
-                  onClick={githubLogin}
-                >
+                <button className={styles.btnVerify} onClick={githubLogin}>
                   <div className={styles.iconsParent}>
                     <img className={styles.icons} alt="" src="/icons.svg" />
-                    <button className={styles.github} id="github">
-                      GitHub
-                    </button>
+                    <b className={styles.github}>GitHub</b>
                   </div>
-
                   <div className={styles.btnCheck}>
                     <img
                       className={styles.checkSmallIcon}
@@ -173,9 +197,7 @@ const JoinFreelancer: NextPage<JoinFreelancerType> = (
                       alt=""
                       src="/vector-11.svg"
                     />
-                    <button className={styles.xcom} id="x">
-                      x.com
-                    </button>
+                    <b className={styles.xcom}>x.com</b>
                   </div>
                   <div className={styles.btnCheck1}>
                     <img
@@ -185,7 +207,7 @@ const JoinFreelancer: NextPage<JoinFreelancerType> = (
                     />
                   </div>
                 </div>
-                <div className={styles.btnVerify2}>
+                {/* <div className={styles.btnVerify2}>
                   <div className={styles.groupParent}>
                     <img
                       className={styles.groupIcon}
@@ -193,9 +215,7 @@ const JoinFreelancer: NextPage<JoinFreelancerType> = (
                       alt=""
                       src="/group1.svg"
                     />
-                    <button className={styles.behance} id="behance">
-                      BeHance
-                    </button>
+                    <b className={styles.behance}>BeHance</b>
                   </div>
                   <div className={styles.btnCheck2}>
                     <img
@@ -204,18 +224,14 @@ const JoinFreelancer: NextPage<JoinFreelancerType> = (
                       src="/check-small2.svg"
                     />
                   </div>
-                </div>
+                </div> */}
               </div>
             </div>
             <div className={styles.navigation}>
-              <button onClick={handleClick} className={styles.back} id="back">
+              <b className={styles.back} onClick={closeJoinAsFreelancerModal}>
                 Back
-              </button>
-              <button
-                className={styles.btnJoingig}
-                id="btnjoingig"
-                onClick={joinAsFreelancer}
-              >
+              </b>
+              <button className={styles.btnJoingig} type="submit">
                 <img
                   className={styles.gig2hire1Icon}
                   alt=""
@@ -225,7 +241,7 @@ const JoinFreelancer: NextPage<JoinFreelancerType> = (
               </button>
             </div>
           </div>
-        </section>
+        </form>
       </div>
     </div>
   );

@@ -5,7 +5,7 @@ import { client } from "@/src/app/lib/client";
 import { cookies } from "next/headers";
 import { useActiveAccount } from "thirdweb/react";
 import { decodeJWT, encodeJWT, JWTPayload } from "thirdweb/utils";
-import { FREELANCER } from "@/src/constants/appConstants";
+import { CLIENT, FREELANCER } from "@/src/constants/appConstants";
 import { redirect } from "next/navigation";
 import { supabase } from "@/src/utils/supabase";
 import { prisma } from "../lib/db";
@@ -41,8 +41,10 @@ export async function login(payload: VerifyLoginPayloadParams) {
     cookies().set("jwt", jwt);
     if (role == FREELANCER) {
       redirect("/freelancer-dashboard");
-    } else {
+    } else if (role == CLIENT) {
       redirect("/client-dashboard");
+    } else {
+      redirect("/sign-in");
     }
   }
   console.log("Successfully Logged in!!");
@@ -66,8 +68,8 @@ export async function logout() {
 }
 
 export async function getPayload() {
-  const jwtToken = cookies().get("jwt");
-  const { payload, signature } = decodeJWT(jwtToken?.value);
+  const jwtToken: string = cookies().get("jwt")?.value!;
+  const { payload, signature } = decodeJWT(jwtToken);
   return payload;
 }
 
@@ -76,12 +78,22 @@ export async function refreshJWTToken(jwt: string) {
 }
 
 export async function getUserIdFromPayload() {
+  const isJWTValid = await isLoggedIn(); // make user JWT token is there, but it should be VALID as well !!!
+  if (!isJWTValid) {
+    await logout();
+    return;
+  }
   const jwtToken = cookies().get("jwt");
   const { payload, signature } = decodeJWT(jwtToken?.value);
   return payload.ctx.userId;
 }
 
 export async function getRoleFromPayload() {
+  const isJWTValid = await isLoggedIn(); // make user JWT token is there, but it should be VALID as well !!!
+  if (!isJWTValid) {
+    await logout();
+    return;
+  }
   const jwtToken = cookies().get("jwt");
   const { payload, signature } = decodeJWT(jwtToken?.value);
   return payload.ctx.role;
@@ -103,7 +115,7 @@ async function getOrCreateUserInDatabase(address: string): Promise<test> {
     console.log("Login Failed!!!", error);
   }
 
-  const foundUser: User = data;
+  const foundUser: User | undefined | null = data;
   console.log("Exisitng user:", foundUser);
   if (foundUser) {
     console.log("Set up done as existing user!!");
@@ -120,9 +132,9 @@ async function getOrCreateUserInDatabase(address: string): Promise<test> {
       console.log("Login Failed!!!", error);
     }
 
-    const newUser: User = data;
+    const newUser: User | undefined | null = data;
     console.log(newUser);
-    return { userId: newUser.userId, role: newUser.role };
+    return { userId: newUser!.userId, role: newUser!.role };
   }
 }
 

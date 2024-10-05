@@ -1,10 +1,12 @@
-.container23 {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh; /* Full viewport height */
-  background-color: #f0f0f0; /* Optional: Add a background color */
-  padding: 0 1rem; /* Optional: Add some padding for small screens */
+.modalBackdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgb(214, 234, 94, 0.4);
+  z-index: 100000;
+  transition: ease-out 0.3s;
 }
 .welcomeAbroad {
   margin: 0;
@@ -25,6 +27,11 @@
 .addPhotoAlternateIcon {
   width: 48px;
   height: 48px;
+  position: relative;
+}
+.addPhotoUser {
+  width: 154px;
+  height: 154px;
   position: relative;
 }
 .addAProfile {
@@ -190,6 +197,7 @@
   font-weight: 700;
   display: inline-block;
   min-width: 40px;
+  cursor: pointer;
 }
 .gig2hire1Icon {
   height: 24px;
@@ -281,6 +289,8 @@
   font-size: var(--font-size-13xl);
   color: var(--light);
   font-family: var(--font-unbounded);
+  margin: 0 auto;
+  transition: ease-out 0.3s;
 }
 @media screen and (max-width: 600px) {
   .addPhotoAlternateParent {

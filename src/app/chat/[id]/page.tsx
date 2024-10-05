@@ -1,11 +1,14 @@
 import styles from "./freelancer-chat.module.css";
 // import {chat} from "../../../constants/chat";
-import ChatSentiment from "../../components/chat-sentiment";
+import ChatSentiment from "@/src/app/components/chat/chat-sentiment";
 import { GIG_COMPLETION_STATUS } from "@/src/constants/appConstants";
 import { closeProposal } from "../../actions/choose-and-open";
 import ChatWindow from "@/src/app/components/chat/chat-window";
 import ChatInput from "../../components/chat/chat-input";
 import { prisma } from "../../lib/db";
+import FileUpload from "../../components/chat/file-upload";
+import { CallTracker } from "assert";
+import FileList from "../../components/files/file-list";
 
 async function acceptGigInDatabase() {
   const options = {
@@ -27,17 +30,27 @@ async function acceptGigInDatabase() {
 
 function acceptGig() {
   acceptGigInDatabase();
-  closeProposal(15);
+  // closeProposal(15);
 }
 
-const FreelancerChat = async ({ params, searchParams }) => {
+const FreelancerChat = async ({
+  params,
+  searchParams,
+}: {
+  params: any;
+  searchParams: any;
+}) => {
   console.log("----------------------", searchParams);
   console.log("params --0--------", params);
 
   //clientId-FreelancerId-GigId
-  const id = params.id;
+  const id = params?.id;
   const chatId: string = id;
   const currentUser: number = Number(searchParams.userId);
+
+  // TODO: Try to see if this is a secure way to get Gig Id
+  const gigId: string = chatId.split("-")[2];
+  console.log("Gig Id derived from chat Id: ", gigId);
   let receiverUser: number;
 
   const client: number = Number(chatId.split("-")[0]);
@@ -50,6 +63,9 @@ const FreelancerChat = async ({ params, searchParams }) => {
 
   let sentimentText: string;
   let messages;
+  let submittedFiles = [];
+  let filesSharedByUser = [];
+  let filesSharedByPartner = [];
 
   /**
    * get initial messages to load in chat window
@@ -82,7 +98,7 @@ const FreelancerChat = async ({ params, searchParams }) => {
         },
       });
       console.log(sentimentTextResponse);
-      sentimentText = sentimentTextResponse?.geminiSentiment;
+      sentimentText = sentimentTextResponse?.geminiSentiment!;
     } catch (error) {
       console.log(error);
     }
@@ -96,7 +112,35 @@ const FreelancerChat = async ({ params, searchParams }) => {
     }
   }
 
-  await Promise.all([getChatMessages(), getGeminiSentiment()]);
+  async function getSubmittedFiles() {
+    try {
+      submittedFiles = await prisma.gigFile.findMany({
+        where: {
+          gigId: Number(gigId),
+        },
+      });
+    } catch (error) {
+      console.log(error);
+    }
+    submittedFiles.forEach((file) => {
+      if (file.uploadedBy == currentUser) {
+        filesSharedByUser.push(file);
+      } else {
+        filesSharedByPartner.push(file);
+      }
+    });
+  }
+
+  const removeFile = (index: any) => {
+    return;
+  };
+
+  await Promise.all([
+    getChatMessages(),
+    getGeminiSentiment(),
+    getSubmittedFiles(),
+  ]);
+  // await Promise.all([getChatMessages()]);
 
   // we can use gig id to get chat id or directly pass chat id in the http route query
   return (
@@ -148,7 +192,20 @@ const FreelancerChat = async ({ params, searchParams }) => {
             </div>
           </div>
           <div className={styles.frameParent1}>
-            <div className={styles.frameParent2}>
+            <div>
+              <FileUpload gigId={gigId} />
+              <FileList
+                files={filesSharedByPartner}
+                title={"Shared By Freelancer"}
+                currentUser={currentUser}
+              />
+              <FileList
+                files={filesSharedByUser}
+                title={"Shared By Client"}
+                currentUser={currentUser}
+              />
+            </div>
+            {/* <div className={styles.frameParent2}>
               <button className={styles.ongoingGigsWrapper}>
                 <b className={styles.ongoingGigs}>Ongoing GiGs</b>
               </button>
@@ -334,7 +391,7 @@ const FreelancerChat = async ({ params, searchParams }) => {
                   <div className={styles.div3}>02.24.2024</div>
                 </div>
               </div>
-            </div>
+            </div> */}
             <div className={styles.ongoingGigContentParent}>
               <div className={styles.ongoingGigContent}>
                 <div className={styles.ongoingGigDetails}>
@@ -381,6 +438,7 @@ const FreelancerChat = async ({ params, searchParams }) => {
                     initialMessages={messages}
                     currentUser={currentUser}
                     chatId={chatId}
+                    className=""
                   />
                   <div className={styles.chatInputContentInner}>
                     <ChatInput
@@ -396,32 +454,8 @@ const FreelancerChat = async ({ params, searchParams }) => {
                     <ChatSentiment
                       initialSentiment={sentimentText}
                       chatId={chatId}
+                      className=""
                     />
-                    {/* <div className={styles.collectingContainer}>
-                      <div className={styles.collectingHeader}>
-                        <div className={styles.collecting}>Collecting:</div>
-                        <div className={styles.collectingAmount}>
-                          <b className={styles.emptyCollectingAmount}>2500</b>
-                          <h1 className={styles.dai}>DAI</h1>
-                        </div>
-                      </div>
-                      <div className={styles.btnUploadJob}>
-                        <div className={styles.uploadButtonContent}>
-                          <img
-                            className={styles.cloudUploadOutline1Icon}
-                            loading="lazy"
-                            alt=""
-                            src="/clouduploadoutline-1.svg"
-                          />
-                          <b className={styles.uploadFiles}>Upload Files</b>
-                        </div>
-                        <div className={styles.uploadedFiles}>
-                          <b className={styles.filesUploaded}>
-                            4 files uploaded
-                          </b>
-                        </div>
-                      </div>
-                    </div> */}
                     <div className={styles.tasksContentParent}>
                       <div className={styles.tasksContent}>
                         <div className={styles.keepTrackOf}>

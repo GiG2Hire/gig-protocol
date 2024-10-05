@@ -1,3 +1,13 @@
+.modalBackdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgb(214, 234, 94, 0.4);
+  z-index: 100000;
+  transition: ease-out 0.3s;
+}
 .welcomeAbroad {
   margin: 0;
   position: relative;
@@ -22,16 +32,36 @@
   color: var(--navy-bold);
   font-family: var(--font-unbounded);
 }
+.addPhotoUser {
+  width: 154px;
+  height: 154px;
+  position: relative;
+}
 .addPhotoAlternateIcon {
   width: 48px;
   height: 48px;
   position: relative;
 }
+.addPhotoAlternateParent {
+  width: 183px;
+  background-color: var(--lime-bk-10a);
+  border: 3px dashed var(--lime-bk);
+  box-sizing: border-box;
+  overflow: hidden;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: var(--padding-8xl) var(--padding-7xs);
+  gap: var(--gap-3xs);
+  min-width: 183px;
+}
 .addAProfile {
   align-self: stretch;
   position: relative;
 }
-.profilePicture {
+/* .profilePicture {
   width: 183px;
   background-color: var(--yellow-bk-10a);
   border: 3px dashed var(--yellow-bk);
@@ -45,7 +75,7 @@
   padding: var(--padding-8xl) var(--padding-7xs);
   gap: var(--gap-3xs);
   min-width: 183px;
-}
+} */
 .howDoYou {
   position: relative;
 }
@@ -79,18 +109,19 @@
   font-weight: 300;
 }
 .textInput1 {
-  align-self: stretch;
-  border-radius: var(--br-5xs);
-  background-color: var(--mint-100);
-  border: 1px solid var(--dark-800-30);
-  display: flex;
+  width: 100%;
+  border: 0;
+  outline: 0;
+  background-color: var(--yellow-bk-10a);
+  height: 50px;
   flex-direction: row;
   align-items: center;
-  justify-content: flex-start;
-  padding: var(--padding-5xs) var(--padding-base);
-  white-space: nowrap;
+  padding: var(--padding-3xs) var(--padding-base);
+  box-sizing: border-box;
+  font-family: var(--font-space-mono);
   font-size: var(--font-size-xl);
-  color: var(--dark-800-30);
+  color: var(--navy-medium-40a);
+  min-width: 250px;
 }
 .yourCompanyNameParent {
   width: 444px;
@@ -305,6 +336,7 @@
   font-weight: 700;
   display: inline-block;
   min-width: 40px;
+  cursor: pointer;
 }
 .gig2hire1Icon {
   height: 24px;
@@ -392,6 +424,8 @@
   justify-content: flex-start;
   line-height: normal;
   letter-spacing: normal;
+  margin: 0 auto;
+  transition: ease-out 0.3s;
 }
 @media screen and (max-width: 600px) {
   .profilePicture {

@@ -1,7 +1,9 @@
+//@ts-nocheck
 import { NextResponse } from "next/server";
 import { NextRequest } from "next/server";
 import { getPayload, isLoggedIn } from "./app/actions/login";
 import { CLIENT, FREELANCER } from "./constants/appConstants";
+import { JWTPayload } from "thirdweb/utils";
 
 // This function can be marked `async` if using `await` inside
 export async function middleware(request: NextRequest) {
@@ -17,13 +19,15 @@ export async function middleware(request: NextRequest) {
     return NextResponse.redirect(new URL("/", request.url));
   }
 
-  const payload = await getPayload();
-  if (payload.ctx.role == FREELANCER) {
+  const payload: JWTPayload = await getPayload();
+  const payloadContext: any = payload.ctx;
+  if (payload.ctx!.role == FREELANCER) {
     console.log("Role is freelancer confirmed!!");
   }
   if (isFreelancerDashboard) {
     console.log("Inside freelancer dashboard!!!!!");
     const userDetails = await getPayload();
+    console.log(userDetails);
     if (!userDetails.ctx.role) {
       console.log("User has not been assigned any role!!");
       return NextResponse.redirect(new URL("/", request.url));

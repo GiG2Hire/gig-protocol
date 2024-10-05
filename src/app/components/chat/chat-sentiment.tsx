@@ -2,18 +2,22 @@
 import { useEffect, useState } from "react";
 import styles from "./chat-sentiment.module.css";
 import { SENTIMENT_TO_CODE_MAPPING } from "@/src/constants/appConstants";
-import { pusherClient } from "../lib/pusher";
+import { pusherClient } from "../../lib/pusher";
 export default function ChatSentiment({
   initialSentiment,
   chatId,
   className = "",
+}: {
+  initialSentiment: string;
+  chatId: string;
+  className: string;
 }) {
   let [sentiment, setSentiment] = useState<string>(initialSentiment);
 
-  const sentimentToCodeMapping = SENTIMENT_TO_CODE_MAPPING;
+  const sentimentToCodeMapping: any = SENTIMENT_TO_CODE_MAPPING;
 
-  const code = sentimentToCodeMapping[sentiment][0];
-  const displayMessage = sentimentToCodeMapping[sentiment][1];
+  const code = sentimentToCodeMapping["negative"][0];
+  const displayMessage = sentimentToCodeMapping["negative"][1];
 
   /**
    * chatId dependency ensures new messages corresponding to new chat id are loaded.
@@ -67,7 +71,7 @@ export default function ChatSentiment({
         // don't mutate existing objects to pass in set state, react will ignore it
         // instead create new object
         const sentimentText = geminiSentiment[0].gemini_sentiment;
-        let updatedSentimentDetails: Sentiment = {};
+        let updatedSentimentDetails: any = {};
         updatedSentimentDetails.code = sentimentToCodeMapping[sentimentText][0];
         updatedSentimentDetails.sentiment = sentimentText;
         updatedSentimentDetails.explanation = "";

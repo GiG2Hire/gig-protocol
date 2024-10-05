@@ -86,6 +86,15 @@
   line-height: normal;
   letter-spacing: normal;
 }
+.jobCategories {
+  align-self: stretch;
+  flex-direction: row;
+  gap: var(--gap-4xl);
+  text-align: left;
+  font-size: var(--font-size-base);
+  color: var(--midnight-medium);
+  font-family: var(--font-space-mono);
+}
 @media screen and (max-width: 975px) {
   .workWithNo {
     font-size: var(--font-size-13xl);

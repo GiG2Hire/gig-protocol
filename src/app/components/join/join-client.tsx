@@ -1,24 +1,24 @@
-"use client";
-import type { NextPage } from "next";
-import styles from "./join-client.module.css";
-import Link from "next/link";
-import { useActiveAccount } from "thirdweb/react";
-import { getPayload, refreshJWTToken } from "../actions/login";
-import { encodeJWT, JWTPayload } from "thirdweb/utils";
 import { CLIENT, STATUS_200 } from "@/src/constants/appConstants";
+import styles from "./join-client.module.css";
+import { getPayload, refreshJWTToken } from "../../actions/login";
+import { encodeJWT, JWTPayload } from "thirdweb/utils";
+import { useActiveAccount } from "thirdweb/react";
 import { useRouter } from "next/navigation";
-export type JoinClientType = {
-  className?: string;
-};
+import { JoinAsClient } from "../../actions/join-user";
+import { useState } from "react";
 
-const JoinClient: NextPage<JoinClientType> = ({ className = "" }) => {
+const JoinClient = ({ closeJoinAsClientModal, className = "" }) => {
   const account = useActiveAccount();
   const router = useRouter();
+
+  const [localProfileImageUrl, setLocalProfileImageUrl] = useState(
+    "/add-photo-alternate1.svg"
+  );
 
   /**
    * Update connected user's role as Freelancer and update JWT Token Payload
    */
-  const joinAsClient = async () => {
+  const updateJWTForClient = async () => {
     console.log("Trying to Join as Client...");
     let payload: JWTPayload = await getPayload();
     const payloadContext: any = payload.ctx;
@@ -66,19 +66,43 @@ const JoinClient: NextPage<JoinClientType> = ({ className = "" }) => {
     }
   };
 
+  const JoinAsClientAndUpdateJWT = (formData: FormData) => {
+    JoinAsClient(formData).then(async (res) => {
+      console.log("Client Joined Success!!");
+      await updateJWTForClient();
+    });
+  };
+
+  const displayProfileImage = (e: any) => {
+    console.log(e.target.files);
+    if (e.target.files.length == 0) {
+      setLocalProfileImageUrl("/add-photo-alternate1.svg");
+    } else {
+      const profileImageFile: File = e.target.files[0];
+      const url: string = URL.createObjectURL(profileImageFile);
+      setLocalProfileImageUrl(url);
+    }
+  };
+
   return (
-    <div className={styles.container23}>
+    <div className={styles.modalBackdrop}>
       <div className={[styles.joinClient, className].join(" ")}>
         <div className={styles.welcomeAbroadWrapper}>
-          <h1 className={styles.welcomeAbroad}>Welcome abroad!</h1>
+          <h1 className={styles.welcomeAbroad}>Welcome aboard!</h1>
         </div>
-        <section className={styles.frameParent}>
+        <form className={styles.frameParent} action={JoinAsClientAndUpdateJWT}>
           <div className={styles.addPhotoAlternateParent}>
             <img
-              className={styles.addPhotoAlternateIcon}
+              className={
+                localProfileImageUrl == "/add-photo-alternate1.svg"
+                  ? styles.addPhotoAlternateIcon
+                  : styles.addPhotoUser
+              }
               loading="lazy"
               alt=""
-              src="/add-photo-alternate1.svg"
+              src={localProfileImageUrl}
+              width="154px"
+              height={"154px"}
             />
             <b className={styles.addAProfile}>
               Add a Profile Picture
@@ -86,30 +110,45 @@ const JoinClient: NextPage<JoinClientType> = ({ className = "" }) => {
                 className={styles.profilePicture}
                 type="file"
                 accept="image/*"
+                name="profile-image"
+                onChange={displayProfileImage}
               />
             </b>
           </div>
           <div className={styles.nameInputFieldsParent}>
             <div className={styles.nameInputFields}>
-              <b className={styles.howDoYou}>
-                How do you want other freelanceres to call you?
-              </b>
+              <b className={styles.howDoYou}>Choose a Username</b>
               <input
                 className={styles.textInput1}
                 placeholder="e.g Roaring kitty"
                 type="text"
+                name="username"
+                required
+              />
+            </div>
+            <div className={styles.nameInputFields}>
+              <b className={styles.howDoYou}>
+                Add an email to get notifications
+              </b>
+              <input
+                className={styles.textInput1}
+                placeholder="e.g hello@gig2hire.com"
+                type="email"
+                name="email"
+                required
               />
             </div>
             <div className={styles.nameInputFields1}>
-              <b className={styles.yourCompanyName}>Your company Name</b>
+              <b className={styles.yourCompanyName}>Your organization Name</b>
               <input
                 className={styles.textInput1}
                 placeholder="e.g Roaring Production"
                 type="text"
+                name="organization"
               />
             </div>
             <div className={styles.yourCompanyNameParent}>
-              <b className={styles.yourCompanyName1}>Your company Name</b>
+              <b className={styles.yourCompanyName1}>Your organization Name</b>
               <div className={styles.textInput2}>
                 <div className={styles.searchInGlobal1}>
                   e.g. Kitty Productions
@@ -124,16 +163,16 @@ const JoinClient: NextPage<JoinClientType> = ({ className = "" }) => {
               <input
                 className={styles.textInput1}
                 placeholder="Looking for great feline minds, that are top notch at their
-              jobs"
+                  jobs"
                 type="text"
+                name="description"
               />
             </div>
             <div className={styles.backParent}>
-              <Link href="/">
-                {" "}
-                <b className={styles.back}>Back</b>
-              </Link>
-              <button className={styles.btnJoingig} onClick={joinAsClient}>
+              <b className={styles.back} onClick={closeJoinAsClientModal}>
+                Back
+              </b>
+              <button className={styles.btnJoingig} type="submit">
                 <img
                   className={styles.gig2hire1Icon}
                   alt=""
@@ -143,7 +182,7 @@ const JoinClient: NextPage<JoinClientType> = ({ className = "" }) => {
               </button>
             </div>
           </div>
-        </section>
+        </form>
       </div>
     </div>
   );

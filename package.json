@@ -4,11 +4,14 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build && next export -o build/",
+    "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "export": "next export"
   },
   "dependencies": {
+    "@aws-sdk/client-s3": "^3.658.1",
+    "@aws-sdk/s3-request-presigner": "^3.658.1",
     "@google-ai/generativelanguage": "^2.6.0",
     "@google/generative-ai": "^0.16.0",
     "@prisma/client": "^5.19.1",
@@ -23,12 +26,15 @@
     "react": "^18.3.1",
     "react-calendar": "^5.0.0",
     "react-dom": "^18.3.1",
+    "react-intersection-observer": "^9.13.1",
     "thirdweb": "^5.40.0",
+    "uuid": "^10.0.0",
     "web3": "^4.11.1"
   },
   "devDependencies": {
     "@types/node": "20.14.9",
     "@types/react": "18.3.3",
+    "@types/uuid": "^10.0.0",
     "autoprefixer": "^10.4.19",
     "prisma": "^5.19.1",
     "tailwindcss": "^3.4.4",

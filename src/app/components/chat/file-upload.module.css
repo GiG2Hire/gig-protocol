@@ -1,0 +1,164 @@
+/* FILE UPLOAD COMPONENT CSS  */
+.collecting,
+.dai,
+.emptyCollectingAmount {
+  position: relative;
+  display: inline-block;
+  min-width: 81px;
+}
+.dai,
+.emptyCollectingAmount {
+  font-weight: 700;
+  min-width: 59px;
+}
+.dai {
+  margin: 0;
+  font-size: inherit;
+  font-weight: 400;
+  font-family: inherit;
+  min-width: 45px;
+}
+
+.cloudUploadOutline1Icon {
+  height: 30px;
+  width: 30px;
+  position: relative;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+.uploadFiles {
+  position: relative;
+  font-weight: 700;
+}
+.uploadButtonContent {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: var(--gap-xs);
+}
+.filesUploaded {
+  position: relative;
+  display: inline-block;
+  min-width: 111px;
+}
+.uploadedFiles {
+  border: 1px solid var(--navy-bk-40a);
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  padding: 0 var(--padding-2xs);
+  font-size: var(--font-size-xs);
+}
+
+.btnUploadJob,
+.collectingContainer {
+  align-self: stretch;
+  display: flex;
+  flex-direction: column;
+}
+
+.collectingContainer {
+  border: 1px dashed var(--navy-bk);
+  overflow: hidden;
+  align-items: flex-start;
+  justify-content: flex-start;
+}
+
+.collectingAmount,
+.collectingHeader {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.collectingAmount {
+  flex-direction: row;
+  gap: var(--gap-5xs);
+  font-size: var(--font-size-5xl);
+}
+.collectingHeader {
+  align-self: stretch;
+  background-color: var(--navy-bk);
+  flex-direction: column;
+  padding: var(--padding-9xs) var(--padding-xl);
+}
+
+.btnUploadJob {
+  align-items: center;
+  justify-content: center;
+  padding: var(--padding-lgi) var(--padding-21xl);
+  gap: var(--gap-9xs);
+  font-size: var(--font-size-5xl);
+  color: var(--navy-bk-40a);
+}
+
+.btnUploadJob:hover {
+  background: rgb(110, 131, 255, 0.6);
+  cursor: pointer;
+  transition: ease-out 0.3s;
+  color: var(--navy-600);
+}
+
+@media screen and (max-width: 900px) {
+  .frameParent2 {
+    display: none;
+    padding-bottom: var(--padding-112xl);
+    box-sizing: border-box;
+  }
+  .ongoingGigContent {
+    flex-wrap: wrap;
+  }
+  .jobSubmissionContentParent {
+    flex: 1;
+  }
+  .chatInputContentParent {
+    flex-wrap: wrap;
+  }
+  .ongoingGigContentParent {
+    max-width: 100%;
+  }
+  .freelancerChat {
+    gap: var(--gap-mini);
+  }
+}
+@media screen and (max-width: 700px) {
+  .uSDCBalanceParent {
+    display: none;
+  }
+  .chatNavbar {
+    flex: 1;
+  }
+  .frameParent,
+  .ongoingGigDetails {
+    flex-wrap: wrap;
+  }
+  .chatInputContent {
+    min-width: 100%;
+  }
+}
+@media screen and (max-width: 450px) {
+  .frameParent2 {
+    padding-bottom: var(--padding-66xl);
+    box-sizing: border-box;
+  }
+  .defiDashboardForContainer,
+  .sophie {
+    font-size: var(--font-size-lgi);
+  }
+  .frameParent11 {
+    flex-wrap: wrap;
+  }
+  .dai,
+  .emptyCollectingAmount,
+  .uploadFiles {
+    font-size: var(--font-size-lgi);
+  }
+  .btnSubmit {
+    padding-left: var(--padding-xl);
+    padding-right: var(--padding-xl);
+    box-sizing: border-box;
+  }
+}
+
+/* FILE UPLOAD BUTTON CSS FINISHED */
