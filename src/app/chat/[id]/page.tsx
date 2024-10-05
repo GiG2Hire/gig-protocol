@@ -119,6 +119,7 @@ const FreelancerChat = async ({
           gigId: Number(gigId),
         },
       });
+      console.log(submittedFiles);
     } catch (error) {
       console.log(error);
     }
