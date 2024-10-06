@@ -38,14 +38,6 @@ export async function GET(req: NextRequest) {
       where: { gigId: gig_id },
     });
 
-    // check if client have access to offers
-    if (offers[0].clientId != clientId) {
-      return NextResponse.json(
-        { message: "User don't have access to data." },
-        { status: 401 }
-      )
-    }
-
     // Check if there are any offers
     if (!offers.length) {
       return NextResponse.json(
@@ -54,15 +46,22 @@ export async function GET(req: NextRequest) {
       );
     }
 
+    // check if client have access to offers
+    if (offers[0]?.clientId != clientId) {
+      return NextResponse.json(
+        { message: "User don't have access to data." },
+        { status: 401 }
+      )
+    }
+
+
+
+
     // Return the list of offers
-<<<<<<< HEAD
     return NextResponse.json(JSON.stringify(offers, (key, value) =>
       typeof value === 'bigint'
         ? value.toString()
         : value), { status: 200 });
-=======
-    return NextResponse.json(offers, { status: 200 });
->>>>>>> 8a655d067d339f5ef7a6fb0df977f47867de7cc6
 
   } catch (error) {
     console.error("Error fetching gig offers:", error);

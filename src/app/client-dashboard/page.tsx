@@ -11,7 +11,7 @@ import {
   useActiveAccount,
   useActiveWalletChain,
   useActiveWalletConnectionStatus,
-  useWalletBalance
+  useWalletBalance,
 } from "thirdweb/react";
 
 
@@ -24,65 +24,67 @@ const ClientDashboard = () => {
   const walletChain = useActiveWalletChain();
   const timeNow = getTime();
 
-  const getClientData = async () => {
-    try {
-      const payload = await getPayload();
-      if (!payload || !payload.ctx?.userId) {
-        throw new Error("User not authenticated");
-      }
-
-      const id = payload.ctx.userId;
-      const response = await fetch(`/api/gig/client-proposals?client_id=${id}`);
-
-      if (!response.ok) {
-        throw new Error("Failed to fetch data");
-      }
-
-      const data = JSON.parse(await response.json());
-      for (let i = 0; i < data.length; i++) {
-        const offersResponse = await fetch(`/api/gig/get-offers/?gig_id=${data[i].gigId}`);
-
-        if (!offersResponse.ok) {
-          if (offersResponse.status == 404) {
-            data[i]["offersCount"] = 0; // mark offers as 0
-            continue; // go to next iteration of offers
-          }
-          else {
-            throw new Error(`HTTP error! status: ${offersResponse.status}`);
-          }
-        }
-
-        const offersCount = JSON.parse(await offersResponse.json()).length; // parse data from response and then get length
-        data[i]["offersCount"] = offersCount;
-      }
-      setClientProposals(data);
-
-    } catch (error) {
-      console.error("Error fetching client data:", error);
-      setClientProposals([]);
-    }
-  }
-
   const usdcAddress = usdcAddresses[walletChain?.id];
-  const { data, isLoading, isError } = useWalletBalance({
+  const { data } = useWalletBalance({
     chain: walletChain,
     address: walletAddress?.address,
     client,
     tokenAddress: usdcAddress,
   });
 
+  const fetchClientData = useCallback(async (userId: number) => {
+    try {
+      const response = await fetch(`/api/gig/client-proposals?client_id=${userId}`);
+
+      if (!response.ok) {
+        throw new Error("Failed to fetch data");
+      }
+
+      const proposals = JSON.parse(await response.json());
+      for (let i = 0; i < proposals.length; i++) {
+        try {
+          const offersResponse = await fetch(`/api/gig/get-offers/?gig_id=${proposals[i].gigId}`);
+
+          if (offersResponse.status == 404) {
+            proposals[i]["offersCount"] = 0; // mark offers as 0
+            continue; // go to next iteration of offers
+          }
+          const offersCount = JSON.parse(await offersResponse.json()).length;
+          proposals[i]["offersCount"] = offersCount;
+        } catch (error) {
+          console.log(`Error when trying to get User Data: ${error}`);
+        }
+      }
+      console.log(proposals)
+      setClientProposals(proposals);
+
+    } catch (error) {
+      console.error("Error fetching client data:", error);
+    }
+  }, []);
+
   useEffect(() => {
-    if (walletStatus == "connected") {
-      setWalletBalance(data?.displayValue);
-    }
-    if (walletStatus == "disconnected") {
-      setWalletBalance("N/A");
-    }
     const fetchData = async () => {
-      await getClientData();
+      if (walletStatus === "connected" && walletAddress) {
+        // Fetch client data immediately after wallet connects
+
+
+        const payload = await getPayload();
+        if (!payload || !payload.ctx?.userId) {
+          throw new Error("User not authenticated");
+        }
+        setWalletBalance(data?.displayValue);
+        await fetchClientData(payload.ctx.userId);
+      }
+      if (walletStatus === "disconnected") {
+        setWalletBalance("N/A");
+        setClientProposals([]);
+      }
     };
+
     fetchData();
-  }, [walletStatus,]);
+  }, [walletStatus, walletAddress, data]);
+
 
   const onBtnChatContainerClick = useCallback(async () => {
     router.push("/chat/17-1-1/");
