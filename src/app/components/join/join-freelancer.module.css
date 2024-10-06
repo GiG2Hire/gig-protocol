@@ -272,6 +272,7 @@
   flex-direction: row;
   padding: 0 var(--padding-11xl);
   gap: var(--gap-xs);
+  cursor: pointer;
 }
 .groupIcon {
   height: 20px;
