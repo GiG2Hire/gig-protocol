@@ -3,8 +3,9 @@ import type { NextPage } from "next";
 import Navigation1 from "../components/navigation1";
 import styles from "./sign-in.module.css";
 import JoinFreelancer from "../components/join/join-freelancer";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import JoinClient from "../components/join/join-client";
+import performTwitterVerification from "../actions/verify-twitter";
 
 const SignIn = () => {
   const [showJoinAsFreelancerModal, setShowJoinAsFreelancerModal] =
@@ -12,6 +13,15 @@ const SignIn = () => {
 
   const [showJoinAsClientModal, setShowJoinAsClientModal] =
     useState<boolean>(false);
+
+  useEffect(() => {
+    const url = window.location.href;
+    const code = url.split("&code=")[1];
+    if (code == null || code == undefined || code == "") {
+      return;
+    }
+    performTwitterVerification(code);
+  }, []);
 
   const closeJoinAsFreelancerModal = () => {
     setShowJoinAsFreelancerModal(false);
