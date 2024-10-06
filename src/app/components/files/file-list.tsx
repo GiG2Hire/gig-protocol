@@ -1,10 +1,14 @@
 "use client";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { removeUploadedFile } from "../../actions/create-gig-file";
 import styles from "./file-list.module.css";
 
 const FileList = ({ files, title, currentUser }) => {
   const [uploadedFiles, setUploadedFiles] = useState(files);
+
+  useEffect(() => {
+    setUploadedFiles(files);
+  }, [files]);
 
   const removeFileUploadedByUser = (id, index) => {
     removeUploadedFile(id).then((res) => {
