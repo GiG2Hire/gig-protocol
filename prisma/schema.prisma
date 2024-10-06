@@ -15,7 +15,6 @@ model chat {
   updatedAt         DateTime?  @map("updated_at") @db.Timestamp(6)
   geminiExplanation String?    @map("gemini_explanation")
   chat_uuid         String?    @db.Uuid
-  chat_uuid         String?    @db.Uuid
   gigOffer          gigOffer[]
 }
 
@@ -80,11 +79,11 @@ model gigTask {
 
 /// This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
 model dispute {
-  dispute_id  Int       @id @default(autoincrement())
-  gig_id      Int?
-  plaintiff   Int?
-  defendant   Int?
-  arbitrator  Int?
+  dispute_id  BigInt    @id @default(autoincrement())
+  gig_id      BigInt?
+  plaintiff   BigInt?
+  defendant   BigInt?
+  arbitrator  BigInt?
   category    String?   @db.VarChar
   status      String?   @db.VarChar
   title       String?
@@ -95,18 +94,18 @@ model dispute {
 
 /// This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
 model dispute_evidence {
-  id           Int       @id @default(autoincrement())
-  dispute_id   Int?
-  url          Int?
-  submitted_by Int?
+  id           BigInt    @id @default(autoincrement())
+  dispute_id   BigInt?
+  url          BigInt?
+  submitted_by BigInt?
   created_at   DateTime? @db.Timestamptz(6)
   updated_at   DateTime? @db.Timestamptz(6)
 }
 
 /// This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
 model dispute_verdict {
-  verdict_id             Int       @id @default(autoincrement())
-  dispute_id             Int?
+  verdict_id             BigInt    @id @default(autoincrement())
+  dispute_id             BigInt?
   extended_delivery_days Int?
   freelancer_split       Int?
   client_split           Int?
