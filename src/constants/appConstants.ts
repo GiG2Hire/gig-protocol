@@ -45,3 +45,18 @@ export const WEEK_DAYS: string[] = [
   "Friday",
   "Saturday",
 ];
+
+export const JOB_CATEGORIES = {
+  1001: "Development & IT",
+  1002: "Design & Creative",
+  1003: "AI services",
+  1004: "Sales & Marketing",
+  1005: "Admin & Customer Support",
+  1006: "Writing & Translation",
+};
+
+export const enum GIG_OFFER_STATUS {
+  PENDING = "PENDING",
+  ACCEPTED = "ACCEPTED",
+  REJECTED = "REJECTED",
+}

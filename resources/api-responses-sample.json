@@ -1,0 +1,183 @@
+[
+  {
+    "gigId": 8,
+    "clientId": 2,
+    "freelancerId": 1,
+    "description": "Create an awesome web3 based Freelance Marketplace that can make us all rich, happy and satisfied!!",
+    "gigBudget": 108,
+    "startDate": null,
+    "endDate": null,
+    "createdAt": "2024-08-06T14:13:20.477Z",
+    "completionStatus": "IN_PROGRESS",
+    "expectedDeliveryDate": "2024-10-20T06:30:00.000Z",
+    "category": 1001,
+    "title": "Title 1",
+    "updated_at": null,
+    "gig_task": [
+      {
+        "taskId": 1,
+        "gigId": 8,
+        "description": "Task 1",
+        "status": "PENDING",
+        "createdAt": "2024-09-03T11:27:11.185Z",
+        "updatedAt": null
+      },
+      {
+        "taskId": 2,
+        "gigId": 8,
+        "description": "Task 2",
+        "status": "PENDING",
+        "createdAt": "2024-09-03T11:27:11.185Z",
+        "updatedAt": null
+      }
+    ],
+    "gig_file": [
+      {
+        "id": 7,
+        "gigId": 8,
+        "name": "message.txt",
+        "type": "text/plain",
+        "url": "https://gig2hirelocal.s3.eu-north-1.amazonaws.com/2ff20a9dd22a51fb368e7fd19a84f35ce3f3e295290d1316b17066e273b1aa30",
+        "uploadedBy": 1,
+        "createdAt": "2024-09-29T12:44:45.464Z",
+        "updatedAt": "2024-09-29T12:44:45.464Z",
+        "size": 17
+      },
+      {
+        "id": 8,
+        "gigId": 8,
+        "name": "message.txt",
+        "type": "text/plain",
+        "url": "https://gig2hirelocal.s3.eu-north-1.amazonaws.com/b7ceb5c1e33520b954348e83aaafa0cb306af35a84421ea71bc9990799af1f06",
+        "uploadedBy": 1,
+        "createdAt": "2024-09-29T12:44:48.446Z",
+        "updatedAt": "2024-09-29T12:44:48.446Z",
+        "size": 17
+      },
+      {
+        "id": 13,
+        "gigId": 8,
+        "name": "message.txt",
+        "type": "text/plain",
+        "url": null,
+        "uploadedBy": 17,
+        "createdAt": null,
+        "updatedAt": null,
+        "size": 17
+      },
+      {
+        "id": 15,
+        "gigId": 8,
+        "name": "reentrancy-attack-openzeppelin.png",
+        "type": "image/png",
+        "url": "https://gig2hirelocal.s3.eu-north-1.amazonaws.com/ac651819d7bdde15c0deec1ef12e1f4b9a8676054f24b68dd73c7143cb7d49d0",
+        "uploadedBy": 17,
+        "createdAt": "2024-10-02T04:45:47.613Z",
+        "updatedAt": "2024-10-02T04:45:47.613Z",
+        "size": 859102
+      },
+      {
+        "id": 26,
+        "gigId": 8,
+        "name": "message.txt",
+        "type": "text/plain",
+        "url": "https://gig2hirelocal.s3.eu-north-1.amazonaws.com/4b9e319865aa4e51739dd9ee161eff4df9e325feee9374a96971a4fe349f070f",
+        "uploadedBy": 17,
+        "createdAt": "2024-10-04T06:51:44.398Z",
+        "updatedAt": "2024-10-04T06:51:44.398Z",
+        "size": 17
+      },
+      {
+        "id": 29,
+        "gigId": 8,
+        "name": "message.txt",
+        "type": "text/plain",
+        "url": "https://gig2hirelocal.s3.eu-north-1.amazonaws.com/411c26a22fc291d1c45a1e655a1cbec097668c6e2a388444e5c9870297581aa5",
+        "uploadedBy": 17,
+        "createdAt": "2024-10-05T05:36:46.237Z",
+        "updatedAt": "2024-10-05T05:36:46.237Z",
+        "size": 17
+      },
+      {
+        "id": 30,
+        "gigId": 8,
+        "name": "message.txt",
+        "type": "text/plain",
+        "url": "https://gig2hirelocal.s3.eu-north-1.amazonaws.com/10577ecd81bfc2989f4ae0b0e30a061e4c35fec34c5d6a604344de6c0872a2bd",
+        "uploadedBy": 17,
+        "createdAt": "2024-10-05T05:40:26.631Z",
+        "updatedAt": "2024-10-05T05:40:26.631Z",
+        "size": 17
+      },
+      {
+        "id": 31,
+        "gigId": 8,
+        "name": "message.txt",
+        "type": "text/plain",
+        "url": "https://gig2hirelocal.s3.eu-north-1.amazonaws.com/25bbb42180b9e112a9c3a9418e0f2e4d6fa5b37948a25770b05f12c032c0bbfc",
+        "uploadedBy": 17,
+        "createdAt": "2024-10-05T05:56:21.545Z",
+        "updatedAt": "2024-10-05T05:56:21.545Z",
+        "size": 17
+      },
+      {
+        "id": 32,
+        "gigId": 8,
+        "name": "message.txt",
+        "type": "text/plain",
+        "url": "https://gig2hirelocal.s3.eu-north-1.amazonaws.com/10a780d94c575a6f432ea3ab308dc7a190f1fcc6a9a81794b5dd42f4dd00755b",
+        "uploadedBy": 17,
+        "createdAt": "2024-10-05T06:36:59.434Z",
+        "updatedAt": "2024-10-05T06:36:59.434Z",
+        "size": 17
+      }
+    ],
+    "user": {
+      "address": "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
+      "username": "User 2",
+      "role": "Freelancer",
+      "xFollowers": null,
+      "githubCommits": null,
+      "createdAt": "2024-08-06T04:35:07.931Z",
+      "userId": 2,
+      "lastLogin": null,
+      "email": null,
+      "description": null,
+      "updated_at": null,
+      "profileImage": null,
+      "organization": null
+    }
+  },
+  {
+    "gigId": 29,
+    "clientId": 17,
+    "freelancerId": 1,
+    "description": "sdsdsdsdsd",
+    "gigBudget": 500,
+    "startDate": null,
+    "endDate": null,
+    "createdAt": "2024-09-03T10:29:14.968Z",
+    "completionStatus": "COMPLETE",
+    "expectedDeliveryDate": "2024-10-24T18:30:00.000Z",
+    "category": 1002,
+    "title": "Title 2",
+    "updated_at": null,
+    "gig_task": [],
+    "gig_file": [],
+    "user": {
+      "address": "0x69A12B5B6bA42462425D1153Ac411F6bee374e35",
+      "username": "Mayank Chhipa",
+      "role": "Client",
+      "xFollowers": null,
+      "githubCommits": null,
+      "createdAt": "2024-08-20T09:20:18.371Z",
+      "userId": 17,
+      "lastLogin": null,
+      "email": "johndoevan@gmail.com",
+      "description": "We deal in textile business.",
+      "updated_at": null,
+      "profileImage": "https://gig2hirelocal.s3.eu-north-1.amazonaws.com/4d248669ac4f7edc9f37e40e73d26ba4ddc0dc3233ed210c355c374b2edf596d",
+      "organization": "Chhapo"
+    }
+  }
+]

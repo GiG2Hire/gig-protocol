@@ -126,7 +126,6 @@ const ModalUploadedFiles = ({ gigId, closeModal, className = "" }) => {
                     type="file"
                     accept="image/jpeg,image/png,image/webp,image/gif,video/mp4,video/webm,.txt,.doc,.pdf"
                     onChange={addToUploadFilesList}
-                    multiple
                   />
                   {/* Browse file instead */}
                 </div>

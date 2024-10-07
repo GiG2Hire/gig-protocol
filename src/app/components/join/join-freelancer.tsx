@@ -7,7 +7,8 @@ import { FREELANCER, STATUS_200 } from "@/src/constants/appConstants";
 import { useActiveAccount } from "thirdweb/react";
 import { useRouter } from "next/navigation";
 import { JoinAsFreelancer } from "../../actions/join-user";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import performTwitterVerification from "../../actions/verify-twitter";
 
 export type JoinFreelancerType = {
   className?: string;
@@ -30,7 +31,7 @@ const JoinFreelancer = ({ closeJoinAsFreelancerModal, className = "" }) => {
   };
 
   const xLogin = () => {
-    const redirectURL = "http://localhost:3000/freelancer-dashboard/";
+    const redirectURL = "http://localhost:3000/sign-in/";
     const authURL = `https://twitter.com/i/oauth2/authorize?response_type=code&client_id=${process.env.NEXT_PUBLIC_X_CLIENT_ID}&redirect_uri=${redirectURL}&scope=tweet.read%20users.read%20follows.read&state=state&code_challenge=challenge&code_challenge_method=plain`;
     window.location.href = authURL;
   };

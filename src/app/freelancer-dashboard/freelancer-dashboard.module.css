@@ -1199,11 +1199,16 @@
   font-family: inherit;
 }
 .pending,
-.pendingJobsNumber {
+.pendingJobsNumber,
+.openDisputesNumber {
   position: relative;
   display: inline-block;
 }
 .pendingJobsNumber {
+  font-weight: 700;
+  min-width: 10px;
+}
+.openDisputesNumber {
   font-weight: 700;
   min-width: 10px;
 }
@@ -1223,6 +1228,14 @@
   color: var(--green-bold);
 }
 .pendingJobsContainer {
+  align-self: stretch;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--gap-xl);
+}
+.openDisputesContainer {
   align-self: stretch;
   display: flex;
   flex-direction: row;
@@ -1406,6 +1419,16 @@
   font-size: var(--font-size-xs);
   color: var(--midnight-medium);
 }
+.featuredDispute {
+  align-self: stretch;
+  border: 1px solid var(--orange-medium);
+  overflow: hidden;
+  align-items: center;
+  padding: var(--padding-sm) var(--padding-mini);
+  gap: var(--gap-base);
+  font-size: var(--font-size-xs);
+  color: var(--midnight-medium);
+}
 .chartContainer,
 .pendingJobs {
   align-items: flex-start;
@@ -1416,10 +1439,22 @@
   gap: var(--gap-base);
   color: var(--midnight-bold);
 }
+.openDisputes {
+  align-self: stretch;
+  overflow: hidden;
+  gap: var(--gap-base);
+  color: var(--orange-medium);
+}
 .chartContainer {
-  width: 536px;
+  width: 580px;
   gap: var(--gap-21xl);
-  min-width: 536px;
+  min-width: 580px;
+  max-width: 100%;
+}
+.disputeAndApplicationsContainer {
+  width: 580px;
+  gap: var(--gap-21xl);
+  min-width: 580px;
   max-width: 100%;
 }
 .yourActiveJobs {
@@ -1509,13 +1544,13 @@
   position: relative;
 }
 .d21h58m23s {
-  width: 111px;
   position: relative;
   display: inline-block;
   white-space: nowrap;
 }
 .cardOneJobCategories,
-.cardOneTime {
+.cardOneTime,
+.cardOneBudget {
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
@@ -1528,6 +1563,15 @@
   gap: var(--gap-5xs);
   text-align: right;
   color: var(--red-medium);
+}
+.cardOneBudget {
+  border: 1px solid var(--navy-600);
+  overflow: hidden;
+  align-items: center;
+  padding: var(--padding-10xs) var(--padding-6xs);
+  gap: var(--gap-5xs);
+  text-align: right;
+  color: var(--navy-600);
 }
 .cardOneJobCategories {
   align-self: stretch;

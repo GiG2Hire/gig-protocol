@@ -1,4 +1,5 @@
 "use server";
+import { revalidatePath } from "next/cache";
 import { prisma } from "../lib/db";
 import { getUserIdFromPayload } from "./login";
 
@@ -25,6 +26,7 @@ export async function createGigFile(
     });
     console.log(`Gig File create response from database: ${uploadedFile}`);
     console.log("Gig File created successfully!!");
+    revalidatePath("/chat/[id]");
   } catch (error) {
     console.log(error);
   }

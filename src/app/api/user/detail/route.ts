@@ -4,6 +4,7 @@ import { supabase } from "@/src/utils/supabase";
  * @notice Get exisiting user in database, if exists
  * @param req address of connect wallet
  * @returns if exisiting User is there, returns single element list else returns empty list
+ * @author mgroovyank (MAYANK CHHIPA)
  */
 export async function GET(req: Request) {
   console.log("Inside GET /user/detail?address");
