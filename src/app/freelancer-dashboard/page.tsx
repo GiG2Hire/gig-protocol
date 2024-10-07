@@ -39,6 +39,10 @@ const FreelancerDashboard = async () => {
           freelancerId: freelancer,
           completionStatus: GIG_COMPLETION_STATUS.IN_PROGRESS,
         },
+        include: {
+          gig_task: true,
+          gig_file: true,
+        },
       });
       console.log(
         `GET /api/gig/active-gigs/ response from database. Count of messages received: ${activeGigs.length})`
