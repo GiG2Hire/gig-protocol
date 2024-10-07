@@ -8,11 +8,18 @@ import { getTime } from "@/src/utils/getCurrTime";
 import JobCard from "../components/job-card";
 import { getUserIdFromPayload, isLoggedIn } from "../actions/login";
 import { prisma } from "../lib/db";
-import { GIG_COMPLETION_STATUS } from "@/src/constants/appConstants";
+import {
+  GIG_COMPLETION_STATUS,
+  GIG_OFFER_STATUS,
+  GIG_TASK_STATUS,
+} from "@/src/constants/appConstants";
+import { JOB_CATEGORIES } from "@/src/constants/appConstants";
+import Image from "next/image";
 
 const FreelancerDashboard = async () => {
   let activeGigs: any[] = [];
   let completedGigs: any[] = [];
+  let offers: any[] = [];
 
   // const router = useRouter();
 
@@ -26,7 +33,7 @@ const FreelancerDashboard = async () => {
   //   router.push("/chat/17-1-1/");
   // };
 
-  async function getActiveGigs() {
+  async function getActiveOrCompletedGigs() {
     console.log("Inside GET /api/gig/active-gigs/");
     const userLoggedIn: boolean = await isLoggedIn();
     if (!userLoggedIn) {
@@ -34,47 +41,94 @@ const FreelancerDashboard = async () => {
     }
     const freelancer = await getUserIdFromPayload();
     try {
-      activeGigs = await prisma.gig.findMany({
+      const activeOrCompletedGigs = await prisma.gig.findMany({
         where: {
           freelancerId: freelancer,
-          completionStatus: GIG_COMPLETION_STATUS.IN_PROGRESS,
+          OR: [
+            { completionStatus: GIG_COMPLETION_STATUS.IN_PROGRESS },
+            { completionStatus: GIG_COMPLETION_STATUS.COMPLETE },
+          ],
         },
         include: {
           gig_task: true,
           gig_file: true,
+          user: true,
         },
       });
       console.log(
-        `GET /api/gig/active-gigs/ response from database. Count of messages received: ${activeGigs.length})`
+        `GET /api/gig/active-gigs/ response from database. Count of messages received: ${activeOrCompletedGigs.length})`
       );
+      activeOrCompletedGigs.forEach((gig) => {
+        if (gig.completionStatus == GIG_COMPLETION_STATUS.IN_PROGRESS) {
+          activeGigs.push(gig);
+        }
+        if (gig.completionStatus == GIG_COMPLETION_STATUS.COMPLETE) {
+          completedGigs.push(gig);
+        }
+      });
     } catch (error) {
       console.log(error);
     }
   }
 
-  async function getCompletedGigs() {
-    console.log("Inside GET /api/gig/completed-gigs/");
+  async function getGigOffersForFreelancer() {
+    console.log("Trying to get gig offers for freelancer...");
     const userLoggedIn: boolean = await isLoggedIn();
     if (!userLoggedIn) {
       return;
     }
     const freelancer = await getUserIdFromPayload();
     try {
-      completedGigs = await prisma.gig.findMany({
+      offers = await prisma.gigOffer.findMany({
         where: {
           freelancerId: freelancer,
-          completionStatus: GIG_COMPLETION_STATUS.COMPLETE,
+          status: GIG_OFFER_STATUS.PENDING,
+        },
+        include: {
+          gig: true,
         },
       });
-      console.log(
-        `GET /api/gig/completed-gigs/ response from database. Count of messages received: ${completedGigs.length})`
-      );
+      console.log(`Got gigs where freelancer has applied: ${offers.length}`);
     } catch (error) {
       console.log(error);
     }
   }
 
-  await Promise.all([getActiveGigs(), getCompletedGigs()]);
+  await Promise.all([getActiveOrCompletedGigs(), getGigOffersForFreelancer()]);
+
+  const getCompletedTasks = (tasks) => {
+    const completedTasks = [];
+    tasks.forEach((task) => {
+      if (task.status == GIG_TASK_STATUS.COMPLETE) {
+        completedTasks.push(task);
+      }
+    });
+    return completedTasks;
+  };
+
+  const getGigDocs = (files) => {
+    const docs = [];
+    files.forEach((file) => {
+      if (file.type != "link") {
+        docs.push(file);
+      }
+    });
+    return docs;
+  };
+
+  const getRemainingTime = (expectedDeliveryDate) => {
+    const currentDate: any = new Date();
+    const timeDifference = expectedDeliveryDate - currentDate;
+    const days = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
+    const hours = Math.floor(
+      (timeDifference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
+    );
+    const minutes = Math.floor(
+      (timeDifference % (1000 * 60 * 60)) / (1000 * 60)
+    );
+    const seconds = Math.floor((timeDifference % (1000 * 60)) / 1000);
+    return days + "D:" + hours + "H:" + minutes + "M:" + seconds + "S";
+  };
 
   return (
     <div className={styles.freelancerDashboard}>
@@ -154,20 +208,22 @@ const FreelancerDashboard = async () => {
                     return (
                       <div className={styles.jobCards}>
                         <div className={styles.jobCardOne}>
-                          <img
+                          <Image
                             className={styles.cardOneTopRow}
-                            loading="lazy"
                             alt=""
-                            src="/frame-1651@2x.png"
+                            src={gig.user.profileImage}
+                            height={45}
+                            width={45}
+                            loading="lazy"
                           />
-                          <b className={styles.max}>Max</b>
+                          <b className={styles.max}>{gig.user.username}</b>
                         </div>
                         <div className={styles.cardOneSecondRow}>
                           <div className={styles.cardOneJobCategories}>
                             <div className={styles.cardOneJobTitles}>
                               <div className={styles.cardOneCategoryNames}>
                                 <div className={styles.developmentAndIt}>
-                                  Development and IT
+                                  {JOB_CATEGORIES[gig.category]}
                                 </div>
                               </div>
                               <h2 className={styles.developADefi1}>
@@ -181,14 +237,15 @@ const FreelancerDashboard = async () => {
                                 src="/timer-11.svg"
                               />
                               <div className={styles.d21h58m23s}>
-                                <span>00</span>
+                                {getRemainingTime(gig.expectedDeliveryDate)}
+                                {/* <span>00</span>
                                 <b>D:</b>
                                 <span>21</span>
                                 <b>H:</b>
                                 <span>58</span>
                                 <b>M:</b>
                                 <span>23</span>
-                                <b>S</b>
+                                <b>S</b> */}
                               </div>
                             </div>
                           </div>
@@ -205,11 +262,11 @@ const FreelancerDashboard = async () => {
                                   <div className={styles.tasks}>Tasks:</div>
                                   <div className={styles.tasksQuantity}>
                                     <b className={styles.taskPlaceholderOne}>
-                                      8
+                                      {getCompletedTasks(gig.gig_task).length}
                                     </b>
                                     <div className={styles.of}>of</div>
                                     <b className={styles.taskPlaceholderTwo}>
-                                      10
+                                      {gig.gig_task.length}
                                     </b>
                                   </div>
                                 </div>
@@ -225,11 +282,16 @@ const FreelancerDashboard = async () => {
                                   <div className={styles.files}>Files:</div>
                                   <div className={styles.filesQuantity}>
                                     <div className={styles.docsPlaceholderOne}>
-                                      <b className={styles.docsWordRow}>2</b>
+                                      <b className={styles.docsWordRow}>
+                                        {getGigDocs(gig.gig_file).length}
+                                      </b>
                                       <div className={styles.docs}>Docs</div>
                                     </div>
                                     <div className={styles.docsPlaceholderTwo}>
-                                      <b className={styles.linksWordRow}>5</b>
+                                      <b className={styles.linksWordRow}>
+                                        {gig.gig_file.length -
+                                          getGigDocs(gig.gig_file).length}
+                                      </b>
                                       <div className={styles.links}>Links</div>
                                     </div>
                                   </div>
@@ -390,41 +452,44 @@ const FreelancerDashboard = async () => {
                     return (
                       <div className={styles.jobCards}>
                         <div className={styles.jobCardOne}>
-                          <img
+                          <Image
                             className={styles.cardOneTopRow}
-                            loading="lazy"
                             alt=""
-                            src="/frame-1651@2x.png"
+                            src={gig.user.profileImage}
+                            height={45}
+                            width={45}
+                            loading="lazy"
                           />
-                          <b className={styles.max}>Max</b>
+                          <b className={styles.max}>{gig.user.username}</b>
                         </div>
                         <div className={styles.cardOneSecondRow}>
                           <div className={styles.cardOneJobCategories}>
                             <div className={styles.cardOneJobTitles}>
                               <div className={styles.cardOneCategoryNames}>
                                 <div className={styles.developmentAndIt}>
-                                  Development and IT
+                                  {JOB_CATEGORIES[gig.category]}
                                 </div>
                               </div>
                               <h2 className={styles.developADefi1}>
                                 {gig.title}
                               </h2>
                             </div>
-                            <div className={styles.cardOneTime}>
+                            <div className={styles.cardOneBudget}>
                               <img
                                 className={styles.timerIcon1}
                                 alt=""
-                                src="/timer-11.svg"
+                                src="/icon/usdc.svg"
                               />
                               <div className={styles.d21h58m23s}>
-                                <span>00</span>
+                                {gig.gigBudget}
+                                {/* <span>00</span>
                                 <b>D:</b>
                                 <span>21</span>
                                 <b>H:</b>
                                 <span>58</span>
                                 <b>M:</b>
                                 <span>23</span>
-                                <b>S</b>
+                                <b>S</b> */}
                               </div>
                             </div>
                           </div>
@@ -441,11 +506,11 @@ const FreelancerDashboard = async () => {
                                   <div className={styles.tasks}>Tasks:</div>
                                   <div className={styles.tasksQuantity}>
                                     <b className={styles.taskPlaceholderOne}>
-                                      8
+                                      {getCompletedTasks(gig.gig_task).length}
                                     </b>
                                     <div className={styles.of}>of</div>
                                     <b className={styles.taskPlaceholderTwo}>
-                                      10
+                                      {gig.gig_task.length}
                                     </b>
                                   </div>
                                 </div>
@@ -461,11 +526,16 @@ const FreelancerDashboard = async () => {
                                   <div className={styles.files}>Files:</div>
                                   <div className={styles.filesQuantity}>
                                     <div className={styles.docsPlaceholderOne}>
-                                      <b className={styles.docsWordRow}>2</b>
+                                      <b className={styles.docsWordRow}>
+                                        {getGigDocs(gig.gig_file).length}
+                                      </b>
                                       <div className={styles.docs}>Docs</div>
                                     </div>
                                     <div className={styles.docsPlaceholderTwo}>
-                                      <b className={styles.linksWordRow}>5</b>
+                                      <b className={styles.linksWordRow}>
+                                        {gig.gig_file.length -
+                                          getGigDocs(gig.gig_file).length}
+                                      </b>
                                       <div className={styles.links}>Links</div>
                                     </div>
                                   </div>
@@ -497,142 +567,152 @@ const FreelancerDashboard = async () => {
                 </div>
               </div>
             </div>
-            <div>
-              <div className={styles.pendingJobs}>
-                <div className={styles.pendingJobsContainer}>
-                  <h1 className={styles.jobsToBe}>Applications</h1>
-                  <div className={styles.pendingJobsCount}>
-                    <b className={styles.pendingJobsNumber}>1</b>
-                    <div className={styles.pending}>pending</div>
-                  </div>
-                </div>
-                <div className={styles.featuredJob}>
-                  <div className={styles.jobContainer}>
-                    <div className={styles.btnDevit}>
-                      <img
-                        className={styles.developerModeTvIcon}
-                        loading="lazy"
-                        alt=""
-                        src="/developer-mode-tv1.svg"
-                      />
-                      <div
-                        className={styles.developmentIt}
-                      >{`Development & IT`}</div>
+            <div className={styles.disputeAndApplicationsContainer}>
+              <div className={styles.chartContainer}>
+                <div className={styles.pendingJobs}>
+                  <div className={styles.pendingJobsContainer}>
+                    <h1 className={styles.jobsToBe}>Applications</h1>
+                    <div className={styles.pendingJobsCount}>
+                      <b className={styles.pendingJobsNumber}>1</b>
+                      <div className={styles.pending}>pending</div>
                     </div>
-                    <h1 className={styles.developADefi}>
-                      Develop a DeFi Dashboard for Hamster Coins
-                    </h1>
                   </div>
-                  <div className={styles.jobActions}>
-                    <div className={styles.jobApplication}>
-                      <div className={styles.applyButton}>
+                  {offers.map((offer) => {
+                    return (
+                      <div className={styles.featuredJob}>
+                        <div className={styles.jobContainer}>
+                          <div className={styles.btnDevit}>
+                            <img
+                              className={styles.developerModeTvIcon}
+                              loading="lazy"
+                              alt=""
+                              src="/developer-mode-tv1.svg"
+                            />
+                            <div className={styles.developmentIt}>
+                              {JOB_CATEGORIES[offer.gig.category]}
+                            </div>
+                          </div>
+                          <h1 className={styles.developADefi}>
+                            {offer.gig.title}
+                          </h1>
+                        </div>
+                        <div className={styles.jobActions}>
+                          <div className={styles.jobApplication}>
+                            <div className={styles.applyButton}>
+                              <img
+                                className={styles.gig2hire2Icon}
+                                loading="lazy"
+                                alt=""
+                                src="/gig2hire-2.svg"
+                              />
+                              <div className={styles.applicationStatus}>
+                                <div className={styles.interested}>
+                                  Interested:
+                                </div>
+                                <div className={styles.jobCategory}>
+                                  <b className={styles.categoryIcon}>5</b>
+                                  <div className={styles.freelance}>
+                                    Freelance
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                            <div className={styles.approvalTimer}>
+                              <div className={styles.toBeApproved}>
+                                To Be approved in:
+                              </div>
+                              <div className={styles.timerContainer}>
+                                <img
+                                  className={styles.timerIcon}
+                                  alt=""
+                                  src="/timer2.svg"
+                                />
+                                <div className={styles.h58m23s}>
+                                  <span>48</span>
+                                  <b>H:</b>
+                                  <span>58</span>
+                                  <b>M:</b>
+                                  <span>23</span>
+                                  <b>S</b>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          <button className={styles.btn}>
+                            <b className={styles.viewMoreLabel}>View Offer</b>
+                          </button>
+                        </div>
+                      </div>
+                    );
+                  })}
+                </div>
+                <div className={styles.openDisputes}>
+                  <div className={styles.openDisputesContainer}>
+                    <h1 className={styles.jobsToBe}>Open Disputes</h1>
+                    <div className={styles.pendingJobsCount}>
+                      <b className={styles.pendingJobsNumber}>1</b>
+                      <div className={styles.pending}>pending</div>
+                    </div>
+                  </div>
+                  <div className={styles.featuredDispute}>
+                    <div className={styles.jobContainer}>
+                      <div className={styles.btnDevit}>
                         <img
-                          className={styles.gig2hire2Icon}
+                          className={styles.developerModeTvIcon}
                           loading="lazy"
                           alt=""
-                          src="/gig2hire-2.svg"
+                          src="/developer-mode-tv1.svg"
                         />
-                        <div className={styles.applicationStatus}>
-                          <div className={styles.interested}>Interested:</div>
-                          <div className={styles.jobCategory}>
-                            <b className={styles.categoryIcon}>5</b>
-                            <div className={styles.freelance}>Freelance</div>
-                          </div>
-                        </div>
+                        <div
+                          className={styles.developmentIt}
+                        >{`Development & IT`}</div>
                       </div>
-                      <div className={styles.approvalTimer}>
-                        <div className={styles.toBeApproved}>
-                          To Be approved in:
-                        </div>
-                        <div className={styles.timerContainer}>
+                      <h1 className={styles.developADefi}>
+                        Develop a DeFi Dashboard for Hamster Coins
+                      </h1>
+                    </div>
+                    <div className={styles.jobActions}>
+                      <div className={styles.jobApplication}>
+                        <div className={styles.applyButton}>
                           <img
-                            className={styles.timerIcon}
+                            className={styles.gig2hire2Icon}
+                            loading="lazy"
                             alt=""
-                            src="/timer2.svg"
+                            src="/gig2hire-2.svg"
                           />
-                          <div className={styles.h58m23s}>
-                            <span>48</span>
-                            <b>H:</b>
-                            <span>58</span>
-                            <b>M:</b>
-                            <span>23</span>
-                            <b>S</b>
+                          <div className={styles.applicationStatus}>
+                            <div className={styles.interested}>Interested:</div>
+                            <div className={styles.jobCategory}>
+                              <b className={styles.categoryIcon}>5</b>
+                              <div className={styles.freelance}>Freelance</div>
+                            </div>
+                          </div>
+                        </div>
+                        <div className={styles.approvalTimer}>
+                          <div className={styles.toBeApproved}>
+                            To Be approved in:
+                          </div>
+                          <div className={styles.timerContainer}>
+                            <img
+                              className={styles.timerIcon}
+                              alt=""
+                              src="/timer2.svg"
+                            />
+                            <div className={styles.h58m23s}>
+                              <span>48</span>
+                              <b>H:</b>
+                              <span>58</span>
+                              <b>M:</b>
+                              <span>23</span>
+                              <b>S</b>
+                            </div>
                           </div>
                         </div>
                       </div>
+                      <button className={styles.btn}>
+                        <b className={styles.viewMoreLabel}>View Offer</b>
+                      </button>
                     </div>
-                    <button className={styles.btn}>
-                      <b className={styles.viewMoreLabel}>View Offer</b>
-                    </button>
-                  </div>
-                </div>
-              </div>
-              <div className={styles.openDisputes}>
-                <div className={styles.openDisputesContainer}>
-                  <h1 className={styles.jobsToBe}>Open Disputes</h1>
-                  <div className={styles.pendingJobsCount}>
-                    <b className={styles.pendingJobsNumber}>1</b>
-                    <div className={styles.pending}>pending</div>
-                  </div>
-                </div>
-                <div className={styles.featuredDispute}>
-                  <div className={styles.jobContainer}>
-                    <div className={styles.btnDevit}>
-                      <img
-                        className={styles.developerModeTvIcon}
-                        loading="lazy"
-                        alt=""
-                        src="/developer-mode-tv1.svg"
-                      />
-                      <div
-                        className={styles.developmentIt}
-                      >{`Development & IT`}</div>
-                    </div>
-                    <h1 className={styles.developADefi}>
-                      Develop a DeFi Dashboard for Hamster Coins
-                    </h1>
-                  </div>
-                  <div className={styles.jobActions}>
-                    <div className={styles.jobApplication}>
-                      <div className={styles.applyButton}>
-                        <img
-                          className={styles.gig2hire2Icon}
-                          loading="lazy"
-                          alt=""
-                          src="/gig2hire-2.svg"
-                        />
-                        <div className={styles.applicationStatus}>
-                          <div className={styles.interested}>Interested:</div>
-                          <div className={styles.jobCategory}>
-                            <b className={styles.categoryIcon}>5</b>
-                            <div className={styles.freelance}>Freelance</div>
-                          </div>
-                        </div>
-                      </div>
-                      <div className={styles.approvalTimer}>
-                        <div className={styles.toBeApproved}>
-                          To Be approved in:
-                        </div>
-                        <div className={styles.timerContainer}>
-                          <img
-                            className={styles.timerIcon}
-                            alt=""
-                            src="/timer2.svg"
-                          />
-                          <div className={styles.h58m23s}>
-                            <span>48</span>
-                            <b>H:</b>
-                            <span>58</span>
-                            <b>M:</b>
-                            <span>23</span>
-                            <b>S</b>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <button className={styles.btn}>
-                      <b className={styles.viewMoreLabel}>View Offer</b>
-                    </button>
                   </div>
                 </div>
               </div>

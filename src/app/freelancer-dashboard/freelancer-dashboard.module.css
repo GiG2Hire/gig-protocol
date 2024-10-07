@@ -1446,9 +1446,15 @@
   color: var(--orange-medium);
 }
 .chartContainer {
-  width: 536px;
+  width: 580px;
   gap: var(--gap-21xl);
-  min-width: 536px;
+  min-width: 580px;
+  max-width: 100%;
+}
+.disputeAndApplicationsContainer {
+  width: 580px;
+  gap: var(--gap-21xl);
+  min-width: 580px;
   max-width: 100%;
 }
 .yourActiveJobs {
@@ -1538,13 +1544,13 @@
   position: relative;
 }
 .d21h58m23s {
-  width: 111px;
   position: relative;
   display: inline-block;
   white-space: nowrap;
 }
 .cardOneJobCategories,
-.cardOneTime {
+.cardOneTime,
+.cardOneBudget {
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
@@ -1557,6 +1563,15 @@
   gap: var(--gap-5xs);
   text-align: right;
   color: var(--red-medium);
+}
+.cardOneBudget {
+  border: 1px solid var(--navy-600);
+  overflow: hidden;
+  align-items: center;
+  padding: var(--padding-10xs) var(--padding-6xs);
+  gap: var(--gap-5xs);
+  text-align: right;
+  color: var(--navy-600);
 }
 .cardOneJobCategories {
   align-self: stretch;
