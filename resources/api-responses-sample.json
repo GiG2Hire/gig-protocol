@@ -1,0 +1,136 @@
+[
+  {
+    "gigId": 8,
+    "clientId": 2,
+    "freelancerId": 1,
+    "description": "Create an awesome web3 based Freelance Marketplace that can make us all rich, happy and satisfied!!",
+    "gig_budget": 108,
+    "startDate": null,
+    "endDate": null,
+    "createdAt": "2024-08-06T14:13:20.477Z",
+    "completionStatus": "IN_PROGRESS",
+    "expectedDeliveryDate": null,
+    "category": null,
+    "title": "Title 1",
+    "updated_at": null,
+    "gig_task": [
+      {
+        "taskId": 1,
+        "gigId": 8,
+        "description": "Task 1",
+        "status": "PENDING",
+        "createdAt": "2024-09-03T11:27:11.185Z",
+        "updatedAt": null
+      },
+      {
+        "taskId": 2,
+        "gigId": 8,
+        "description": "Task 2",
+        "status": "PENDING",
+        "createdAt": "2024-09-03T11:27:11.185Z",
+        "updatedAt": null
+      }
+    ],
+    "gig_file": [
+      {
+        "id": 7,
+        "gigId": 8,
+        "name": "message.txt",
+        "type": "text/plain",
+        "url": "https://gig2hirelocal.s3.eu-north-1.amazonaws.com/2ff20a9dd22a51fb368e7fd19a84f35ce3f3e295290d1316b17066e273b1aa30",
+        "uploadedBy": 1,
+        "createdAt": "2024-09-29T12:44:45.464Z",
+        "updatedAt": "2024-09-29T12:44:45.464Z",
+        "size": 17
+      },
+      {
+        "id": 8,
+        "gigId": 8,
+        "name": "message.txt",
+        "type": "text/plain",
+        "url": "https://gig2hirelocal.s3.eu-north-1.amazonaws.com/b7ceb5c1e33520b954348e83aaafa0cb306af35a84421ea71bc9990799af1f06",
+        "uploadedBy": 1,
+        "createdAt": "2024-09-29T12:44:48.446Z",
+        "updatedAt": "2024-09-29T12:44:48.446Z",
+        "size": 17
+      },
+      {
+        "id": 13,
+        "gigId": 8,
+        "name": "message.txt",
+        "type": "text/plain",
+        "url": null,
+        "uploadedBy": 17,
+        "createdAt": null,
+        "updatedAt": null,
+        "size": 17
+      },
+      {
+        "id": 15,
+        "gigId": 8,
+        "name": "reentrancy-attack-openzeppelin.png",
+        "type": "image/png",
+        "url": "https://gig2hirelocal.s3.eu-north-1.amazonaws.com/ac651819d7bdde15c0deec1ef12e1f4b9a8676054f24b68dd73c7143cb7d49d0",
+        "uploadedBy": 17,
+        "createdAt": "2024-10-02T04:45:47.613Z",
+        "updatedAt": "2024-10-02T04:45:47.613Z",
+        "size": 859102
+      },
+      {
+        "id": 26,
+        "gigId": 8,
+        "name": "message.txt",
+        "type": "text/plain",
+        "url": "https://gig2hirelocal.s3.eu-north-1.amazonaws.com/4b9e319865aa4e51739dd9ee161eff4df9e325feee9374a96971a4fe349f070f",
+        "uploadedBy": 17,
+        "createdAt": "2024-10-04T06:51:44.398Z",
+        "updatedAt": "2024-10-04T06:51:44.398Z",
+        "size": 17
+      },
+      {
+        "id": 29,
+        "gigId": 8,
+        "name": "message.txt",
+        "type": "text/plain",
+        "url": "https://gig2hirelocal.s3.eu-north-1.amazonaws.com/411c26a22fc291d1c45a1e655a1cbec097668c6e2a388444e5c9870297581aa5",
+        "uploadedBy": 17,
+        "createdAt": "2024-10-05T05:36:46.237Z",
+        "updatedAt": "2024-10-05T05:36:46.237Z",
+        "size": 17
+      },
+      {
+        "id": 30,
+        "gigId": 8,
+        "name": "message.txt",
+        "type": "text/plain",
+        "url": "https://gig2hirelocal.s3.eu-north-1.amazonaws.com/10577ecd81bfc2989f4ae0b0e30a061e4c35fec34c5d6a604344de6c0872a2bd",
+        "uploadedBy": 17,
+        "createdAt": "2024-10-05T05:40:26.631Z",
+        "updatedAt": "2024-10-05T05:40:26.631Z",
+        "size": 17
+      },
+      {
+        "id": 31,
+        "gigId": 8,
+        "name": "message.txt",
+        "type": "text/plain",
+        "url": "https://gig2hirelocal.s3.eu-north-1.amazonaws.com/25bbb42180b9e112a9c3a9418e0f2e4d6fa5b37948a25770b05f12c032c0bbfc",
+        "uploadedBy": 17,
+        "createdAt": "2024-10-05T05:56:21.545Z",
+        "updatedAt": "2024-10-05T05:56:21.545Z",
+        "size": 17
+      },
+      {
+        "id": 32,
+        "gigId": 8,
+        "name": "message.txt",
+        "type": "text/plain",
+        "url": "https://gig2hirelocal.s3.eu-north-1.amazonaws.com/10a780d94c575a6f432ea3ab308dc7a190f1fcc6a9a81794b5dd42f4dd00755b",
+        "uploadedBy": 17,
+        "createdAt": "2024-10-05T06:36:59.434Z",
+        "updatedAt": "2024-10-05T06:36:59.434Z",
+        "size": 17
+      }
+    ]
+  }
+]

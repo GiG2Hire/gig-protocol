@@ -45,6 +45,7 @@ model gig {
   category             Int?       @map("category")
   title                String?
   updated_at           DateTime?  @db.Timestamptz(6)
+  gig_file             GigFile[]
   gig_offer            gigOffer[]
   gig_task             gigTask[]
 }
@@ -61,7 +62,7 @@ model user {
   email         String?   @unique
   description   String?
   updated_at    DateTime? @db.Timestamptz(6)
-  profile_image String?
+  profileImage  String?   @map("profile_image")
   organization  String?
 }
 
@@ -126,6 +127,7 @@ model GigFile {
   createdAt  DateTime? @map("created_at") @db.Timestamptz(6)
   updatedAt  DateTime? @map("updated_at") @db.Timestamptz(6)
   size       Int?      @map("size")
+  gig        gig       @relation(fields: [gigId], references: [gigId], onDelete: NoAction, onUpdate: NoAction)
 
   @@map("gig_file")
 }

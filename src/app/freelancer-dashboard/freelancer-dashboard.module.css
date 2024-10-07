@@ -1199,11 +1199,16 @@
   font-family: inherit;
 }
 .pending,
-.pendingJobsNumber {
+.pendingJobsNumber,
+.openDisputesNumber {
   position: relative;
   display: inline-block;
 }
 .pendingJobsNumber {
+  font-weight: 700;
+  min-width: 10px;
+}
+.openDisputesNumber {
   font-weight: 700;
   min-width: 10px;
 }
@@ -1223,6 +1228,14 @@
   color: var(--green-bold);
 }
 .pendingJobsContainer {
+  align-self: stretch;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--gap-xl);
+}
+.openDisputesContainer {
   align-self: stretch;
   display: flex;
   flex-direction: row;
@@ -1406,6 +1419,16 @@
   font-size: var(--font-size-xs);
   color: var(--midnight-medium);
 }
+.featuredDispute {
+  align-self: stretch;
+  border: 1px solid var(--orange-medium);
+  overflow: hidden;
+  align-items: center;
+  padding: var(--padding-sm) var(--padding-mini);
+  gap: var(--gap-base);
+  font-size: var(--font-size-xs);
+  color: var(--midnight-medium);
+}
 .chartContainer,
 .pendingJobs {
   align-items: flex-start;
@@ -1415,6 +1438,12 @@
   overflow: hidden;
   gap: var(--gap-base);
   color: var(--midnight-bold);
+}
+.openDisputes {
+  align-self: stretch;
+  overflow: hidden;
+  gap: var(--gap-base);
+  color: var(--orange-medium);
 }
 .chartContainer {
   width: 536px;
