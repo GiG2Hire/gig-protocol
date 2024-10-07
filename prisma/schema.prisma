@@ -61,7 +61,7 @@ model user {
   email         String?   @unique
   description   String?
   updated_at    DateTime? @db.Timestamptz(6)
-  profile_image String?
+  profileImage String?    @map("profile_image")
   organization  String?
 }
 

@@ -1,4 +1,3 @@
-"use client";
 import type { NextPage } from "next";
 import { useCallback, useEffect } from "react";
 import { useRouter } from "next/navigation";
@@ -7,73 +6,72 @@ import { useActiveAccount } from "thirdweb/react";
 import performTwitterVerification from "../actions/verify-twitter";
 import { getTime } from "@/src/utils/getCurrTime";
 import JobCard from "../components/job-card";
+import { getUserIdFromPayload, isLoggedIn } from "../actions/login";
+import { prisma } from "../lib/db";
+import { GIG_COMPLETION_STATUS } from "@/src/constants/appConstants";
 
-const FreelancerDashboard: NextPageFreelancerDashboardType = () => {
-  const router = useRouter();
+const FreelancerDashboard = async () => {
+  let activeGigs: any[] = [];
+  let completedGigs: any[] = [];
 
-  const account = useActiveAccount();
-  console.log(`account:` + account?.address);
+  // const router = useRouter();
+
+  // const account = useActiveAccount();
+  // console.log(`account:` + account?.address);
 
   const timeNow = getTime();
 
-  const onBtnChatContainerClick = () => {
-    console.log("Open chat window!");
-    router.push("/chat/17-1-1/");
-  };
+  // const onBtnChatContainerClick = () => {
+  //   console.log("Open chat window!");
+  //   router.push("/chat/17-1-1/");
+  // };
 
-  const xUserVerification = async () => {
-    const url = window.location.href;
-    const code = url.split("&code=")[1];
-    //performTwitterVerification(code);
-  };
+  async function getActiveGigs() {
+    console.log("Inside GET /api/gig/active-gigs/");
+    const userLoggedIn: boolean = await isLoggedIn();
+    if (!userLoggedIn) {
+      return;
+    }
+    const freelancer = await getUserIdFromPayload();
+    try {
+      activeGigs = await prisma.gig.findMany({
+        where: {
+          freelancerId: freelancer,
+          completionStatus: GIG_COMPLETION_STATUS.IN_PROGRESS,
+        },
+      });
+      console.log(
+        `GET /api/gig/active-gigs/ response from database. Count of messages received: ${activeGigs.length})`
+      );
+    } catch (error) {
+      console.log(error);
+    }
+  }
 
-  // Handles github data decode from redirect url
-  const userData = () => {
-    // xUserVerification();
-    // console.log(window.location.href);
-    // const url = window.location.href;
-    // const code = url.split("?code=")[1];
-    // const clientId = "Ov23liyKADrsIpbypKkj"; // Replace with your actual Client ID
-    // const clientSecret = ""; // Replace with your actual Client Secret
-    // const redirectUri = "http://localhost:3000/job-marketplace/"; // Replace with your callback URL
-    // const authUrl = `https://github.com/login/oauth/access_token?client_id=${clientId}&client_secret=${clientSecret}&code=${code}&redirect_uri=${redirectUri}`;
-    // fetch(authUrl, {
-    //   method: 'POST',
-    //   headers: {
-    //     'Accept': 'application/json'
-    //   }
-    // })
-    // .then(response => response.json())
-    // .then(data => {
-    //   // Handle the response data
-    //   const accessToken = data.access_token;
-    //   console.log('Access Token:', accessToken);
-    //   // You can now use the accessToken to make authenticated requests to the GitHub API
-    //   // For example, you can fetch the user's profile data:
-    //   fetch('https://api.github.com/user', {
-    //     headers: {
-    //       'Authorization': `Bearer ${accessToken}`
-    //     }
-    //   })
-    //   .then(response => response.json())
-    //   .then(userData => {
-    //     // Handle the user data
-    //     console.log('GitHub User Data:', userData);
-    //     // You can store the user data in state or perform other operations
-    //   })
-    //   .catch(error => {
-    //     console.error('Error fetching user data:', error);
-    //   });
-    // })
-    // .catch(error => {
-    //   console.error('Error retrieving access token:', error);
-    // });
-  };
+  async function getCompletedGigs() {
+    console.log("Inside GET /api/gig/completed-gigs/");
+    const userLoggedIn: boolean = await isLoggedIn();
+    if (!userLoggedIn) {
+      return;
+    }
+    const freelancer = await getUserIdFromPayload();
+    try {
+      completedGigs = await prisma.gig.findMany({
+        where: {
+          freelancerId: freelancer,
+          completionStatus: GIG_COMPLETION_STATUS.COMPLETE,
+        },
+      });
+      console.log(
+        `GET /api/gig/completed-gigs/ response from database. Count of messages received: ${completedGigs.length})`
+      );
+    } catch (error) {
+      console.log(error);
+    }
+  }
 
-  // Handle login with github
-  useEffect(() => {
-    userData();
-  }, []);
+  await Promise.all([getActiveGigs(), getCompletedGigs()]);
+
   return (
     <div className={styles.freelancerDashboard}>
       <div className={styles.headerSpacer}></div>
@@ -143,7 +141,122 @@ const FreelancerDashboard: NextPageFreelancerDashboardType = () => {
           </div>
           <div className={styles.earningsChart}>
             <div className={styles.chartContainer}>
-              <div className={styles.earningsMetrics}>
+              <div className={styles.activeJobsContainerParent}>
+                <div className={styles.activeJobsContainer}>
+                  <h1 className={styles.yourActiveJobs}>Your Active Jobs</h1>
+                </div>
+                <div className={styles.jobsList}>
+                  {activeGigs.map((gig) => {
+                    return (
+                      <div className={styles.jobCards}>
+                        <div className={styles.jobCardOne}>
+                          <img
+                            className={styles.cardOneTopRow}
+                            loading="lazy"
+                            alt=""
+                            src="/frame-1651@2x.png"
+                          />
+                          <b className={styles.max}>Max</b>
+                        </div>
+                        <div className={styles.cardOneSecondRow}>
+                          <div className={styles.cardOneJobCategories}>
+                            <div className={styles.cardOneJobTitles}>
+                              <div className={styles.cardOneCategoryNames}>
+                                <div className={styles.developmentAndIt}>
+                                  Development and IT
+                                </div>
+                              </div>
+                              <h2 className={styles.developADefi1}>
+                                {gig.title}
+                              </h2>
+                            </div>
+                            <div className={styles.cardOneTime}>
+                              <img
+                                className={styles.timerIcon1}
+                                alt=""
+                                src="/timer-11.svg"
+                              />
+                              <div className={styles.d21h58m23s}>
+                                <span>00</span>
+                                <b>D:</b>
+                                <span>21</span>
+                                <b>H:</b>
+                                <span>58</span>
+                                <b>M:</b>
+                                <span>23</span>
+                                <b>S</b>
+                              </div>
+                            </div>
+                          </div>
+                          <div className={styles.cardOneProgress}>
+                            <div className={styles.cardOneTaskIcons}>
+                              <div className={styles.cardOneTaskInfo}>
+                                <img
+                                  className={styles.taskSquare1Icon}
+                                  loading="lazy"
+                                  alt=""
+                                  src="/tasksquare-11.svg"
+                                />
+                                <div className={styles.cardOneTasks}>
+                                  <div className={styles.tasks}>Tasks:</div>
+                                  <div className={styles.tasksQuantity}>
+                                    <b className={styles.taskPlaceholderOne}>
+                                      8
+                                    </b>
+                                    <div className={styles.of}>of</div>
+                                    <b className={styles.taskPlaceholderTwo}>
+                                      10
+                                    </b>
+                                  </div>
+                                </div>
+                              </div>
+                              <div className={styles.cardOneFileIcons}>
+                                <img
+                                  className={styles.cloudUploadOutline1Icon}
+                                  loading="lazy"
+                                  alt=""
+                                  src="/clouduploadoutline-11.svg"
+                                />
+                                <div className={styles.cardOneFiles}>
+                                  <div className={styles.files}>Files:</div>
+                                  <div className={styles.filesQuantity}>
+                                    <div className={styles.docsPlaceholderOne}>
+                                      <b className={styles.docsWordRow}>2</b>
+                                      <div className={styles.docs}>Docs</div>
+                                    </div>
+                                    <div className={styles.docsPlaceholderTwo}>
+                                      <b className={styles.linksWordRow}>5</b>
+                                      <div className={styles.links}>Links</div>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                            <div
+                              className={styles.btnChat}
+                              // onClick={onBtnChatContainerClick}
+                            >
+                              <div className={styles.iconChat}>
+                                <img
+                                  className={
+                                    styles.commentCircleChatMessage1Icon
+                                  }
+                                  loading="lazy"
+                                  alt=""
+                                  src="/commentcirclechatmessage-11.svg"
+                                />
+                                <div className={styles.iconChatChild} />
+                              </div>
+                              <b className={styles.chat}>Chat</b>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    );
+                  })}
+                </div>
+              </div>
+              {/* <div className={styles.earningsMetrics}>
                 <div className={styles.activeJobsMetricWrapper}>
                   <div className={styles.activeJobsMetric}>
                     <div className={styles.earnedMetric}>
@@ -263,10 +376,127 @@ const FreelancerDashboard: NextPageFreelancerDashboardType = () => {
                     <div className={styles.dec1}>DEC</div>
                   </div>
                 </div>
+              </div> */}
+              <div className={styles.activeJobsContainerParent}>
+                <div className={styles.activeJobsContainer}>
+                  <h1 className={styles.yourActiveJobs}>Completed Jobs</h1>
+                </div>
+                <div className={styles.jobsList}>
+                  {completedGigs.map((gig) => {
+                    return (
+                      <div className={styles.jobCards}>
+                        <div className={styles.jobCardOne}>
+                          <img
+                            className={styles.cardOneTopRow}
+                            loading="lazy"
+                            alt=""
+                            src="/frame-1651@2x.png"
+                          />
+                          <b className={styles.max}>Max</b>
+                        </div>
+                        <div className={styles.cardOneSecondRow}>
+                          <div className={styles.cardOneJobCategories}>
+                            <div className={styles.cardOneJobTitles}>
+                              <div className={styles.cardOneCategoryNames}>
+                                <div className={styles.developmentAndIt}>
+                                  Development and IT
+                                </div>
+                              </div>
+                              <h2 className={styles.developADefi1}>
+                                {gig.title}
+                              </h2>
+                            </div>
+                            <div className={styles.cardOneTime}>
+                              <img
+                                className={styles.timerIcon1}
+                                alt=""
+                                src="/timer-11.svg"
+                              />
+                              <div className={styles.d21h58m23s}>
+                                <span>00</span>
+                                <b>D:</b>
+                                <span>21</span>
+                                <b>H:</b>
+                                <span>58</span>
+                                <b>M:</b>
+                                <span>23</span>
+                                <b>S</b>
+                              </div>
+                            </div>
+                          </div>
+                          <div className={styles.cardOneProgress}>
+                            <div className={styles.cardOneTaskIcons}>
+                              <div className={styles.cardOneTaskInfo}>
+                                <img
+                                  className={styles.taskSquare1Icon}
+                                  loading="lazy"
+                                  alt=""
+                                  src="/tasksquare-11.svg"
+                                />
+                                <div className={styles.cardOneTasks}>
+                                  <div className={styles.tasks}>Tasks:</div>
+                                  <div className={styles.tasksQuantity}>
+                                    <b className={styles.taskPlaceholderOne}>
+                                      8
+                                    </b>
+                                    <div className={styles.of}>of</div>
+                                    <b className={styles.taskPlaceholderTwo}>
+                                      10
+                                    </b>
+                                  </div>
+                                </div>
+                              </div>
+                              <div className={styles.cardOneFileIcons}>
+                                <img
+                                  className={styles.cloudUploadOutline1Icon}
+                                  loading="lazy"
+                                  alt=""
+                                  src="/clouduploadoutline-11.svg"
+                                />
+                                <div className={styles.cardOneFiles}>
+                                  <div className={styles.files}>Files:</div>
+                                  <div className={styles.filesQuantity}>
+                                    <div className={styles.docsPlaceholderOne}>
+                                      <b className={styles.docsWordRow}>2</b>
+                                      <div className={styles.docs}>Docs</div>
+                                    </div>
+                                    <div className={styles.docsPlaceholderTwo}>
+                                      <b className={styles.linksWordRow}>5</b>
+                                      <div className={styles.links}>Links</div>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                            <div
+                              className={styles.btnChat}
+                              // onClick={onBtnChatContainerClick}
+                            >
+                              <div className={styles.iconChat}>
+                                <img
+                                  className={
+                                    styles.commentCircleChatMessage1Icon
+                                  }
+                                  loading="lazy"
+                                  alt=""
+                                  src="/commentcirclechatmessage-11.svg"
+                                />
+                                <div className={styles.iconChatChild} />
+                              </div>
+                              <b className={styles.chat}>Chat</b>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    );
+                  })}
+                </div>
               </div>
+            </div>
+            <div>
               <div className={styles.pendingJobs}>
                 <div className={styles.pendingJobsContainer}>
-                  <h1 className={styles.jobsToBe}>Jobs to be approved</h1>
+                  <h1 className={styles.jobsToBe}>Applications</h1>
                   <div className={styles.pendingJobsCount}>
                     <b className={styles.pendingJobsNumber}>1</b>
                     <div className={styles.pending}>pending</div>
@@ -333,477 +563,72 @@ const FreelancerDashboard: NextPageFreelancerDashboardType = () => {
                   </div>
                 </div>
               </div>
-            </div>
-            <div className={styles.activeJobsContainerParent}>
-              <div className={styles.activeJobsContainer}>
-                <h1 className={styles.yourActiveJobs}>Your Active Jobs</h1>
-              </div>
-              <div className={styles.jobsList}>
-                <div className={styles.jobCards}>
-                  <div className={styles.jobCardOne}>
-                    <img
-                      className={styles.cardOneTopRow}
-                      loading="lazy"
-                      alt=""
-                      src="/frame-1651@2x.png"
-                    />
-                    <b className={styles.max}>Max</b>
+              <div className={styles.openDisputes}>
+                <div className={styles.openDisputesContainer}>
+                  <h1 className={styles.jobsToBe}>Open Disputes</h1>
+                  <div className={styles.pendingJobsCount}>
+                    <b className={styles.pendingJobsNumber}>1</b>
+                    <div className={styles.pending}>pending</div>
                   </div>
-                  <div className={styles.cardOneSecondRow}>
-                    <div className={styles.cardOneJobCategories}>
-                      <div className={styles.cardOneJobTitles}>
-                        <div className={styles.cardOneCategoryNames}>
-                          <div className={styles.developmentAndIt}>
-                            Development and IT
-                          </div>
-                        </div>
-                        <h2 className={styles.developADefi1}>
-                          Develop a DeFi Dashboard for Hamster Coins
-                        </h2>
-                      </div>
-                      <div className={styles.cardOneTime}>
-                        <img
-                          className={styles.timerIcon1}
-                          alt=""
-                          src="/timer-11.svg"
-                        />
-                        <div className={styles.d21h58m23s}>
-                          <span>00</span>
-                          <b>D:</b>
-                          <span>21</span>
-                          <b>H:</b>
-                          <span>58</span>
-                          <b>M:</b>
-                          <span>23</span>
-                          <b>S</b>
-                        </div>
-                      </div>
-                    </div>
-                    <div className={styles.cardOneProgress}>
-                      <div className={styles.cardOneTaskIcons}>
-                        <div className={styles.cardOneTaskInfo}>
-                          <img
-                            className={styles.taskSquare1Icon}
-                            loading="lazy"
-                            alt=""
-                            src="/tasksquare-11.svg"
-                          />
-                          <div className={styles.cardOneTasks}>
-                            <div className={styles.tasks}>Tasks:</div>
-                            <div className={styles.tasksQuantity}>
-                              <b className={styles.taskPlaceholderOne}>8</b>
-                              <div className={styles.of}>of</div>
-                              <b className={styles.taskPlaceholderTwo}>10</b>
-                            </div>
-                          </div>
-                        </div>
-                        <div className={styles.cardOneFileIcons}>
-                          <img
-                            className={styles.cloudUploadOutline1Icon}
-                            loading="lazy"
-                            alt=""
-                            src="/clouduploadoutline-11.svg"
-                          />
-                          <div className={styles.cardOneFiles}>
-                            <div className={styles.files}>Files:</div>
-                            <div className={styles.filesQuantity}>
-                              <div className={styles.docsPlaceholderOne}>
-                                <b className={styles.docsWordRow}>2</b>
-                                <div className={styles.docs}>Docs</div>
-                              </div>
-                              <div className={styles.docsPlaceholderTwo}>
-                                <b className={styles.linksWordRow}>5</b>
-                                <div className={styles.links}>Links</div>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
+                </div>
+                <div className={styles.featuredDispute}>
+                  <div className={styles.jobContainer}>
+                    <div className={styles.btnDevit}>
+                      <img
+                        className={styles.developerModeTvIcon}
+                        loading="lazy"
+                        alt=""
+                        src="/developer-mode-tv1.svg"
+                      />
                       <div
-                        className={styles.btnChat}
-                        onClick={onBtnChatContainerClick}
-                      >
-                        <div className={styles.iconChat}>
-                          <img
-                            className={styles.commentCircleChatMessage1Icon}
-                            loading="lazy"
-                            alt=""
-                            src="/commentcirclechatmessage-11.svg"
-                          />
-                          <div className={styles.iconChatChild} />
-                        </div>
-                        <b className={styles.chat}>Chat</b>
-                      </div>
+                        className={styles.developmentIt}
+                      >{`Development & IT`}</div>
                     </div>
+                    <h1 className={styles.developADefi}>
+                      Develop a DeFi Dashboard for Hamster Coins
+                    </h1>
                   </div>
-                </div>
-                {/* <JobCard
-                  initialMessages={[]}
-                  sessionId={1}
-                  chatId={123}
-                  chatPartner={2}
-                /> */}
-                <div className={styles.jobCards1}>
-                  <div className={styles.frameGroup}>
-                    <img
-                      className={styles.frameChild}
-                      loading="lazy"
-                      alt=""
-                      src="/frame-166@2x.png"
-                    />
-                    <b className={styles.carla}>Carla</b>
-                  </div>
-                  <div className={styles.frameContainer}>
-                    <div className={styles.frameDiv}>
-                      <div className={styles.frameParent1}>
-                        <div className={styles.designAndCreativeWrapper}>
-                          <div className={styles.designAndCreative}>
-                            Design and Creative
-                          </div>
-                        </div>
-                        <h2 className={styles.uiuxForECommerce}>
-                          UI/UX for e-Commerce selling Tea
-                        </h2>
-                      </div>
-                      <div className={styles.timerParent}>
+                  <div className={styles.jobActions}>
+                    <div className={styles.jobApplication}>
+                      <div className={styles.applyButton}>
                         <img
-                          className={styles.timerIcon2}
+                          className={styles.gig2hire2Icon}
+                          loading="lazy"
                           alt=""
-                          src="/timer-2.svg"
+                          src="/gig2hire-2.svg"
                         />
-                        <div className={styles.d21h58m23s1}>
-                          <span>00</span>
-                          <b>D:</b>
-                          <span>21</span>
-                          <b>H:</b>
-                          <span>58</span>
-                          <b>M:</b>
-                          <span>23</span>
-                          <b>S</b>
+                        <div className={styles.applicationStatus}>
+                          <div className={styles.interested}>Interested:</div>
+                          <div className={styles.jobCategory}>
+                            <b className={styles.categoryIcon}>5</b>
+                            <div className={styles.freelance}>Freelance</div>
+                          </div>
+                        </div>
+                      </div>
+                      <div className={styles.approvalTimer}>
+                        <div className={styles.toBeApproved}>
+                          To Be approved in:
+                        </div>
+                        <div className={styles.timerContainer}>
+                          <img
+                            className={styles.timerIcon}
+                            alt=""
+                            src="/timer2.svg"
+                          />
+                          <div className={styles.h58m23s}>
+                            <span>48</span>
+                            <b>H:</b>
+                            <span>58</span>
+                            <b>M:</b>
+                            <span>23</span>
+                            <b>S</b>
+                          </div>
                         </div>
                       </div>
                     </div>
-                    <div className={styles.frameParent2}>
-                      <div className={styles.frameParent3}>
-                        <div className={styles.taskSquare1Parent}>
-                          <img
-                            className={styles.taskSquare1Icon1}
-                            alt=""
-                            src="/tasksquare-11.svg"
-                          />
-                          <div className={styles.tasksParent}>
-                            <div className={styles.tasks1}>Tasks:</div>
-                            <div className={styles.parent}>
-                              <b className={styles.b3}>8</b>
-                              <div className={styles.of1}>of</div>
-                              <b className={styles.b4}>10</b>
-                            </div>
-                          </div>
-                        </div>
-                        <div className={styles.cloudUploadOutline1Parent}>
-                          <img
-                            className={styles.cloudUploadOutline1Icon1}
-                            alt=""
-                            src="/clouduploadoutline-11.svg"
-                          />
-                          <div className={styles.filesParent}>
-                            <div className={styles.files1}>Files:</div>
-                            <div className={styles.frameParent4}>
-                              <div className={styles.container}>
-                                <b className={styles.b5}>2</b>
-                                <div className={styles.docs1}>Docs</div>
-                              </div>
-                              <div className={styles.parent1}>
-                                <b className={styles.b6}>5</b>
-                                <div className={styles.links1}>Links</div>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                      <div className={styles.btnChat1}>
-                        <div className={styles.iconChat1}>
-                          <img
-                            className={styles.commentCircleChatMessage1Icon1}
-                            alt=""
-                            src="/commentcirclechatmessage-11.svg"
-                          />
-                          <div className={styles.iconChatItem} />
-                        </div>
-                        <b className={styles.chat1}>Chat</b>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div className={styles.jobCards2}>
-                  <div className={styles.frameParent5}>
-                    <img
-                      className={styles.frameItem}
-                      alt=""
-                      src="/frame-165-11@2x.png"
-                    />
-                    <b className={styles.carla1}>Carla</b>
-                  </div>
-                  <div className={styles.frameParent6}>
-                    <div className={styles.frameParent7}>
-                      <div className={styles.frameParent8}>
-                        <div className={styles.aiServicesWrapper}>
-                          <div className={styles.aiServices}>AI services</div>
-                        </div>
-                        <h2 className={styles.createProfilePictures}>
-                          Create profile pictures for a Freelancer platform
-                        </h2>
-                      </div>
-                      <div className={styles.timerGroup}>
-                        <img
-                          className={styles.timerIcon3}
-                          alt=""
-                          src="/timer-2.svg"
-                        />
-                        <div className={styles.d21h58m23s2}>
-                          <span>00</span>
-                          <b>D:</b>
-                          <span>21</span>
-                          <b>H:</b>
-                          <span>58</span>
-                          <b>M:</b>
-                          <span>23</span>
-                          <b>S</b>
-                        </div>
-                      </div>
-                    </div>
-                    <div className={styles.frameParent9}>
-                      <div className={styles.frameParent10}>
-                        <div className={styles.taskSquare1Group}>
-                          <img
-                            className={styles.taskSquare1Icon2}
-                            alt=""
-                            src="/tasksquare-11.svg"
-                          />
-                          <div className={styles.tasksGroup}>
-                            <div className={styles.tasks2}>Tasks:</div>
-                            <div className={styles.parent2}>
-                              <b className={styles.b7}>8</b>
-                              <div className={styles.of2}>of</div>
-                              <b className={styles.b8}>10</b>
-                            </div>
-                          </div>
-                        </div>
-                        <div className={styles.cloudUploadOutline1Group}>
-                          <img
-                            className={styles.cloudUploadOutline1Icon2}
-                            alt=""
-                            src="/clouduploadoutline-11.svg"
-                          />
-                          <div className={styles.filesGroup}>
-                            <div className={styles.files2}>Files:</div>
-                            <div className={styles.frameParent11}>
-                              <div className={styles.parent3}>
-                                <b className={styles.b9}>2</b>
-                                <div className={styles.docs2}>Docs</div>
-                              </div>
-                              <div className={styles.parent4}>
-                                <b className={styles.b10}>5</b>
-                                <div className={styles.links2}>Links</div>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                      <div className={styles.btnChat2}>
-                        <div className={styles.iconChat2}>
-                          <img
-                            className={styles.commentCircleChatMessage1Icon2}
-                            alt=""
-                            src="/commentcirclechatmessage-11.svg"
-                          />
-                          <div className={styles.iconChatInner} />
-                        </div>
-                        <b className={styles.chat2}>Chat</b>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div className={styles.jobCards3}>
-                  <div className={styles.frameParent12}>
-                    <img
-                      className={styles.frameInner}
-                      alt=""
-                      src="/frame-166-1@2x.png"
-                    />
-                    <b className={styles.sophie}>Sophie</b>
-                  </div>
-                  <div className={styles.frameParent13}>
-                    <div className={styles.frameParent14}>
-                      <div className={styles.frameParent15}>
-                        <div className={styles.salesMarketingWrapper}>
-                          <div
-                            className={styles.salesMarketing}
-                          >{`Sales & Marketing`}</div>
-                        </div>
-                        <h2 className={styles.organizeMarketingStrategy}>
-                          Organize Marketing strategy for Monkeys NFTs
-                        </h2>
-                      </div>
-                      <div className={styles.timerParent1}>
-                        <img
-                          className={styles.timerIcon4}
-                          alt=""
-                          src="/timer-4.svg"
-                        />
-                        <div className={styles.d21h58m23s3}>
-                          <span>00</span>
-                          <b>D:</b>
-                          <span>21</span>
-                          <b>H:</b>
-                          <span>58</span>
-                          <b>M:</b>
-                          <span>23</span>
-                          <b>S</b>
-                        </div>
-                      </div>
-                    </div>
-                    <div className={styles.frameParent16}>
-                      <div className={styles.frameParent17}>
-                        <div className={styles.taskSquare1Container}>
-                          <img
-                            className={styles.taskSquare1Icon3}
-                            alt=""
-                            src="/tasksquare-11.svg"
-                          />
-                          <div className={styles.tasksContainer}>
-                            <div className={styles.tasks3}>Tasks:</div>
-                            <div className={styles.parent5}>
-                              <b className={styles.b11}>8</b>
-                              <div className={styles.of3}>of</div>
-                              <b className={styles.b12}>10</b>
-                            </div>
-                          </div>
-                        </div>
-                        <div className={styles.cloudUploadOutline1Container}>
-                          <img
-                            className={styles.cloudUploadOutline1Icon3}
-                            alt=""
-                            src="/clouduploadoutline-11.svg"
-                          />
-                          <div className={styles.filesContainer}>
-                            <div className={styles.files3}>Files:</div>
-                            <div className={styles.frameParent18}>
-                              <div className={styles.parent6}>
-                                <b className={styles.b13}>2</b>
-                                <div className={styles.docs3}>Docs</div>
-                              </div>
-                              <div className={styles.parent7}>
-                                <b className={styles.b14}>5</b>
-                                <div className={styles.links3}>Links</div>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                      <div className={styles.btnChat3}>
-                        <div className={styles.iconChat3}>
-                          <img
-                            className={styles.commentCircleChatMessage1Icon3}
-                            alt=""
-                            src="/commentcirclechatmessage-11.svg"
-                          />
-                          <div className={styles.iconChatChild1} />
-                        </div>
-                        <b className={styles.chat3}>Chat</b>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div className={styles.jobCards4}>
-                  <div className={styles.frameParent19}>
-                    <img
-                      className={styles.frameIcon}
-                      alt=""
-                      src="/frame-165-21@2x.png"
-                    />
-                    <b className={styles.jake}>Jake</b>
-                  </div>
-                  <div className={styles.frameParent20}>
-                    <div className={styles.frameParent21}>
-                      <div className={styles.frameParent22}>
-                        <div className={styles.writingAndTranslationWrapper}>
-                          <div className={styles.writingAndTranslation}>
-                            Writing and Translation
-                          </div>
-                        </div>
-                        <h2 className={styles.organizeMarketingStrategy1}>
-                          Organize Marketing strategy for Monkeys NFTs
-                        </h2>
-                      </div>
-                      <div className={styles.timerParent2}>
-                        <img
-                          className={styles.timerIcon5}
-                          alt=""
-                          src="/timer-4.svg"
-                        />
-                        <div className={styles.d21h58m23s4}>
-                          <span>00</span>
-                          <b>D:</b>
-                          <span>21</span>
-                          <b>H:</b>
-                          <span>58</span>
-                          <b>M:</b>
-                          <span>23</span>
-                          <b>S</b>
-                        </div>
-                      </div>
-                    </div>
-                    <div className={styles.frameParent23}>
-                      <div className={styles.frameParent24}>
-                        <div className={styles.taskSquare1Parent1}>
-                          <img
-                            className={styles.taskSquare1Icon4}
-                            alt=""
-                            src="/tasksquare-11.svg"
-                          />
-                          <div className={styles.tasksParent1}>
-                            <div className={styles.tasks4}>Tasks:</div>
-                            <div className={styles.parent8}>
-                              <b className={styles.b15}>8</b>
-                              <div className={styles.of4}>of</div>
-                              <b className={styles.b16}>10</b>
-                            </div>
-                          </div>
-                        </div>
-                        <div className={styles.cloudUploadOutline1Parent1}>
-                          <img
-                            className={styles.cloudUploadOutline1Icon4}
-                            alt=""
-                            src="/clouduploadoutline-11.svg"
-                          />
-                          <div className={styles.filesParent1}>
-                            <div className={styles.files4}>Files:</div>
-                            <div className={styles.frameParent25}>
-                              <div className={styles.parent9}>
-                                <b className={styles.b17}>2</b>
-                                <div className={styles.docs4}>Docs</div>
-                              </div>
-                              <div className={styles.parent10}>
-                                <b className={styles.b18}>5</b>
-                                <div className={styles.links4}>Links</div>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                      <div className={styles.btnChat4}>
-                        <div className={styles.iconChat4}>
-                          <img
-                            className={styles.commentCircleChatMessage1Icon4}
-                            alt=""
-                            src="/commentcirclechatmessage-11.svg"
-                          />
-                          <div className={styles.iconChatChild2} />
-                        </div>
-                        <b className={styles.chat4}>Chat</b>
-                      </div>
-                    </div>
+                    <button className={styles.btn}>
+                      <b className={styles.viewMoreLabel}>View Offer</b>
+                    </button>
                   </div>
                 </div>
               </div>
