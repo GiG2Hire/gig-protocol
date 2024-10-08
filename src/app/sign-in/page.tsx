@@ -16,11 +16,13 @@ const SignIn = () => {
 
   useEffect(() => {
     const url = window.location.href;
-    const code = url.split("&code=")[1];
+    const code = url.split("?x_verify=")[1];
     if (code == null || code == undefined || code == "") {
       return;
     }
-    performTwitterVerification(code);
+    if (code == "success") {
+      alert("Twitter Verification Successful");
+    }
   }, []);
 
   const closeJoinAsFreelancerModal = () => {

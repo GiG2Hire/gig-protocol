@@ -30,8 +30,8 @@ const JoinFreelancer = ({ closeJoinAsFreelancerModal, className = "" }) => {
     window.location.href = authUrl;
   };
 
-  const xLogin = () => {
-    const redirectURL = "http://localhost:3000/sign-in/";
+  const xLogin = async () => {
+    const redirectURL = "http://localhost:3000/api/auth/twitter/callback/";
     const authURL = `https://twitter.com/i/oauth2/authorize?response_type=code&client_id=${process.env.NEXT_PUBLIC_X_CLIENT_ID}&redirect_uri=${redirectURL}&scope=tweet.read%20users.read%20follows.read&state=state&code_challenge=challenge&code_challenge_method=plain`;
     window.location.href = authURL;
   };

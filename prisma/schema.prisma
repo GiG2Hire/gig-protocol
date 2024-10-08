@@ -45,6 +45,7 @@ model gig {
   category             Int?       @map("category")
   title                String?
   updated_at           DateTime?  @db.Timestamptz(6)
+  freelancersCount    Int?        @map("freelancers_count")
   user                 user       @relation(fields: [clientId], references: [userId], onDelete: NoAction, onUpdate: NoAction)
   gig_file             GigFile[]
   gig_offer            gigOffer[]
