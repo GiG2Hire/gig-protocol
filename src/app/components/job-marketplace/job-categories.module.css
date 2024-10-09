@@ -14,8 +14,16 @@
   flex-direction: row;
   align-items: center;
   justify-content: flex-start;
-  padding: var(--padding-5xs) var(--padding-76xl) var(--padding-5xs) var(--padding-base);
+  padding: var(--padding-5xs) var(--padding-76xl) var(--padding-5xs)
+    var(--padding-base);
   gap: var(--gap-5xs);
+  border: 1px solid var(--navy-600);
+  color: var(--navy-600);
+  cursor: pointer;
+}
+
+.activeBtnDevit {
+  background-color: var(--navy-bk);
 }
 
 .designServicesIcon {
@@ -34,7 +42,8 @@
   flex-direction: row;
   align-items: center;
   justify-content: flex-start;
-  padding: var(--padding-5xs) var(--padding-66xl) var(--padding-5xs) var(--padding-base);
+  padding: var(--padding-5xs) var(--padding-66xl) var(--padding-5xs)
+    var(--padding-base);
   gap: var(--gap-5xs);
 }
 
@@ -56,7 +65,8 @@
   flex-direction: row;
   align-items: center;
   justify-content: flex-start;
-  padding: var(--padding-5xs) var(--padding-125xl) var(--padding-5xs) var(--padding-base);
+  padding: var(--padding-5xs) var(--padding-125xl) var(--padding-5xs)
+    var(--padding-base);
   gap: var(--gap-5xs);
 }
 
@@ -76,7 +86,8 @@
   flex-direction: row;
   align-items: center;
   justify-content: flex-start;
-  padding: var(--padding-5xs) var(--padding-66xl) var(--padding-5xs) var(--padding-base);
+  padding: var(--padding-5xs) var(--padding-66xl) var(--padding-5xs)
+    var(--padding-base);
   gap: var(--gap-5xs);
 }
 
@@ -120,15 +131,18 @@
 .btnLanguages {
   flex-direction: row;
   align-items: center;
-  padding: var(--padding-5xs) var(--padding-27xl) var(--padding-5xs) var(--padding-base);
+  padding: var(--padding-5xs) var(--padding-27xl) var(--padding-5xs)
+    var(--padding-base);
   gap: var(--gap-5xs);
 }
 
 .categoryButtons {
-  flex-direction: column;
+  flex-direction: row;
+  flex-wrap: wrap;
   align-items: flex-start;
   gap: var(--gap-base);
   min-width: 300px;
+  margin-bottom: 30px;
 }
 
 .hAgo,
@@ -680,7 +694,8 @@
   flex-direction: row;
   align-items: center;
   justify-content: flex-start;
-  padding: var(--padding-11xs) var(--padding-2xs) var(--padding-11xs) var(--padding-5xs);
+  padding: var(--padding-11xs) var(--padding-2xs) var(--padding-11xs)
+    var(--padding-5xs);
   gap: var(--gap-9xs);
 }
 
@@ -878,7 +893,6 @@
 }
 
 @media screen and (max-width: 975px) {
-
   .frameParent,
   .frameParent5 {
     flex-wrap: wrap;
@@ -886,7 +900,6 @@
 }
 
 @media screen and (max-width: 725px) {
-
   .frameDiv,
   .frameParent1,
   .frameParent2,
@@ -909,7 +922,6 @@
 }
 
 @media screen and (max-width: 450px) {
-
   .btnAi,
   .btnDesign,
   .btnDevit,
