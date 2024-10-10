@@ -14,16 +14,22 @@ const SignIn = () => {
   const [showJoinAsClientModal, setShowJoinAsClientModal] =
     useState<boolean>(false);
 
-  useEffect(() => {
-    const url = window.location.href;
-    const code = url.split("?x_verify=")[1];
-    if (code == null || code == undefined || code == "") {
-      return;
-    }
-    if (code == "success") {
-      alert("Twitter Verification Successful");
-    }
-  }, []);
+    useEffect(() => {
+      const url = window.location.href;
+      // Twitter Verification Check
+      const twitterCode = url.split("?x_verify=")[1];
+      if (twitterCode === "success") {
+        alert("Twitter Verification Successful");
+      }
+  
+      // GitHub Verification Check
+      const githubCode = url.split("?github_verify=")[1];
+      if (githubCode === "success") {
+        alert("GitHub Verification Successful");
+      } else if (githubCode === "failure") {
+        alert("GitHub Verification Failed");
+      }
+    }, []);
 
   const closeJoinAsFreelancerModal = () => {
     setShowJoinAsFreelancerModal(false);
