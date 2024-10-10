@@ -11,6 +11,7 @@ import {
   walletConnect,
 } from "thirdweb/wallets";
 import {
+  getRoleFromPayload,
   generatePayload,
   isLoggedIn,
   login,
@@ -37,12 +38,16 @@ export type NavbarSpacerType = {
 
 const NavbarSpacer: NextPage<NavbarSpacerType> = ({ className = "" }) => {
   const router = useRouter();
-  let [role, setRole] = useState<string>("");
-  let [userId, setUserId] = useState<number>(-1);
+  //let [role, setRole] = useState<string>("");
+  //let [userId, setUserId] = useState<number>(-1);
   const [activeLink, setActiveLink] = useState<string>("");
 
-  const handleLinkClick = (link: string) => {
-    // TODO: Add payload check if user client or freelancer
+  const handleLinkClick = async (link: string) => {
+    if (link == "dashboard") {
+      const role = await getRoleFromPayload();
+      console.log(role);
+      link = `/${role.toLowerCase()}-dashboard`;
+    }
     setActiveLink(link);
     router.push(link);
   };
@@ -143,7 +148,7 @@ const NavbarSpacer: NextPage<NavbarSpacerType> = ({ className = "" }) => {
                 <div className={styles.navText5}>
                   <a
                     className={`${styles.text2} ${isDashboardActive() ? styles.active : ''}`}
-                    onClick={() => handleLinkClick('/freelancer-dashboard')}
+                    onClick={() => handleLinkClick('dashboard')}
                   >
                     Dashboard
                   </a>
