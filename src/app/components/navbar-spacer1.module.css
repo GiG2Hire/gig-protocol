@@ -1,3 +1,23 @@
+.text2 {
+  position: relative;
+  text-decoration: none;
+}
+
+.active {
+  font-weight: bold;
+}
+
+.active::after {
+  content: '';
+  display: block;
+  height: 2px;
+  background: #212020c2;
+  width: 100%;
+  position: absolute;
+  left: 0;
+  bottom: -2px;
+}
+
 .vectorIcon {
   position: absolute;
   height: 100%;
@@ -10,6 +30,7 @@
   overflow: hidden;
   max-height: 100%;
 }
+
 .groupIcon,
 .vectorIcon1,
 .vectorIcon2 {
@@ -20,22 +41,27 @@
   height: 41.6px;
   z-index: 1;
 }
+
 .groupIcon,
 .vectorIcon2 {
   left: 74px;
 }
+
 .groupIcon {
   left: 48.3px;
   width: 20.8px;
 }
+
 .group,
 .text {
   position: relative;
 }
+
 .group {
   height: 45px;
   width: 117.3px;
 }
+
 .text {
   text-decoration: none;
   font-weight: 700;
@@ -44,6 +70,7 @@
   min-width: 98px;
   white-space: nowrap;
 }
+
 .navText1 {
   display: flex;
   flex-direction: row;
@@ -62,6 +89,7 @@
   display: none;
   z-index: 2;
 }
+
 .navText {
   flex: 1;
   display: flex;
@@ -69,6 +97,7 @@
   align-items: center;
   justify-content: flex-start;
 }
+
 .text1 {
   text-decoration: none;
   position: relative;
@@ -77,6 +106,7 @@
   display: inline-block;
   min-width: 49px;
 }
+
 .navText3 {
   display: flex;
   flex-direction: row;
@@ -84,6 +114,7 @@
   justify-content: center;
   padding: 0 var(--padding-9xs);
 }
+
 .hlColor1 {
   align-self: stretch;
   height: 10px;
@@ -94,12 +125,14 @@
   display: none;
   z-index: 2;
 }
+
 .navText2 {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
 }
+
 .text2 {
   text-decoration: none;
   position: relative;
@@ -108,6 +141,7 @@
   display: inline-block;
   min-width: 89px;
 }
+
 .navText5 {
   display: flex;
   flex-direction: row;
@@ -115,6 +149,7 @@
   justify-content: center;
   padding: 0 var(--padding-9xs);
 }
+
 .hlColor2 {
   width: 80px;
   height: 10px;
@@ -125,6 +160,7 @@
   display: none;
   z-index: 2;
 }
+
 .navText4 {
   flex: 1;
   display: flex;
@@ -132,11 +168,13 @@
   align-items: center;
   justify-content: flex-start;
 }
+
 .navTextParent {
   align-self: stretch;
   flex-direction: row;
-  gap: var(--gap-5xl);
+  gap: 13.5px;
 }
+
 .navTextParent,
 .navbarContainer,
 .navbarContainerInner {
@@ -144,28 +182,33 @@
   align-items: flex-start;
   justify-content: flex-start;
 }
+
 .navbarContainerInner {
   flex: 1;
   flex-direction: column;
   padding: var(--padding-2xs-5) 0 0;
 }
+
 .navbarContainer {
   width: 449.3px;
   flex-direction: row;
   gap: var(--gap-5xl);
   max-width: 100%;
 }
+
 .notificationsIcon {
   height: 24px;
   width: 24px;
   position: relative;
 }
+
 .notificationCount {
   position: relative;
   font-weight: 700;
   display: inline-block;
   min-width: 8px;
 }
+
 .notificationBadge {
   background-color: var(--red-light);
   display: flex;
@@ -176,6 +219,7 @@
   z-index: 1;
   margin-left: -10px;
 }
+
 .notifications {
   width: 32px;
   border-right: 1px solid var(--navy-medium-40a);
@@ -186,22 +230,26 @@
   justify-content: flex-start;
   padding: 0 var(--padding-6xs) 0 0;
 }
+
 .buidlerlens,
 .uSD,
 .usdc {
   position: relative;
   display: inline-block;
 }
+
 .buidlerlens {
   font-weight: 700;
   min-width: 89px;
 }
+
 .uSD,
 .usdc {
   text-decoration: none;
   color: inherit;
   min-width: 20px;
 }
+
 .uSDCBalance {
   display: flex;
   flex-direction: row;
@@ -211,6 +259,7 @@
   font-size: var(--font-size-5xs);
   color: var(--navy-medium-bk);
 }
+
 .userBalanceContainer {
   display: flex;
   flex-direction: column;
@@ -219,6 +268,7 @@
   font-size: var(--font-size-xs);
   color: var(--midnight-medium);
 }
+
 .notificationsContainerChild {
   height: 32px;
   width: 32px;
@@ -228,6 +278,7 @@
   object-fit: contain;
   min-height: 32px;
 }
+
 .notificationsContainer {
   background-color: var(--yellow-bk);
   display: flex;
@@ -237,6 +288,7 @@
   padding: var(--padding-9xs);
   gap: var(--gap-5xs);
 }
+
 .rightNavbarItems {
   display: flex;
   flex-direction: column;
@@ -246,6 +298,7 @@
   font-size: var(--font-size-7xs);
   color: var(--yellow-bk);
 }
+
 .navbar,
 .navbarSpacer {
   display: flex;
@@ -253,6 +306,7 @@
   align-items: flex-start;
   max-width: 100%;
 }
+
 .navbar {
   flex: 1;
   backdrop-filter: blur(50px);
@@ -263,6 +317,7 @@
   gap: var(--gap-xl);
   z-index: 1;
 }
+
 .navbarSpacer {
   align-self: stretch;
   overflow: hidden;
@@ -272,6 +327,7 @@
   color: var(--midnight-bold);
   font-family: var(--font-space-mono);
 }
+
 @media screen and (max-width: 725px) {
   .uSDCBalance {
     display: none;

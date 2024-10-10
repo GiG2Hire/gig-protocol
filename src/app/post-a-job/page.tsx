@@ -310,11 +310,10 @@ const PostAJob = () => {
                   {jobCategories.map((category) => (
                     <div
                       key={category.id}
-                      className={`${styles.btnDevit} ${
-                        activeJobCategory === category.id
-                          ? styles.activeBtnDevit
-                          : ""
-                      }`}
+                      className={`${styles.btnDevit} ${activeJobCategory === category.id
+                        ? styles.activeBtnDevit
+                        : ""
+                        }`}
                       onClick={() => {
                         setActiveJobCategory(category.id);
                       }}
@@ -662,6 +661,7 @@ const PostAJob = () => {
                       type="number"
                       name="budget"
                       value={projectBudget}
+                      min="0"
                       onChange={(e) => setProjectBudget(Number(e.target.value))}
                     />
                     <button
@@ -684,6 +684,7 @@ const PostAJob = () => {
                 gigDescription={gigDescription}
                 tasks={tasks}
                 deliveryDate={deliveryDate}
+                budget={projectBudget}
               />
             </div>
           </form>
