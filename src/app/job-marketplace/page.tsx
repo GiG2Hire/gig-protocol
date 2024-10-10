@@ -1,21 +1,20 @@
+"use client";
 import type { NextPage } from "next";
 import NavbarSpacer from "@/src/app/components/navbar-spacer1";
-import JobCategories from "@/src/app/components/job-categories";
 import Footer from "@/src/app/components/footer1";
 import styles from "./job-marketplace.module.css";
 import { getActiveProposals } from "../actions/read-gigs";
+import JobCategories from "@/src/app/components/job-marketplace/job-categories";
+import JobList from "../components/job-marketplace/job-list";
+import { useState } from "react";
 
-const INITIAL_PROPOSALS_AMOUNT = 10;
+const JobMarketplace: NextPage = () => {
+  const [selectedCategory, setSelectedCategory] = useState<number>(1001);
 
-const JobMarketplace: NextPage = async () => {
-  const initialData = await getActiveProposals(0, INITIAL_PROPOSALS_AMOUNT); // fetch latest 10 proposals
-
-  // const [selectedCategory, setSelectedCategory] = useState(0);
-  // const categories = [];
-
-  // const changeCategory = (category: number) => {
-  //   setSelectedCategory(category);
-  // };
+  const changeCategory = (category: number) => {
+    console.log(category);
+    setSelectedCategory(category);
+  };
 
   return (
     <div className={styles.jobMarketplace}>
@@ -29,14 +28,13 @@ const JobMarketplace: NextPage = async () => {
               Work with no fees, as it must.
             </h1>
           </div>
-          <JobCategories initialData={initialData} />
-          {/* <div className={styles.jobCategories}>
+          <div className={styles.jobCategories}>
             <JobCategories
               selectedCategory={selectedCategory}
               changeCategory={changeCategory}
             />
             <JobList selectedCategory={selectedCategory} />
-          </div> */}
+          </div>
         </section>
       </main>
       <Footer />
