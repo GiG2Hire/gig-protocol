@@ -55,14 +55,10 @@ export async function GET(req: NextRequest) {
     }
 
     // Return the list of offers
-<<<<<<< HEAD
     return NextResponse.json(JSON.stringify(offers, (key, value) =>
       typeof value === 'bigint'
         ? value.toString()
         : value), { status: 200 });
-=======
-    return NextResponse.json(offers, { status: 200 });
->>>>>>> 8a655d067d339f5ef7a6fb0df977f47867de7cc6
 
   } catch (error) {
     console.error("Error fetching gig offers:", error);
