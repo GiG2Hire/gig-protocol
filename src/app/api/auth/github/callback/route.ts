@@ -13,6 +13,7 @@ export async function GET(req: Request) {
   console.log("Received callback from GitHub");
   const { searchParams } = new URL(req.url);
   const code = searchParams.get("code");
+  let status = 'failure'
 
   if (!code) {
     console.log("Error: No code provided.");
@@ -43,7 +44,7 @@ export async function GET(req: Request) {
 
     if (!accessToken) {
       console.log("Error: No access token received.");
-      redirect("/sign-in?github_verify=failure");
+      redirect(`/sign-in?github_verify=${status}`);
       return;
     }
 
@@ -95,11 +96,13 @@ export async function GET(req: Request) {
         githubCommits: totalCommits,
       },
     });
-
+    
+    status = 'success'
     console.log("GitHub Verification completed successfully!");
-    return NextResponse.redirect(new URL('/sign-in?github_verify=success', req.url));
   } catch (error) {
     console.error("Error during GitHub verification:", error);
-    redirect("/sign-in?github_verify=failure");
+    status = 'failure'
+    redirect(`/sign-in?github_verify=${status}`);
   }
+  redirect(`/sign-in?github_verify=${status}`);
 }
