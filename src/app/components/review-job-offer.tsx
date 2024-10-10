@@ -7,6 +7,7 @@ const ReviewJobOffer = ({
   gigDescription,
   tasks,
   deliveryDate,
+  budget,
   className = "",
 }) => {
   // Function to chunk the tasks array into arrays of 5
@@ -173,7 +174,7 @@ const ReviewJobOffer = ({
                   src="/usdc-simplified-1.svg"
                 />
               </div>
-              <b className={styles.amount}>250</b>
+              <b className={styles.amount}>{budget}</b>
               <div className={styles.usdc}>USDC</div>
             </div>
           </div>
