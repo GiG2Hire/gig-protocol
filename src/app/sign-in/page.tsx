@@ -5,7 +5,6 @@ import styles from "./sign-in.module.css";
 import JoinFreelancer from "../components/join/join-freelancer";
 import { useEffect, useState } from "react";
 import JoinClient from "../components/join/join-client";
-import performTwitterVerification from "../actions/verify-twitter";
 
 const SignIn = () => {
   const [showJoinAsFreelancerModal, setShowJoinAsFreelancerModal] =
