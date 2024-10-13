@@ -1,9 +1,7 @@
 import type { NextPage } from "next";
 import { useCallback, useEffect } from "react";
-import { useRouter } from "next/navigation";
 import styles from "./freelancer-dashboard.module.css";
 import { useActiveAccount } from "thirdweb/react";
-import performTwitterVerification from "../actions/verify-twitter";
 import { getTime } from "@/src/utils/getCurrTime";
 import JobCard from "../components/job-card";
 import { getUserIdFromPayload, isLoggedIn } from "../actions/login";
@@ -542,10 +540,7 @@ const FreelancerDashboard = async () => {
                                 </div>
                               </div>
                             </div>
-                            <div
-                              className={styles.btnChat}
-                              // onClick={onBtnChatContainerClick}
-                            >
+                            <div className={styles.btnChat}>
                               <div className={styles.iconChat}>
                                 <img
                                   className={

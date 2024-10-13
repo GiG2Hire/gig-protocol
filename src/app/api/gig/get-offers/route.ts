@@ -18,11 +18,11 @@ export async function GET(req: NextRequest) {
     const gig_id = parseInt(searchParams.get("gig_id") || "0");
     const clientId = await getUserIdFromPayload();
 
-    if (!await isLoggedIn()) {
+    if (!(await isLoggedIn())) {
       return NextResponse.json(
         { message: "User not authenticated." },
         { status: 401 }
-      )
+      );
     }
 
     // Validate gig_id
@@ -38,14 +38,6 @@ export async function GET(req: NextRequest) {
       where: { gigId: gig_id },
     });
 
-    // check if client have access to offers
-    if (offers[0].clientId != clientId) {
-      return NextResponse.json(
-        { message: "User don't have access to data." },
-        { status: 401 }
-      )
-    }
-
     // Check if there are any offers
     if (!offers.length) {
       return NextResponse.json(
@@ -54,12 +46,16 @@ export async function GET(req: NextRequest) {
       );
     }
 
-    // Return the list of offers
-    return NextResponse.json(JSON.stringify(offers, (key, value) =>
-      typeof value === 'bigint'
-        ? value.toString()
-        : value), { status: 200 });
+    // check if client have access to offers
+    if (offers[0].clientId != clientId) {
+      return NextResponse.json(
+        { message: "User don't have access to data." },
+        { status: 401 }
+      );
+    }
 
+    // Return the list of offers
+    return NextResponse.json(offers, { status: 200 });
   } catch (error) {
     console.error("Error fetching gig offers:", error);
     return NextResponse.json(
