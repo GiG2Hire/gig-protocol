@@ -40,47 +40,6 @@ const NavbarSpacer: NextPage<NavbarSpacerType> = ({ className = "" }) => {
   let [role, setRole] = useState<string>("");
   let [userId, setUserId] = useState<number>(-1);
 
-  // /**
-  //  * @notice executed as soon as wallet is connected and before JWT token is generated
-  //  * @notice The dApp gets user Id or creates a new user in database
-  //  * @param wallet connect user wallet
-  //  */
-  // async function getOrCreateUserInDatabase(wallet: Wallet) {
-  //   console.log("Trying to check if user already exists in database...");
-  //   const address = wallet.getAccount()?.address;
-  //   let existingUserResponse: Response = await fetch(
-  //     `/api/user/detail?address=${address}`
-  //   );
-  //   console.log("Exisitng user:", existingUserResponse);
-  //   if (existingUserResponse.status == 200) {
-  //     let existingUser: User = await existingUserResponse.json();
-  //     console.log("------------------------", existingUser);
-  //     if (existingUser.user_id) {
-  //       console.log("Existing User Found!!");
-  //       setUserId(existingUser.user_id);
-  //       setRole(existingUser.role);
-  //     }
-  //     console.log("Set up done as exisitng useer!!");
-  //   } else {
-  //     console.log("New User needs to be created. Creating new user...");
-  //     const options = {
-  //       method: "POST",
-  //       headers: {
-  //         Accept: "application/json",
-  //         "Content-Type": "application/json;charset=UTF-8",
-  //       },
-  //       body: JSON.stringify({
-  //         address: address,
-  //       }),
-  //     };
-  //     let newUserResponse = await fetch("/api/user", options);
-  //     let newUser = await newUserResponse.json();
-  //     console.log(newUser);
-  //     setUserId(newUser.user_id);
-  //     setRole(newUser.role);
-  //   }
-  // }
-
   return (
     <header className={[styles.navbarSpacer, className].join(" ")}>
       <div className={styles.navbar}>
