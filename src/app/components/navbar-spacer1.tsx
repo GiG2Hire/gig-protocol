@@ -11,6 +11,7 @@ import {
   walletConnect,
 } from "thirdweb/wallets";
 import {
+  getRoleFromPayload,
   generatePayload,
   isLoggedIn,
   login,
@@ -37,8 +38,23 @@ export type NavbarSpacerType = {
 
 const NavbarSpacer: NextPage<NavbarSpacerType> = ({ className = "" }) => {
   const router = useRouter();
-  let [role, setRole] = useState<string>("");
-  let [userId, setUserId] = useState<number>(-1);
+  //let [role, setRole] = useState<string>("");
+  //let [userId, setUserId] = useState<number>(-1);
+  const [activeLink, setActiveLink] = useState<string>("");
+
+  const handleLinkClick = async (link: string) => {
+    if (link == "dashboard") {
+      const role = await getRoleFromPayload();
+      console.log(role);
+      link = `/${role.toLowerCase()}-dashboard`;
+    }
+    setActiveLink(link);
+    router.push(link);
+  };
+
+  const isDashboardActive = () => {
+    return activeLink === '/freelancer-dashboard' || activeLink === '/client-dashboard';
+  };
 
   return (
     <header className={[styles.navbarSpacer, className].join(" ")}>
@@ -69,7 +85,10 @@ const NavbarSpacer: NextPage<NavbarSpacerType> = ({ className = "" }) => {
             <div className={styles.navTextParent}>
               <div className={styles.navText}>
                 <div className={styles.navText1}>
-                  <a className={styles.text} href="/post-a-job">
+                  <a
+                    className={`${styles.text} ${activeLink === "/post-a-job" ? styles.active : ''}`}
+                    onClick={() => handleLinkClick('/post-a-job')}
+                  >
                     Create a Gig
                   </a>
                 </div>
@@ -77,13 +96,21 @@ const NavbarSpacer: NextPage<NavbarSpacerType> = ({ className = "" }) => {
               </div>
               <div className={styles.navText2}>
                 <div className={styles.navText3}>
-                  <a className={styles.text1}>Teams</a>
+                  <a className={`${styles.text1} ${activeLink === "/job-marketplace" ? styles.active : ''}`}
+                    onClick={() => handleLinkClick('/job-marketplace')}>
+                    Market
+                  </a>
                 </div>
                 <div className={styles.hlColor1} />
               </div>
               <div className={styles.navText4}>
                 <div className={styles.navText5}>
-                  <a className={styles.text2}>Dashboard</a>
+                  <a
+                    className={`${styles.text2} ${isDashboardActive() ? styles.active : ''}`}
+                    onClick={() => handleLinkClick('dashboard')}
+                  >
+                    Dashboard
+                  </a>
                 </div>
                 <div className={styles.hlColor2} />
               </div>
