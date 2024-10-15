@@ -1,0 +1,67 @@
+.jobTitle {
+    margin: 0;
+    align-self: stretch;
+    position: relative;
+    font-size: var(--font-size-xl);
+    font-weight: 700;
+    font-family: inherit;
+    color: var(--midnight-bold);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.cardOneTime {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+}
+
+.cardOneTime {
+    border: 1px solid var(--red-medium);
+    overflow: hidden;
+    align-items: center;
+    padding: var(--padding-10xs) var(--padding-6xs);
+    gap: var(--gap-5xs);
+    text-align: right;
+    color: var(--red-medium);
+}
+
+.timerIcon1 {
+    height: 16px;
+    width: 16px;
+    position: relative;
+}
+
+.dateTime {
+    width: 111px;
+    position: relative;
+    display: inline-block;
+    white-space: nowrap;
+}
+
+.cardOneProgress {
+    display: flex;
+    flex-direction: row;
+}
+
+.cardOneProgress {
+    align-self: stretch;
+    align-items: flex-end;
+    justify-content: space-between;
+    max-width: 100%;
+    gap: var(--gap-xl);
+    color: var(--midnight-bold);
+}
+
+.cardOneTaskIcons {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    gap: var(--gap-5xs);
+}
+
+.cardOneTaskIcons {
+    align-items: flex-end;
+    max-width: 100%;
+}

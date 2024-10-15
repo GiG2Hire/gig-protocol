@@ -7,7 +7,7 @@ import { FREELANCER, STATUS_200 } from "@/src/constants/appConstants";
 import { useActiveAccount } from "thirdweb/react";
 import { useRouter } from "next/navigation";
 import { JoinAsFreelancer } from "../../actions/join-user";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 export type JoinFreelancerType = {
   className?: string;
@@ -22,15 +22,16 @@ const JoinFreelancer = ({ closeJoinAsFreelancerModal, className = "" }) => {
   );
 
   // Handle login with github
-  const githubLogin = () => {
-    const clientId = "Ov23liyKADrsIpbypKkj"; // Replace with your actual Client ID
-    const redirectUri = "http://localhost:3000/job-marketplace/"; // Replace with your callback URL
-    const authUrl = `https://github.com/login/oauth/authorize?client_id=${clientId}&redirect_uri=${redirectUri}`;
+  const githubLogin = async () => {
+    const clientId = process.env.NEXT_PUBLIC_GITHUB_CLIENT_ID; // Replace with your actual Client ID
+    console.log(clientId)
+    const redirectUri = "http://localhost:3000/api/auth/github/callback/"; // Replace with your callback URL
+    const authUrl = `https://github.com/login/oauth/authorize?client_id=${process.env.NEXT_PUBLIC_GITHUB_CLIENT_ID}&redirect_uri=${redirectUri}`;
     window.location.href = authUrl;
   };
 
-  const xLogin = () => {
-    const redirectURL = "http://localhost:3000/freelancer-dashboard/";
+  const xLogin = async () => {
+    const redirectURL = "http://localhost:3000/api/auth/twitter/callback/";
     const authURL = `https://twitter.com/i/oauth2/authorize?response_type=code&client_id=${process.env.NEXT_PUBLIC_X_CLIENT_ID}&redirect_uri=${redirectURL}&scope=tweet.read%20users.read%20follows.read&state=state&code_challenge=challenge&code_challenge_method=plain`;
     window.location.href = authURL;
   };

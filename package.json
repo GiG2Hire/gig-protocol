@@ -16,7 +16,8 @@
     "@google/generative-ai": "^0.16.0",
     "@prisma/client": "^5.19.1",
     "@supabase/supabase-js": "^2.44.3",
-    "ethers": "^6.13.2",
+    "@thirdweb-dev/sdk": "^4.0.99",
+    "ethers": "^5.7.2",
     "google-auth-library": "^9.11.0",
     "next": "^14.2.5",
     "pino": "^9.3.2",
@@ -32,13 +33,13 @@
     "web3": "^4.11.1"
   },
   "devDependencies": {
-    "@types/node": "20.14.9",
+    "@types/node": "^20.14.9",
     "@types/react": "18.3.3",
     "@types/uuid": "^10.0.0",
     "autoprefixer": "^10.4.19",
     "prisma": "^5.19.1",
     "tailwindcss": "^3.4.4",
     "ts-node": "^10.9.2",
-    "typescript": "^5.5.3"
+    "typescript": "^5.6.2"
   }
 }

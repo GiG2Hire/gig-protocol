@@ -36,7 +36,7 @@ model gig {
   clientId             Int        @map("client_id")
   freelancerId         Int?       @map("freelancer_id")
   description          String     @map("description")
-  gig_budget           Float
+  gigBudget            Float      @map("gig_budget")
   startDate            DateTime?  @map("start_date") @db.Timestamp(6)
   endDate              DateTime?  @map("end_date") @db.Timestamp(6)
   createdAt            DateTime   @default(now()) @map("created_at") @db.Timestamptz(6)
@@ -45,6 +45,9 @@ model gig {
   category             Int?       @map("category")
   title                String?
   updated_at           DateTime?  @db.Timestamptz(6)
+  freelancersCount     Int?       @map("freelancers_count")
+  user                 user       @relation(fields: [clientId], references: [userId], onDelete: NoAction, onUpdate: NoAction)
+  gig_file             GigFile[]
   gig_offer            gigOffer[]
   gig_task             gigTask[]
 }
@@ -61,8 +64,9 @@ model user {
   email         String?   @unique
   description   String?
   updated_at    DateTime? @db.Timestamptz(6)
-  profile_image String?
+  profileImage  String?   @map("profile_image")
   organization  String?
+  gig           gig[]
 }
 
 model gigTask {
@@ -79,7 +83,7 @@ model gigTask {
 
 /// This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
 model dispute {
-  dispute_id  Int       @id @default(autoincrement())
+  dispute_id  Int    @id @default(autoincrement())
   gig_id      Int?
   plaintiff   Int?
   defendant   Int?
@@ -94,7 +98,7 @@ model dispute {
 
 /// This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
 model dispute_evidence {
-  id           Int       @id @default(autoincrement())
+  id           Int    @id @default(autoincrement())
   dispute_id   Int?
   url          Int?
   submitted_by Int?
@@ -104,7 +108,7 @@ model dispute_evidence {
 
 /// This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
 model dispute_verdict {
-  verdict_id             Int       @id @default(autoincrement())
+  verdict_id             Int    @id @default(autoincrement())
   dispute_id             Int?
   extended_delivery_days Int?
   freelancer_split       Int?
@@ -126,6 +130,7 @@ model GigFile {
   createdAt  DateTime? @map("created_at") @db.Timestamptz(6)
   updatedAt  DateTime? @map("updated_at") @db.Timestamptz(6)
   size       Int?      @map("size")
+  gig        gig       @relation(fields: [gigId], references: [gigId], onDelete: NoAction, onUpdate: NoAction)
 
   @@map("gig_file")
 }

@@ -45,3 +45,31 @@ export const WEEK_DAYS: string[] = [
   "Friday",
   "Saturday",
 ];
+
+export const JOB_CATEGORIES = {
+  1001: "Development & IT",
+  1002: "Design & Creative",
+  1003: "AI services",
+  1004: "Sales & Marketing",
+  1005: "Admin & Customer Support",
+  1006: "Writing & Translation",
+};
+
+export const JOB_CATEGORIES_INFO = [
+  { id: 1001, imgSrc: "/developer-mode-tv.svg", text: "Development & IT" },
+  { id: 1002, imgSrc: "/design-services.svg", text: "Design & Creative" },
+  { id: 1003, imgSrc: "/psychology.svg", text: "AI services" },
+  { id: 1004, imgSrc: "/store.svg", text: "Sales & Marketing" },
+  {
+    id: 1005,
+    imgSrc: "/support-agent.svg",
+    text: "Admin & Customer Support",
+  },
+  { id: 1006, imgSrc: "/translate.svg", text: "Writing & Translation" },
+];
+
+export const enum GIG_OFFER_STATUS {
+  PENDING = "PENDING",
+  ACCEPTED = "ACCEPTED",
+  REJECTED = "REJECTED",
+}
