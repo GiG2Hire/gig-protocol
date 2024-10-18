@@ -8,15 +8,12 @@ export type FrameComponent9Type = {
 
 const FrameComponent9: NextPage<FrameComponent9Type> = ({ className = "" }) => {
   const router = useRouter();
-  const handleClick = () => {
-    router.push('/join-freelancer');
-    };
-    const handleClick1 = () => {
-      router.push('/join-client');
-    };
-    
+  const handleClickJoin = () => {
+    router.push('/sign-in');
+  };
+
   return (
-    <div  className={[styles.heroWrapper, className,styles.spaces].join(" ")}>
+    <div className={[styles.heroWrapper, className, styles.spaces].join(" ")}>
       <div className={styles.hero} data-scroll-to="heroContainer">
         <div className={styles.frameParent}>
           <div className={styles.frameGroup}>
@@ -37,10 +34,10 @@ const FrameComponent9: NextPage<FrameComponent9Type> = ({ className = "" }) => {
           <div className={styles.beAnEarlyBirdParent}>
             <b className={styles.beAnEarly}>Be an early bird</b>
             <div className={styles.btnShadowParent}>
-              <button onClick={handleClick} className={styles.btnShadow}>
+              <button onClick={handleClickJoin} className={styles.btnShadow}>
                 <b className={styles.text}>Freelancer</b>
               </button>
-              <button onClick={handleClick1} className={styles.btnShadow1}>
+              <button onClick={handleClickJoin} className={styles.btnShadow1}>
                 <b className={styles.text1}>Client</b>
               </button>
             </div>

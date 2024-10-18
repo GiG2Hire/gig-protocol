@@ -72,7 +72,7 @@ export async function POST(req: Request) {
     console.log(newOffer)
 
     // Return a success response
-    return NextResponse.json({ message: "Gig offer submitted successfully"}, { status: 201 });
+    return NextResponse.json({ message: "Gig offer submitted successfully" }, { status: 201 });
 
   } catch (error) {
     console.error("Error applying for the gig: ", error);
