@@ -1,186 +1,157 @@
-import type { NextPage } from "next";
+import { FunctionComponent } from "react";
 import styles from "./comp-joboffer.module.css";
+import Frametask from "./Frametask";
+import usdcLogo from "./usdc-logo.png";
+import personHandLogo from "./iconperson-raised.svg";
+import groupLogo from "./icongroup.svg";
+import eventListLogo from "./iconevent.svg";
+import calendarLogo from "./iconcalendar.svg";
+import arrowUp from "./arrow-up.svg";
 
-export type CompJobofferType = {
-    title: string;
-    description: string;
-    freelancerCount: number;
-    budget: number;
-    deadlinePeriod: string;
-    timeCreation: number;
-    tasks: string[];
-    jobCategory: string;
+export type CompjobofferVType = {
     className?: string;
 };
 
-const CompJoboffer: NextPage<CompJobofferType> = ({
-    title,
-    description,
-    freelancerCount,
-    budget,
-    deadlinePeriod,
-    timeCreation,
-    tasks,
-    jobCategory,
-    className = ""
+const CompjobofferV: FunctionComponent<CompjobofferVType> = ({
+    className = "",
 }) => {
     return (
-        <div className={[styles.compJoboffer, className].join(" ")}>
-            <div className={styles.jobListingContainers}>
-                <div className={styles.jobListingContent}>
-                    <div className={styles.jobListingDetails}>
-                        <b className={styles.mobileAppDesign}>
-                            {title}
-                        </b>
-                        <div className={styles.jobListingMetadata}>
-                            <div className={styles.posted}>Posted</div>
-                            <b className={styles.hAgo}>{timeCreation}</b>
+        <div className={[styles.compjobofferV2, className].join(" ")}>
+            <section className={styles.contentParent}>
+                <div className={styles.content}>
+                    <div className={styles.jobInfoParent}>
+                        <div className={styles.jobInfo}>
+                            <a className={styles.posted}>Posted</a>
+                            <a className={styles.timePosted}>6h ago</a>
+                            <a className={styles.by}>by</a>
+                            <a className={styles.timePosted}>Andriy</a>
                         </div>
+                        <h2 className={styles.offerTitle}>
+                            Mobile App Design - UI/UX Specialist
+                        </h2>
                     </div>
-                    <p className={styles.lookingForAnContainer}>
-                        <span className={styles.lookingForAn}>
-                            {description}
-                        </span>
-                        <span className={styles.blankLine}>&nbsp;</span>
-                        {/* <span className={styles.youMustHave}>
-              You must have created similar projects in the past to be
-              considered.  when replying to this post please confirm that you
-              are available on a full-time basis for this project.  We are
-              looking for talented individuals to join our growing team.
-            </span> */}
-                    </p>
+                    <div className={styles.description}>
+                        <p className={styles.lookingForAn}>
+                            Looking for an experienced UX/UI designer to design a stunning
+                            e-Commerce platform.  This platform will be designed as a PWA app
+                            meaning it will render on regular desktops as well as smart
+                            devices (phones/tablets).
+                        </p>
+                        <p className={styles.lookingForAn}>&nbsp;</p>
+                        <p className={styles.lookingForAn}>
+                            You must have created similar projects in the past to be
+                            considered.  when replying to this post please confirm that you
+                            are available on a full-time basis for this project.  We are
+                            looking for talented individuals to join our growing team.
+                        </p>
+                    </div>
                     <div className={styles.tasks}>
-                        <div className={styles.parent}>
-                            <b className={styles.b}>8</b>
-                            <div className={styles.jobTasks}>Job Tasks</div>
+                        <div className={styles.taskHeader}>
+                            <b className={styles.taskNumber1}>8</b>
+                            <div className={styles.tasks1}>Tasks</div>
                         </div>
-                        <div className={styles.frameParent}>
-                            <div className={styles.frameGroup}>
-                                <div className={styles.btnCheckParent}>
-                                    <div className={styles.btnCheck}>
-                                        <img
-                                            className={styles.checkSmallIcon}
-                                            alt=""
-                                            src="/check-small1.svg"
-                                        />
-                                    </div>
-                                    <div className={styles.createAUser}>
-                                        Create a user dashboard
-                                    </div>
-                                </div>
-                                <div className={styles.btnCheckGroup}>
-                                    <div className={styles.btnCheck1}>
-                                        <img
-                                            className={styles.checkSmallIcon1}
-                                            alt=""
-                                            src="/check-small1.svg"
-                                        />
-                                    </div>
-                                    <div className={styles.createLandingPage}>
-                                        Create landing page
-                                    </div>
-                                </div>
-                                <div className={styles.btnCheckContainer}>
-                                    <div className={styles.btnCheck2}>
-                                        <img
-                                            className={styles.checkSmallIcon2}
-                                            alt=""
-                                            src="/check-small1.svg"
-                                        />
-                                    </div>
-                                    <div className={styles.createAllIcons}>Create all icons</div>
-                                </div>
+                        <div className={styles.taskItem}>
+                            <div className={styles.taskElements}>
+                                <Frametask
+                                    propFlex="0.8788"
+                                    propPadding="0px 67px 0px 0px"
+                                    propMinWidth="161px"
+                                    thisIsATask="Create a user dashboard"
+                                    propDisplay="unset"
+                                    propMinWidth1="unset"
+                                />
+                                <Frametask
+                                    propFlex="0.8488"
+                                    propPadding="0px 92px 0px 0px"
+                                    propMinWidth="161px"
+                                    thisIsATask="Create landing page"
+                                    propDisplay="inline-block"
+                                    propMinWidth1="118px"
+                                />
+                                <Frametask
+                                    propFlex="0.6794"
+                                    propPadding="0px 120px 0px 0px"
+                                    propMinWidth="161px"
+                                    thisIsATask="Create all icons"
+                                    propDisplay="inline-block"
+                                    propMinWidth1="90px"
+                                />
                             </div>
-                            <div className={styles.frameContainer}>
-                                <div className={styles.frameDiv}>
-                                    <div className={styles.btnCheck3}>
-                                        <img
-                                            className={styles.checkSmallIcon3}
-                                            alt=""
-                                            src="/check-small1.svg"
-                                        />
-                                    </div>
-                                    <div className={styles.createMarketplace}>
-                                        Create Marketplace
-                                    </div>
-                                </div>
-                                <div className={styles.btnCheckParent1}>
-                                    <div className={styles.btnCheck4}>
-                                        <img
-                                            className={styles.checkSmallIcon4}
-                                            alt=""
-                                            src="/check-small1.svg"
-                                        />
-                                    </div>
-                                    <div className={styles.designCheckoutModal}>
-                                        Design Checkout Modal
-                                    </div>
-                                </div>
-                                <div className={styles.btnCheckParent2}>
-                                    <div className={styles.btnCheck5}>
-                                        <img
-                                            className={styles.checkSmallIcon5}
-                                            alt=""
-                                            src="/check-small1.svg"
-                                        />
-                                    </div>
-                                    <div className={styles.designUserCreator}>
-                                        Design User Creator
-                                    </div>
-                                </div>
+                            <div className={styles.taskElements}>
+                                <Frametask
+                                    propFlex="0.8565"
+                                    propPadding="0px 95px 0px 0px"
+                                    propMinWidth="156px"
+                                    thisIsATask="Create Marketplace"
+                                    propDisplay="inline-block"
+                                    propMinWidth1="115px"
+                                />
+                                <Frametask
+                                    propFlex="1"
+                                    propPadding="0px 72px 0px 0px"
+                                    propMinWidth="156px"
+                                    thisIsATask="Design Checkout Modal"
+                                    propDisplay="unset"
+                                    propMinWidth1="unset"
+                                />
+                                <Frametask
+                                    propFlex="0.8628"
+                                    propPadding="0px 94px 0px 0px"
+                                    propMinWidth="156px"
+                                    thisIsATask="Design User Creator"
+                                    propDisplay="inline-block"
+                                    propMinWidth1="116px"
+                                />
                             </div>
-                            <div className={styles.frameParent1}>
-                                <div className={styles.btnCheckParent3}>
-                                    <div className={styles.btnCheck6}>
-                                        <img
-                                            className={styles.checkSmallIcon6}
-                                            alt=""
-                                            src="/check-small1.svg"
-                                        />
-                                    </div>
-                                    <div className={styles.createStoreBuilder}>
-                                        Create store builder
-                                    </div>
-                                </div>
-                                <div className={styles.btnCheckParent4}>
-                                    <input className={styles.btnCheck7} type="checkbox" />
-                                    <div className={styles.designUsermerchantChat}>
-                                        Design User/Merchant chat
-                                    </div>
-                                </div>
-                                <div className={styles.frameChild} />
+                            <div className={styles.taskElements}>
+                                <Frametask
+                                    propFlex="0.5954"
+                                    propPadding="0px 94px 0px 0px"
+                                    propMinWidth="174px"
+                                    thisIsATask="Create store builder"
+                                    propDisplay="unset"
+                                    propMinWidth1="unset"
+                                />
+                                <Frametask thisIsATask="Design User/Merchant chat" />
+                                <div className={styles.spacerTask} />
                             </div>
                         </div>
                     </div>
-                    <div className={styles.jobListingApplicationDetail}>
-                        <div className={styles.eventParent}>
+                    <div className={styles.tags}>
+                        <div className={styles.iconeventParent}>
                             <img
-                                className={styles.eventIcon}
+                                className={styles.iconevent}
                                 loading="lazy"
                                 alt=""
-                                src="/event.svg"
+                                src={calendarLogo.src}
                             />
-                            <b className={styles.deadline}>Deadline:</b>
-                            <div className={styles.jun122024}>{deadlinePeriod}</div>
+                            <b className={styles.taskNumber}>Deadline:</b>
+                            <div className={styles.taskNumber}>30</div>
+                            <div className={styles.taskNumber}>days</div>
                         </div>
-                        <div className={styles.jobListingApplicationCandid}>
+                        <div className={styles.metaIcons}>
                             <img
-                                className={styles.groupIcon}
+                                className={styles.iconevent}
                                 loading="lazy"
                                 alt=""
-                                src="/group-11.svg"
+                                src={groupLogo.src}
                             />
                             <b className={styles.candidates}>Candidates:</b>
-                            <div className={styles.jobListingApplication}>5</div>
+                            <div className={styles.taskNumber}>5</div>
                         </div>
-                        <div className={styles.jobListingApplicationTimezo}>
-                            <img className={styles.publicIcon} alt="" src="/public.svg" />
-                            <b className={styles.timezone}>Timezone:</b>
-                            <div className={styles.utc5}>UTC+5</div>
+                        <div className={styles.metaIcons}>
+                            <img
+                                className={styles.iconevent}
+                                loading="lazy"
+                                alt=""
+                                src={eventListLogo.src}
+                            />
+                            <b className={styles.taskNumber}>Tasks:</b>
+                            <div className={styles.taskNumber}>8</div>
                         </div>
                     </div>
                 </div>
-                <div className={styles.jobListingApplicationTimer}>
+                <div className={styles.clock}>
                     <div className={styles.jobListingApplicationTimeL}>
                         <img className={styles.timerIcon} alt="" src="/timer1.svg" />
                         <div className={styles.jobListingApplicationTimeL1}>
@@ -198,41 +169,48 @@ const CompJoboffer: NextPage<CompJobofferType> = ({
                         </div>
                     </div>
                     <div className={styles.btnDetails}>
-                        <div className={styles.showDetails}>Show Details</div>
+                        <div className={styles.taskNumber}>GIG Details</div>
                         <img
-                            className={styles.keyboardArrowDownIcon}
+                            className={styles.iconkeyboardArrowDown}
+                            loading="lazy"
                             alt=""
-                            src="/keyboard-arrow-down.svg"
+                            src={arrowUp.src}
                         />
                     </div>
                 </div>
-            </div>
-            <div className={styles.frameParent2}>
-                <div className={styles.frameParent3}>
-                    <div className={styles.youWillCollectParent}>
-                        <div className={styles.youWillCollect}>You will collect</div>
-                        <div className={styles.group}>
-                            <b className={styles.b1}>250</b>
-                            <b className={styles.dai}>DAI</b>
-                        </div>
-                    </div>
-                    <div className={styles.theJobPayment}>
-                        *The job payment will be based on the tasks completion by the
-                        deadline date, these task will be peer to peer and AI reviewed, if
-                        successful the payment amount will be instantly released to you.
+            </section>
+            <div className={styles.apply}>
+                <div className={styles.earningsInfo}>
+                    <div className={styles.youWillCollect}>You will collect:</div>
+                    <div className={styles.earningsAmount}>
+                        <img
+                            className={styles.iconusdc}
+                            loading="lazy"
+                            alt=""
+                            src={usdcLogo.src}
+                        />
+                        <b className={styles.earningsSeparator}>250</b>
+                        <h1 className={styles.usdc}>USDC</h1>
                     </div>
                 </div>
-                <div className={styles.btnApply}>
-                    <img
-                        className={styles.personRaisedHandIcon}
-                        alt=""
-                        src="/person-raised-hand.svg"
+                <div className={styles.btniconText} >
+                    <label className={styles.label}>
+                        <img
+                            className={styles.iconpersonRaisedHand}
+                            alt=""
+                            src={personHandLogo.src}
+                        />
+                        <b className={styles.applyText}>Apply Now</b>
+                    </label>
+                    <input
+                        className={styles.input}
+                        type="file"
+                        id="file-I2856:6431;2216:12597"
                     />
-                    <b className={styles.apply}>Apply</b>
                 </div>
             </div>
         </div>
     );
 };
 
-export default CompJoboffer;
+export default CompjobofferV;

@@ -1,0 +1,31 @@
+.btncheckbox {
+    margin: 0;
+    height: 18px;
+    width: 18px;
+}
+
+.thisIsA {
+    position: relative;
+}
+
+.frametask {
+    flex: 0.7848;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 0 var(--padding-31xl) 0 0;
+    box-sizing: border-box;
+    gap: var(--gap-9xs);
+    min-width: 174px;
+    text-align: left;
+    font-size: medium;
+    color: var(--navy-800);
+    font-family: var(--h3);
+}
+
+@media screen and (max-width: 450px) {
+    .frametask {
+        flex: 1;
+    }
+}
