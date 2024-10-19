@@ -92,7 +92,6 @@ export async function GET(req: Request) {
                 userId: userId,
             },
             data: {
-                role: "Freelancer",
                 githubCommits: totalCommits,
             },
         });
