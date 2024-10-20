@@ -38,14 +38,15 @@ export async function login(payload: VerifyLoginPayloadParams) {
     });
     console.log(`userId: ${userId}`);
     console.log(`role: ${role}`);
-    cookies().set("jwt", jwt);
-    if (role == FREELANCER) {
-      redirect("/freelancer-dashboard");
-    } else if (role == CLIENT) {
-      redirect("/client-dashboard");
-    } else {
-      redirect("/sign-in");
-    }
+    cookies().set("jwt", jwt, { httpOnly: true });
+    return { userId: userId, role: role };
+    // if (role == FREELANCER) {
+    //   redirect("/freelancer-dashboard");
+    // } else if (role == CLIENT) {
+    //   redirect("/client-dashboard");
+    // } else {
+    //   redirect("/sign-in");
+    // }
   }
   console.log("Successfully Logged in!!");
 }

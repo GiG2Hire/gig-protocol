@@ -12,13 +12,15 @@ import {
 } from "thirdweb/wallets";
 import {
   generatePayload,
+  getRoleFromPayload,
   isLoggedIn,
   login,
   logout,
 } from "@/src/app/actions/login";
 import { client } from "@/src/app/lib/client";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
+import { useAuth } from "../providers/auth";
 
 const wallets = [
   createWallet("io.metamask"),
@@ -37,8 +39,7 @@ export type NavbarSpacerType = {
 
 const NavbarSpacer: NextPage<NavbarSpacerType> = ({ className = "" }) => {
   const router = useRouter();
-  let [role, setRole] = useState<string>("");
-  let [userId, setUserId] = useState<number>(-1);
+  const { userId, role, updateLoggedInUser, resetLoggedInUser } = useAuth();
 
   return (
     <header className={[styles.navbarSpacer, className].join(" ")}>
@@ -69,9 +70,13 @@ const NavbarSpacer: NextPage<NavbarSpacerType> = ({ className = "" }) => {
             <div className={styles.navTextParent}>
               <div className={styles.navText}>
                 <div className={styles.navText1}>
-                  <a className={styles.text} href="/post-a-job">
-                    Create a Gig
-                  </a>
+                  {role == "Client" ? (
+                    <a className={styles.text} href="/post-a-job">
+                      Create a Gig
+                    </a>
+                  ) : (
+                    ""
+                  )}
                 </div>
                 <div className={styles.hlColor} />
               </div>
@@ -127,13 +132,15 @@ const NavbarSpacer: NextPage<NavbarSpacerType> = ({ className = "" }) => {
             },
             doLogin: async (params) => {
               console.log(`logging in!`);
-              await login(params);
+              const { userId, role } = await login(params);
+              updateLoggedInUser({ userId, role });
             },
             getLoginPayload: async ({ address, chainId }) =>
               generatePayload({ address, chainId }),
             doLogout: async () => {
               console.log("logging out!");
               await logout();
+              resetLoggedInUser();
             },
           }}
           wallets={wallets}
@@ -149,10 +156,6 @@ const NavbarSpacer: NextPage<NavbarSpacerType> = ({ className = "" }) => {
           onConnect={async (wallet) => {
             console.log("Wallet is connected");
             console.log("Connected to ", wallet.getAccount()?.address);
-            // const alreadyLoggedIn = await isLoggedIn();
-            // if (!alreadyLoggedIn) {
-            //   await getOrCreateUserInDatabase(wallet);
-            // }
           }}
           onDisconnect={async ({ wallet, account }) => {
             await logout();
