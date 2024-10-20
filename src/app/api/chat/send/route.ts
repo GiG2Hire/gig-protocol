@@ -2,10 +2,6 @@ import { prisma } from "@/src/app/lib/db";
 import { supabase } from "@/src/utils/supabase";
 import { redirect } from "next/navigation";
 
-BigInt.prototype.toJSON = function () {
-  return this.toString();
-};
-
 /**
  * @notice create a new gig by client
  * @param req senderId, receiverId, chatMsg, sentTimestamp, chatId
