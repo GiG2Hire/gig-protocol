@@ -1,6 +1,5 @@
 "use server";
 
-import { supabase } from "@/src/utils/supabase";
 import { getUserIdFromPayload } from "./login";
 import { GIG_COMPLETION_STATUS } from "@/src/constants/appConstants";
 import { findBestAPY } from "./choose-and-open";
