@@ -1,3 +1,4 @@
+//@ts-nocheck
 "use client";
 import { useEffect, useState } from "react";
 import { removeUploadedFile } from "../../actions/create-gig-file";

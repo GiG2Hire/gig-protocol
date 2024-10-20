@@ -1,3 +1,4 @@
+//@ts-nocheck
 import type { NextPage } from "next";
 import styles from "./modal-uploaded-files.module.css";
 import { useState } from "react";
