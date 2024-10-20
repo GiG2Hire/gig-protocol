@@ -134,6 +134,9 @@ const NavbarSpacer: NextPage<NavbarSpacerType> = ({ className = "" }) => {
               console.log(`logging in!`);
               const { userId, role } = await login(params);
               updateLoggedInUser({ userId, role });
+              if (role == null) {
+                router.push("/sign-in");
+              }
             },
             getLoginPayload: async ({ address, chainId }) =>
               generatePayload({ address, chainId }),

@@ -9,6 +9,7 @@ import { CLIENT, FREELANCER } from "@/src/constants/appConstants";
 import { redirect } from "next/navigation";
 import { supabase } from "@/src/utils/supabase";
 import { prisma } from "../lib/db";
+import { RequestCookie } from "next/dist/compiled/@edge-runtime/cookies";
 
 const privateKey = process.env.THIRDWEB_ADMIN_PRIVATE_KEY || "";
 
@@ -84,9 +85,10 @@ export async function getUserIdFromPayload() {
     await logout();
     return;
   }
-  const jwtToken = cookies().get("jwt");
-  const { payload, signature } = decodeJWT(jwtToken?.value);
-  return payload.ctx.userId;
+  const jwtToken: RequestCookie | undefined = cookies().get("jwt");
+  const { payload, signature } = decodeJWT(jwtToken?.value as string);
+  const { userId, role } = payload.ctx as JWTContext;
+  return userId;
 }
 
 export async function getRoleFromPayload() {
@@ -96,8 +98,9 @@ export async function getRoleFromPayload() {
     return;
   }
   const jwtToken = cookies().get("jwt");
-  const { payload, signature } = decodeJWT(jwtToken?.value);
-  return payload.ctx.role;
+  const { payload, signature } = decodeJWT(jwtToken?.value as string);
+  const { userId, role } = payload.ctx as JWTContext;
+  return role;
 }
 
 /**

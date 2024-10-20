@@ -42,7 +42,7 @@ export async function createGig(
         clientId: clientId,
         title: title,
         description: description,
-        gigValue: budget,
+        gigBudget: budget,
         completionStatus: GIG_COMPLETION_STATUS.OPEN,
         expectedDeliveryDate: deliveryDate,
         category: jobCategory,
