@@ -12,10 +12,10 @@ import { JWTPayload } from "thirdweb/utils";
 import crypto from "crypto";
 
 const s3ClientConfig: S3ClientConfig = {
-  region: process.env.AWS_BUCKET_REGION,
+  region: process.env.GIG_AWS_BUCKET_REGION,
   credentials: {
-    accessKeyId: process.env.AWS_ACCESS_KEY!,
-    secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY!,
+    accessKeyId: process.env.GIG_AWS_ACCESS_KEY!,
+    secretAccessKey: process.env.GIG_AWS_SECRET_ACCESS_KEY!,
   },
 };
 const client = new S3Client(s3ClientConfig);
@@ -66,7 +66,7 @@ export async function getPresignedUrl(
   const userId: string = userContext.userId;
   console.log("user id being used with metadata" + userId);
   const command = new PutObjectCommand({
-    Bucket: process.env.AWS_BUCKET_NAME,
+    Bucket: process.env.GIG_AWS_BUCKET_NAME,
     Key: generateFileName(),
     ContentLength: fileSize,
     ContentType: fileType,
@@ -86,7 +86,7 @@ export async function removeFileFromS3(key: string) {
   }
 
   const command = new DeleteObjectCommand({
-    Bucket: process.env.AWS_BUCKET_NAME,
+    Bucket: process.env.GIG_AWS_BUCKET_NAME,
     Key: key,
   });
 
