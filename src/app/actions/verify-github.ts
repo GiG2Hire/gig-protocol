@@ -1,6 +1,5 @@
 "use server";
 import { prisma } from "../lib/db";
-import { supabase } from "@/src/utils/supabase";
 import { getPayload, isLoggedIn } from "./login";
 
 export default async function githubVerification(code: any) {
@@ -49,11 +48,14 @@ export default async function githubVerification(code: any) {
     const repos = await reposResponse.json();
 
     const commitPromises = repos.map((repo: any) =>
-      fetch(`https://api.github.com/repos/${repo.owner.login}/${repo.name}/commits`, {
-        headers: {
-          Authorization: `Bearer ${accessToken}`,
-        },
-      }).then((res) => res.json())
+      fetch(
+        `https://api.github.com/repos/${repo.owner.login}/${repo.name}/commits`,
+        {
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+          },
+        }
+      ).then((res) => res.json())
     );
 
     const allCommits = await Promise.all(commitPromises);
@@ -63,7 +65,7 @@ export default async function githubVerification(code: any) {
       (sum, repoCommits) => sum + repoCommits.length,
       0
     );
-    console.log(userData.login, totalCommits)
+    console.log(userData.login, totalCommits);
 
     // Get user wallet address from session or cookie
     const walletAddress = payload.iss; // Replace with actual method to get the address
@@ -80,7 +82,6 @@ export default async function githubVerification(code: any) {
     console.log("User updated:", updatedUser);
 
     return true;
-
   } catch (error) {
     console.log("Error during GitHub verification:", error);
   }

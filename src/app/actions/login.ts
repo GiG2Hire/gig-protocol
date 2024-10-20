@@ -7,7 +7,6 @@ import { useActiveAccount } from "thirdweb/react";
 import { decodeJWT, encodeJWT, JWTPayload } from "thirdweb/utils";
 import { CLIENT, FREELANCER } from "@/src/constants/appConstants";
 import { redirect } from "next/navigation";
-import { supabase } from "@/src/utils/supabase";
 import { prisma } from "../lib/db";
 import { RequestCookie } from "next/dist/compiled/@edge-runtime/cookies";
 
