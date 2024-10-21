@@ -14,7 +14,6 @@ const SignIn = () => {
   const { userId, role, updateLoggedInUser, resetLoggedInUser } = useAuth();
 
   useEffect(() => {
-    console.log("------, ", role);
     if (role == CLIENT) {
       router.push("/client-dashboard");
     } else if (role == FREELANCER) {
