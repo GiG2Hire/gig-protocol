@@ -5,30 +5,47 @@ import styles from "./sign-in.module.css";
 import JoinFreelancer from "../components/join/join-freelancer";
 import { useEffect, useState } from "react";
 import JoinClient from "../components/join/join-client";
+import { CLIENT, FREELANCER } from "@/src/constants/appConstants";
+import { useRouter } from "next/navigation";
+import { useAuth } from "../providers/auth";
 
 const SignIn = () => {
+  const router = useRouter();
+  const { userId, role, updateLoggedInUser, resetLoggedInUser } = useAuth();
+
+  useEffect(() => {
+    console.log("------, ", role);
+    if (role == CLIENT) {
+      router.push("/client-dashboard");
+    } else if (role == FREELANCER) {
+      router.push("/freelancer-dashboard");
+    } else {
+      router.push("/sign-in");
+    }
+  }, [role]);
+
   const [showJoinAsFreelancerModal, setShowJoinAsFreelancerModal] =
     useState<boolean>(false);
 
   const [showJoinAsClientModal, setShowJoinAsClientModal] =
     useState<boolean>(false);
 
-    useEffect(() => {
-      const url = window.location.href;
-      // Twitter Verification Check
-      const twitterCode = url.split("?x_verify=")[1];
-      if (twitterCode === "success") {
-        alert("Twitter Verification Successful");
-      }
-  
-      // GitHub Verification Check
-      const githubCode = url.split("?github_verify=")[1];
-      if (githubCode === "success") {
-        alert("GitHub Verification Successful");
-      } else if (githubCode === "failure") {
-        alert("GitHub Verification Failed");
-      }
-    }, []);
+  useEffect(() => {
+    const url = window.location.href;
+    // Twitter Verification Check
+    const twitterCode = url.split("?x_verify=")[1];
+    if (twitterCode === "success") {
+      alert("Twitter Verification Successful");
+    }
+
+    // GitHub Verification Check
+    const githubCode = url.split("?github_verify=")[1];
+    if (githubCode === "success") {
+      alert("GitHub Verification Successful");
+    } else if (githubCode === "failure") {
+      alert("GitHub Verification Failed");
+    }
+  }, []);
 
   const closeJoinAsFreelancerModal = () => {
     setShowJoinAsFreelancerModal(false);
