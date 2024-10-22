@@ -1,29 +1,10 @@
 "use client";
-import type { NextPage } from "next";
-import Navigation1 from "../components/navigation1";
 import styles from "./sign-in.module.css";
 import JoinFreelancer from "../components/join/join-freelancer";
 import { useEffect, useState } from "react";
 import JoinClient from "../components/join/join-client";
-import { CLIENT, FREELANCER } from "@/src/constants/appConstants";
-import { useRouter } from "next/navigation";
-import { useAuth } from "../providers/auth";
 
 const SignIn = () => {
-  const router = useRouter();
-  const { userId, role, updateLoggedInUser, resetLoggedInUser } = useAuth();
-
-  useEffect(() => {
-    console.log("------, ", role);
-    if (role == CLIENT) {
-      router.push("/client-dashboard");
-    } else if (role == FREELANCER) {
-      router.push("/freelancer-dashboard");
-    } else {
-      router.push("/sign-in");
-    }
-  }, [role]);
-
   const [showJoinAsFreelancerModal, setShowJoinAsFreelancerModal] =
     useState<boolean>(false);
 

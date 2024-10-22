@@ -3,16 +3,45 @@ import { NextResponse } from "next/server";
 import { NextRequest } from "next/server";
 import { getPayload, isLoggedIn } from "./app/actions/login";
 import { CLIENT, FREELANCER } from "./constants/appConstants";
-import { JWTPayload } from "thirdweb/utils";
+import { decodeJWT } from "thirdweb/utils";
 
-// This function can be marked `async` if using `await` inside
+/**
+ * This function can be marked `async` if using `await` inside
+ * @param request executed on the edge, runs before page rendering and API routes.
+ * @author mgroovyank (MAYANK CHHIPA)
+ */
 export async function middleware(request: NextRequest) {
-  // const pathname = request.nextUrl.pathname;
-  // console.log("pathansdjdsk:", pathname);
+  console.log("---------------Inside Middleware!!----------------");
+
+  const pathname = request.nextUrl.pathname;
+  const isSignInPage = pathname == "/sign-in" ? true : false;
+
+  // Get user id and role from jwt
+  const jwtObject = request.cookies.get("jwt");
+  if (jwtObject == undefined) {
+    return NextResponse.redirect(new URL("/", request.url));
+  }
+  const jwt: string = decodeJWT(request.cookies.get("jwt")?.value);
+  const payload: JWTPayload = jwt.payload.ctx;
+  const userId = payload.userId;
+  const role = payload.role;
+
+  if (isSignInPage) {
+    if (role == FREELANCER) {
+      return NextResponse.redirect(
+        new URL("/freelancer-dashboard", request.url)
+      );
+    }
+    if (role == CLIENT) {
+      return NextResponse.redirect(new URL("/client-dashboard", request.url));
+    }
+  }
+
+  return NextResponse.next();
   // const isFreelancerDashboard = pathname.startsWith("/freelancer-dashboard");
   // const isChatWindow = pathname.startsWith("/chat");
   // const isAuth = await isLoggedIn();
-  // console.log("Inside Middleware!!----------------");
+
   // if (!isAuth) {
   //   console.log("Not Authenticated!!!!!");
   //   return NextResponse.redirect(new URL("/", request.url));
@@ -70,6 +99,6 @@ export async function middleware(request: NextRequest) {
 
 // See "Matching Paths" below to learn more
 export const config = {
-  matcher: [],
+  matcher: ["/sign-in"],
   // matcher: ["/freelancer-dashboard/:path*", "/chat/:path*"],
 };
