@@ -1,4 +1,3 @@
-//@ts-nocheck
 import { NextResponse } from "next/server";
 import { NextRequest } from "next/server";
 import { getPayload, isLoggedIn } from "./app/actions/login";
@@ -21,10 +20,10 @@ export async function middleware(request: NextRequest) {
   if (jwtObject == undefined) {
     return NextResponse.redirect(new URL("/", request.url));
   }
-  const jwt: string = decodeJWT(request.cookies.get("jwt")?.value);
-  const payload: JWTPayload = jwt.payload.ctx;
-  const userId = payload.userId;
-  const role = payload.role;
+  const jwt = decodeJWT(request.cookies.get("jwt")?.value as string);
+  const ctx: JWTContext = jwt.payload.ctx as JWTContext;
+  const userId = ctx.userId;
+  const role = ctx.role;
 
   if (isSignInPage) {
     if (role == FREELANCER) {
