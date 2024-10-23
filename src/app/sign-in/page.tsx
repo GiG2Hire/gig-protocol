@@ -1,6 +1,4 @@
 "use client";
-import type { NextPage } from "next";
-import Navigation1 from "../components/navigation1";
 import styles from "./sign-in.module.css";
 import JoinFreelancer from "../components/join/join-freelancer";
 import { useEffect, useState } from "react";
@@ -13,22 +11,22 @@ const SignIn = () => {
   const [showJoinAsClientModal, setShowJoinAsClientModal] =
     useState<boolean>(false);
 
-    useEffect(() => {
-      const url = window.location.href;
-      // Twitter Verification Check
-      const twitterCode = url.split("?x_verify=")[1];
-      if (twitterCode === "success") {
-        alert("Twitter Verification Successful");
-      }
-  
-      // GitHub Verification Check
-      const githubCode = url.split("?github_verify=")[1];
-      if (githubCode === "success") {
-        alert("GitHub Verification Successful");
-      } else if (githubCode === "failure") {
-        alert("GitHub Verification Failed");
-      }
-    }, []);
+  useEffect(() => {
+    const url = window.location.href;
+    // Twitter Verification Check
+    const twitterCode = url.split("?x_verify=")[1];
+    if (twitterCode === "success") {
+      alert("Twitter Verification Successful");
+    }
+
+    // GitHub Verification Check
+    const githubCode = url.split("?github_verify=")[1];
+    if (githubCode === "success") {
+      alert("GitHub Verification Successful");
+    } else if (githubCode === "failure") {
+      alert("GitHub Verification Failed");
+    }
+  }, []);
 
   const closeJoinAsFreelancerModal = () => {
     setShowJoinAsFreelancerModal(false);

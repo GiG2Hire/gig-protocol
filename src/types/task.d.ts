@@ -6,3 +6,8 @@ interface GigTask {
   createdAt?: Date;
   updatedAt?: Date;
 }
+
+interface JWTContext {
+  userId: number;
+  role: string;
+}

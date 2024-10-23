@@ -9,6 +9,7 @@ import { createThirdwebClient } from "thirdweb";
 import NavbarSpacer from "@/src/app/components/navbar-spacer1";
 
 import { Metadata } from "next";
+import { AuthProvider } from "./providers/auth";
 
 export const metadata: Metadata = {
   title: "gigfreehire",
@@ -24,8 +25,10 @@ export default function RootLayout({
       <body>
         <ThirdwebProvider>
           <Fragment>
-            <NavbarSpacer />
-            {children}
+            <AuthProvider>
+              <NavbarSpacer />
+              {children}
+            </AuthProvider>
           </Fragment>
         </ThirdwebProvider>
       </body>

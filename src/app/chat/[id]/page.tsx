@@ -61,11 +61,11 @@ const FreelancerChat = async ({
     receiverUser = client;
   }
 
-  let sentimentText: string;
-  let messages;
-  let submittedFiles = [];
-  let filesSharedByUser = [];
-  let filesSharedByPartner = [];
+  let sentimentText: string = "";
+  let messages: any;
+  let submittedFiles: any = [];
+  let filesSharedByUser: any = [];
+  let filesSharedByPartner: any = [];
 
   /**
    * get initial messages to load in chat window
@@ -123,7 +123,7 @@ const FreelancerChat = async ({
     } catch (error) {
       console.log(error);
     }
-    submittedFiles.forEach((file) => {
+    submittedFiles.forEach((file: any) => {
       if (file.uploadedBy == currentUser) {
         filesSharedByUser.push(file);
       } else {
