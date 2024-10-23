@@ -19,6 +19,7 @@ import {
 import { client } from "@/src/app/lib/client";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 
 const wallets = [
   createWallet("io.metamask"),
@@ -85,7 +86,7 @@ const NavbarSpacer: NextPage<NavbarSpacerType> = ({ className = "" }) => {
     <header className={[styles.navbarSpacer, className].join(" ")}>
       <div className={styles.navbar}>
         <div className={styles.navbarContainer}>
-          <div className={styles.group}>
+          <Link className={styles.group} href={"/"}>
             <img className={styles.vectorIcon} alt="" src="/vector.svg" />
             <img
               className={styles.vectorIcon1}
@@ -105,7 +106,7 @@ const NavbarSpacer: NextPage<NavbarSpacerType> = ({ className = "" }) => {
               alt=""
               src="/group.svg"
             />
-          </div>
+          </Link>
           <div className={styles.navbarContainerInner}>
             <div className={styles.navTextParent}>
               <div className={styles.navText}>
