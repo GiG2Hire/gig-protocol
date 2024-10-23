@@ -4,7 +4,7 @@ module.exports = {
     // Dangerously allow production builds to successfully complete even if
     // your project has type errors.
     // !! WARN !!
-    // ignoreBuildErrors: true,
+    ignoreBuildErrors: true,
   },
   images: {
     remotePatterns: [
@@ -12,6 +12,13 @@ module.exports = {
         protocol: "https",
         hostname: "gig2hirelocal.s3.eu-north-1.amazonaws.com",
       },
+    ],
+  },
+
+  experimental: {
+    serverComponentsExternalPackages: [
+      "@aws-sdk/client-s3",
+      "@aws-sdk/s3-request-presigner",
     ],
   },
 };

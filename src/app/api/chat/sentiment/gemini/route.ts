@@ -15,7 +15,7 @@ export async function POST(req: Request) {
   const { chatId, conversation } = await req.json();
   console.log(conversation);
   // const MODEL_NAME = "models/text-bison-001";
-  const API_KEY = process.env.NEXT_PUBLIC_GEMINI_API_KEY!;
+  const API_KEY = process.env.GEMINI_API_KEY!;
 
   const genAI = new GoogleGenerativeAI(API_KEY);
 

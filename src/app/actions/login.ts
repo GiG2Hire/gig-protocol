@@ -7,8 +7,8 @@ import { useActiveAccount } from "thirdweb/react";
 import { decodeJWT, encodeJWT, JWTPayload } from "thirdweb/utils";
 import { CLIENT, FREELANCER } from "@/src/constants/appConstants";
 import { redirect } from "next/navigation";
-import { supabase } from "@/src/utils/supabase";
 import { prisma } from "../lib/db";
+import { RequestCookie } from "next/dist/compiled/@edge-runtime/cookies";
 
 const privateKey = process.env.THIRDWEB_ADMIN_PRIVATE_KEY || "";
 
@@ -38,14 +38,15 @@ export async function login(payload: VerifyLoginPayloadParams) {
     });
     console.log(`userId: ${userId}`);
     console.log(`role: ${role}`);
-    cookies().set("jwt", jwt);
-    if (role == FREELANCER) {
-      redirect("/freelancer-dashboard");
-    } else if (role == CLIENT) {
-      redirect("/client-dashboard");
-    } else {
-      redirect("/sign-in");
-    }
+    cookies().set("jwt", jwt, { httpOnly: true });
+    return { userId: userId, role: role };
+    // if (role == FREELANCER) {
+    //   redirect("/freelancer-dashboard");
+    // } else if (role == CLIENT) {
+    //   redirect("/client-dashboard");
+    // } else {
+    //   redirect("/sign-in");
+    // }
   }
   console.log("Successfully Logged in!!");
 }
@@ -83,9 +84,10 @@ export async function getUserIdFromPayload() {
     await logout();
     return;
   }
-  const jwtToken = cookies().get("jwt");
-  const { payload, signature } = decodeJWT(jwtToken?.value);
-  return payload.ctx.userId;
+  const jwtToken: RequestCookie | undefined = cookies().get("jwt");
+  const { payload, signature } = decodeJWT(jwtToken?.value as string);
+  const { userId, role } = payload.ctx as JWTContext;
+  return userId;
 }
 
 export async function getRoleFromPayload() {
@@ -95,8 +97,9 @@ export async function getRoleFromPayload() {
     return;
   }
   const jwtToken = cookies().get("jwt");
-  const { payload, signature } = decodeJWT(jwtToken?.value);
-  return payload.ctx.role;
+  const { payload, signature } = decodeJWT(jwtToken?.value as string);
+  const { userId, role } = payload.ctx as JWTContext;
+  return role;
 }
 
 /**
