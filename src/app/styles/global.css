@@ -37,10 +37,12 @@ body {
   --navy-medium-bk: #3f5dba;
   --color-royalblue-100: #5469e6;
   --navy-bk-40a: rgba(110, 131, 255, 0.4);
+  --navy-grad: #657af7;
   --navy-medium-40a: rgba(63, 93, 186, 0.4);
   --yellow-bk: #d6ea5e;
   --green-medium: #9ce860;
   --color-yellowgreen-100: #bdd145;
+  --neon: #e3ff3c;
   --yellow-bk-40a: rgba(214, 234, 94, 0.4);
   --yellow-bk-10a: rgba(214, 234, 94, 0.1);
   --midnight-bold: #061543;
@@ -191,4 +193,30 @@ body {
   /* Border radiuses */
   --br-81xl: 100px;
   --br-5xs: 8px;
+
+  /* Landing Page v2 */
+  --ice: rgb(251, 251, 251);
+  --ice-70a: rgb(251, 251, 251, 0.7);
+  --neon: rgb(227, 255, 60);
+  --neon-10a: rgb(227, 255, 60, 0.1);
+  --navy: rgb(110, 131, 255);
+  --navy-400: rgb(89, 110, 236);
+  --navy-600: rgb(63, 93, 186);
+  --navy-600-a: rgb(63, 93, 186, 0.8);
+  --navy-grad: linear-gradient(
+    0deg,
+    rgba(73, 95, 222) -10%,
+    rgba(110, 131, 255) 100%
+  );
+  --neon-grad: linear-gradient(
+    0deg,
+    rgba(214, 234, 94) -10%,
+    rgba(227, 255, 0) 100%
+  );
+  --orange-400: rgb(249, 164, 85);
+  --orange-400-a: rgb(249, 164, 85, 0.8);
+  --titles: "Unbounded", sans-serif;
+  --content: "Space Grotesk", sans-serif;
+  --h2: clamp(3rem, 5vw, 4rem);
+  --desc: clamp(1rem, 5vw, 1.5rem);
 }

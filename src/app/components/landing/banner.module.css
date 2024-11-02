@@ -1,0 +1,233 @@
+/***** HEADER *****/
+.maxScreen {
+  max-width: 1400px;
+  width: 90vw;
+  margin: 0 auto;
+}
+.header {
+  background: var(--navy-grad);
+  padding: 24px;
+  display: flex;
+  gap: 64px;
+  border-radius: 16px;
+  justify-content: space-between;
+  align-items: center;
+}
+.hello {
+  display: flex;
+  flex-direction: column;
+  gap: 48px;
+  justify-content: space-between;
+  align-self: stretch;
+}
+.live {
+  display: flex;
+  border: 1px solid var(--neon);
+  border-radius: 4px;
+  font-family: var(--content);
+  font-weight: 600;
+  padding: 4px 8px;
+  color: var(--neon);
+  gap: 8px;
+  align-items: center;
+  width: fit-content;
+}
+.dot {
+  width: 10px;
+  height: 10px;
+  background-color: var(--neon);
+  border-radius: 50%;
+}
+.title {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+.title .bannerTitle {
+  font-family: var(--titles);
+  color: var(--neon);
+  font-size: clamp(3rem, 10vw, 6rem);
+  font-weight: 700;
+  line-height: 0.9em;
+}
+.title .bannerSubTitle {
+  font-family: var(--content);
+  color: var(--ice);
+  font-size: clamp(1.5rem, 5vw, 3rem);
+}
+.hello a {
+  width: max-content;
+}
+.hello .earlyBirdBtn {
+  font-family: var(--content);
+  font-size: 1.2em;
+  font-weight: 700;
+  color: var(--navy-400);
+  padding: 8px 32px;
+  border: 0px;
+  border-radius: 4px;
+  background-color: var(--neon);
+  box-shadow: -6px 6px 0px 0px var(--navy-600);
+}
+.hello .earlyBirdBtn:hover {
+  box-shadow: 0px 0px 0px 0px;
+  cursor: pointer;
+}
+.slider {
+  height: 440px;
+  width: 320px;
+  border-radius: 8px;
+  overflow: hidden;
+}
+.wrap {
+  display: flex;
+  width: 400%;
+  height: 100%;
+  animation: slideimg 12s ease-in-out infinite;
+}
+@keyframes slideimg {
+  0% {
+    transform: translateX(0);
+  }
+  24% {
+    transform: translateX(0);
+  }
+  25% {
+    transform: translateX(-25%);
+  }
+  49% {
+    transform: translateX(-25%);
+  }
+  50% {
+    transform: translateX(-50%);
+  }
+  74% {
+    transform: translateX(-50%);
+  }
+  75% {
+    transform: translateX(-75%);
+  }
+  100% {
+    transform: translateX(-75%);
+  }
+}
+.freelance {
+  position: relative;
+  width: 100%;
+}
+.freelance img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.one {
+  background-color: var(--neon);
+}
+.two {
+  background-color: var(--navy-600);
+}
+.three {
+  background-color: var(--ice);
+}
+.four {
+  background-color: var(--navy-600);
+}
+.freelance .figcaption {
+  position: absolute;
+  background-color: var(--navy-600-a);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+  border-radius: 6px;
+  padding: 8px;
+  width: 94%;
+  margin: 3%;
+  left: 0;
+  bottom: 0;
+}
+.description {
+  margin-bottom: 24px;
+}
+.description h4 {
+  font-family: var(--titles);
+  color: var(--ice);
+  font-size: 1.5em;
+}
+.description p {
+  font-family: var(--content);
+  color: var(--ice);
+}
+.verified {
+  display: flex;
+  justify-content: space-between;
+}
+.social {
+  display: flex;
+  gap: 8px;
+  font-family: var(--content);
+  color: var(--ice);
+  align-items: center;
+}
+.social img {
+  width: 24px;
+  height: auto;
+}
+.check {
+  display: flex;
+  font-family: var(--content);
+  color: var(--navy-600);
+  gap: 4px;
+  padding: 2px 4px;
+  background-color: var(--neon);
+  border-radius: 4px;
+  text-align: justify;
+}
+.check img {
+  width: 16px;
+  height: auto;
+}
+/***** FIELDS *****/
+.fields {
+  overflow: hidden;
+  padding: 0 16px;
+  margin: 48px 0 120px 0;
+}
+.fields ul {
+  display: flex;
+  gap: 16px;
+  margin: 16px 0px;
+}
+.fields li {
+  font-family: var(--content);
+  color: var(--navy-600);
+  font-weight: 600;
+  border: 1px solid var(--navy-600);
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 1.3em;
+  white-space: nowrap;
+}
+.top {
+  justify-content: flex-start;
+  animation: toplist 60s linear infinite alternate;
+}
+.bottom {
+  justify-content: flex-end;
+  animation: bottomlist 62s linear infinite alternate;
+}
+@keyframes toplist {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-65%);
+  }
+}
+
+@keyframes bottomlist {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(65%);
+  }
+}

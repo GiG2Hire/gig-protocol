@@ -1,0 +1,97 @@
+/***** ABOUT BOTTOM *****/
+.maxScreen {
+  max-width: 1400px;
+  width: 90vw;
+  margin: 0 auto;
+}
+
+.article {
+  display: flex;
+  flex-direction: column;
+  gap: 120px;
+}
+
+.vaults .aside {
+  display: flex;
+  font-family: var(--content);
+}
+.verdictPoints {
+  background-color: var(--orange-400);
+  border-radius: 8px;
+  padding: 12px;
+  color: var(--navy-600);
+  height: fit-content;
+  margin-right: -120px;
+  width: 300px;
+}
+.vaults .aside h4 {
+  font-size: 1.2em;
+  margin-bottom: 8px;
+}
+.verdictVault {
+  background-color: var(--orange-400-a);
+  padding: 12px;
+  border-radius: 8px;
+  height: fit-content;
+  color: var(--navy-600);
+  margin-left: -110px;
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+  width: 300px;
+  align-self: flex-end;
+}
+.evidence {
+  background-color: var(--orange-400);
+  display: flex;
+  gap: 8px;
+  padding: 8px;
+  border-radius: 4px;
+  margin-top: 8px;
+}
+
+.imgCont {
+  display: flex;
+  padding: 16px 16px;
+  border-radius: 8px;
+  justify-content: center;
+  align-items: center;
+  width: 540px;
+}
+
+.dao .imgCont {
+  background: var(--navy-grad);
+}
+
+.details {
+  /* flex-direction: column; */
+  display: flex;
+  align-items: center;
+  gap: 48px;
+  justify-content: space-between;
+}
+
+.details .h2 {
+  font-family: var(--titles);
+  color: var(--navy-600);
+  font-size: var(--h2);
+  margin-bottom: 16px;
+  overflow-wrap: break-word;
+}
+
+.detDesc {
+  width: 60%;
+}
+
+.descNeon {
+  font-family: var(--content);
+  color: var(--neon);
+  font-size: var(--desc);
+  font-weight: 600;
+}
+
+.descNavy {
+  font-family: var(--content);
+  color: var(--navy);
+  font-size: var(--desc);
+  font-weight: 600;
+}
