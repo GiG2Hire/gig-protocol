@@ -204,6 +204,19 @@
   color: var(--grey-600);
 }
 
+.taskContainer {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  gap: var(--gap-xs);
+}
+
+.taskItem {
+  flex: 0 0 30%;
+  box-sizing: border-box;
+  margin-bottom: 0.5rem;
+}
+
 .contentParent {
   align-self: stretch;
   display: flex;

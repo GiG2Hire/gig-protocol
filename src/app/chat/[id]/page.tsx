@@ -1,6 +1,8 @@
+"use client";
+import { useEffect, useState } from "react";
 import styles from "./freelancer-chat.module.css";
 // import {chat} from "../../../constants/chat";
-import ChatSentiment from "@/src/app/components/chat/chat-sentiment";
+//import ChatSentiment from "@/src/app/components/chat/chat-sentiment";
 import { GIG_COMPLETION_STATUS } from "@/src/constants/appConstants";
 import { closeProposal } from "../../actions/choose-and-open";
 import ChatWindow from "@/src/app/components/chat/chat-window";
@@ -9,31 +11,27 @@ import { prisma } from "../../lib/db";
 import FileUpload from "../../components/chat/file-upload";
 import { CallTracker } from "assert";
 import FileList from "../../components/files/file-list";
+import { getUserIdFromPayload } from "../../actions/login";
 
-async function acceptGigInDatabase() {
-  const options = {
-    method: "POST",
-    headers: {
-      Accept: "application/json",
-      "Content-Type": "application/json;charset=UTF-8",
-    },
-    body: JSON.stringify({
-      gigId: 15,
-      completionStatus: GIG_COMPLETION_STATUS.COMPLETE,
-    }),
-  };
-  const acceptGigResponse = await fetch("/api/gig/status", options);
-  if (acceptGigResponse.status == 200) {
-    console.log("Gig marked as complete successfully!!");
-  }
-}
+// async function acceptGigInDatabase() {
+//   const options = {
+//     method: "POST",
+//     headers: {
+//       Accept: "application/json",
+//       "Content-Type": "application/json;charset=UTF-8",
+//     },
+//     body: JSON.stringify({
+//       gigId: 15,
+//       completionStatus: GIG_COMPLETION_STATUS.COMPLETE,
+//     }),
+//   };
+//   const acceptGigResponse = await fetch("/api/gig/status", options);
+//   if (acceptGigResponse.status == 200) {
+//     console.log("Gig marked as complete successfully!!");
+//   }
+// }
 
-function acceptGig() {
-  acceptGigInDatabase();
-  // closeProposal(15);
-}
-
-const FreelancerChat = async ({
+const FreelancerChat = ({
   params,
   searchParams,
 }: {
@@ -62,17 +60,17 @@ const FreelancerChat = async ({
   }
 
   let sentimentText: string;
-  let messages;
-  let submittedFiles = [];
-  let filesSharedByUser = [];
-  let filesSharedByPartner = [];
+  let [messages, setMessages] = useState<any>();
+  let [submittedFiles, setSubmitedFiles] = useState([]);
+  let [filesSharedByUser, setFilesSharedByUser] = useState([]);
+  let [filesSharedByPartner, setFilesSharedByPartner] = useState([]);
 
   /**
    * get initial messages to load in chat window
    */
   async function getChatMessages() {
     try {
-      messages = await prisma.chatMessage.findMany({
+      let messages = await prisma.chatMessage.findMany({
         where: {
           chatId: chatId,
         },
@@ -80,6 +78,7 @@ const FreelancerChat = async ({
           sentTimestamp: "asc",
         },
       });
+      setMessages(messages);
     } catch (error) {
       console.log(error);
     }
@@ -89,28 +88,28 @@ const FreelancerChat = async ({
   /**
    * get gemini api sentiment for exisiting chat messages
    */
-  async function getGeminiSentiment() {
-    try {
-      const sentimentTextResponse = await prisma.chat.findUnique({
-        where: { chatId: chatId },
-        select: {
-          geminiSentiment: true,
-        },
-      });
-      console.log(sentimentTextResponse);
-      sentimentText = sentimentTextResponse?.geminiSentiment!;
-    } catch (error) {
-      console.log(error);
-    }
+  // async function getGeminiSentiment() {
+  //   try {
+  //     const sentimentTextResponse = await prisma.chat.findUnique({
+  //       where: { chatId: chatId },
+  //       select: {
+  //         geminiSentiment: true,
+  //       },
+  //     });
+  //     console.log(sentimentTextResponse);
+  //     sentimentText = sentimentTextResponse?.geminiSentiment!;
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
 
-    if (sentimentText == "null") {
-      console.log("New chat, no sentiment has been generated");
-      // Set sentiment indicator when no messages have been exchanged for a chat
-      sentimentText = "neutral";
-    } else {
-      console.log("setting initial sentiment as:", sentimentText);
-    }
-  }
+  //   if (sentimentText == "null") {
+  //     console.log("New chat, no sentiment has been generated");
+  //     // Set sentiment indicator when no messages have been exchanged for a chat
+  //     sentimentText = "neutral";
+  //   } else {
+  //     console.log("setting initial sentiment as:", sentimentText);
+  //   }
+  // }
 
   async function getSubmittedFiles() {
     try {
@@ -132,15 +131,50 @@ const FreelancerChat = async ({
     });
   }
 
+  const handleAcceptGig = async () => {
+    // TODO: make functionalities for accept budget via API, assigned - @Horlarmmy
+    const response = await fetch(`/api/gig/accept-budget`);
+
+    if (!response.ok) {
+      throw new Error("Failed to fetch data");
+    }
+  }
+
+  const handleSubmitGig = async () => {
+    // TODO: check if work submited and after that client can accept budget, before button should be inactive
+    const userId = await getUserIdFromPayload();
+    const response = await fetch('/api/gig/submit', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ gigId, userId }),
+    });
+
+    if (!response.ok) {
+      throw new Error("Failed to fetch data");
+    }
+  }
+
   const removeFile = (index: any) => {
     return;
   };
 
-  await Promise.all([
-    getChatMessages(),
-    getGeminiSentiment(),
-    getSubmittedFiles(),
-  ]);
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        await Promise.all([
+          getChatMessages(),
+          getSubmittedFiles(),
+        ]);
+      } catch (err) {
+        console.error('Failed to fetch data:', err);
+      }
+    }
+
+    fetchData();
+  }, [])
+
   // await Promise.all([getChatMessages()]);
 
   // we can use gig id to get chat id or directly pass chat id in the http route query
@@ -452,11 +486,11 @@ const FreelancerChat = async ({
                 </div>
                 <div className={styles.jobSubmissionContentParent}>
                   <div className={styles.jobSubmissionContent}>
-                    <ChatSentiment
+                    {/* <ChatSentiment
                       initialSentiment={sentimentText}
                       chatId={chatId}
                       className=""
-                    />
+                    /> */}
                     <div className={styles.tasksContentParent}>
                       <div className={styles.tasksContent}>
                         <div className={styles.keepTrackOf}>
@@ -615,9 +649,23 @@ const FreelancerChat = async ({
                       alt=""
                       src="/fact-check.svg"
                     />
-                    <b className={styles.submitJob}>
-                      {currentUser == client ? "Accept Gig" : "Submit Gig"}
-                    </b>
+                    <div>
+                      {currentUser === client ? (
+                        <a
+                          className={styles.acceptGig}
+                          onClick={handleAcceptGig}
+                        >
+                          Accept Gig
+                        </a>
+                      ) : (
+                        <a
+                          className={styles.submitJob}
+                          onClick={handleSubmitGig}
+                        >
+                          Submit Gig
+                        </a>
+                      )}
+                    </div>
                   </button>
                 </div>
               </div>

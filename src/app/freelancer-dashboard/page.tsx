@@ -202,7 +202,7 @@ const FreelancerDashboard = async () => {
                   <h1 className={styles.yourActiveJobs}>Your Active Jobs</h1>
                 </div>
                 <div className={styles.jobsList}>
-                  {activeGigs.map((gig) => {
+                  {!activeGigs ? activeGigs.map((gig) => {
                     return (
                       <div className={styles.jobCards}>
                         <div className={styles.jobCardOne}>
@@ -298,7 +298,7 @@ const FreelancerDashboard = async () => {
                             </div>
                             <div
                               className={styles.btnChat}
-                              // onClick={onBtnChatContainerClick}
+                            // onClick={onBtnChatContainerClick}
                             >
                               <div className={styles.iconChat}>
                                 <img
@@ -317,7 +317,7 @@ const FreelancerDashboard = async () => {
                         </div>
                       </div>
                     );
-                  })}
+                  }) : <div>You don't have active jobs.</div>}
                 </div>
               </div>
               {/* <div className={styles.earningsMetrics}>
@@ -446,7 +446,7 @@ const FreelancerDashboard = async () => {
                   <h1 className={styles.yourActiveJobs}>Completed Jobs</h1>
                 </div>
                 <div className={styles.jobsList}>
-                  {completedGigs.map((gig) => {
+                  {!completedGigs ? completedGigs.map((gig) => {
                     return (
                       <div className={styles.jobCards}>
                         <div className={styles.jobCardOne}>
@@ -558,7 +558,7 @@ const FreelancerDashboard = async () => {
                         </div>
                       </div>
                     );
-                  })}
+                  }) : <div>You don't have completed jobs.</div>}
                 </div>
               </div>
             </div>
@@ -568,7 +568,7 @@ const FreelancerDashboard = async () => {
                   <div className={styles.pendingJobsContainer}>
                     <h1 className={styles.jobsToBe}>Applications</h1>
                     <div className={styles.pendingJobsCount}>
-                      <b className={styles.pendingJobsNumber}>1</b>
+                      <b className={styles.pendingJobsNumber}>{offers.length}</b>
                       <div className={styles.pending}>pending</div>
                     </div>
                   </div>
@@ -728,12 +728,12 @@ const FreelancerDashboard = async () => {
           </div>
         </div>
         <div className={styles.socialMediaOne}>
-          <div className={styles.socialMedia}>
+          <a className={styles.socialMedia} href="https://x.com/gig2hire">
             <img className={styles.socialIconOne} alt="" src="/vector-7.svg" />
-          </div>
-        </div>
-        <div className={styles.socialMedia1}>
-          <img className={styles.socialIconTwo} alt="" src="/vector-8.svg" />
+          </a>
+          <a className={styles.socialMedia1} href="https://discord.com/invite/sFEZN2nFkV">
+            <img className={styles.socialIconTwo} alt="" src="/vector-8.svg" />
+          </a>
         </div>
       </footer>
     </div>

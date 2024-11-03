@@ -15,6 +15,26 @@ export type CompjobofferVType = {
 const CompjobofferV: FunctionComponent<CompjobofferVType> = ({
     className = "",
 }) => {
+    // remove by actual tasks
+    const tasks = [
+        "Create a user cock",
+        "Create landing page",
+        "Create drug shop",
+        "Create Marketplace",
+        "Design Checkout Modal",
+        "Design User Creator",
+        "Create store builder",
+        "Design Merchant chat"
+    ];
+
+    const handleApplyForGig = async () => {
+        const response = await fetch(`/api/gig/apply?gig_id=${gigId}`); // TODO: add gigId
+
+        if (!response.ok) {
+            throw new Error("Failed to fetch data");
+        }
+    }
+
     return (
         <div className={[styles.compjobofferV2, className].join(" ")}>
             <section className={styles.contentParent}>
@@ -27,12 +47,12 @@ const CompjobofferV: FunctionComponent<CompjobofferVType> = ({
                             <a className={styles.timePosted}>Andriy</a>
                         </div>
                         <h2 className={styles.offerTitle}>
-                            Mobile App Design - UI/UX Specialist
+                            Mobile App Design - UI/UX Specialist {/* change to `job_title` */}
                         </h2>
                     </div>
                     <div className={styles.description}>
                         <p className={styles.lookingForAn}>
-                            Looking for an experienced UX/UI designer to design a stunning
+                            Looking for an experienced UX/UI designer to design a stunning {/* change to `description` */}
                             e-Commerce platform.  This platform will be designed as a PWA app
                             meaning it will render on regular desktops as well as smart
                             devices (phones/tablets).
@@ -47,74 +67,20 @@ const CompjobofferV: FunctionComponent<CompjobofferVType> = ({
                     </div>
                     <div className={styles.tasks}>
                         <div className={styles.taskHeader}>
-                            <b className={styles.taskNumber1}>8</b>
+                            <b className={styles.taskNumber1}>{tasks.length}</b>
                             <div className={styles.tasks1}>Tasks</div>
                         </div>
-                        <div className={styles.taskItem}>
-                            <div className={styles.taskElements}>
-                                <Frametask
-                                    propFlex="0.8788"
-                                    propPadding="0px 67px 0px 0px"
-                                    propMinWidth="161px"
-                                    thisIsATask="Create a user dashboard"
-                                    propDisplay="unset"
-                                    propMinWidth1="unset"
-                                />
-                                <Frametask
-                                    propFlex="0.8488"
-                                    propPadding="0px 92px 0px 0px"
-                                    propMinWidth="161px"
-                                    thisIsATask="Create landing page"
-                                    propDisplay="inline-block"
-                                    propMinWidth1="118px"
-                                />
-                                <Frametask
-                                    propFlex="0.6794"
-                                    propPadding="0px 120px 0px 0px"
-                                    propMinWidth="161px"
-                                    thisIsATask="Create all icons"
-                                    propDisplay="inline-block"
-                                    propMinWidth1="90px"
-                                />
-                            </div>
-                            <div className={styles.taskElements}>
-                                <Frametask
-                                    propFlex="0.8565"
-                                    propPadding="0px 95px 0px 0px"
-                                    propMinWidth="156px"
-                                    thisIsATask="Create Marketplace"
-                                    propDisplay="inline-block"
-                                    propMinWidth1="115px"
-                                />
-                                <Frametask
-                                    propFlex="1"
-                                    propPadding="0px 72px 0px 0px"
-                                    propMinWidth="156px"
-                                    thisIsATask="Design Checkout Modal"
-                                    propDisplay="unset"
-                                    propMinWidth1="unset"
-                                />
-                                <Frametask
-                                    propFlex="0.8628"
-                                    propPadding="0px 94px 0px 0px"
-                                    propMinWidth="156px"
-                                    thisIsATask="Design User Creator"
-                                    propDisplay="inline-block"
-                                    propMinWidth1="116px"
-                                />
-                            </div>
-                            <div className={styles.taskElements}>
-                                <Frametask
-                                    propFlex="0.5954"
-                                    propPadding="0px 94px 0px 0px"
-                                    propMinWidth="174px"
-                                    thisIsATask="Create store builder"
-                                    propDisplay="unset"
-                                    propMinWidth1="unset"
-                                />
-                                <Frametask thisIsATask="Design User/Merchant chat" />
-                                <div className={styles.spacerTask} />
-                            </div>
+                        <div className={styles.taskContainer}>
+                            {tasks.map((task, index) => (
+                                <div className={styles.taskItem} key={index}>
+                                    <Frametask
+                                        propFlex="1"
+                                        propPadding="0px 20px"
+                                        propMinWidth="160px"
+                                        thisIsATask={task}
+                                    />
+                                </div>
+                            ))}
                         </div>
                     </div>
                     <div className={styles.tags}>
@@ -137,7 +103,7 @@ const CompjobofferV: FunctionComponent<CompjobofferVType> = ({
                                 src={groupLogo.src}
                             />
                             <b className={styles.candidates}>Candidates:</b>
-                            <div className={styles.taskNumber}>5</div>
+                            <div className={styles.taskNumber}>5</div> {/* change to `offers.lenght` */}
                         </div>
                         <div className={styles.metaIcons}>
                             <img
@@ -147,7 +113,7 @@ const CompjobofferV: FunctionComponent<CompjobofferVType> = ({
                                 src={eventListLogo.src}
                             />
                             <b className={styles.taskNumber}>Tasks:</b>
-                            <div className={styles.taskNumber}>8</div>
+                            <div className={styles.taskNumber}>{tasks.length}</div>
                         </div>
                     </div>
                 </div>
@@ -189,7 +155,7 @@ const CompjobofferV: FunctionComponent<CompjobofferVType> = ({
                             alt=""
                             src={usdcLogo.src}
                         />
-                        <b className={styles.earningsSeparator}>250</b>
+                        <b className={styles.earningsSeparator}>250</b> {/* change to `budget` */}
                         <h1 className={styles.usdc}>USDC</h1>
                     </div>
                 </div>
@@ -200,7 +166,7 @@ const CompjobofferV: FunctionComponent<CompjobofferVType> = ({
                             alt=""
                             src={personHandLogo.src}
                         />
-                        <b className={styles.applyText}>Apply Now</b>
+                        <b className={styles.applyText} onClick={handleApplyForGig}>Apply Now</b>
                     </label>
                     <input
                         className={styles.input}
