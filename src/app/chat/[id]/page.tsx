@@ -62,7 +62,7 @@ const FreelancerChat = ({
 
   let sentimentText: string;
   let [messages, setMessages] = useState<any>();
-  let [submittedFiles, setSubmitedFiles] = useState([]);
+  let submittedFiles: any[] = [];
   let [filesSharedByUser, setFilesSharedByUser] = useState([]);
   let [filesSharedByPartner, setFilesSharedByPartner] = useState([]);
 
@@ -109,7 +109,7 @@ const FreelancerChat = ({
 
   async function getSubmittedFiles() {
     try {
-      let submittedFiles = await getFiles(Number(gigId))
+      submittedFiles = await getFiles(Number(gigId))
       console.log(submittedFiles);
     } catch (error) {
       console.log(error);
@@ -120,6 +120,7 @@ const FreelancerChat = ({
       } else {
         filesSharedByPartner.push(file);
       }
+      console.log(filesSharedByPartner, filesSharedByUser)
     });
   }
 

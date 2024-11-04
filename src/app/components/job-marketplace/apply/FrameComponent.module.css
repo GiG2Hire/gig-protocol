@@ -1,0 +1,15 @@
+.compdeadlineBoxParent {
+  align-self: stretch;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: center;
+  flex-wrap: wrap;
+  align-content: flex-start;
+  gap: var(--gap-base);
+  max-width: 100%;
+  text-align: left;
+  font-size: var(--medium-size);
+  color: var(--navy);
+  font-family: var(--h3);
+}
