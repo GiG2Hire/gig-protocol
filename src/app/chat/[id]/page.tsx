@@ -12,6 +12,7 @@ import FileUpload from "../../components/chat/file-upload";
 import { CallTracker } from "assert";
 import FileList from "../../components/files/file-list";
 import { getUserIdFromPayload } from "../../actions/login";
+import { getFiles, getMessages } from "../../actions/get-messages";
 
 // async function acceptGigInDatabase() {
 //   const options = {
@@ -70,19 +71,14 @@ const FreelancerChat = ({
    */
   async function getChatMessages() {
     try {
-      let messages = await prisma.chatMessage.findMany({
-        where: {
-          chatId: chatId,
-        },
-        orderBy: {
-          sentTimestamp: "asc",
-        },
-      });
+      //let messages = await fetch(`api/message/get-messages?chat_id=${chatId}`);    Have some troubles with it
+
+      let messages = await getMessages(chatId);
+      console.log(messages, "HERE1")
       setMessages(messages);
     } catch (error) {
       console.log(error);
     }
-    console.log(messages);
   }
 
   /**
@@ -113,11 +109,7 @@ const FreelancerChat = ({
 
   async function getSubmittedFiles() {
     try {
-      submittedFiles = await prisma.gigFile.findMany({
-        where: {
-          gigId: Number(gigId),
-        },
-      });
+      let submittedFiles = await getFiles(Number(gigId))
       console.log(submittedFiles);
     } catch (error) {
       console.log(error);
