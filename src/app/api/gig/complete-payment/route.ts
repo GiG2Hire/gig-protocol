@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 import { prisma } from '@/src/app/lib/db';
 import { ethers } from 'ethers';
+import { client } from '@/src/app/lib/client';
 
 const provider = new ethers.providers.JsonRpcProvider(process.env.ETHEREUM_RPC_URL);
 
@@ -103,3 +104,10 @@ async function approveAndReleasePayment(gigId: string) {
         throw error;
     }
 }
+
+
+/appprove-payment
+client will call the release payment function.
+We would use our wallet to transfer the funds to the freelancer
+
+// Sending raw transaction to the frontend to be signed by the client,
