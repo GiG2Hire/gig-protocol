@@ -9,15 +9,25 @@ import calendarLogo from "./iconcalendar.svg";
 import arrowUp from "./arrow-up.svg";
 
 export type CompjobofferVType = {
+    gigId: number,
+    title: string,
+    description: string,
+    tasks: any[],
+    budget: number,
     className?: string;
 };
 
 const CompjobofferV: FunctionComponent<CompjobofferVType> = ({
+    gigId,
+    title,
+    description,
+    tasks1,
+    budget,
     className = "",
 }) => {
     // remove by actual tasks
     const tasks = [
-        "Create a user cock",
+        "Create a user btn",
         "Create landing page",
         "Create drug shop",
         "Create Marketplace",
@@ -26,6 +36,7 @@ const CompjobofferV: FunctionComponent<CompjobofferVType> = ({
         "Create store builder",
         "Design Merchant chat"
     ];
+    console.log(tasks1, gigId, title)
 
     const handleApplyForGig = async () => {
         const response = await fetch(`/api/gig/apply?gig_id=${gigId}`); // TODO: add gigId
@@ -44,26 +55,17 @@ const CompjobofferV: FunctionComponent<CompjobofferVType> = ({
                             <a className={styles.posted}>Posted</a>
                             <a className={styles.timePosted}>6h ago</a>
                             <a className={styles.by}>by</a>
-                            <a className={styles.timePosted}>Andriy</a>
+                            <a className={styles.timePosted}>Client</a>
                         </div>
                         <h2 className={styles.offerTitle}>
-                            Mobile App Design - UI/UX Specialist {/* change to `job_title` */}
+                            {title}
                         </h2>
                     </div>
                     <div className={styles.description}>
                         <p className={styles.lookingForAn}>
-                            Looking for an experienced UX/UI designer to design a stunning {/* change to `description` */}
-                            e-Commerce platform.  This platform will be designed as a PWA app
-                            meaning it will render on regular desktops as well as smart
-                            devices (phones/tablets).
+                            {description}
                         </p>
                         <p className={styles.lookingForAn}>&nbsp;</p>
-                        <p className={styles.lookingForAn}>
-                            You must have created similar projects in the past to be
-                            considered.  when replying to this post please confirm that you
-                            are available on a full-time basis for this project.  We are
-                            looking for talented individuals to join our growing team.
-                        </p>
                     </div>
                     <div className={styles.tasks}>
                         <div className={styles.taskHeader}>
@@ -103,7 +105,7 @@ const CompjobofferV: FunctionComponent<CompjobofferVType> = ({
                                 src={groupLogo.src}
                             />
                             <b className={styles.candidates}>Candidates:</b>
-                            <div className={styles.taskNumber}>5</div> {/* change to `offers.lenght` */}
+                            <div className={styles.taskNumber}>0</div> {/* change to `offers.lenght` */}
                         </div>
                         <div className={styles.metaIcons}>
                             <img
@@ -155,7 +157,7 @@ const CompjobofferV: FunctionComponent<CompjobofferVType> = ({
                             alt=""
                             src={usdcLogo.src}
                         />
-                        <b className={styles.earningsSeparator}>250</b> {/* change to `budget` */}
+                        <b className={styles.earningsSeparator}>{budget}</b>
                         <h1 className={styles.usdc}>USDC</h1>
                     </div>
                 </div>

@@ -17,15 +17,18 @@ const JobList = ({ selectedCategory, className = "" }) => {
     fetchGigs();
   }, []);
 
+  console.log(gigData)
+
   return (
     <div className={styles.jobListings}>
       {gigData.map((singleGig) => (
         <CompJoboffer
+          gigId={singleGig.gigId}
           title={singleGig.title}
           description={singleGig.description}
           budget={singleGig.budget}
           freelancerCount={0}
-          tasks={singleGig.gig_task}
+          tasks1={singleGig.gig_task}
           jobCategory={singleGig.category}
         />
       ))}

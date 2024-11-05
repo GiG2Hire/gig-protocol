@@ -227,6 +227,7 @@
   align-content: flex-start;
   gap: var(--gap-base);
   max-width: 100%;
+  height: 370px;
   text-align: left;
   font-size: var(--p-size);
   color: var(--navy-800);
