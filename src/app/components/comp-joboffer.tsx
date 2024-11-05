@@ -1,4 +1,4 @@
-import { FunctionComponent } from "react";
+import { FunctionComponent, useState } from "react";
 import styles from "./comp-joboffer.module.css";
 import Frametask from "./Frametask";
 import usdcLogo from "./usdc-logo.png";
@@ -25,6 +25,7 @@ const CompjobofferV: FunctionComponent<CompjobofferVType> = ({
     budget,
     className = "",
 }) => {
+    const [isApplied, setIsApplied] = useState(false);
     // remove by actual tasks
     const tasks = [
         "Create a user btn",
@@ -39,7 +40,9 @@ const CompjobofferV: FunctionComponent<CompjobofferVType> = ({
     console.log(tasks1, gigId, title)
 
     const handleApplyForGig = async () => {
-        const response = await fetch(`/api/gig/apply?gig_id=${gigId}`); // TODO: add gigId
+        setIsApplied(true);
+
+        const response = await fetch(`/api/gig/apply?gig_id=${gigId}`);
 
         if (!response.ok) {
             throw new Error("Failed to fetch data");
@@ -157,7 +160,7 @@ const CompjobofferV: FunctionComponent<CompjobofferVType> = ({
                             alt=""
                             src={usdcLogo.src}
                         />
-                        <b className={styles.earningsSeparator}>{budget}</b>
+                        <b className={styles.earningsSeparator}>250</b>
                         <h1 className={styles.usdc}>USDC</h1>
                     </div>
                 </div>
@@ -168,7 +171,7 @@ const CompjobofferV: FunctionComponent<CompjobofferVType> = ({
                             alt=""
                             src={personHandLogo.src}
                         />
-                        <b className={styles.applyText} onClick={handleApplyForGig}>Apply Now</b>
+                        <b className={styles.applyText} onClick={handleApplyForGig}>{isApplied ? "Applied" : "Apply Now"}</b>
                     </label>
                     <input
                         className={styles.input}
