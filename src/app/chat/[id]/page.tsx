@@ -7,12 +7,11 @@ import { GIG_COMPLETION_STATUS } from "@/src/constants/appConstants";
 import { closeProposal } from "../../actions/choose-and-open";
 import ChatWindow from "@/src/app/components/chat/chat-window";
 import ChatInput from "../../components/chat/chat-input";
-import { prisma } from "../../lib/db";
 import FileUpload from "../../components/chat/file-upload";
-import { CallTracker } from "assert";
 import FileList from "../../components/files/file-list";
 import { getUserIdFromPayload } from "../../actions/login";
 import { getFiles, getMessages } from "../../actions/get-messages";
+import { getRoleFromPayload } from "../../actions/login";
 
 // async function acceptGigInDatabase() {
 //   const options = {
@@ -48,7 +47,7 @@ const FreelancerChat = ({
   const currentUser: number = Number(searchParams.userId);
 
   // TODO: Try to see if this is a secure way to get Gig Id
-  const gigId: string = chatId.split("-")[2];
+  const gigId: number = Number(chatId.split("-")[2]);
   console.log("Gig Id derived from chat Id: ", gigId);
   let receiverUser: number;
 
@@ -60,9 +59,10 @@ const FreelancerChat = ({
     receiverUser = client;
   }
 
-  let sentimentText: string;
+  //let sentimentText: string;
   let [messages, setMessages] = useState<any>();
   let submittedFiles: any[] = [];
+  let [hasSubmitted, setSubmitStatus] = useState<boolean>();
   let [filesSharedByUser, setFilesSharedByUser] = useState([]);
   let [filesSharedByPartner, setFilesSharedByPartner] = useState([]);
 
@@ -74,7 +74,6 @@ const FreelancerChat = ({
       //let messages = await fetch(`api/message/get-messages?chat_id=${chatId}`);    Have some troubles with it
 
       let messages = await getMessages(chatId);
-      console.log(messages, "HERE1")
       setMessages(messages);
     } catch (error) {
       console.log(error);
@@ -124,6 +123,14 @@ const FreelancerChat = ({
     });
   }
 
+  async function getGigStatus() {
+    const response = await fetch(`/api/gig/get-status/?gig_id=${gigId}`);
+    const status = await response.json();
+    if (status == "SUBMITTED") {
+      setSubmitStatus(true)
+    }
+  }
+
   const handleAcceptGig = async () => {
     // TODO: make functionalities for accept budget via API, assigned - @Horlarmmy
     const response = await fetch(`/api/gig/accept-budget`);
@@ -135,30 +142,39 @@ const FreelancerChat = ({
 
   const handleSubmitGig = async () => {
     // TODO: check if work submited and after that client can accept budget, before button should be inactive
-    const userId = await getUserIdFromPayload();
+    const freelancerId = await getUserIdFromPayload();
     const response = await fetch('/api/gig/submit', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ gigId, userId }),
+      body: JSON.stringify({ gigId, freelancerId }),
     });
+
+    console.log(response)
 
     if (!response.ok) {
       throw new Error("Failed to fetch data");
     }
+
+    console.log("All good")
+    setSubmitStatus(true);
   }
 
   const removeFile = (index: any) => {
     return;
   };
 
+  let currUserRole;
   useEffect(() => {
     const fetchData = async () => {
       try {
         await Promise.all([
           getChatMessages(),
           getSubmittedFiles(),
+          getGigStatus(),
+
+          currUserRole = await getRoleFromPayload()
         ]);
       } catch (err) {
         console.error('Failed to fetch data:', err);
@@ -470,6 +486,8 @@ const FreelancerChat = ({
                   />
                   <div className={styles.chatInputContentInner}>
                     <ChatInput
+                      hasSubmitted={hasSubmitted}
+                      userRole={currUserRole}
                       currentUser={currentUser}
                       receiverUser={receiverUser}
                       chatId={chatId}
@@ -655,7 +673,7 @@ const FreelancerChat = ({
                           className={styles.submitJob}
                           onClick={handleSubmitGig}
                         >
-                          Submit Gig
+                          {hasSubmitted ? "Submitted" : "Submit Gig"}
                         </a>
                       )}
                     </div>

@@ -42,7 +42,15 @@ const CompjobofferV: FunctionComponent<CompjobofferVType> = ({
     const handleApplyForGig = async () => {
         setIsApplied(true);
 
-        const response = await fetch(`/api/gig/apply?gig_id=${gigId}`);
+        // make it for POST request
+        const response = await fetch(`/api/gig/apply/gig_id=${gigId}`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            }
+        });
+
+        console.log(response)
 
         if (!response.ok) {
             throw new Error("Failed to fetch data");

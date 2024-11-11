@@ -2367,6 +2367,7 @@
 .btnSubmit {
   cursor: pointer;
   border: 0;
+  width: 300px;
   padding: var(--padding-base) var(--padding-35xl);
   background-color: var(--yellow-bk);
   display: flex;
@@ -2378,7 +2379,7 @@
 }
 
 .jobSubmissionContentParent {
-  height: 738px;
+  height: 100%;
   width: 300px;
   overflow: hidden;
   flex-shrink: 0;
@@ -2424,7 +2425,6 @@
   align-self: stretch;
   display: flex;
   flex-direction: row;
-  /* align-items: center; */
   justify-content: flex-start;
   gap: var(--gap-base);
   max-width: 100%;
