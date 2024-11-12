@@ -1,759 +1,412 @@
-.hAgo,
-.mobileAppDesign,
-.posted {
+.by,
+.posted,
+.timePosted {
+  text-decoration: none;
   position: relative;
-  display: inline-block;
+  color: grey;
 }
 
-.mobileAppDesign {
-  max-width: 100%;
-}
-
-.hAgo,
-.posted {
-  min-width: 45px;
-}
-
-.hAgo {
+.timePosted {
   font-weight: 700;
 }
 
-.jobListingMetadata {
+.by {
+  display: inline-block;
+  min-width: 17px;
+}
+
+.jobInfo {
   display: flex;
   flex-direction: row;
   align-items: flex-start;
   justify-content: flex-start;
-  gap: var(--gap-9xs);
-  font-size: var(--font-size-xs);
-  color: var(--midnight-bold);
+  gap: var(--gap-5xs);
 }
 
-.jobListingDetails {
-  align-self: stretch;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-between;
-  gap: var(--gap-xl);
+.offerTitle {
+  margin: 0;
+  position: relative;
+  font-size: var(--medium-size);
+  font-weight: 700;
+  font-family: inherit;
+  color: var(--navy);
+  display: inline-block;
   max-width: 100%;
 }
 
-.blankLine,
-.lookingForAn,
-.youMustHave {
-  display: block;
-}
-
-.lookingForAnContainer {
-  margin: 0;
+.jobInfoParent {
   align-self: stretch;
-  position: relative;
-  font-size: var(--font-size-xs);
-  color: var(--midnight-bold);
-  display: -webkit-inline-box;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  -webkit-line-clamp: 2;
-  -webkit-box-orient: vertical;
-}
-
-.b,
-.jobTasks {
-  position: relative;
-}
-
-.jobTasks {
-  height: 30px;
-  flex: 1;
-  display: inline-block;
-}
-
-.parent {
-  width: 132px;
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   align-items: flex-start;
   justify-content: flex-start;
-  gap: var(--gap-5xs);
-}
-
-.checkSmallIcon {
-  width: 20px;
-  height: 20px;
-  position: relative;
-}
-
-.btnCheck {
-  height: 18px;
-  background-color: var(--navy-medium-bk);
-  overflow: hidden;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-}
-
-.createAUser {
-  height: 18px;
-  position: relative;
-  display: inline-block;
-}
-
-.btnCheckParent {
-  flex: 1;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: flex-start;
-  gap: var(--gap-5xs);
-  min-width: 186px;
-}
-
-.checkSmallIcon1 {
-  width: 20px;
-  height: 20px;
-  position: relative;
-}
-
-.btnCheck1 {
-  height: 18px;
-  background-color: var(--navy-medium-bk);
-  overflow: hidden;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-}
-
-.createLandingPage {
-  height: 18px;
-  position: relative;
-  display: inline-block;
-}
-
-.btnCheckGroup {
-  flex: 1;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: flex-start;
-  gap: var(--gap-5xs);
-  min-width: 186px;
-}
-
-.checkSmallIcon2 {
-  width: 20px;
-  height: 20px;
-  position: relative;
-}
-
-.btnCheck2 {
-  height: 18px;
-  background-color: var(--navy-medium-bk);
-  overflow: hidden;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-}
-
-.createAllIcons {
-  height: 18px;
-  position: relative;
-  display: inline-block;
-}
-
-.btnCheckContainer,
-.frameGroup {
-  display: flex;
-  flex-direction: row;
-  justify-content: flex-start;
-}
-
-.btnCheckContainer {
-  flex: 1;
-  align-items: center;
-  gap: var(--gap-5xs);
-  min-width: 186px;
-}
-
-.frameGroup {
-  align-self: stretch;
-  align-items: flex-start;
-  row-gap: 20px;
-}
-
-.checkSmallIcon3 {
-  width: 20px;
-  height: 20px;
-  position: relative;
-}
-
-.btnCheck3 {
-  height: 18px;
-  background-color: var(--navy-medium-bk);
-  overflow: hidden;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-}
-
-.createMarketplace {
-  height: 18px;
-  position: relative;
-  display: inline-block;
-}
-
-.frameDiv {
-  flex: 1;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: flex-start;
-  gap: var(--gap-5xs);
-  min-width: 173px;
-}
-
-.checkSmallIcon4 {
-  width: 20px;
-  height: 20px;
-  position: relative;
-}
-
-.btnCheck4 {
-  height: 18px;
-  background-color: var(--navy-medium-bk);
-  overflow: hidden;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-}
-
-.designCheckoutModal {
-  height: 18px;
-  position: relative;
-  display: inline-block;
-}
-
-.btnCheckParent1 {
-  flex: 1;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: flex-start;
-  gap: var(--gap-5xs);
-  min-width: 173px;
-}
-
-.checkSmallIcon5 {
-  width: 20px;
-  height: 20px;
-  position: relative;
-}
-
-.btnCheck5 {
-  height: 18px;
-  background-color: var(--navy-medium-bk);
-  overflow: hidden;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-}
-
-.designUserCreator {
-  height: 18px;
-  position: relative;
-  display: inline-block;
-}
-
-.btnCheckParent2,
-.frameContainer {
-  display: flex;
-  flex-direction: row;
-  justify-content: flex-start;
-}
-
-.btnCheckParent2 {
-  flex: 1;
-  align-items: center;
-  gap: var(--gap-5xs);
-  min-width: 173px;
-}
-
-.frameContainer {
-  align-self: stretch;
-  align-items: flex-start;
-  row-gap: 20px;
-}
-
-.checkSmallIcon6 {
-  width: 20px;
-  height: 20px;
-  position: relative;
-}
-
-.btnCheck6 {
-  height: 18px;
-  background-color: var(--navy-medium-bk);
-  overflow: hidden;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-}
-
-.createStoreBuilder {
-  height: 18px;
-  position: relative;
-  display: inline-block;
-}
-
-.btnCheckParent3 {
-  flex: 1;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: flex-start;
-  gap: var(--gap-5xs);
-  min-width: 161px;
-}
-
-.btnCheck7 {
-  margin: 0;
-  height: 18px;
-  width: 18px;
-  overflow: hidden;
-  flex-shrink: 0;
-}
-
-.designUsermerchantChat {
-  height: 18px;
-  flex: 1;
-  position: relative;
-  display: inline-block;
-}
-
-.btnCheckParent4 {
-  flex: 0.8468;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: flex-start;
-  padding: 0 var(--padding-19xl) 0 0;
+  padding: 0 var(--padding-xl) 0 0;
   box-sizing: border-box;
-  gap: var(--gap-5xs);
-  min-width: 161px;
+  gap: var(--gap-9xs);
+  max-width: 100%;
+  font-size: var(--small-size);
+  color: var(--grey-600);
 }
 
-.frameChild {
-  height: 18px;
-  width: 248px;
-  flex-shrink: 0;
+.lookingForAn {
+  margin: 0;
 }
 
-.frameParent,
-.frameParent1,
-.tasks {
+.description {
   align-self: stretch;
+}
+
+.description,
+.taskNumber {
+  position: relative;
+  color: #081444;
+}
+
+.taskNumber1 {
+  position: relative;
+  color: #3f5dba;
+}
+
+.applyText {
+  position: relative;
+  color: #3f5dba;
+}
+
+.tasks1 {
+  position: relative;
+}
+
+.tasks1 {
+  display: inline-block;
+  min-width: 44px;
+}
+
+.taskElements,
+.taskHeader {
+  display: flex;
+  flex-direction: row;
   align-items: flex-start;
   justify-content: flex-start;
 }
 
-.frameParent1 {
-  display: flex;
-  flex-direction: row;
-  row-gap: 20px;
-}
-
-.frameParent,
-.tasks {
-  flex-direction: column;
+.taskHeader {
+  padding: 0 var(--padding-xl) 0 0;
   gap: var(--gap-5xs);
 }
 
-.frameParent {
+.taskElements {
+  align-self: stretch;
+  gap: var(--gap-xs);
+}
+
+.spacerTask {
+  height: 18px;
+  flex: 1;
+  min-width: 174px;
+}
+
+.taskItem,
+.tasks {
+  align-self: stretch;
   display: flex;
-  font-size: var(--font-size-xs);
-  color: var(--midnight-medium);
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  gap: var(--gap-5xs);
 }
 
 .tasks {
-  display: none;
+  color: var(--navy);
 }
 
-.eventIcon {
-  height: 18px;
-  width: 18px;
+.iconevent {
+  height: 20px;
+  width: 20px;
   position: relative;
 }
 
-.deadline,
-.jun122024 {
-  position: relative;
-  display: inline-block;
-}
-
-.deadline {
-  font-weight: 700;
-  min-width: 89px;
-}
-
-.jun122024 {
-  min-width: 118px;
-}
-
-.eventParent {
-  background-color: var(--yellow-bk-40a);
+.iconeventParent {
+  background-color: var(--lime-bk-40a);
   overflow: hidden;
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: flex-start;
-  padding: var(--padding-9xs) var(--padding-base);
+  padding: var(--padding-9xs) 5px var(--padding-9xs) var(--padding-9xs);
   gap: var(--gap-9xs);
-}
-
-.groupIcon {
-  height: 18px;
-  width: 18px;
-  position: relative;
-}
-
-.candidates,
-.jobListingApplication {
-  position: relative;
-  display: inline-block;
 }
 
 .candidates {
-  font-weight: 700;
-  min-width: 108px;
-}
-
-.jobListingApplication {
-  min-width: 10px;
-}
-
-.jobListingApplicationCandid {
-  background-color: var(--yellow-bk-40a);
-  overflow: hidden;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: flex-start;
-  padding: var(--padding-9xs) var(--padding-base);
-  gap: var(--gap-9xs);
-}
-
-.publicIcon {
-  height: 18px;
-  width: 18px;
-  position: relative;
-}
-
-.timezone,
-.utc5 {
   position: relative;
   display: inline-block;
+  min-width: 94px;
+  color: #081444
 }
 
-.timezone {
-  font-weight: 700;
-  min-width: 89px;
-}
-
-.utc5 {
-  min-width: 49px;
-}
-
-.jobListingApplicationTimezo {
-  background-color: var(--yellow-bk-40a);
-  overflow: hidden;
+.content,
+.metaIcons,
+.tags {
   display: flex;
+  justify-content: flex-start;
+}
+
+.metaIcons {
+  background-color: var(--lime-bk-40a);
+  overflow: hidden;
   flex-direction: row;
   align-items: center;
-  justify-content: flex-start;
-  padding: var(--padding-9xs) var(--padding-base);
+  padding: var(--padding-9xs) var(--padding-7xs) var(--padding-9xs) var(--padding-9xs);
   gap: var(--gap-9xs);
 }
 
-.jobListingApplicationDetail,
-.jobListingContent {
-  display: flex;
-  justify-content: flex-start;
+.content,
+.tags {
   max-width: 100%;
 }
 
-.jobListingApplicationDetail {
+.tags {
   flex-direction: row;
   align-items: center;
+  padding: 0 var(--padding-xl) 0 0;
+  box-sizing: border-box;
+  gap: var(--gap-5xs);
+}
+
+.content {
+  flex: 1;
+  flex-direction: column;
+  align-items: flex-start;
   gap: var(--gap-base);
-  font-size: var(--font-size-base);
-  color: var(--midnight-bold);
 }
 
-.jobListingContent {
-  flex: 1;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: var(--gap-5xl);
-}
-
-.timerIcon {
-  height: 20px;
-  width: 20px;
-  position: relative;
-}
-
-.timeLeftTo {
-  position: relative;
-  display: inline-block;
-  min-width: 89px;
-}
-
-.d21h58m23s {
-  align-self: stretch;
-  position: relative;
-  font-size: var(--font-size-xs);
-  text-align: right;
-  white-space: nowrap;
-}
-
-.jobListingApplicationTimeL1 {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  justify-content: center;
-  padding: 0 var(--padding-9xs);
-}
-
-.jobListingApplicationTimeL {
-  align-self: stretch;
-  background-color: var(--yellow-bk-40a);
-  overflow: hidden;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: flex-start;
-  padding: var(--padding-11xs) var(--padding-2xs) var(--padding-11xs) var(--padding-5xs);
-  gap: var(--gap-9xs);
-}
-
-.showDetails {
-  position: relative;
-  display: inline-block;
-  min-width: 118px;
-}
-
-.keyboardArrowDownIcon {
+.iconkeyboardArrowDown {
   height: 24px;
   width: 24px;
   position: relative;
-  min-height: 24px;
+  object-fit: contain;
 }
 
 .btnDetails {
   display: flex;
   flex-direction: row;
-  align-items: flex-start;
-  justify-content: flex-start;
-  padding: var(--padding-9xs) var(--padding-5xs);
+  align-items: center;
+  justify-content: flex-end;
+  padding: var(--padding-9xs) var(--padding-5xs) var(--padding-9xs) 66px;
   gap: var(--gap-9xs);
-  font-size: var(--font-size-base);
-  color: var(--midnight-medium);
 }
 
-.jobListingApplicationTimer {
-  height: 146px;
-  width: 162px;
+.clock {
+  height: 559px;
   display: flex;
   flex-direction: column;
   align-items: flex-end;
   justify-content: space-between;
-  font-size: var(--font-size-5xs);
-  color: var(--midnight-bold);
+  color: var(--grey-600);
 }
 
-.jobListingContainers {
+.contentParent {
   align-self: stretch;
   display: flex;
   flex-direction: row;
   align-items: flex-start;
   justify-content: flex-start;
+  flex-wrap: wrap;
+  align-content: flex-start;
   gap: var(--gap-base);
   max-width: 100%;
+  text-align: left;
+  font-size: var(--p-size);
+  color: var(--navy-800);
+  font-family: var(--h3);
 }
 
 .youWillCollect {
-  height: 18px;
   position: relative;
   display: inline-block;
+  min-width: 120px;
 }
 
-.b1,
-.dai {
-  align-self: stretch;
-  flex: 1;
+.iconusdc {
+  height: 28px;
+  width: 28px;
   position: relative;
+  overflow: hidden;
+  flex-shrink: 0;
+  object-fit: cover;
 }
 
-.group,
-.youWillCollectParent {
+.earningsSeparator,
+.usdc {
+  position: relative;
+  display: inline-block;
+  min-width: 46px;
+}
+
+.usdc {
+  margin: 0;
+  font-size: inherit;
+  font-weight: 700;
+  font-family: inherit;
+  min-width: 64px;
+}
+
+.earningsAmount,
+.earningsInfo {
   display: flex;
+  flex-direction: row;
   align-items: center;
   justify-content: center;
-  box-sizing: border-box;
 }
 
-.group {
-  width: 118px;
-  flex: 1;
-  flex-direction: row;
-  padding: 0 var(--padding-3xs);
+.earningsAmount {
   gap: var(--gap-5xs);
-  font-size: var(--font-size-5xl);
+  font-size: var(--h3-size);
 }
 
-.youWillCollectParent {
-  height: 62px;
-  background-color: var(--navy-bk);
-  flex-direction: column;
-  padding: var(--padding-9xs) var(--padding-base);
+.earningsInfo {
+  padding: var(--padding-5xs) var(--padding-mini);
+  gap: var(--gap-base);
 }
 
-.theJobPayment {
-  height: 60px;
-  width: 360px;
-  position: relative;
-  font-size: var(--font-size-3xs);
-  color: var(--midnight-bold);
-  display: inline-block;
-  flex-shrink: 0;
-  max-width: 100%;
-}
-
-.frameParent3 {
-  display: flex;
-  flex-direction: row;
-  align-items: flex-start;
-  justify-content: flex-start;
-  gap: var(--gap-5xs);
-  max-width: 100%;
-}
-
-.personRaisedHandIcon {
+.iconpersonRaisedHand {
   height: 24px;
   width: 24px;
   position: relative;
 }
 
-.apply {
-  position: relative;
+.label {
+  cursor: pointer;
 }
 
-.btnApply {
-  height: 62px;
-  width: 162px;
-  background-color: var(--yellow-bk);
-  overflow: hidden;
-  flex-shrink: 0;
+.input {
+  display: none;
+}
+
+.btniconText {
+  background-color: #d6ea5e;
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: center;
-  padding: var(--padding-9xs) var(--padding-base);
-  box-sizing: border-box;
+  padding: var(--padding-5xs) var(--padding-mini);
   gap: var(--gap-5xs);
-  font-size: var(--font-size-xl);
-  color: var(--navy-medium-bk);
+  font-size: var(--h3-size);
+  color: var(--navy);
 }
 
-.compJoboffer,
-.frameParent2 {
-  align-self: stretch;
+.apply,
+.compjobofferV2 {
+  display: flex;
   padding: var(--padding-5xs);
-  box-sizing: border-box;
-  max-width: 100%;
 }
 
-.frameParent2 {
-  background-color: var(--light);
-  display: none;
+.apply {
+  align-self: stretch;
+  background-color: var(--navy-bk);
   flex-direction: row;
   align-items: flex-end;
   justify-content: space-between;
   gap: var(--gap-xl);
-  font-size: var(--font-size-xs);
-  color: var(--light);
 }
 
-.compJoboffer {
-  background-color: var(--yellow-bk-10a);
+.compjobofferV2 {
+  width: 1300px;
+  background-color: #F5F9BC;
+  max-width: 100%;
   overflow: hidden;
-  display: flex;
   flex-direction: column;
   align-items: flex-start;
   justify-content: flex-start;
+  box-sizing: border-box;
   gap: var(--gap-5xl);
+  line-height: normal;
+  letter-spacing: normal;
   text-align: left;
-  font-size: var(--font-size-xl);
-  color: var(--navy-medium-bk);
-  font-family: var(--font-space-mono);
+  font-size: var(--p-size);
+  color: var(--light);
+  font-family: var(--h3);
 }
 
-@media screen and (max-width: 975px) {
-
-  .frameParent2,
-  .jobListingContainers {
-    flex-wrap: wrap;
-  }
+.iconclockLoader90 {
+  height: 32px;
+  width: 32px;
+  position: relative;
 }
 
-@media screen and (max-width: 725px) {
+.d21h58m23s,
+.timeLeftTo {
+  text-decoration: none;
+  position: relative;
+  color: inherit;
+}
 
-  .frameContainer,
-  .frameGroup,
-  .frameParent1,
-  .jobListingApplicationDetail,
-  .jobListingDetails {
+.timeLeftTo {
+  display: inline-block;
+  min-width: 108px;
+}
+
+.d21h58m23s {
+  align-self: stretch;
+  font-size: var(--p-size);
+  text-align: right;
+}
+
+.comptimeLeft,
+.timeLeftInfo {
+  display: flex;
+  justify-content: center;
+}
+
+.timeLeftInfo {
+  flex: 1;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.comptimeLeft {
+  align-self: stretch;
+  background-color: var(--lime-bk-40a);
+  overflow: hidden;
+  flex-direction: row;
+  align-items: center;
+  padding: var(--padding-9xs) var(--padding-5xs);
+  gap: var(--gap-9xs);
+  text-align: left;
+  font-size: var(--small-size);
+  color: var(--navy);
+  font-family: var(--h3);
+}
+
+
+@media screen and (max-width: 600px) {
+  .taskElements {
     flex-wrap: wrap;
   }
 
-  .jobListingContent {
+  .content {
     min-width: 100%;
   }
 
-  .frameParent3 {
+  .apply {
     flex-wrap: wrap;
   }
 }
 
 @media screen and (max-width: 450px) {
-
-  .b,
-  .jobTasks,
-  .mobileAppDesign {
-    font-size: var(--font-size-base);
+  .offerTitle {
+    font-size: var(--p-size);
   }
 
-  .btnCheckParent4 {
-    flex: 1;
+  .tags {
+    flex-wrap: wrap;
   }
 
-  .jobListingApplicationTimer {
-    height: 146px;
+  .clock {
+    height: 359px;
   }
 
-  .b1,
-  .dai {
+  .earningsSeparator,
+  .usdc {
     font-size: var(--font-size-lgi);
-  }
-
-  .apply {
-    font-size: var(--font-size-base);
   }
 }

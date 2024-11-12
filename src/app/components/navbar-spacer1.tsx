@@ -11,6 +11,7 @@ import {
   walletConnect,
 } from "thirdweb/wallets";
 import {
+  getRoleFromPayload,
   generatePayload,
   getRoleFromPayload,
   isLoggedIn,
@@ -94,13 +95,27 @@ const NavbarSpacer: NextPage<NavbarSpacerType> = ({ className = "" }) => {
               )}
               <div className={styles.navText2}>
                 <div className={styles.navText3}>
-                  <a className={styles.text1}>Teams</a>
+                  <a
+                    className={`${styles.text1} ${
+                      activeLink === "/job-marketplace" ? styles.active : ""
+                    }`}
+                    onClick={() => handleLinkClick("/job-marketplace")}
+                  >
+                    Market
+                  </a>
                 </div>
                 <div className={styles.hlColor1} />
               </div>
               <div className={styles.navText4} onClick={getDashboardLink}>
                 <div className={styles.navText5}>
-                  <a className={styles.text2}>Dashboard</a>
+                  <a
+                    className={`${styles.text2} ${
+                      isDashboardActive() ? styles.active : ""
+                    }`}
+                    onClick={() => handleLinkClick("dashboard")}
+                  >
+                    Dashboard
+                  </a>
                 </div>
                 <div className={styles.hlColor2} />
               </div>

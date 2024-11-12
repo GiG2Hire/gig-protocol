@@ -34,7 +34,7 @@ const FrameComponent9: NextPage<FrameComponent9Type> = ({ className = "" }) => {
           <div className={styles.beAnEarlyBirdParent}>
             <b className={styles.beAnEarly}>Be an early bird</b>
             <div className={styles.btnShadowParent}>
-              <button onClick={handleClick} className={styles.btnShadow}>
+              <button onClick={handleClickJoin} className={styles.btnShadow}>
                 <b className={styles.text}>Freelancer</b>
               </button>
               <button onClick={handleClick} className={styles.btnShadow1}>
