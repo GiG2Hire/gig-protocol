@@ -18,7 +18,8 @@ export async function GET(req: Request) {
     return;
   }
   console.log("Performing Twitter Verification...");
-  const xAccessTokenURL = `https://api.twitter.com/2/oauth2/token?code=${code}&grant_type=authorization_code&redirect_uri=http://localhost:3000/api/auth/twitter/callback/&code_verifier=challenge`;
+  const redirectUri = process.env.NEXT_PUBLIC_VERCEL_APP_URL;
+  const xAccessTokenURL = `https://api.twitter.com/2/oauth2/token?code=${code}&grant_type=authorization_code&redirect_uri=${redirectUri}/api/auth/twitter/callback/&code_verifier=challenge`;
   const clientId = process.env.NEXT_PUBLIC_X_CLIENT_ID;
   const clientSecret = process.env.X_CLIENT_SECRET;
   const base64Secret = btoa(clientId + ":" + clientSecret);
