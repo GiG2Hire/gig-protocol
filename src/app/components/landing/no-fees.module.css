@@ -1,0 +1,64 @@
+/***** NO FEES TABLE *****/
+.descNeon {
+  font-family: var(--content);
+  color: var(--neon);
+  font-size: var(--desc);
+  font-weight: 600;
+}
+.maxScreen {
+  max-width: 1400px;
+  width: 90vw;
+  margin: 0 auto;
+}
+#zerofees {
+  background-color: var(--navy-600);
+  margin: 120px 0;
+  gap: 48px;
+}
+.zeroWrap {
+  padding: 32px 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 48px;
+}
+#zerofees h2 {
+  font-family: var(--titles);
+  color: var(--neon);
+  font-size: var(--h2);
+  margin-bottom: 16px;
+}
+.table {
+  font-family: var(--content);
+  color: var(--ice);
+  text-align: center;
+  border-collapse: collapse;
+  font-weight: 500;
+  line-height: 1em;
+  width: 80%;
+}
+.tableHead img {
+  max-width: 110px;
+  min-width: 80px;
+}
+.gig img {
+  max-width: 124px;
+  min-width: 110px;
+}
+.table small {
+  font-weight: 300;
+}
+.gig {
+  background-color: var(--neon-10a);
+  color: var(--neon);
+  font-weight: 700;
+}
+.rowTitle {
+  text-align: left;
+}
+.td,
+.th {
+  height: 72px;
+  padding: 12px;
+  font-size: 1.2rem;
+}

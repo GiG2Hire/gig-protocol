@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import type { NextPage } from "next";
 import styles from "./frame-component9.module.css";
 import { useRouter } from "next/navigation";
@@ -8,8 +8,8 @@ export type FrameComponent9Type = {
 
 const FrameComponent9: NextPage<FrameComponent9Type> = ({ className = "" }) => {
   const router = useRouter();
-  const handleClickJoin = () => {
-    router.push('/sign-in');
+  const handleClick = () => {
+    alert("Please connect your Wallet!");
   };
 
   return (
@@ -37,7 +37,7 @@ const FrameComponent9: NextPage<FrameComponent9Type> = ({ className = "" }) => {
               <button onClick={handleClickJoin} className={styles.btnShadow}>
                 <b className={styles.text}>Freelancer</b>
               </button>
-              <button onClick={handleClickJoin} className={styles.btnShadow1}>
+              <button onClick={handleClick} className={styles.btnShadow1}>
                 <b className={styles.text1}>Client</b>
               </button>
             </div>

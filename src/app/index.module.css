@@ -27,7 +27,7 @@
 .newlandingDesktop,
 .newlandingDesktopInner {
   display: flex;
-  align-items: flex-start;
+  /* align-items: flex-start; */
   justify-content: flex-start;
 }
 .newlandingDesktopInner {
@@ -40,7 +40,7 @@
 .newlandingDesktop {
   width: 100%;
   position: relative;
-  background-color: var(--light);
+  background-color: var(--ice);
   overflow: hidden;
   flex-direction: column;
   gap: var(--gap-29xl);
@@ -63,5 +63,13 @@
 @media screen and (max-width: 450px) {
   .roadMap {
     font-size: var(--font-size-10xl);
+  }
+}
+
+/***** Screen 820 *****/
+@media screen and (max-width: 820px) {
+  /***** NO FEES TABLE *****/
+  .zeroWrap {
+    flex-direction: column;
   }
 }

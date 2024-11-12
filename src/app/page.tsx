@@ -6,9 +6,14 @@ import FrameComponent5 from "./components/frame-component5";
 import FrameComponent3 from "./components/frame-component3";
 import FrameComponent1 from "./components/frame-component1";
 import FrameComponent from "./components/frame-component";
-import Footer from "./components/footer";
 import styles from "./index.module.css";
 import { useActiveAccount } from "thirdweb/react";
+import Banner from "./components/landing/banner";
+import AboutTop from "./components/landing/about-top";
+import NoFees from "./components/landing/no-fees";
+import AboutBottom from "./components/landing/about-bottom";
+import HowTo from "./components/landing/how-to";
+import Footer from "./components/landing/footer";
 
 const NewlandingDesktop = () => {
   const account = useActiveAccount();
@@ -16,8 +21,13 @@ const NewlandingDesktop = () => {
   return (
     <div className={styles.newlandingDesktop}>
       {/* <NavbarSpacer /> */}
-      <FrameComponent9 />
-      <main className={styles.newlandingDesktopInner}>
+      {/* <FrameComponent9 /> */}
+      <Banner />
+      <AboutTop />
+      <NoFees />
+      <AboutBottom />
+      <HowTo />
+      {/* <main className={styles.newlandingDesktopInner}>
         <section className={styles.frameParent}>
           <FrameComponent7 />
           <FrameComponent5 />
@@ -28,7 +38,8 @@ const NewlandingDesktop = () => {
           <FrameComponent1 />
           <FrameComponent />
         </section>
-      </main>
+      </main> */}
+      {/* <Footer /> */}
       <Footer />
     </div>
   );
