@@ -5,7 +5,6 @@ import { prisma } from '@/src/app/lib/db';
 export async function POST(req: Request) {
     try {
         const { gigId, freelancerId } = await req.json();
-        console.log(gigId, freelancerId, "HERE IS VARIABLES")
 
         // Check if gigId is provided
         if (!gigId) {

@@ -1,4 +1,5 @@
-import { FunctionComponent, useState } from "react";
+import { FunctionComponent, useEffect, useState } from "react";
+import { getUserIdFromPayload } from "../actions/login";
 import styles from "./comp-joboffer.module.css";
 import Frametask from "./Frametask";
 import usdcLogo from "./usdc-logo.png";
@@ -14,6 +15,7 @@ export type CompjobofferVType = {
     description: string,
     tasks: any[],
     budget: number,
+    appliedStatus: boolean;
     className?: string;
 };
 
@@ -23,9 +25,11 @@ const CompjobofferV: FunctionComponent<CompjobofferVType> = ({
     description,
     tasks1,
     budget,
+    appliedStatus,
     className = "",
 }) => {
-    const [isApplied, setIsApplied] = useState(false);
+    const [isApplied, setIsApplied] = useState<boolean>();
+
     // remove by actual tasks
     const tasks = [
         "Create a user btn",
@@ -37,23 +41,30 @@ const CompjobofferV: FunctionComponent<CompjobofferVType> = ({
         "Create store builder",
         "Design Merchant chat"
     ];
-    console.log(tasks1, gigId, title)
+
+    useEffect(() => {
+        setIsApplied(appliedStatus);
+    }, [appliedStatus]);
+
 
     const handleApplyForGig = async () => {
-        setIsApplied(true);
+        const freelancerId = await getUserIdFromPayload();
 
         // make it for POST request
-        const response = await fetch(`/api/gig/apply/gig_id=${gigId}`, {
+        const response = await fetch(`/api/gig/apply`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
-            }
+            },
+            body: JSON.stringify({ gigId, freelancerId }),
         });
-
-        console.log(response)
 
         if (!response.ok) {
             throw new Error("Failed to fetch data");
+        }
+
+        if (response.status == 201) {
+            setIsApplied(true);
         }
     }
 
