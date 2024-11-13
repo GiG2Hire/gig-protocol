@@ -122,7 +122,7 @@ const FreelancerChat = ({
     } catch (error) {
       console.log(error);
     }
-    submittedFiles.forEach((file) => {
+    submittedFiles.forEach((file: any) => {
       if (file.uploadedBy == currentUser) {
         filesSharedByUser.push(file);
       } else {

@@ -2,7 +2,7 @@
 import { prisma } from "@/src/app/lib/db";
 import { isLoggedIn } from "@/src/app/actions/login";
 import { getUserIdFromPayload } from "@/src/app/actions/login";
-import { NextResponse, NextRequest } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 
 /**
  * Get all offers for a specific gig
@@ -12,10 +12,9 @@ import { NextResponse, NextRequest } from "next/server";
  */
 // /api/gig/get-offers/?gig_id=<gigId>
 export async function GET(req: NextRequest) {
+  const searchParams = req.nextUrl.searchParams;
+  const gig_id = parseInt(searchParams.get("gig_id") || "0");
   try {
-    // Extract gig_id from query parameters
-    const { searchParams } = new URL(req.url);
-    const gig_id = parseInt(searchParams.get("gig_id") || "0");
     const clientId = await getUserIdFromPayload();
 
     if (!(await isLoggedIn())) {

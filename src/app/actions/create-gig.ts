@@ -1,6 +1,5 @@
 "use server";
 
-import { supabase } from "@/src/utils/supabase";
 import { getUserIdFromPayload } from "./login";
 import { GIG_COMPLETION_STATUS } from "@/src/constants/appConstants";
 import { findBestAPY } from "./choose-and-open";
@@ -42,7 +41,7 @@ export async function createGig(
         clientId: clientId,
         title: title,
         description: description,
-        gigValue: budget,
+        gigBudget: budget,
         completionStatus: GIG_COMPLETION_STATUS.OPEN,
         expectedDeliveryDate: deliveryDate,
         category: jobCategory,

@@ -12,10 +12,10 @@ import crypto from "crypto";
 import { profile } from "console";
 
 const s3ClientConfig: S3ClientConfig = {
-  region: process.env.AWS_BUCKET_REGION,
+  region: process.env.GIG_AWS_BUCKET_REGION,
   credentials: {
-    accessKeyId: process.env.AWS_ACCESS_KEY!,
-    secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY!,
+    accessKeyId: process.env.GIG_AWS_ACCESS_KEY!,
+    secretAccessKey: process.env.GIG_AWS_SECRET_ACCESS_KEY!,
   },
 };
 const client = new S3Client(s3ClientConfig);
@@ -106,9 +106,9 @@ export async function JoinAsFreelancer(formData: FormData) {
 }
 
 async function uploadProfileImage(buffer: Buffer, fileName: string) {
-  const bucketName = process.env.AWS_BUCKET_NAME;
+  const bucketName = process.env.GIG_AWS_BUCKET_NAME;
   const command = new PutObjectCommand({
-    Bucket: process.env.AWS_BUCKET_NAME,
+    Bucket: process.env.GIG_AWS_BUCKET_NAME,
     Key: fileName,
     Body: buffer,
   });

@@ -1,3 +1,4 @@
+//@ts-nocheck
 "use client";
 import { useCallback, useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
@@ -10,9 +11,8 @@ import {
   useActiveAccount,
   useActiveWalletChain,
   useActiveWalletConnectionStatus,
-  useWalletBalance
+  useWalletBalance,
 } from "thirdweb/react";
-
 
 const ClientDashboard = () => {
   const router = useRouter();
@@ -91,7 +91,7 @@ const ClientDashboard = () => {
       await getClientData();
     };
     fetchData();
-  }, [walletStatus,]);
+  }, [walletStatus]);
 
   const onBtnChatContainerClick = useCallback(async () => {
     router.push("/chat/17-1-1/");

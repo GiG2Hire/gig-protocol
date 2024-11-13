@@ -1,36 +1,48 @@
-//@ts-nocheck
 import { NextResponse } from "next/server";
 import { NextRequest } from "next/server";
 import { getPayload, isLoggedIn } from "./app/actions/login";
 import { CLIENT, FREELANCER } from "./constants/appConstants";
-import { JWTPayload } from "thirdweb/utils";
+// import { decodeJWT } from "thirdweb/utils";
+import { jwtDecode } from "jwt-decode";
 
-// This function can be marked `async` if using `await` inside
+/**
+ * This function can be marked `async` if using `await` inside
+ * @param request executed on the edge, runs before page rendering and API routes.
+ * @author mgroovyank (MAYANK CHHIPA)
+ */
 export async function middleware(request: NextRequest) {
-  const pathname = request.nextUrl.pathname;
-  console.log("pathansdjdsk:", pathname);
-  const isFreelancerDashboard = pathname.startsWith("/freelancer-dashboard");
-  const isChatWindow = pathname.startsWith("/chat");
-  const isAuth = await isLoggedIn();
-  console.log("Inside Middleware!!----------------");
+  console.log("---------------Inside Middleware!!----------------");
 
-  if (!isAuth) {
-    console.log("Not Authenticated!!!!!");
+  const pathname = request.nextUrl.pathname;
+  const isSignInPage = pathname == "/sign-in" ? true : false;
+  const isChatWindow = pathname.startsWith("/chat");
+
+  // Get user id and role from jwt
+  const jwtObject = request.cookies.get("jwt");
+  console.log(request.cookies);
+  console.log("jwt decode:", jwtObject);
+
+  if (jwtObject == undefined) {
     return NextResponse.redirect(new URL("/", request.url));
   }
 
-  const payload: JWTPayload = await getPayload();
-  const payloadContext: any = payload.ctx;
-  if (payload.ctx!.role == FREELANCER) {
-    console.log("Role is freelancer confirmed!!");
-  }
-  if (isFreelancerDashboard) {
-    console.log("Inside freelancer dashboard!!!!!");
-    const userDetails = await getPayload();
-    console.log(userDetails);
-    if (!userDetails.ctx.role) {
-      console.log("User has not been assigned any role!!");
-      return NextResponse.redirect(new URL("/", request.url));
+  // const jwt = decodeJWT(request.cookies.get("jwt")?.value as string);
+  const jwt = jwtDecode(request.cookies.get("jwt")?.value as string);
+  console.log("jwt decode:", jwt);
+  // const ctx: JWTContext = jwt.payload.ctx as JWTContext;
+  const ctx = jwt.ctx;
+
+  const userId = ctx.userId;
+  const role = ctx.role;
+
+  if (isSignInPage) {
+    if (role == FREELANCER) {
+      return NextResponse.redirect(
+        new URL("/freelancer-dashboard", request.url)
+      );
+    }
+    if (role == CLIENT) {
+      return NextResponse.redirect(new URL("/client-dashboard", request.url));
     }
   }
 
@@ -38,22 +50,22 @@ export async function middleware(request: NextRequest) {
     console.log("Inside chat window");
     console.log(request.nextUrl);
     const cloneUrl = request.nextUrl.clone();
-    cloneUrl.searchParams.set("userId", payload.ctx.userId);
-    request.nextUrl.searchParams.set("userId", payload.ctx.userId);
+    cloneUrl.searchParams.set("userId", userId);
+    request.nextUrl.searchParams.set("userId", userId);
     const searchParams = request.nextUrl;
-    console.log("use search params ", payload.ctx.userId);
-    if (payload.ctx.role != FREELANCER && payload.ctx.role != CLIENT) {
+    console.log("use search params ", userId);
+    if (role != FREELANCER && role != CLIENT) {
       return NextResponse.redirect(new URL("/", request.url));
     }
     const id = request.nextUrl.pathname.split("/")[2];
     console.log("------------------", id);
-    if (payload.ctx.role == FREELANCER) {
-      if (payload.ctx.userId == id.split("-")[1]) {
+    if (role == FREELANCER) {
+      if (userId == id.split("-")[1]) {
         console.log("Trying to access valid chat!");
       }
-    } else if (payload.ctx.role == CLIENT) {
+    } else if (role == CLIENT) {
       console.log("Accessing chat as client!");
-      if (payload.ctx.userId == id.split("-")[0]) {
+      if (userId == id.split("-")[0]) {
         console.log("Trying to access valid chat!");
       }
     }
@@ -67,13 +79,36 @@ export async function middleware(request: NextRequest) {
     return NextResponse.rewrite(cloneUrl);
   }
 
-  // Continue processing if no condition is met
   return NextResponse.next();
+  // const isFreelancerDashboard = pathname.startsWith("/freelancer-dashboard");
+  // const isAuth = await isLoggedIn();
 
+  // if (!isAuth) {
+  //   console.log("Not Authenticated!!!!!");
+  //   return NextResponse.redirect(new URL("/", request.url));
+  // }
+  // const payload: JWTPayload = await getPayload();
+  // const payloadContext: any = payload.ctx;
+  // if (payload.ctx!.role == FREELANCER) {
+  //   console.log("Role is freelancer confirmed!!");
+  // }
+  // if (isFreelancerDashboard) {
+  //   console.log("Inside freelancer dashboard!!!!!");
+  //   const userDetails = await getPayload();
+  //   console.log(userDetails);
+  //   if (!userDetails.ctx.role) {
+  //     console.log("User has not been assigned any role!!");
+  //     return NextResponse.redirect(new URL("/", request.url));
+  //   }
+  // }
+
+  // // Continue processing if no condition is met
+  // return NextResponse.next();
   //   return NextResponse.redirect(new URL("/freelancer-dashboard", request.url));
 }
 
 // See "Matching Paths" below to learn more
 export const config = {
-  matcher: ["/freelancer-dashboard/:path*", "/chat/:path*"],
+  matcher: ["/sign-in", "/chat/:path*"],
+  // matcher: ["/freelancer-dashboard/:path*", "/chat/:path*"],
 };

@@ -1,0 +1,57 @@
+/***** HOW TO *****/
+#howto h2 {
+  font-family: var(--titles);
+  color: var(--navy-600);
+  font-size: var(--h2);
+  margin-bottom: 24px;
+  text-align: center;
+}
+#howto .descNavy {
+  margin-bottom: 24px;
+}
+.roles {
+  display: flex;
+  justify-content: space-around;
+  font-family: var(--content);
+  color: var(--ice);
+  gap: 48px;
+}
+.roles h4 {
+  font-size: 2em;
+  margin-bottom: 12px;
+}
+.roles p {
+  font-size: 1.5em;
+  margin-bottom: 24px;
+}
+.roles div {
+  background-color: var(--navy-600);
+  border-radius: 8px;
+  padding: 32px;
+}
+.roles li {
+  margin-bottom: 12px;
+  font-weight: 300;
+}
+.roles li::before {
+  content: url(/assets/check.svg);
+  height: 16px;
+  width: 16px;
+  display: inline-block;
+  margin-right: 8px;
+  vertical-align: middle;
+  background-color: var(--neon);
+  border-radius: 2px;
+  padding: 2px;
+}
+
+.textCenter {
+  text-align: center;
+}
+
+.descNavy {
+  font-family: var(--content);
+  color: var(--navy);
+  font-size: var(--desc);
+  font-weight: 600;
+}

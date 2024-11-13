@@ -1,3 +1,4 @@
+"use client";
 import type { NextPage } from "next";
 import { useCallback, useEffect } from "react";
 import styles from "./freelancer-dashboard.module.css";
@@ -13,23 +14,24 @@ import {
 } from "@/src/constants/appConstants";
 import { JOB_CATEGORIES } from "@/src/constants/appConstants";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 
 const FreelancerDashboard = async () => {
   let activeGigs: any[] = [];
   let completedGigs: any[] = [];
   let offers: any[] = [];
 
-  // const router = useRouter();
+  const router = useRouter();
 
   // const account = useActiveAccount();
   // console.log(`account:` + account?.address);
 
   const timeNow = getTime();
 
-  // const onBtnChatContainerClick = () => {
-  //   console.log("Open chat window!");
-  //   router.push("/chat/17-1-1/");
-  // };
+  const onBtnChatContainerClick = () => {
+    console.log("Open chat window!");
+    router.push("/chat/17-1-1/");
+  };
 
   async function getActiveOrCompletedGigs() {
     console.log("Inside GET /api/gig/active-gigs/");
@@ -298,7 +300,7 @@ const FreelancerDashboard = async () => {
                             </div>
                             <div
                               className={styles.btnChat}
-                            // onClick={onBtnChatContainerClick}
+                              onClick={onBtnChatContainerClick}
                             >
                               <div className={styles.iconChat}>
                                 <img

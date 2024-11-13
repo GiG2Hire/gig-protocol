@@ -1,0 +1,75 @@
+/***** ABOUT *****/
+.maxScreen {
+  max-width: 1400px;
+  width: 90vw;
+  margin: 0 auto;
+}
+.descNavy {
+  font-family: var(--content);
+  color: var(--navy);
+  font-size: var(--desc);
+  font-weight: 600;
+}
+.article {
+  display: flex;
+  flex-direction: column;
+  gap: 120px;
+}
+.details {
+  display: flex;
+  align-items: center;
+  gap: 48px;
+  justify-content: space-between;
+}
+.detDesc {
+  width: 60%;
+}
+.details h2 {
+  font-family: var(--titles);
+  color: var(--navy-600);
+  font-size: var(--h2);
+  margin-bottom: 16px;
+  overflow-wrap: break-word;
+}
+.about .aside {
+  display: flex;
+  height: 300px;
+  gap: 24px;
+}
+.card {
+  position: relative;
+  background-color: var(--navy);
+  font-family: var(--content);
+  color: var(--ice);
+  max-width: 240px;
+  min-width: 180px;
+  max-height: 300px;
+  min-height: 225px;
+  padding: 16px;
+  border-radius: 8px;
+  overflow: hidden;
+  font-size: 1.2em;
+}
+.card .svg {
+  position: absolute;
+  height: 200px;
+  fill: var(--navy-400);
+  bottom: -30px;
+  right: -30px;
+}
+.card:hover .svg {
+  bottom: -20px;
+  right: -20px;
+}
+.payments .imgCont {
+  background: var(--neon-grad);
+}
+
+.imgCont {
+  display: flex;
+  padding: 16px 16px;
+  border-radius: 8px;
+  justify-content: center;
+  align-items: center;
+  width: 540px;
+}

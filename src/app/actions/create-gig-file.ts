@@ -7,7 +7,7 @@ export async function createGigFile(
   gigId: string,
   name: string,
   type: string,
-  size: Number,
+  size: number,
   url: string
 ) {
   const uploadedBy = await getUserIdFromPayload();

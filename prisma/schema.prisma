@@ -46,8 +46,6 @@ model gig {
   title                String?
   updated_at           DateTime?  @db.Timestamptz(6)
   freelancersCount     Int?       @map("freelancers_count")
-  gig_on_chain_id      Int?
-  tx_hash              String?
   dispute              dispute[]
   user                 user       @relation(fields: [clientId], references: [userId], onDelete: NoAction, onUpdate: NoAction)
   gig_file             GigFile[]
@@ -56,6 +54,21 @@ model gig {
 }
 
 model user {
+  address          String             @unique @db.VarChar
+  username         String?
+  role             String?
+  xFollowers       Int?               @map("x_followers")
+  githubCommits    Int?               @map("github_commits")
+  createdAt        DateTime           @default(now()) @map("created_at") @db.Timestamp(6)
+  userId           Int                @id @default(autoincrement()) @map("user_id")
+  lastLogin        DateTime?          @map("last_login") @db.Timestamp(6)
+  email            String?            @unique
+  description      String?
+  updated_at       DateTime?          @db.Timestamptz(6)
+  profileImage     String?            @map("profile_image")
+  organization     String?
+  dispute_evidence dispute_evidence[]
+  gig              gig[]
   address          String             @unique @db.VarChar
   username         String?
   role             String?
@@ -101,6 +114,20 @@ model dispute {
   gig              gig?               @relation(fields: [gig_id], references: [gigId], onDelete: NoAction, onUpdate: NoAction)
   dispute_evidence dispute_evidence[]
   dispute_verdict  dispute_verdict[]
+  dispute_id       Int                @id @default(autoincrement())
+  gig_id           Int?
+  plaintiff        Int?
+  defendant        Int?
+  arbitrator       Int?
+  category         String?            @db.VarChar
+  status           String?            @db.VarChar
+  title            String?
+  description      String?
+  created_at       DateTime?          @db.Timestamptz(6)
+  updated_at       DateTime?          @db.Timestamptz(6)
+  gig              gig?               @relation(fields: [gig_id], references: [gigId], onDelete: NoAction, onUpdate: NoAction)
+  dispute_evidence dispute_evidence[]
+  dispute_verdict  dispute_verdict[]
 }
 
 /// This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
@@ -113,10 +140,13 @@ model dispute_evidence {
   updated_at   DateTime? @db.Timestamptz(6)
   dispute      dispute?  @relation(fields: [dispute_id], references: [dispute_id], onDelete: NoAction, onUpdate: NoAction)
   user         user?     @relation(fields: [submitted_by], references: [userId], onDelete: NoAction, onUpdate: NoAction)
+  dispute      dispute?  @relation(fields: [dispute_id], references: [dispute_id], onDelete: NoAction, onUpdate: NoAction)
+  user         user?     @relation(fields: [submitted_by], references: [userId], onDelete: NoAction, onUpdate: NoAction)
 }
 
 /// This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
 model dispute_verdict {
+  verdict_id             Int       @id @default(autoincrement())
   verdict_id             Int       @id @default(autoincrement())
   dispute_id             Int?
   extended_delivery_days Int?
@@ -126,6 +156,7 @@ model dispute_verdict {
   status                 String?   @db.VarChar
   created_at             DateTime? @db.Timestamptz(6)
   updated_at             DateTime? @db.Timestamptz(6)
+  dispute                dispute?  @relation(fields: [dispute_id], references: [dispute_id], onDelete: NoAction, onUpdate: NoAction)
   dispute                dispute?  @relation(fields: [dispute_id], references: [dispute_id], onDelete: NoAction, onUpdate: NoAction)
 }
 
