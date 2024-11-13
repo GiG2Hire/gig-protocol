@@ -1,0 +1,53 @@
+.iconfactCheck {
+    height: 32px;
+    width: 32px;
+}
+
+.iconfactCheck,
+.youveSuccessfullySubmitted {
+    position: relative;
+}
+
+.clientText {
+    text-decoration: none;
+    color: inherit;
+    text-align: left;
+}
+
+
+.clientTextParent {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: flex-start;
+    gap: var(--gap-5xs);
+    text-align: right;
+    font-size: var(--small-size);
+}
+
+.compchatUpdates,
+.youveSuccessfullySubmittedParent {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    gap: var(--gap-9xs);
+}
+
+.compchatUpdates {
+    width: 100%;
+    background-color: var(--yellow);
+    max-width: 100%;
+    flex-direction: row;
+    margin-top: -7px;
+    margin-bottom: 2px;
+    margin-left: -4px;
+    align-items: center;
+    padding: var(--padding-5xs) var(--padding-base);
+    box-sizing: border-box;
+    gap: var(--gap-5xs);
+    text-align: left;
+    font-size: var(--p-size);
+    color: var(--navy);
+    font-family: var(--h3);
+}

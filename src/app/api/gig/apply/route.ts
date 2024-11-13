@@ -1,4 +1,4 @@
-// /api/gig/apply?gig_id
+// /api/gig/apply
 import { prisma } from "@/src/app/lib/db";
 import { NextResponse } from "next/server";
 
@@ -8,16 +8,12 @@ import { NextResponse } from "next/server";
  * @returns Success or error response
  * @author horlarmmy
  */
-// /api/gig/apply?gig_id=<gigId>
+// /api/gig/apply
 export async function POST(req: Request) {
   try {
     // Extract parameters from the request
-    const { searchParams } = new URL(req.url);
-    const gigId = parseInt(searchParams.get("gig_id") || "0");
-
-    // Parse the request body
-    const body = await req.json();
-    const { freelancerId, comment } = body;
+    const { gigId, freelancerId } = await req.json();
+    console.log(gigId, freelancerId, "gig_id Apply")
 
     // Validate required fields
     if (!gigId || !freelancerId) {
@@ -29,10 +25,16 @@ export async function POST(req: Request) {
 
     //Check if gig exists
     const gig = await prisma.gig.findUnique({
-      where: { gigId: gigId },
+      where: { gigId },
     });
+
+    console.log(gig, "GiG")
+
     if (!gig) {
-      return NextResponse.json({ message: 'Gig not found' }, { status: 404 });
+      return NextResponse.json(
+        { message: "Gig not found." },
+        { status: 404 }
+      );
     }
 
     //Check if gig is OPEN
@@ -64,7 +66,7 @@ export async function POST(req: Request) {
         gigId: gigId,
         freelancerId: freelancerId,
         clientId: gig.clientId,
-        comment: comment,
+        comment: "",
         status: "Pending",
         chatId: null, // assuming chat will be created later
       },

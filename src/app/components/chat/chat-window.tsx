@@ -47,8 +47,8 @@ const ChatWindow = ({
   return (
     <div>
       <div className={styles.freelancerClientChatMsgBox}>
-        {messages?.length > 0 ? (
-          messages.map((message) => {
+        {initialMessages?.length > 0 ? (
+          initialMessages.map((message) => {
             if (message.senderId !== currentUser) {
               return (
                 <div

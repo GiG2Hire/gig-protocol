@@ -18,16 +18,17 @@ export async function POST(req: Request) {
         const gig = await prisma.gig.findUnique({
             where: { gigId },
         });
+        console.log(gig, "Gig")
 
         if (!gig) {
             return NextResponse.json({ message: "Gig not found" }, { status: 404 });
         }
+        console.log("error here")
 
-        
         if (gig.completionStatus === "OPEN") {
             return NextResponse.json({ message: "Gig not assigned" }, { status: 400 });
         }
-        
+        console.log("error here 1")
         if (gig.completionStatus === "submitted") {
             return NextResponse.json({ message: "Gig already submitted" }, { status: 400 });
         }
@@ -38,11 +39,11 @@ export async function POST(req: Request) {
         // Update the gig.completionStatus to "submitted"
         await prisma.gig.update({
             where: { gigId },
-            data: { completionStatus: "submitted" },
+            data: { completionStatus: "SUBMITTED" },
         });
 
         return NextResponse.json({ message: "Gig submitted successfully" }, { status: 200 });
-        
+
     } catch (error) {
 
         console.error('Error submitting gig: ', error);
