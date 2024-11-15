@@ -74,21 +74,6 @@ const NavbarSpacer: NextPage<NavbarSpacerType> = ({ className = "" }) => {
   };
   const [activeLink, setActiveLink] = useState<string>("");
 
-  const handleLinkClick = async (link: string) => {
-    if (link == "dashboard") {
-      link = getDashboardLink();
-    }
-    setActiveLink(link);
-    router.push(link);
-  };
-
-  const isDashboardActive = () => {
-    return (
-      activeLink === "/freelancer-dashboard" ||
-      activeLink === "/client-dashboard"
-    );
-  };
-
   const getDashboardLink = () => {
     console.log("role: ", role);
     if (role == CLIENT) {
