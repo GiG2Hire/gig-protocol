@@ -99,9 +99,8 @@ const NavbarSpacer: NextPage<NavbarSpacerType> = ({ className = "" }) => {
                 <div className={styles.navText}>
                   <div className={styles.navText1}>
                     <a
-                      className={`${styles.text1} ${
-                        activeLink === "/post-a-job" ? styles.active : ""
-                      }`}
+                      className={`${styles.text1} ${activeLink === "/post-a-job" ? styles.active : ""
+                        }`}
                       onClick={() => handleLinkClick("/post-a-job")}
                     >
                       Create a Gig
@@ -115,9 +114,8 @@ const NavbarSpacer: NextPage<NavbarSpacerType> = ({ className = "" }) => {
               <div className={styles.navText2}>
                 <div className={styles.navText3}>
                   <a
-                    className={`${styles.text1} ${
-                      activeLink === "/job-marketplace" ? styles.active : ""
-                    }`}
+                    className={`${styles.text1} ${activeLink === "/job-marketplace" ? styles.active : ""
+                      }`}
                     onClick={() => handleLinkClick("/job-marketplace")}
                   >
                     Market
@@ -128,9 +126,8 @@ const NavbarSpacer: NextPage<NavbarSpacerType> = ({ className = "" }) => {
               <div className={styles.navText4} onClick={getDashboardLink}>
                 <div className={styles.navText5}>
                   <a
-                    className={`${styles.text2} ${
-                      isDashboardActive() ? styles.active : ""
-                    }`}
+                    className={`${styles.text2} ${isDashboardActive() ? styles.active : ""
+                      }`}
                     onClick={() => handleLinkClick("dashboard")}
                   >
                     Dashboard
