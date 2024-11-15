@@ -11,9 +11,7 @@ import {
   walletConnect,
 } from "thirdweb/wallets";
 import {
-  getRoleFromPayload,
   generatePayload,
-  getRoleFromPayload,
   isLoggedIn,
   login,
   logout,
@@ -42,15 +40,31 @@ export type NavbarSpacerType = {
 const NavbarSpacer: NextPage<NavbarSpacerType> = ({ className = "" }) => {
   const router = useRouter();
   const { userId, role, updateLoggedInUser, resetLoggedInUser } = useAuth();
+  const [activeLink, setActiveLink] = useState<string>("");
+
+  const handleLinkClick = async (link: string) => {
+    if (link == "dashboard") {
+      link = getDashboardLink();
+    }
+    setActiveLink(link);
+    router.push(link);
+  };
+
+  const isDashboardActive = () => {
+    return (
+      activeLink === "/freelancer-dashboard" ||
+      activeLink === "/client-dashboard"
+    );
+  };
 
   const getDashboardLink = () => {
     console.log("role: ", role);
     if (role == CLIENT) {
-      router.push("/client-dashboard");
+      return "/client-dashboard";
     } else if (role == FREELANCER) {
-      router.push("/freelancer-dashboard");
+      return "/freelancer-dashboard";
     } else {
-      router.push("/sign-in");
+      return "/sign-in";
     }
   };
 
@@ -84,7 +98,12 @@ const NavbarSpacer: NextPage<NavbarSpacerType> = ({ className = "" }) => {
               {role == CLIENT ? (
                 <div className={styles.navText}>
                   <div className={styles.navText1}>
-                    <a className={styles.text} href="/post-a-job">
+                    <a
+                      className={`${styles.text1} ${
+                        activeLink === "/post-a-job" ? styles.active : ""
+                      }`}
+                      onClick={() => handleLinkClick("/post-a-job")}
+                    >
                       Create a Gig
                     </a>
                   </div>

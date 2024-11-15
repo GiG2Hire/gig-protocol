@@ -108,6 +108,7 @@
   color: inherit;
   display: inline-block;
   min-width: 49px;
+  cursor: pointer;
 }
 
 .navText3 {
