@@ -11,15 +11,16 @@ import {
   walletConnect,
 } from "thirdweb/wallets";
 import {
-  getRoleFromPayload,
   generatePayload,
   isLoggedIn,
   login,
   logout,
 } from "@/src/app/actions/login";
 import { client } from "@/src/app/lib/client";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
+import { useAuth } from "../providers/auth";
+import { CLIENT, FREELANCER } from "@/src/constants/appConstants";
 
 const wallets = [
   createWallet("io.metamask"),
@@ -38,22 +39,33 @@ export type NavbarSpacerType = {
 
 const NavbarSpacer: NextPage<NavbarSpacerType> = ({ className = "" }) => {
   const router = useRouter();
-  //let [role, setRole] = useState<string>("");
-  //let [userId, setUserId] = useState<number>(-1);
+  const { userId, role, updateLoggedInUser, resetLoggedInUser } = useAuth();
   const [activeLink, setActiveLink] = useState<string>("");
 
   const handleLinkClick = async (link: string) => {
     if (link == "dashboard") {
-      const role = await getRoleFromPayload();
-      console.log(role);
-      link = `/${role.toLowerCase()}-dashboard`;
+      link = getDashboardLink();
     }
     setActiveLink(link);
     router.push(link);
   };
 
   const isDashboardActive = () => {
-    return activeLink === '/freelancer-dashboard' || activeLink === '/client-dashboard';
+    return (
+      activeLink === "/freelancer-dashboard" ||
+      activeLink === "/client-dashboard"
+    );
+  };
+
+  const getDashboardLink = () => {
+    console.log("role: ", role);
+    if (role == CLIENT) {
+      return "/client-dashboard";
+    } else if (role == FREELANCER) {
+      return "/freelancer-dashboard";
+    } else {
+      return "/sign-in";
+    }
   };
 
   return (
@@ -83,31 +95,40 @@ const NavbarSpacer: NextPage<NavbarSpacerType> = ({ className = "" }) => {
           </div>
           <div className={styles.navbarContainerInner}>
             <div className={styles.navTextParent}>
-              <div className={styles.navText}>
-                <div className={styles.navText1}>
-                  <a
-                    className={`${styles.text} ${activeLink === "/post-a-job" ? styles.active : ''}`}
-                    onClick={() => handleLinkClick('/post-a-job')}
-                  >
-                    Create a Gig
-                  </a>
+              {role == CLIENT ? (
+                <div className={styles.navText}>
+                  <div className={styles.navText1}>
+                    <a
+                      className={`${styles.text1} ${activeLink === "/post-a-job" ? styles.active : ""
+                        }`}
+                      onClick={() => handleLinkClick("/post-a-job")}
+                    >
+                      Create a Gig
+                    </a>
+                  </div>
+                  <div className={styles.hlColor} />
                 </div>
-                <div className={styles.hlColor} />
-              </div>
+              ) : (
+                ""
+              )}
               <div className={styles.navText2}>
                 <div className={styles.navText3}>
-                  <a className={`${styles.text1} ${activeLink === "/job-marketplace" ? styles.active : ''}`}
-                    onClick={() => handleLinkClick('/job-marketplace')}>
+                  <a
+                    className={`${styles.text1} ${activeLink === "/job-marketplace" ? styles.active : ""
+                      }`}
+                    onClick={() => handleLinkClick("/job-marketplace")}
+                  >
                     Market
                   </a>
                 </div>
                 <div className={styles.hlColor1} />
               </div>
-              <div className={styles.navText4}>
+              <div className={styles.navText4} onClick={getDashboardLink}>
                 <div className={styles.navText5}>
                   <a
-                    className={`${styles.text2} ${isDashboardActive() ? styles.active : ''}`}
-                    onClick={() => handleLinkClick('dashboard')}
+                    className={`${styles.text2} ${isDashboardActive() ? styles.active : ""
+                      }`}
+                    onClick={() => handleLinkClick("dashboard")}
                   >
                     Dashboard
                   </a>
@@ -117,7 +138,7 @@ const NavbarSpacer: NextPage<NavbarSpacerType> = ({ className = "" }) => {
             </div>
           </div>
         </div>
-        <div className={styles.rightNavbarItems}>
+        {/* <div className={styles.rightNavbarItems}>
           <div className={styles.notificationsContainer}>
             <div className={styles.notifications}>
               <img
@@ -144,47 +165,54 @@ const NavbarSpacer: NextPage<NavbarSpacerType> = ({ className = "" }) => {
               src="/frame-1565@2x.png"
             />
           </div>
-        </div>
-        <ConnectButton
-          client={client}
-          auth={{
-            isLoggedIn: async (address) => {
-              console.log("checking if logged in!", { address });
-              return await isLoggedIn();
-            },
-            doLogin: async (params) => {
-              console.log(`logging in!`);
-              await login(params);
-            },
-            getLoginPayload: async ({ address, chainId }) =>
-              generatePayload({ address, chainId }),
-            doLogout: async () => {
-              console.log("logging out!");
+        </div> */}
+        <div className={styles.connectButtonDiv}>
+          <ConnectButton
+            client={client}
+            auth={{
+              isLoggedIn: async (address) => {
+                console.log("checking if logged in!", { address });
+                return await isLoggedIn();
+              },
+              doLogin: async (params) => {
+                console.log(`logging in!`);
+                const { userId, role } = await login(params);
+                updateLoggedInUser({ userId, role });
+                if (role == CLIENT) {
+                  router.push("/client-dashboard");
+                } else if (role == FREELANCER) {
+                  router.push("/freelancer-dashboard");
+                } else {
+                  router.push("/sign-in");
+                }
+              },
+              getLoginPayload: async ({ address, chainId }) =>
+                generatePayload({ address, chainId }),
+              doLogout: async () => {
+                console.log("logging out!");
+                await logout();
+                resetLoggedInUser();
+              },
+            }}
+            wallets={wallets}
+            theme={lightTheme({
+              colors: { primaryButtonBg: "#3F5DBA", modalBg: "#FBFAE2" },
+              fontFamily: "Unbounded",
+            })}
+            connectButton={{
+              label: "Connect Wallet",
+              style: { fontFamily: "Unbounded" },
+            }}
+            connectModal={{ size: "compact" }}
+            onConnect={async (wallet) => {
+              console.log("Wallet is connected");
+              console.log("Connected to ", wallet.getAccount()?.address);
+            }}
+            onDisconnect={async ({ wallet, account }) => {
               await logout();
-            },
-          }}
-          wallets={wallets}
-          theme={lightTheme({
-            colors: { primaryButtonBg: "#3F5DBA", modalBg: "#FBFAE2" },
-            fontFamily: "Unbounded",
-          })}
-          connectButton={{
-            label: "Connect Wallet",
-            style: { fontFamily: "Unbounded" },
-          }}
-          connectModal={{ size: "compact" }}
-          onConnect={async (wallet) => {
-            console.log("Wallet is connected");
-            console.log("Connected to ", wallet.getAccount()?.address);
-            // const alreadyLoggedIn = await isLoggedIn();
-            // if (!alreadyLoggedIn) {
-            //   await getOrCreateUserInDatabase(wallet);
-            // }
-          }}
-          onDisconnect={async ({ wallet, account }) => {
-            await logout();
-          }}
-        />
+            }}
+          />
+        </div>
       </div>
     </header>
   );
