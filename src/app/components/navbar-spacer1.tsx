@@ -56,14 +56,33 @@ const NavbarSpacer: NextPage<NavbarSpacerType> = ({ className = "" }) => {
       activeLink === "/client-dashboard"
     );
   };
+  const [activeLink, setActiveLink] = useState<string>("");
+
+  const handleLinkClick = async (link: string) => {
+    if (link == "dashboard") {
+      link = getDashboardLink();
+    }
+    setActiveLink(link);
+    router.push(link);
+  };
+
+  const isDashboardActive = () => {
+    return (
+      activeLink === "/freelancer-dashboard" ||
+      activeLink === "/client-dashboard"
+    );
+  };
 
   const getDashboardLink = () => {
     console.log("role: ", role);
     if (role == CLIENT) {
       return "/client-dashboard";
+      return "/client-dashboard";
     } else if (role == FREELANCER) {
       return "/freelancer-dashboard";
+      return "/freelancer-dashboard";
     } else {
+      return "/sign-in";
       return "/sign-in";
     }
   };
