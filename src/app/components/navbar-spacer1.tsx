@@ -63,8 +63,6 @@ const NavbarSpacer: NextPage<NavbarSpacerType> = ({ className = "" }) => {
       return "/client-dashboard";
     } else if (role == FREELANCER) {
       return "/freelancer-dashboard";
-      return "/freelancer-dashboard";
-      return "/freelancer-dashboard";
     } else {
       return "/sign-in";
     }
