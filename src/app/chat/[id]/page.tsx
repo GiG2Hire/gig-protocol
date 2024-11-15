@@ -1,39 +1,37 @@
+"use client";
+import { useEffect, useState } from "react";
 import styles from "./freelancer-chat.module.css";
 // import {chat} from "../../../constants/chat";
-import ChatSentiment from "@/src/app/components/chat/chat-sentiment";
+//import ChatSentiment from "@/src/app/components/chat/chat-sentiment";
 import { GIG_COMPLETION_STATUS } from "@/src/constants/appConstants";
 import { closeProposal } from "../../actions/choose-and-open";
 import ChatWindow from "@/src/app/components/chat/chat-window";
 import ChatInput from "../../components/chat/chat-input";
-import { prisma } from "../../lib/db";
 import FileUpload from "../../components/chat/file-upload";
-import { CallTracker } from "assert";
 import FileList from "../../components/files/file-list";
+import { getUserIdFromPayload } from "../../actions/login";
+import { getFiles, getMessages } from "../../actions/get-messages";
+import { getRoleFromPayload } from "../../actions/login";
 
-async function acceptGigInDatabase() {
-  const options = {
-    method: "POST",
-    headers: {
-      Accept: "application/json",
-      "Content-Type": "application/json;charset=UTF-8",
-    },
-    body: JSON.stringify({
-      gigId: 15,
-      completionStatus: GIG_COMPLETION_STATUS.COMPLETE,
-    }),
-  };
-  const acceptGigResponse = await fetch("/api/gig/status", options);
-  if (acceptGigResponse.status == 200) {
-    console.log("Gig marked as complete successfully!!");
-  }
-}
+// async function acceptGigInDatabase() {
+//   const options = {
+//     method: "POST",
+//     headers: {
+//       Accept: "application/json",
+//       "Content-Type": "application/json;charset=UTF-8",
+//     },
+//     body: JSON.stringify({
+//       gigId: 15,
+//       completionStatus: GIG_COMPLETION_STATUS.COMPLETE,
+//     }),
+//   };
+//   const acceptGigResponse = await fetch("/api/gig/status", options);
+//   if (acceptGigResponse.status == 200) {
+//     console.log("Gig marked as complete successfully!!");
+//   }
+// }
 
-function acceptGig() {
-  acceptGigInDatabase();
-  // closeProposal(15);
-}
-
-const FreelancerChat = async ({
+const FreelancerChat = ({
   params,
   searchParams,
 }: {
@@ -49,7 +47,7 @@ const FreelancerChat = async ({
   const currentUser: number = Number(searchParams.userId);
 
   // TODO: Try to see if this is a secure way to get Gig Id
-  const gigId: string = chatId.split("-")[2];
+  const gigId: number = Number(chatId.split("-")[2]);
   console.log("Gig Id derived from chat Id: ", gigId);
   let receiverUser: number;
 
@@ -61,64 +59,56 @@ const FreelancerChat = async ({
     receiverUser = client;
   }
 
-  let sentimentText: string = "";
-  let messages: any;
-  let submittedFiles: any = [];
-  let filesSharedByUser: any = [];
-  let filesSharedByPartner: any = [];
+  //let sentimentText: string;
+  let [messages, setMessages] = useState<any>();
+  let submittedFiles: any[] = [];
+  let [hasSubmitted, setSubmitStatus] = useState<boolean>();
+  let [filesSharedByUser, setFilesSharedByUser] = useState([]);
+  let [filesSharedByPartner, setFilesSharedByPartner] = useState([]);
 
   /**
    * get initial messages to load in chat window
    */
   async function getChatMessages() {
     try {
-      messages = await prisma.chatMessage.findMany({
-        where: {
-          chatId: chatId,
-        },
-        orderBy: {
-          sentTimestamp: "asc",
-        },
-      });
+      //let messages = await fetch(`api/message/get-messages?chat_id=${chatId}`);    Have some troubles with it
+
+      let messages = await getMessages(chatId);
+      setMessages(messages);
     } catch (error) {
       console.log(error);
     }
-    console.log(messages);
   }
 
   /**
    * get gemini api sentiment for exisiting chat messages
    */
-  async function getGeminiSentiment() {
-    try {
-      const sentimentTextResponse = await prisma.chat.findUnique({
-        where: { chatId: chatId },
-        select: {
-          geminiSentiment: true,
-        },
-      });
-      console.log(sentimentTextResponse);
-      sentimentText = sentimentTextResponse?.geminiSentiment!;
-    } catch (error) {
-      console.log(error);
-    }
+  // async function getGeminiSentiment() {
+  //   try {
+  //     const sentimentTextResponse = await prisma.chat.findUnique({
+  //       where: { chatId: chatId },
+  //       select: {
+  //         geminiSentiment: true,
+  //       },
+  //     });
+  //     console.log(sentimentTextResponse);
+  //     sentimentText = sentimentTextResponse?.geminiSentiment!;
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
 
-    if (sentimentText == "null") {
-      console.log("New chat, no sentiment has been generated");
-      // Set sentiment indicator when no messages have been exchanged for a chat
-      sentimentText = "neutral";
-    } else {
-      console.log("setting initial sentiment as:", sentimentText);
-    }
-  }
+  //   if (sentimentText == "null") {
+  //     console.log("New chat, no sentiment has been generated");
+  //     // Set sentiment indicator when no messages have been exchanged for a chat
+  //     sentimentText = "neutral";
+  //   } else {
+  //     console.log("setting initial sentiment as:", sentimentText);
+  //   }
+  // }
 
   async function getSubmittedFiles() {
     try {
-      submittedFiles = await prisma.gigFile.findMany({
-        where: {
-          gigId: Number(gigId),
-        },
-      });
+      submittedFiles = await getFiles(Number(gigId))
       console.log(submittedFiles);
     } catch (error) {
       console.log(error);
@@ -129,18 +119,71 @@ const FreelancerChat = async ({
       } else {
         filesSharedByPartner.push(file);
       }
+      console.log(filesSharedByPartner, filesSharedByUser)
     });
+  }
+
+  async function getGigStatus() {
+    const response = await fetch(`/api/gig/get-status/?gig_id=${gigId}`);
+    const status = await response.json();
+    if (status == "SUBMITTED") {
+      setSubmitStatus(true)
+    }
+  }
+
+  const handleAcceptGig = async () => {
+    // TODO: make functionalities for accept budget via API, assigned - @Horlarmmy
+    const response = await fetch(`/api/gig/accept-budget`);
+
+    if (!response.ok) {
+      throw new Error("Failed to fetch data");
+    }
+  }
+
+  const handleSubmitGig = async () => {
+    // TODO: check if work submited and after that client can accept budget, before button should be inactive
+    const freelancerId = await getUserIdFromPayload();
+    const response = await fetch('/api/gig/submit', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ gigId, freelancerId }),
+    });
+
+    console.log(response)
+
+    if (!response.ok) {
+      throw new Error("Failed to fetch data");
+    }
+
+    console.log("All good")
+    setSubmitStatus(true);
   }
 
   const removeFile = (index: any) => {
     return;
   };
 
-  await Promise.all([
-    getChatMessages(),
-    getGeminiSentiment(),
-    getSubmittedFiles(),
-  ]);
+  let currUserRole;
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        await Promise.all([
+          getChatMessages(),
+          getSubmittedFiles(),
+          getGigStatus(),
+
+          currUserRole = await getRoleFromPayload()
+        ]);
+      } catch (err) {
+        console.error('Failed to fetch data:', err);
+      }
+    }
+
+    fetchData();
+  }, [])
+
   // await Promise.all([getChatMessages()]);
 
   // we can use gig id to get chat id or directly pass chat id in the http route query
@@ -443,6 +486,8 @@ const FreelancerChat = async ({
                   />
                   <div className={styles.chatInputContentInner}>
                     <ChatInput
+                      hasSubmitted={hasSubmitted}
+                      userRole={currUserRole}
                       currentUser={currentUser}
                       receiverUser={receiverUser}
                       chatId={chatId}
@@ -452,11 +497,11 @@ const FreelancerChat = async ({
                 </div>
                 <div className={styles.jobSubmissionContentParent}>
                   <div className={styles.jobSubmissionContent}>
-                    <ChatSentiment
+                    {/* <ChatSentiment
                       initialSentiment={sentimentText}
                       chatId={chatId}
                       className=""
-                    />
+                    /> */}
                     <div className={styles.tasksContentParent}>
                       <div className={styles.tasksContent}>
                         <div className={styles.keepTrackOf}>
@@ -615,9 +660,23 @@ const FreelancerChat = async ({
                       alt=""
                       src="/fact-check.svg"
                     />
-                    <b className={styles.submitJob}>
-                      {currentUser == client ? "Accept Gig" : "Submit Gig"}
-                    </b>
+                    <div>
+                      {currentUser === client ? (
+                        <a
+                          className={styles.acceptGig}
+                          onClick={handleAcceptGig}
+                        >
+                          Accept Gig
+                        </a>
+                      ) : (
+                        <a
+                          className={styles.submitJob}
+                          onClick={handleSubmitGig}
+                        >
+                          {hasSubmitted ? "Submitted" : "Submit Gig"}
+                        </a>
+                      )}
+                    </div>
                   </button>
                 </div>
               </div>

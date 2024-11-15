@@ -47,29 +47,37 @@ const ChatWindow = ({
   return (
     <div>
       <div className={styles.freelancerClientChatMsgBox}>
-        {messages.map((message: any) => {
-          if (message.senderId != currentUser) {
-            return (
-              <div className={styles.freenalceemployerChatInner11}>
-                <div className={styles.lookingForwardToItMaxThParent}>
-                  <p className={styles.lookingForwardTo}>{message.message}</p>
-                  <b className={styles.b16}>21:33</b>
+        {initialMessages?.length > 0 ? (
+          initialMessages.map((message) => {
+            if (message.senderId !== currentUser) {
+              return (
+                <div
+                  key={message.id} // Ensure unique key for each message
+                  className={styles.freenalceemployerChatInner11}
+                >
+                  <div className={styles.lookingForwardToItMaxThParent}>
+                    <p className={styles.lookingForwardTo}>{message.message}</p>
+                    <b className={styles.b16}>21:33</b>
+                  </div>
                 </div>
-              </div>
-            );
-          } else {
-            return (
-              <div className={styles.freenalceemployerChatInner10}>
-                <div className={styles.definitelySophieIllEnsurParent}>
-                  <p className={styles.definitelySophieIll}>
-                    {message.message}
-                  </p>
-                  <b className={styles.b15}>21:33</b>
+              );
+            } else {
+              return (
+                <div
+                  key={message.id}
+                  className={styles.freenalceemployerChatInner10}
+                >
+                  <div className={styles.definitelySophieIllEnsurParent}>
+                    <p className={styles.definitelySophieIll}>{message.message}</p>
+                    <b className={styles.b15}>21:33</b>
+                  </div>
                 </div>
-              </div>
-            );
-          }
-        })}
+              );
+            }
+          })
+        ) : (
+          <p>No messages available</p>
+        )}
       </div>
     </div>
   );

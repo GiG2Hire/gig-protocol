@@ -1,4 +1,5 @@
-import { FunctionComponent } from "react";
+import { FunctionComponent, useEffect, useState } from "react";
+import { getUserIdFromPayload } from "../actions/login";
 import styles from "./comp-joboffer.module.css";
 import Frametask from "./Frametask";
 import usdcLogo from "./usdc-logo.png";
@@ -9,12 +10,64 @@ import calendarLogo from "./iconcalendar.svg";
 import arrowUp from "./arrow-up.svg";
 
 export type CompjobofferVType = {
+    gigId: number,
+    title: string,
+    description: string,
+    tasks: any[],
+    budget: number,
+    appliedStatus: boolean;
     className?: string;
 };
 
 const CompjobofferV: FunctionComponent<CompjobofferVType> = ({
+    gigId,
+    title,
+    description,
+    tasks1,
+    budget,
+    appliedStatus,
     className = "",
 }) => {
+    const [isApplied, setIsApplied] = useState<boolean>();
+
+    // remove by actual tasks
+    const tasks = [
+        "Create a user btn",
+        "Create landing page",
+        "Create drug shop",
+        "Create Marketplace",
+        "Design Checkout Modal",
+        "Design User Creator",
+        "Create store builder",
+        "Design Merchant chat"
+    ];
+
+    useEffect(() => {
+        setIsApplied(appliedStatus);
+    }, [appliedStatus]);
+
+
+    const handleApplyForGig = async () => {
+        const freelancerId = await getUserIdFromPayload();
+
+        // make it for POST request
+        const response = await fetch(`/api/gig/apply`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ gigId, freelancerId }),
+        });
+
+        if (!response.ok) {
+            throw new Error("Failed to fetch data");
+        }
+
+        if (response.status == 201) {
+            setIsApplied(true);
+        }
+    }
+
     return (
         <div className={[styles.compjobofferV2, className].join(" ")}>
             <section className={styles.contentParent}>
@@ -24,97 +77,34 @@ const CompjobofferV: FunctionComponent<CompjobofferVType> = ({
                             <a className={styles.posted}>Posted</a>
                             <a className={styles.timePosted}>6h ago</a>
                             <a className={styles.by}>by</a>
-                            <a className={styles.timePosted}>Andriy</a>
+                            <a className={styles.timePosted}>Client</a>
                         </div>
                         <h2 className={styles.offerTitle}>
-                            Mobile App Design - UI/UX Specialist
+                            {title}
                         </h2>
                     </div>
                     <div className={styles.description}>
                         <p className={styles.lookingForAn}>
-                            Looking for an experienced UX/UI designer to design a stunning
-                            e-Commerce platform.  This platform will be designed as a PWA app
-                            meaning it will render on regular desktops as well as smart
-                            devices (phones/tablets).
+                            {description}
                         </p>
                         <p className={styles.lookingForAn}>&nbsp;</p>
-                        <p className={styles.lookingForAn}>
-                            You must have created similar projects in the past to be
-                            considered.  when replying to this post please confirm that you
-                            are available on a full-time basis for this project.  We are
-                            looking for talented individuals to join our growing team.
-                        </p>
                     </div>
                     <div className={styles.tasks}>
                         <div className={styles.taskHeader}>
-                            <b className={styles.taskNumber1}>8</b>
+                            <b className={styles.taskNumber1}>{tasks.length}</b>
                             <div className={styles.tasks1}>Tasks</div>
                         </div>
-                        <div className={styles.taskItem}>
-                            <div className={styles.taskElements}>
-                                <Frametask
-                                    propFlex="0.8788"
-                                    propPadding="0px 67px 0px 0px"
-                                    propMinWidth="161px"
-                                    thisIsATask="Create a user dashboard"
-                                    propDisplay="unset"
-                                    propMinWidth1="unset"
-                                />
-                                <Frametask
-                                    propFlex="0.8488"
-                                    propPadding="0px 92px 0px 0px"
-                                    propMinWidth="161px"
-                                    thisIsATask="Create landing page"
-                                    propDisplay="inline-block"
-                                    propMinWidth1="118px"
-                                />
-                                <Frametask
-                                    propFlex="0.6794"
-                                    propPadding="0px 120px 0px 0px"
-                                    propMinWidth="161px"
-                                    thisIsATask="Create all icons"
-                                    propDisplay="inline-block"
-                                    propMinWidth1="90px"
-                                />
-                            </div>
-                            <div className={styles.taskElements}>
-                                <Frametask
-                                    propFlex="0.8565"
-                                    propPadding="0px 95px 0px 0px"
-                                    propMinWidth="156px"
-                                    thisIsATask="Create Marketplace"
-                                    propDisplay="inline-block"
-                                    propMinWidth1="115px"
-                                />
-                                <Frametask
-                                    propFlex="1"
-                                    propPadding="0px 72px 0px 0px"
-                                    propMinWidth="156px"
-                                    thisIsATask="Design Checkout Modal"
-                                    propDisplay="unset"
-                                    propMinWidth1="unset"
-                                />
-                                <Frametask
-                                    propFlex="0.8628"
-                                    propPadding="0px 94px 0px 0px"
-                                    propMinWidth="156px"
-                                    thisIsATask="Design User Creator"
-                                    propDisplay="inline-block"
-                                    propMinWidth1="116px"
-                                />
-                            </div>
-                            <div className={styles.taskElements}>
-                                <Frametask
-                                    propFlex="0.5954"
-                                    propPadding="0px 94px 0px 0px"
-                                    propMinWidth="174px"
-                                    thisIsATask="Create store builder"
-                                    propDisplay="unset"
-                                    propMinWidth1="unset"
-                                />
-                                <Frametask thisIsATask="Design User/Merchant chat" />
-                                <div className={styles.spacerTask} />
-                            </div>
+                        <div className={styles.taskContainer}>
+                            {tasks.map((task, index) => (
+                                <div className={styles.taskItem} key={index}>
+                                    <Frametask
+                                        propFlex="1"
+                                        propPadding="0px 20px"
+                                        propMinWidth="160px"
+                                        thisIsATask={task}
+                                    />
+                                </div>
+                            ))}
                         </div>
                     </div>
                     <div className={styles.tags}>
@@ -137,7 +127,7 @@ const CompjobofferV: FunctionComponent<CompjobofferVType> = ({
                                 src={groupLogo.src}
                             />
                             <b className={styles.candidates}>Candidates:</b>
-                            <div className={styles.taskNumber}>5</div>
+                            <div className={styles.taskNumber}>0</div> {/* change to `offers.lenght` */}
                         </div>
                         <div className={styles.metaIcons}>
                             <img
@@ -147,7 +137,7 @@ const CompjobofferV: FunctionComponent<CompjobofferVType> = ({
                                 src={eventListLogo.src}
                             />
                             <b className={styles.taskNumber}>Tasks:</b>
-                            <div className={styles.taskNumber}>8</div>
+                            <div className={styles.taskNumber}>{tasks.length}</div>
                         </div>
                     </div>
                 </div>
@@ -200,7 +190,7 @@ const CompjobofferV: FunctionComponent<CompjobofferVType> = ({
                             alt=""
                             src={personHandLogo.src}
                         />
-                        <b className={styles.applyText}>Apply Now</b>
+                        <b className={styles.applyText} onClick={handleApplyForGig}>{isApplied ? "Applied" : "Apply Now"}</b>
                     </label>
                     <input
                         className={styles.input}

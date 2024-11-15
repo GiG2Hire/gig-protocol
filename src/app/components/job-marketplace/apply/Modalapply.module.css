@@ -1,0 +1,103 @@
+.congratsYouApplied {
+  flex: 1;
+  position: relative;
+  display: inline-block;
+  white-space: pre-wrap;
+  max-width: 100%;
+}
+.congratsYouAppliedToAGigWrapper {
+  align-self: stretch;
+  background-color: var(--yellow);
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  padding: var(--padding-base) 37px;
+  box-sizing: border-box;
+  max-width: 100%;
+}
+.developADefi {
+  align-self: stretch;
+  position: relative;
+}
+.youJoinedA {
+  position: relative;
+  font-size: var(--medium-size);
+}
+.developADefiDashboardToTrParent {
+  align-self: stretch;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  gap: var(--gap-base);
+}
+.backToOffers {
+  position: relative;
+}
+.backToOffersParent {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-end;
+  padding: 0 0 0 260px;
+  gap: var(--gap-base);
+  text-align: center;
+  font-size: var(--medium-size);
+  color: var(--grey-600);
+}
+.frameParent,
+.modalapply {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  text-align: left;
+}
+.frameParent {
+  align-self: stretch;
+  padding: var(--padding-5xl);
+  gap: var(--gap-29xl);
+  font-size: var(--h3-size);
+  color: var(--navy-800);
+  font-family: var(--h3);
+}
+.modalapply {
+  width: 720px;
+  background-color: var(--light);
+  border: 2px solid var(--yellow);
+  box-sizing: border-box;
+  max-width: 100%;
+  overflow: hidden;
+  line-height: normal;
+  letter-spacing: normal;
+  font-size: var(--hl2-size);
+  color: var(--navy);
+  font-family: var(--hl2);
+}
+@media screen and (max-width: 675px) {
+  .backToOffersParent {
+    flex-wrap: wrap;
+    padding-left: 130px;
+    box-sizing: border-box;
+  }
+}
+@media screen and (max-width: 450px) {
+  .developADefi {
+    font-size: var(--font-size-lgi);
+  }
+  .backToOffers,
+  .youJoinedA {
+    font-size: var(--p-size);
+  }
+  .backToOffersParent {
+    padding-left: var(--padding-xl);
+    box-sizing: border-box;
+  }
+  .frameParent {
+    gap: var(--gap-5xl);
+    padding-top: var(--padding-xl);
+    padding-bottom: var(--padding-xl);
+    box-sizing: border-box;
+  }
+}

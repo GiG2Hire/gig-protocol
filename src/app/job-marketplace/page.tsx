@@ -3,7 +3,6 @@ import type { NextPage } from "next";
 import NavbarSpacer from "@/src/app/components/navbar-spacer1";
 import Footer from "@/src/app/components/footer1";
 import styles from "./job-marketplace.module.css";
-import { getActiveProposals } from "../actions/read-gigs";
 import JobCategories from "@/src/app/components/job-marketplace/job-categories";
 import JobList from "../components/job-marketplace/job-list";
 import { useState } from "react";

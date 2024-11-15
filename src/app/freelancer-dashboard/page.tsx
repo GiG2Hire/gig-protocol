@@ -2,11 +2,15 @@
 import type { NextPage } from "next";
 import { useCallback, useEffect } from "react";
 import styles from "./freelancer-dashboard.module.css";
-import { useActiveAccount } from "thirdweb/react";
 import { getTime } from "@/src/utils/getCurrTime";
 import JobCard from "../components/job-card";
-import { getUserIdFromPayload, isLoggedIn } from "../actions/login";
-import { prisma } from "../lib/db";
+import { getUserIdFromPayload } from "../actions/login";
+import {
+  useActiveAccount,
+  useActiveWalletChain,
+  useActiveWalletConnectionStatus,
+  useWalletBalance,
+} from "thirdweb/react";
 import {
   GIG_COMPLETION_STATUS,
   GIG_OFFER_STATUS,
@@ -16,10 +20,11 @@ import { JOB_CATEGORIES } from "@/src/constants/appConstants";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 
-const FreelancerDashboard = async () => {
+const FreelancerDashboard = () => {
   let activeGigs: any[] = [];
   let completedGigs: any[] = [];
   let offers: any[] = [];
+  const walletStatus = useActiveWalletConnectionStatus();
 
   const router = useRouter();
 
@@ -35,29 +40,22 @@ const FreelancerDashboard = async () => {
 
   async function getActiveOrCompletedGigs() {
     console.log("Inside GET /api/gig/active-gigs/");
-    const userLoggedIn: boolean = await isLoggedIn();
-    if (!userLoggedIn) {
-      return;
-    }
-    const freelancer = await getUserIdFromPayload();
+
+    const id = await getUserIdFromPayload();
     try {
-      const activeOrCompletedGigs = await prisma.gig.findMany({
-        where: {
-          freelancerId: freelancer,
-          OR: [
-            { completionStatus: GIG_COMPLETION_STATUS.IN_PROGRESS },
-            { completionStatus: GIG_COMPLETION_STATUS.COMPLETE },
-          ],
-        },
-        include: {
-          gig_task: true,
-          gig_file: true,
-          user: true,
-        },
-      });
-      console.log(
-        `GET /api/gig/active-gigs/ response from database. Count of messages received: ${activeOrCompletedGigs.length})`
-      );
+      const [responseCompleted, responseActive] = await Promise.all([
+        fetch(`api/gig/get-applications/completed-gigs/?user_id=${id}`),
+        fetch(`api/gig/get-applications/active-gigs/?user_id=${id}`)
+      ]);
+
+      if (!responseCompleted.ok || !responseActive.ok) {
+        throw new Error("Failed to fetch gigs data.");
+      }
+
+      const completedGigs = await responseCompleted.json();
+      const activeGigs = await responseActive.json();
+
+      const activeOrCompletedGigs = [...completedGigs, ...activeGigs];
       activeOrCompletedGigs.forEach((gig) => {
         if (gig.completionStatus == GIG_COMPLETION_STATUS.IN_PROGRESS) {
           activeGigs.push(gig);
@@ -73,28 +71,19 @@ const FreelancerDashboard = async () => {
 
   async function getGigOffersForFreelancer() {
     console.log("Trying to get gig offers for freelancer...");
-    const userLoggedIn: boolean = await isLoggedIn();
-    if (!userLoggedIn) {
-      return;
-    }
+
     const freelancer = await getUserIdFromPayload();
     try {
-      offers = await prisma.gigOffer.findMany({
-        where: {
-          freelancerId: freelancer,
-          status: GIG_OFFER_STATUS.PENDING,
-        },
-        include: {
-          gig: true,
-        },
-      });
+      const response = await fetch(`api/gig/get-applications/pending-offers/?freelancer_id=${freelancer}`);
+      if (!response.ok) {
+        throw new Error("Failed to fetch data");
+      }
+      offers = JSON.parse(await response.json());
       console.log(`Got gigs where freelancer has applied: ${offers.length}`);
     } catch (error) {
       console.log(error);
     }
   }
-
-  await Promise.all([getActiveOrCompletedGigs(), getGigOffersForFreelancer()]);
 
   const getCompletedTasks = (tasks) => {
     const completedTasks = [];
@@ -129,6 +118,13 @@ const FreelancerDashboard = async () => {
     const seconds = Math.floor((timeDifference % (1000 * 60)) / 1000);
     return days + "D:" + hours + "H:" + minutes + "M:" + seconds + "S";
   };
+
+  useEffect(() => {
+    const fetchData = async () => {
+      await Promise.all([getActiveOrCompletedGigs(), getGigOffersForFreelancer()]);
+    };
+    fetchData();
+  }, [walletStatus]);
 
   return (
     <div className={styles.freelancerDashboard}>
@@ -204,7 +200,7 @@ const FreelancerDashboard = async () => {
                   <h1 className={styles.yourActiveJobs}>Your Active Jobs</h1>
                 </div>
                 <div className={styles.jobsList}>
-                  {activeGigs.map((gig) => {
+                  {!activeGigs ? activeGigs.map((gig) => {
                     return (
                       <div className={styles.jobCards}>
                         <div className={styles.jobCardOne}>
@@ -319,7 +315,7 @@ const FreelancerDashboard = async () => {
                         </div>
                       </div>
                     );
-                  })}
+                  }) : <div>You don't have active jobs.</div>}
                 </div>
               </div>
               {/* <div className={styles.earningsMetrics}>
@@ -448,7 +444,7 @@ const FreelancerDashboard = async () => {
                   <h1 className={styles.yourActiveJobs}>Completed Jobs</h1>
                 </div>
                 <div className={styles.jobsList}>
-                  {completedGigs.map((gig) => {
+                  {!completedGigs ? completedGigs.map((gig) => {
                     return (
                       <div className={styles.jobCards}>
                         <div className={styles.jobCardOne}>
@@ -560,7 +556,7 @@ const FreelancerDashboard = async () => {
                         </div>
                       </div>
                     );
-                  })}
+                  }) : <div>You don't have completed jobs.</div>}
                 </div>
               </div>
             </div>
@@ -570,7 +566,7 @@ const FreelancerDashboard = async () => {
                   <div className={styles.pendingJobsContainer}>
                     <h1 className={styles.jobsToBe}>Applications</h1>
                     <div className={styles.pendingJobsCount}>
-                      <b className={styles.pendingJobsNumber}>1</b>
+                      <b className={styles.pendingJobsNumber}>{offers.length}</b>
                       <div className={styles.pending}>pending</div>
                     </div>
                   </div>
@@ -730,12 +726,12 @@ const FreelancerDashboard = async () => {
           </div>
         </div>
         <div className={styles.socialMediaOne}>
-          <div className={styles.socialMedia}>
+          <a className={styles.socialMedia} href="https://x.com/gig2hire">
             <img className={styles.socialIconOne} alt="" src="/vector-7.svg" />
-          </div>
-        </div>
-        <div className={styles.socialMedia1}>
-          <img className={styles.socialIconTwo} alt="" src="/vector-8.svg" />
+          </a>
+          <a className={styles.socialMedia1} href="https://discord.com/invite/sFEZN2nFkV">
+            <img className={styles.socialIconTwo} alt="" src="/vector-8.svg" />
+          </a>
         </div>
       </footer>
     </div>

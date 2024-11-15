@@ -2,14 +2,19 @@
 import { useState } from "react";
 import styles from "./chat-input.module.css";
 import { prepareConversation } from "@/src/utils/prepare-conversation";
+import ChatStatusNotification from "./chat-notify-folder";
 import { STATUS_200 } from "@/src/constants/appConstants";
 
 const ChatInput = ({
+  hasSubmitted,
+  userRole,
   currentUser,
   receiverUser,
   chatId,
   messages,
 }: {
+  hasSubmitted: boolean;
+  userRole: string;
   currentUser: number;
   receiverUser: number;
   chatId: string;
@@ -146,19 +151,22 @@ const ChatInput = ({
   };
 
   return (
-    <div className={styles.frameParent11}>
-      <input
-        className={styles.frameInput}
-        placeholder="Type your message..."
-        type="text"
-        onChange={(e) => setChatMsg(e.target.value)}
-      />
-      <div className={styles.sendChatMsgBtn} onClick={sendChatMsg}>
-        <div className={styles.send21}>
-          <img className={styles.sendButtonIcon} alt="" src="/vector-3.svg" />
+    <>
+      {hasSubmitted && <ChatStatusNotification role={userRole} />}
+      <div className={styles.frameParent11}>
+        <input
+          className={styles.frameInput}
+          placeholder="Type your message..."
+          type="text"
+          onChange={(e) => setChatMsg(e.target.value)}
+        />
+        <div className={styles.sendChatMsgBtn} onClick={sendChatMsg}>
+          <div className={styles.send21}>
+            <img className={styles.sendButtonIcon} alt="" src="/vector-3.svg" />
+          </div>
         </div>
       </div>
-    </div>
+    </>
   );
 };
 
