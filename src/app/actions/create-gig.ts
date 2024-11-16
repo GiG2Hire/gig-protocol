@@ -5,6 +5,7 @@ import { GIG_COMPLETION_STATUS } from "@/src/constants/appConstants";
 import { findBestAPY } from "./choose-and-open";
 import CONTRACT_ADDRESSES from "@/src/constants/contractAddresses.json";
 import { prisma } from "../lib/db";
+import { error } from "console";
 
 /**
  *
@@ -24,7 +25,7 @@ export async function createGig(
 ) {
   console.log("Trying to create a gig for client...");
   const clientId = await getUserIdFromPayload();
-  const description: any = formData.get("description")?.toString;
+  const description: any = formData.get("description");
   const budget: number = Number(formData.get("budget"));
   const title: any = formData.get("gigTitle");
 
@@ -32,7 +33,9 @@ export async function createGig(
   //nextjs.org/docs/app/building-your-application/data-fetching/server-actions-and-mutations#server-side-form-validation
 
   if (description == "" || clientId == null || title == "") {
-    return;
+    return {
+      error: "Something went wrong! Please check description and title!",
+    };
   }
 
   try {
@@ -58,8 +61,10 @@ export async function createGig(
       `POST /gig/create/tasks response from database, created tasks: ${createdTasks.count}`
     );
     console.log("Tasks Created Successfully!!");
+    return { message: "Gig Created Successfully!!" };
   } catch (error) {
     console.log(error);
+    return { error: "Something went wrong!" };
   }
 
   // sender deployed on Avalance Fuji Testnet

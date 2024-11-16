@@ -1,3 +1,13 @@
+.errorDiv {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  min-height: 80vh;
+}
+.errorDivResetBtn {
+  margin-left: 5px;
+}
 .roadMap {
   margin: 0;
   position: relative;

@@ -1,5 +1,6 @@
 import { pusherServer } from "@/src/app/lib/pusher";
 import { STATUS_200 } from "@/src/constants/appConstants";
+import { NextResponse } from "next/server";
 
 /**
  * Publish chat message to pusher
@@ -21,9 +22,12 @@ export async function POST(req: Request) {
     console.log("Successfully published event to pusher channel!!");
   } catch (error) {
     if (error instanceof Error) {
-      return new Response(error.message, { status: 500 });
+      return NextResponse.json({ error: error.message }, { status: 500 });
     }
-    return new Response("Internal Server Error", { status: 500 });
+    return NextResponse.json(
+      { error: "Internal Server Error" },
+      { status: 500 }
+    );
   }
-  return new Response("OK", { status: STATUS_200 });
+  return NextResponse.json({ message: "OK" }, { status: STATUS_200 });
 }

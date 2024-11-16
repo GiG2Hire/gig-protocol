@@ -23,6 +23,7 @@ import { GIG_TASK_STATUS } from "@/src/constants/appConstants";
 import { useState } from "react";
 import Calendar from "react-calendar";
 import ReviewJobOffer from "../components/review-job-offer";
+import toast from "react-hot-toast";
 
 const PostAJob = () => {
   const account = useActiveAccount();
@@ -57,7 +58,7 @@ const PostAJob = () => {
     { id: 1006, imgSrc: "/translate.svg", text: "Writing & Translation" },
   ];
 
-  const [activeJobCategory, setActiveJobCategory] = useState(null);
+  const [activeJobCategory, setActiveJobCategory] = useState<number>(1001);
 
   function addTask() {
     if (taskInput.trim() == "") {
@@ -72,7 +73,7 @@ const PostAJob = () => {
     console.log(tasks);
   }
 
-  async function approveUSDCandOpenProposal() {
+  async function approveUSDCandOpenProposal(): Promise<string> {
     console.log("Trying to obtain approval from client....");
     const chainId = 84532;
     const rpcUrl = process.env.NEXT_PUBLIC_BASE_RPC_URL;
@@ -108,6 +109,11 @@ const PostAJob = () => {
       params: [addressProtocol, BigInt(amount)],
     });
 
+    if (account == undefined) {
+      toast.error("Please Connect your wallet!!");
+      return Promise.reject("error");
+    }
+
     const { transactionHash } = await sendTransaction({
       account: account,
       transaction: tx,
@@ -121,13 +127,13 @@ const PostAJob = () => {
     });
 
     if (receipt.status != "success") {
-      return;
+      return Promise.reject("error");
     }
 
     console.log("Transaction approval confirmed: ");
     setProjectBudget(amount);
 
-    openProposal();
+    return await openProposal();
 
     // amount = gig budget, usdcToken = base , destinationChain = Optimism
     // const txCall = prepareContractCall({
@@ -147,7 +153,7 @@ const PostAJob = () => {
     // return transactionHash;
   }
 
-  async function openProposal() {
+  async function openProposal(): Promise<string> {
     console.log("Trying to obtain approval from client....");
     const chainId = 84532;
     const rpcUrl = process.env.NEXT_PUBLIC_BASE_RPC_URL;
@@ -178,6 +184,12 @@ const PostAJob = () => {
     });
 
     console.log("Sending Transaction to chain");
+
+    if (account == undefined) {
+      toast.error("Please Connect your wallet!!");
+      return Promise.reject("error");
+    }
+
     // front it will be showing tx hash or link for ccip explorer with this hash
     const { transactionHash } = await sendTransaction({
       account: account,
@@ -186,22 +198,66 @@ const PostAJob = () => {
 
     console.log(transactionHash);
 
-    const { receipt } = await waitForReceipt({
+    const receipt = await waitForReceipt({
       client: client,
       chain: selectedChain,
       transactionHash: transactionHash,
     });
 
     if (receipt.status != "success") {
-      return;
+      return Promise.reject("error");
     }
+
+    return "success";
 
     // return transactionHash;
   }
 
-  const openProposalAndCreateGig = (formData: FormData) => {
-    approveUSDCandOpenProposal();
-    createGig(formData, deliveryDate, projectBudget, activeJobCategory, tasks);
+  const openProposalAndCreateGig = async (formData: FormData) => {
+    const txnResult = await approveUSDCandOpenProposal();
+    if (txnResult == "error" || txnResult == null) {
+      toast.error("Transaction Failed!!");
+      return;
+    }
+
+    toast.promise(
+      createGig(
+        formData,
+        deliveryDate,
+        projectBudget,
+        activeJobCategory,
+        tasks
+      ),
+      {
+        loading: "Saving...",
+        success: (res) => {
+          if (res.error) {
+            throw new Error(res.error);
+          }
+          return <b>Gig Created Successfully!!</b>;
+        },
+        error: (err) => <b>{err.message}</b>,
+      }
+    );
+
+    // const result = await createGig(
+    //   formData,
+    //   deliveryDate,
+    //   projectBudget,
+    //   activeJobCategory,
+    //   tasks
+    // );
+    // if (result?.error) {
+    //   toast.error(result?.error);
+    // } else {
+    //   toast.success(result?.message as string, {
+    //     style: {
+    //       border: "1px solid #713200",
+    //       padding: "16px",
+    //       color: "#713200",
+    //     },
+    //   });
+    // }
   };
 
   return (
@@ -310,10 +366,11 @@ const PostAJob = () => {
                   {jobCategories.map((category) => (
                     <div
                       key={category.id}
-                      className={`${styles.btnDevit} ${activeJobCategory === category.id
-                        ? styles.activeBtnDevit
-                        : ""
-                        }`}
+                      className={`${styles.btnDevit} ${
+                        activeJobCategory === category.id
+                          ? styles.activeBtnDevit
+                          : ""
+                      }`}
                       onClick={() => {
                         setActiveJobCategory(category.id);
                       }}
@@ -431,153 +488,6 @@ const PostAJob = () => {
 
                   <div>
                     <Calendar onChange={setDeliveryDate} value={deliveryDate} />
-                    {/* <div className={styles.monthSelector}>
-                      <div className={styles.monthNavigation}>
-                        <img
-                          className={styles.chevronLeftIcon}
-                          loading="lazy"
-                          alt=""
-                          src="/chevron-left.svg"
-                        />
-                      </div>
-                      <b className={styles.february}>February</b>
-                      <div className={styles.monthNavigation1}>
-                        <img
-                          className={styles.chevronRightIcon}
-                          loading="lazy"
-                          alt=""
-                          src="/chevron-right.svg"
-                        />
-                      </div>
-                    </div>
-                    <div className={styles.calendar1}>
-                      <div className={styles.daysOfWeek}>
-                        <b className={styles.s}>S</b>
-                      </div>
-                      <div className={styles.daysOfWeek1}>
-                        <div className={styles.m}>M</div>
-                      </div>
-                      <div className={styles.daysOfWeek2}>
-                        <div className={styles.t}>T</div>
-                      </div>
-                      <div className={styles.daysOfWeek3}>
-                        <div className={styles.w}>W</div>
-                      </div>
-                      <div className={styles.daysOfWeek4}>
-                        <div className={styles.t1}>T</div>
-                      </div>
-                      <div className={styles.daysOfWeek5}>
-                        <div className={styles.f}>F</div>
-                      </div>
-                      <div className={styles.daysOfWeek6}>
-                        <div className={styles.s1}>S</div>
-                      </div>
-                      <div className={styles.daysOfWeek7}>
-                        <div className={styles.div}>1</div>
-                      </div>
-                      <div className={styles.daysOfWeek8}>
-                        <div className={styles.div1}>1</div>
-                      </div>
-                      <div className={styles.daysOfWeek9}>
-                        <div className={styles.div2}>1</div>
-                      </div>
-                      <div className={styles.daysOfWeek10}>
-                        <div className={styles.div3}>1</div>
-                      </div>
-                      <div className={styles.daysOfWeek11}>
-                        <div className={styles.div4}>2</div>
-                      </div>
-                      <div className={styles.daysOfWeek12}>
-                        <div className={styles.div5}>3</div>
-                      </div>
-                      <div className={styles.daysOfWeek13}>
-                        <div className={styles.div6}>4</div>
-                      </div>
-                      <div className={styles.daysOfWeek14}>
-                        <div className={styles.div7}>5</div>
-                      </div>
-                      <div className={styles.daysOfWeek15}>
-                        <div className={styles.div8}>6</div>
-                      </div>
-                      <div className={styles.daysOfWeek16}>
-                        <div className={styles.div9}>7</div>
-                      </div>
-                      <div className={styles.daysOfWeek17}>
-                        <div className={styles.div10}>8</div>
-                      </div>
-                      <div className={styles.daysOfWeek18}>
-                        <div className={styles.div11}>9</div>
-                      </div>
-                      <div className={styles.daysOfWeek19}>
-                        <div className={styles.div12}>10</div>
-                      </div>
-                      <div className={styles.daysOfWeek20}>
-                        <div className={styles.div13}>11</div>
-                      </div>
-                      <div className={styles.daysOfWeek21}>
-                        <div className={styles.div14}>12</div>
-                      </div>
-                      <div className={styles.daysOfWeek22}>
-                        <div className={styles.div15}>13</div>
-                      </div>
-                      <div className={styles.daysOfWeek23}>
-                        <div className={styles.div16}>14</div>
-                      </div>
-                      <div className={styles.daysOfWeek24}>
-                        <div className={styles.div17}>15</div>
-                      </div>
-                      <div className={styles.daysOfWeek25}>
-                        <div className={styles.div18}>16</div>
-                      </div>
-                      <div className={styles.daysOfWeek26}>
-                        <div className={styles.div19}>17</div>
-                      </div>
-                      <div className={styles.daysOfWeek27}>
-                        <div className={styles.div20}>18</div>
-                      </div>
-                      <div className={styles.daysOfWeek28}>
-                        <div className={styles.div21}>19</div>
-                      </div>
-                      <div className={styles.daysOfWeek29}>
-                        <div className={styles.div22}>20</div>
-                      </div>
-                      <div className={styles.daysOfWeek30}>
-                        <div className={styles.div23}>21</div>
-                      </div>
-                      <div className={styles.daysOfWeek31}>
-                        <div className={styles.div24}>22</div>
-                      </div>
-                      <div className={styles.daysOfWeek32}>
-                        <div className={styles.div25}>23</div>
-                      </div>
-                      <div className={styles.daysOfWeek33}>
-                        <div className={styles.div26}>24</div>
-                      </div>
-                      <div className={styles.daysOfWeek34}>
-                        <div className={styles.div27}>25</div>
-                      </div>
-                      <div className={styles.daysOfWeek35}>
-                        <div className={styles.div28}>26</div>
-                      </div>
-                      <div className={styles.daysOfWeek36}>
-                        <div className={styles.div29}>27</div>
-                      </div>
-                      <div className={styles.daysOfWeek37}>
-                        <div className={styles.div30}>28</div>
-                      </div>
-                      <div className={styles.daysOfWeek38}>
-                        <div className={styles.div31}>29</div>
-                      </div>
-                      <div className={styles.daysOfWeek39}>
-                        <div className={styles.div32}>30</div>
-                      </div>
-                      <div className={styles.daysOfWeek40}>
-                        <div className={styles.div33}>31</div>
-                      </div>
-                      <div className={styles.daysOfWeek41}>
-                        <div className={styles.div34}>1</div>
-                      </div>
-                    </div> */}
                   </div>
                 </div>
               </div>
