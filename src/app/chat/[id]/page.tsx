@@ -12,6 +12,16 @@ import FileList from "../../components/files/file-list";
 import { getUserIdFromPayload } from "../../actions/login";
 import { getFiles, getMessages } from "../../actions/get-messages";
 import { getRoleFromPayload } from "../../actions/login";
+import {
+  defineChain,
+  getContract,
+  prepareContractCall,
+  sendTransaction,
+  waitForReceipt,
+} from "thirdweb";
+import approveBudget from "../../actions/accept-budget";
+import { abi } from "../../actions/constantAbi";
+import { client } from "../../lib/client";
 
 // async function acceptGigInDatabase() {
 //   const options = {
@@ -45,18 +55,19 @@ const FreelancerChat = ({
   const id = params?.id;
   const chatId: string = id;
   const currentUser: number = Number(searchParams.userId);
+  const account = useActiveAccount();
 
   // TODO: Try to see if this is a secure way to get Gig Id
   const gigId: number = Number(chatId.split("-")[2]);
   console.log("Gig Id derived from chat Id: ", gigId);
   let receiverUser: number;
 
-  const client: number = Number(chatId.split("-")[0]);
+  const client_id: number = Number(chatId.split("-")[0]);
   const freelancer: number = Number(chatId.split("-")[1]);
-  if (currentUser == client) {
+  if (currentUser == client_id) {
     receiverUser = freelancer;
   } else {
-    receiverUser = client;
+    receiverUser = client_id;
   }
 
   //let sentimentText: string;
@@ -131,13 +142,67 @@ const FreelancerChat = ({
     }
   }
 
+  async function closeProposal() {
+    console.log("Trying to close from contract....");
+    const chainId = 84532;
+    const rpcUrl = process.env.NEXT_PUBLIC_BASE_RPC_URL;
+    const addressProtocol = "0x8cC886B5C5BaBD5f30512b31dAB3fcA07C8f264e";
+
+    const selectedChain = defineChain({
+      id: chainId,
+      rpc: rpcUrl,
+    });
+
+    const lendingContract = getContract({
+      address: addressProtocol,
+      chain: selectedChain,
+      abi: abi,
+      client,
+    });
+
+    const txCall = prepareContractCall({
+      contract: lendingContract,
+      method:
+        "function closeProposal(bytes32 id,address freelancer)",
+      params: ["0xd", "0xd"],
+    });
+
+    console.log("Sending Transaction to chain");
+    // front it will be showing tx hash or link for ccip explorer with this hash
+    const { transactionHash } = await sendTransaction({
+      account: account,
+      transaction: txCall,
+    });
+
+    console.log(transactionHash);
+
+    const { receipt } = await waitForReceipt({
+      client: client,
+      chain: selectedChain,
+      transactionHash: transactionHash,
+    });
+
+    if (receipt.status != "success") {
+      return;
+    }
+
+    return transactionHash;
+  }
+
   const handleAcceptGig = async () => {
     // TODO: make functionalities for accept budget via API, assigned - @Horlarmmy
-    const response = await fetch(`/api/gig/accept-budget`);
+    // Confirm if gig is active
+    // Sign Tx
+    await closeProposal();
+    // Update database
+    console.log("Trying to accept gig...")
+    approveBudget(gigId);
 
-    if (!response.ok) {
-      throw new Error("Failed to fetch data");
-    }
+    // const response = await fetch(`/api/gig/accept-budget`);
+
+    // if (!response.ok) {
+    //   throw new Error("Failed to fetch data");
+    // }
   }
 
   const handleSubmitGig = async () => {
