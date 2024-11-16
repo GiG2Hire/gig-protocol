@@ -32,8 +32,8 @@ const ClientDashboard = () => {
     try {
       const id = await getUserIdFromPayload();
       const [responseCompleted, responseActive] = await Promise.all([
-        fetch(`api/gig/get-applications/completed-gigs/?client_id=${id}`),
-        fetch(`api/gig/get-applications/active-gigs/?client_id=${id}`)
+        fetch(`api/gig/get-applications/completed-gigs/?user_id=${id}`),
+        fetch(`api/gig/get-applications/active-gigs/?user_id=${id}`)
       ]);
 
       if (!responseCompleted.ok || !responseActive.ok) {

@@ -1,9 +1,9 @@
-//api/gig/get-applications/active-gigs/?user_id
+//api/gig/get-applications/pending-offers/?freelancer_id
 import { prisma } from "@/src/app/lib/db";
 import { isLoggedIn } from "@/src/app/actions/login";
 import { NextResponse, NextRequest } from "next/server";
 import { getRoleFromPayload, getUserIdFromPayload } from "@/src/app/actions/login";
-import { GIG_COMPLETION_STATUS } from "@/src/constants/appConstants";
+import { GIG_OFFER_STATUS } from "@/src/constants/appConstants";
 
 /**
  * Get all active gigs for a user
@@ -13,9 +13,8 @@ import { GIG_COMPLETION_STATUS } from "@/src/constants/appConstants";
  */
 export async function GET(req: NextRequest) {
     const { searchParams } = new URL(req.url);
-    const user_id = parseInt(searchParams.get("user_id") || "0");
+    const freelancer_id = parseInt(searchParams.get("freelancer_id") || "0");
     const payloadUserId = await getUserIdFromPayload();
-    const payloadUserRole = await getRoleFromPayload();
 
     // check user authentication
     if (!await isLoggedIn()) {
@@ -25,14 +24,14 @@ export async function GET(req: NextRequest) {
         )
     }
 
-    if (!user_id) {
+    if (!freelancer_id) {
         return NextResponse.json(
             { message: "Invalid client_id provided." },
             { status: 400 }
         )
     }
 
-    if (payloadUserId !== user_id) {
+    if (payloadUserId !== freelancer_id) {
         return NextResponse.json(
             { message: "User don't have access to data." },
             { status: 401 }
@@ -40,30 +39,17 @@ export async function GET(req: NextRequest) {
     }
 
 
-    let whereClause = {};
-    if (payloadUserRole === "Client") {
-        whereClause = {
-            clientId: user_id,
-            completionStatus: GIG_COMPLETION_STATUS.IN_PROGRESS,
-        };
-    } else if (payloadUserRole === "Freelancer") {
-        whereClause = {
-            freelancerId: user_id,
-            completionStatus: GIG_COMPLETION_STATUS.IN_PROGRESS,
-        };
-    }
-
-    // Retrieve data from the database based on the user's role
-    const activeGigs = await prisma.gig.findMany({
-        where: whereClause,
+    let offers = await prisma.gigOffer.findMany({
+        where: {
+            freelancerId: freelancer_id,
+            status: GIG_OFFER_STATUS.PENDING,
+        },
         include: {
-            gig_task: true,
-            gig_file: true,
-            user: true,
+            gig: true,
         },
     });
 
-    if (!activeGigs.length) {
+    if (!offers.length) {
         return NextResponse.json(
             { message: "No completed gigs found for client." },
             { status: 404 }
@@ -71,7 +57,7 @@ export async function GET(req: NextRequest) {
     }
 
     // changed `bigint` into `string` for resolving issue with serialization BigInt from TypeScript
-    return NextResponse.json(JSON.stringify(activeGigs, (key, value) =>
+    return NextResponse.json(JSON.stringify(offers, (key, value) =>
         typeof value === 'bigint'
             ? value.toString()
             : value

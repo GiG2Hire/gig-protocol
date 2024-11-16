@@ -57,18 +57,13 @@ const NavbarSpacer: NextPage<NavbarSpacerType> = ({ className = "" }) => {
     );
   };
 
-
   const getDashboardLink = () => {
     console.log("role: ", role);
     if (role == CLIENT) {
       return "/client-dashboard";
     } else if (role == FREELANCER) {
       return "/freelancer-dashboard";
-      return "/freelancer-dashboard";
-      return "/freelancer-dashboard";
     } else {
-      return "/sign-in";
-      return "/sign-in";
       return "/sign-in";
     }
   };
