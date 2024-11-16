@@ -10,6 +10,7 @@ import NavbarSpacer from "@/src/app/components/navbar-spacer1";
 
 import { Metadata } from "next";
 import { AuthProvider } from "./providers/auth";
+import { Toaster } from "react-hot-toast";
 
 export const metadata: Metadata = {
   title: "gigfreehire",
@@ -28,6 +29,21 @@ export default function RootLayout({
             <AuthProvider>
               <NavbarSpacer />
               {children}
+              <Toaster
+                position="bottom-center"
+                toastOptions={{
+                  success: {
+                    style: {
+                      background: "green",
+                    },
+                  },
+                  error: {
+                    style: {
+                      background: "red",
+                    },
+                  },
+                }}
+              />
             </AuthProvider>
           </Fragment>
         </ThirdwebProvider>
