@@ -19,7 +19,7 @@ import {
   sendTransaction,
   waitForReceipt,
 } from "thirdweb";
-import approveBudget from "../../actions/accept-budget";
+import approveBudget from "../../actions/approve-budget";
 import { abi } from "../../actions/constantAbi";
 import { client } from "../../lib/client";
 import { useActiveAccount } from "thirdweb/react";
@@ -163,7 +163,7 @@ const FreelancerChat = ({
     });
 
     // Ensure the id is a valid 32-byte hexadecimal string
-    const id = "0xda78a53f18d1b0178c25334166e03c0dc55f765dcd6639553f0b3f0cefc21019" as const;
+    const id = "0x53c7098d414bdc0882b890fa23b20dddd5f0ec99f222d78f0959532b5a7d3d45" as const;
     console.log(id);
 
     const txCall = prepareContractCall({
@@ -182,11 +182,14 @@ const FreelancerChat = ({
 
     console.log(transactionHash);
 
-    const { receipt } = await waitForReceipt({
+    const receipt = await waitForReceipt({
       client: client,
       chain: selectedChain,
       transactionHash: transactionHash,
+      maxBlocksWaitTime: 6,
     });
+
+    console.log(receipt)
 
     // if (receipt.status != "success") {
     //   return;
@@ -200,6 +203,7 @@ const FreelancerChat = ({
     // Confirm if gig is active
     // Sign Tx
     const txHash = await closeProposal();
+    //const txHash = "0xe5dc2d4f53735c4af1ad5e499ee80227ffd2414ab9a973ee0d98d5b0e020908f";
     // Update database
     console.log("Trying to accept gig...")
     approveBudget(gigId, txHash);

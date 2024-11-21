@@ -158,7 +158,7 @@ const PostAJob = () => {
     const chainId = 84532;
     const rpcUrl = process.env.NEXT_PUBLIC_BASE_RPC_URL;
     const addressProtocol = "0x8cC886B5C5BaBD5f30512b31dAB3fcA07C8f264e";
-    const amount = 5000000;
+    const amount = 4000000;
     const usdcToken = "0x036CbD53842c5426634e7929541eC2318f3dCF7e";
 
     // const account = useActiveAccount();
