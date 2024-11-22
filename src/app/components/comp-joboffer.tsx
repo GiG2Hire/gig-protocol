@@ -23,24 +23,25 @@ const CompjobofferV: FunctionComponent<CompjobofferVType> = ({
     gigId,
     title,
     description,
-    tasks1,
+    tasks,
     budget,
     appliedStatus,
     className = "",
 }) => {
     const [isApplied, setIsApplied] = useState<boolean>();
 
+    console.log(tasks, budget, description)
     // remove by actual tasks
-    const tasks = [
-        "Create a user btn",
-        "Create landing page",
-        "Create drug shop",
-        "Create Marketplace",
-        "Design Checkout Modal",
-        "Design User Creator",
-        "Create store builder",
-        "Design Merchant chat"
-    ];
+    // const temp_tasks = [
+    //     "Create a user btn",
+    //     "Create landing page",
+    //     "Create drug shop",
+    //     "Create Marketplace",
+    //     "Design Checkout Modal",
+    //     "Design User Creator",
+    //     "Create store builder",
+    //     "Design Merchant chat"
+    // ];
 
     useEffect(() => {
         setIsApplied(appliedStatus);
@@ -95,16 +96,16 @@ const CompjobofferV: FunctionComponent<CompjobofferVType> = ({
                             <div className={styles.tasks1}>Tasks</div>
                         </div>
                         <div className={styles.taskContainer}>
-                            {tasks.map((task, index) => (
+                            {tasks && tasks.length === 0 ? "No tasks." : (tasks?.map((task, index) => (
                                 <div className={styles.taskItem} key={index}>
                                     <Frametask
                                         propFlex="1"
                                         propPadding="0px 20px"
                                         propMinWidth="160px"
-                                        thisIsATask={task}
+                                        thisIsATask={task.description}
                                     />
                                 </div>
-                            ))}
+                            )))}
                         </div>
                     </div>
                     <div className={styles.tags}>
@@ -179,7 +180,7 @@ const CompjobofferV: FunctionComponent<CompjobofferVType> = ({
                             alt=""
                             src={usdcLogo.src}
                         />
-                        <b className={styles.earningsSeparator}>250</b>
+                        <b className={styles.earningsSeparator}>{budget}</b>
                         <h1 className={styles.usdc}>USDC</h1>
                     </div>
                 </div>
