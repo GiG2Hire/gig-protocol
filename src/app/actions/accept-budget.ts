@@ -13,8 +13,8 @@ import { prisma } from "../lib/db";
  * Approve Budget by client
  */
 
-export default async function approveBudget(gigId: number ) {
+export default async function approveBudget(gigId: number, txHash: string) {
     console.log("Trying to approve budget for gig...");
     const clientId = await getUserIdFromPayload();
-    console.log(clientId);
+    console.log("Client id", clientId, gigId, txHash);
 }

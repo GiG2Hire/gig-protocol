@@ -22,6 +22,8 @@ import {
 import approveBudget from "../../actions/accept-budget";
 import { abi } from "../../actions/constantAbi";
 import { client } from "../../lib/client";
+import { useActiveAccount } from "thirdweb/react";
+import { ethers } from "ethers";
 
 // async function acceptGigInDatabase() {
 //   const options = {
@@ -160,11 +162,15 @@ const FreelancerChat = ({
       client,
     });
 
+    // Ensure the id is a valid 32-byte hexadecimal string
+    const id = "0xda78a53f18d1b0178c25334166e03c0dc55f765dcd6639553f0b3f0cefc21019" as const;
+    console.log(id);
+
     const txCall = prepareContractCall({
       contract: lendingContract,
       method:
         "function closeProposal(bytes32 id,address freelancer)",
-      params: ["0xd", "0xd"],
+      params: [id, "0xcaD6d0B90750907523f56C7791f665507d05D95f"],
     });
 
     console.log("Sending Transaction to chain");
@@ -182,9 +188,9 @@ const FreelancerChat = ({
       transactionHash: transactionHash,
     });
 
-    if (receipt.status != "success") {
-      return;
-    }
+    // if (receipt.status != "success") {
+    //   return;
+    // }
 
     return transactionHash;
   }
@@ -193,16 +199,10 @@ const FreelancerChat = ({
     // TODO: make functionalities for accept budget via API, assigned - @Horlarmmy
     // Confirm if gig is active
     // Sign Tx
-    await closeProposal();
+    const txHash = await closeProposal();
     // Update database
     console.log("Trying to accept gig...")
-    approveBudget(gigId);
-
-    // const response = await fetch(`/api/gig/accept-budget`);
-
-    // if (!response.ok) {
-    //   throw new Error("Failed to fetch data");
-    // }
+    approveBudget(gigId, txHash);
   }
 
   const handleSubmitGig = async () => {
@@ -239,7 +239,7 @@ const FreelancerChat = ({
           getSubmittedFiles(),
           getGigStatus(),
 
-          currUserRole = await getRoleFromPayload()
+          currUserRole = await getRoleFromPayload(),
         ]);
       } catch (err) {
         console.error('Failed to fetch data:', err);
@@ -451,8 +451,7 @@ const FreelancerChat = ({
                     <b className={styles.b2}>4</b>
                   </div>
                 </div>
-                <b className={styles.defiDappFor}>
-                  DeFi dApp for affinity groups with for Hamster Coins
+                <b className={styles.defi for affinity groups with for Hamster Coins
                 </b>
                 <div className={styles.timerParent1}>
                   <img
@@ -464,8 +463,7 @@ const FreelancerChat = ({
                   <b className={styles.days2}>10 days</b>
                   <div className={styles.div2}>02.24.2024</div>
                 </div>
-              </div>
-              <div className={styles.frameParent9}>
+<div className={styles.frameParent9}>
                 <div className={styles.frameParent10}>
                   <img
                     className={styles.frameChild1}
@@ -488,8 +486,7 @@ const FreelancerChat = ({
                 </div>
                 <b className={styles.landingPageFor1}>
                   Landing page for lawyers in the
-                </b>
-                <div className={styles.timerParent2}>
+        ssName={styles.timerParent2}>
                   <img
                     className={styles.timerIcon4}
                     alt=""
@@ -726,7 +723,7 @@ const FreelancerChat = ({
                       src="/fact-check.svg"
                     />
                     <div>
-                      {currentUser === client ? (
+                      {currentUser === client_id ? (
                         <a
                           className={styles.acceptGig}
                           onClick={handleAcceptGig}
