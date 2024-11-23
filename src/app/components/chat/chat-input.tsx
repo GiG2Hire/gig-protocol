@@ -149,7 +149,7 @@ const ChatInput = ({
       console.log("Published event successfully to pusher!!");
     }
   };
-  console.log("User Role", userRole);
+  console.log("User Role", currentUser);
 
   return (
     <>

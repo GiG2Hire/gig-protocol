@@ -78,6 +78,7 @@ const FreelancerChat = ({
   let [hasSubmitted, setSubmitStatus] = useState<boolean>();
   let [filesSharedByUser, setFilesSharedByUser] = useState([]);
   let [filesSharedByPartner, setFilesSharedByPartner] = useState([]);
+  const [currUserRole, setCurrUserRole] = useState<string | undefined>(undefined);
 
   /**
    * get initial messages to load in chat window
@@ -234,26 +235,27 @@ const FreelancerChat = ({
     return;
   };
 
-  let currUserRole;
+
   useEffect(() => {
     const fetchData = async () => {
       try {
-        await Promise.all([
+        const [chatMessages, submittedFiles, gigStatus, role] = await Promise.all([
           getChatMessages(),
           getSubmittedFiles(),
           getGigStatus(),
-
-          currUserRole = await getRoleFromPayload(),
+          getRoleFromPayload()
         ]);
+
+        setCurrUserRole(role);
       } catch (err) {
         console.error('Failed to fetch data:', err);
       }
     }
 
-    fetchData();
+    fetchData().then(() => {
+      console.log(currUserRole);
+    });
   }, [])
-
-  // await Promise.all([getChatMessages()]);
 
   // we can use gig id to get chat id or directly pass chat id in the http route query
   return (
