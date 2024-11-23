@@ -25,7 +25,7 @@ export async function createGig(
 ) {
   console.log("Trying to create a gig for client...");
   const clientId = await getUserIdFromPayload();
-  const description: any = formData.get("description");
+  const description: any = formData.get("description")?.toString();
   const budget: number = Number(formData.get("budget"));
   const title: any = formData.get("gigTitle");
 

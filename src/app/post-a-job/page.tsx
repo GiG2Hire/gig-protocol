@@ -77,8 +77,8 @@ const PostAJob = () => {
     console.log("Trying to obtain approval from client....");
     const chainId = 84532;
     const rpcUrl = process.env.NEXT_PUBLIC_BASE_RPC_URL;
-    const addressProtocol = "0x956b52eB371037CD8F2Ff5DF4Ac21BF0020226FB";
-    const amount = 1000000;
+    const addressProtocol = "0x8cC886B5C5BaBD5f30512b31dAB3fcA07C8f264e";
+    const amount = 5000000;
     const usdcToken = "0x036CbD53842c5426634e7929541eC2318f3dCF7e";
 
     // const account = useActiveAccount();
@@ -153,12 +153,12 @@ const PostAJob = () => {
     // return transactionHash;
   }
 
-  async function openProposal(): Promise<string> {
-    console.log("Trying to obtain approval from client....");
+  async function openProposal() {
+    console.log("Trying to open proposal on contract....");
     const chainId = 84532;
     const rpcUrl = process.env.NEXT_PUBLIC_BASE_RPC_URL;
-    const addressProtocol = "0x956b52eB371037CD8F2Ff5DF4Ac21BF0020226FB";
-    const amount = 1000000;
+    const addressProtocol = "0x8cC886B5C5BaBD5f30512b31dAB3fcA07C8f264e";
+    const amount = 4000000;
     const usdcToken = "0x036CbD53842c5426634e7929541eC2318f3dCF7e";
 
     // const account = useActiveAccount();
@@ -179,8 +179,8 @@ const PostAJob = () => {
     const txCall = prepareContractCall({
       contract: lendingContract,
       method:
-        "function openProposal(uint256 _amount, address _usdcToken, uint64 _destinationChainSelector)",
-      params: [BigInt(amount), usdcToken, BigInt("5224473277236331295")],
+        "function openProposal(uint256 _amount)",
+      params: [BigInt(amount)],
     });
 
     console.log("Sending Transaction to chain");
