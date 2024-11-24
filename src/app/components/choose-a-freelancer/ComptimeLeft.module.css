@@ -1,0 +1,65 @@
+.iconclockLoader90 {
+  height: 32px;
+  width: 32px;
+  position: relative;
+}
+.d21h58m23s,
+.timeLeftTo {
+  text-decoration: none;
+  position: relative;
+  color: inherit;
+}
+.timeLeftTo {
+  display: inline-block;
+  min-width: 108px;
+}
+.d21h58m23s {
+  align-self: stretch;
+  font-size: var(--p-size);
+  text-align: right;
+}
+.root,
+.timeLeftInfo {
+  display: flex;
+  justify-content: center;
+}
+.timeLeftInfo {
+  flex: 1;
+  flex-direction: column;
+  align-items: flex-start;
+}
+.root {
+  align-self: stretch;
+  background-color: var(--lime-bk-40a);
+  overflow: hidden;
+  flex-direction: row;
+  align-items: center;
+  padding: var(--padding-9xs) var(--padding-5xs);
+  gap: var(--gap-9xs);
+  text-align: left;
+  font-size: var(--small-size);
+  color: var(--navy);
+  font-family: var(--h3);
+}
+.root[data-property1="red"] {
+  background-color: var(--red-200);
+  flex-shrink: 0;
+  box-sizing: border-box;
+}
+.root[data-property1="red"] .timeLeftInfo {
+  flex: unset;
+}
+.root[data-property1="red"] .timeLeftTo {
+  text-decoration: unset;
+  color: var(--red-800);
+  display: unset;
+  min-width: unset;
+}
+.root[data-property1="red"] .d21h58m23s {
+  text-decoration: unset;
+  align-self: unset;
+  color: var(--red-800);
+  height: 20px;
+  font-family: var(--h3);
+  display: inline-block;
+}

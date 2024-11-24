@@ -1,0 +1,72 @@
+.iconmoneyBag {
+  height: 24px;
+  width: 24px;
+}
+.budget,
+.iconmoneyBag {
+  position: relative;
+}
+.iconmoneyBagParent {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  gap: var(--gap-9xs);
+}
+.iconusdc {
+  height: 24px;
+  width: 24px;
+  position: relative;
+  overflow: hidden;
+  flex-shrink: 0;
+  object-fit: cover;
+}
+.budget1,
+.usdc {
+  flex: 1;
+  position: relative;
+}
+.usdc {
+  display: inline-block;
+  min-width: 64px;
+}
+.iconusdcParent {
+  flex-direction: row;
+  align-items: center;
+  gap: var(--gap-5xs);
+}
+.compbudgetBox,
+.compbudgetBoxInner,
+.iconusdcParent {
+  display: flex;
+  justify-content: flex-start;
+}
+.compbudgetBoxInner {
+  align-self: stretch;
+  flex: 1;
+  border: 1px solid var(--navy-bk);
+  flex-direction: row;
+  align-items: center;
+  padding: var(--padding-11xs) var(--padding-5xs);
+  font-size: var(--hl3-size);
+}
+.compbudgetBox {
+  height: 69px;
+  width: 260px;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--gap-9xs);
+  text-align: left;
+  font-size: var(--medium-size);
+  color: var(--navy);
+  font-family: var(--h3);
+}
+@media screen and (max-width: 450px) {
+  .budget {
+    font-size: var(--p-size);
+  }
+  .budget1,
+  .usdc {
+    font-size: var(--font-size-lgi);
+  }
+}

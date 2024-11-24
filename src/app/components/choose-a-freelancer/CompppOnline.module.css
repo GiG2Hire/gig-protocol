@@ -1,0 +1,39 @@
+.online,
+.statusIcon {
+  position: relative;
+}
+.statusIcon {
+  height: 6px;
+  width: 6px;
+  border-radius: var(--br-81xl);
+  background-color: var(--navy);
+  overflow: hidden;
+  flex-shrink: 0;
+}
+.onlineParent {
+  background-color: var(--yellow);
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  padding: var(--padding-11xs) var(--padding-9xs);
+  gap: var(--gap-9xs);
+}
+.compppOnline {
+  width: 80px;
+  height: 80px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  justify-content: flex-end;
+  padding: var(--padding-7xs);
+  box-sizing: border-box;
+  background-image: url(/public/comppponline@3x.png);
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: top;
+  text-align: left;
+  font-size: var(--small-size);
+  color: var(--navy);
+  font-family: var(--h3);
+}

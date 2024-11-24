@@ -1,0 +1,84 @@
+.freelacepicIcon {
+  height: 48px;
+  width: 48px;
+  position: relative;
+  object-fit: cover;
+}
+.freelancername,
+.namePlaceholder {
+  position: relative;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.freelancername {
+  height: 20px;
+  flex: 1;
+  display: inline-block;
+}
+.namePlaceholder {
+  font-size: var(--small-size);
+  color: var(--grey-600);
+}
+.applicantName {
+  align-self: stretch;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  gap: var(--gap-5xs);
+}
+.lastmessage {
+  flex: 1;
+  position: relative;
+  display: inline-block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  height: 18px;
+}
+.timestampPlaceholder {
+  align-self: stretch;
+  position: relative;
+}
+.messageTimestamp {
+  background-color: var(--navy-bk);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 0 var(--padding-9xs);
+  color: var(--light);
+}
+.applicantDetails,
+.lastMessage {
+  display: flex;
+  justify-content: flex-start;
+}
+.lastMessage {
+  align-self: stretch;
+  flex-direction: row;
+  align-items: center;
+  gap: var(--gap-5xs);
+  font-size: var(--small-size);
+}
+.applicantDetails {
+  flex: 1;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--gap-9xs);
+}
+.compchatbubble {
+  align-self: stretch;
+  border: 0.5px solid var(--navy-600-40a);
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  padding: var(--padding-5xs);
+  gap: var(--gap-5xs);
+  text-align: left;
+  font-size: var(--p-size);
+  color: var(--navy-800);
+  font-family: var(--h3);
+}

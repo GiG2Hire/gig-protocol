@@ -1,0 +1,141 @@
+.iconterminal {
+  height: 60px;
+  width: 60px;
+  position: relative;
+}
+.iconterminalWrapper {
+  background-color: var(--navy-400);
+  overflow: hidden;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  padding: var(--padding-3xs);
+}
+.applicantsChat,
+.titleOfThe {
+  margin: 0;
+  align-self: stretch;
+  position: relative;
+  font-weight: 700;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.applicantsChat {
+  font-size: inherit;
+  font-family: inherit;
+}
+.titleOfThe {
+  font-size: var(--hl3-size);
+  font-family: var(--h3);
+}
+.applicantInfo,
+.frameGroup {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  gap: var(--gap-5xs);
+  min-width: 584px;
+  max-width: 100%;
+}
+.frameGroup {
+  flex-direction: row;
+  align-items: center;
+  gap: var(--gap-base);
+  min-width: 646px;
+}
+.backToGigs {
+  text-decoration: none;
+  position: relative;
+  font-size: var(--p-size);
+  font-family: var(--font-space-mono);
+  color: var(--light);
+  text-align: left;
+}
+.replyIcon {
+  height: 24px;
+  width: 24px;
+  position: relative;
+}
+.actions,
+.frameParent,
+.screenchatApplicantsInner {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+}
+.actions {
+  cursor: pointer;
+  border: 0;
+  padding: var(--padding-9xs) var(--padding-mini) var(--padding-9xs)
+    var(--padding-base);
+  background-color: var(--navy-400);
+  align-items: center;
+  gap: var(--gap-5xs);
+}
+.actions:hover {
+  background-color: var(--color-royalblue-100);
+}
+.frameParent,
+.screenchatApplicantsInner {
+  align-items: flex-start;
+  box-sizing: border-box;
+  max-width: 100%;
+}
+.frameParent {
+  flex: 1;
+  background-color: var(--navy-bk);
+  flex-wrap: wrap;
+  align-content: flex-start;
+  padding: var(--padding-base);
+  gap: var(--gap-45xl);
+}
+.screenchatApplicantsInner {
+  align-self: stretch;
+  padding: 0 var(--padding-101xl);
+  text-align: left;
+  font-size: var(--hl2-size);
+  color: var(--light);
+  font-family: var(--hl3);
+}
+@media screen and (max-width: 1050px) {
+  .frameGroup {
+    flex-wrap: wrap;
+  }
+}
+@media screen and (max-width: 1000px) {
+  .applicantsChat {
+    font-size: var(--font-size-7xl);
+  }
+  .applicantInfo,
+  .frameGroup {
+    min-width: 100%;
+  }
+  .screenchatApplicantsInner {
+    padding-left: var(--padding-41xl);
+    padding-right: var(--padding-41xl);
+    box-sizing: border-box;
+  }
+}
+@media screen and (max-width: 725px) {
+  .frameParent {
+    gap: var(--gap-13xl);
+  }
+}
+@media screen and (max-width: 450px) {
+  .applicantsChat,
+  .titleOfThe {
+    font-size: var(--font-size-lgi);
+  }
+  .frameParent {
+    gap: var(--gap-base);
+  }
+  .screenchatApplicantsInner {
+    padding-left: var(--padding-xl);
+    padding-right: var(--padding-xl);
+    box-sizing: border-box;
+  }
+}

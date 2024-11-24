@@ -108,7 +108,7 @@ const FreelancerChat = ({
 
   async function getSubmittedFiles() {
     try {
-      submittedFiles = await getFiles(Number(gigId))
+      submittedFiles = await getFiles(Number(gigId));
       console.log(submittedFiles);
     } catch (error) {
       console.log(error);
@@ -119,7 +119,7 @@ const FreelancerChat = ({
       } else {
         filesSharedByPartner.push(file);
       }
-      console.log(filesSharedByPartner, filesSharedByUser)
+      console.log(filesSharedByPartner, filesSharedByUser);
     });
   }
 
@@ -127,7 +127,7 @@ const FreelancerChat = ({
     const response = await fetch(`/api/gig/get-status/?gig_id=${gigId}`);
     const status = await response.json();
     if (status == "SUBMITTED") {
-      setSubmitStatus(true)
+      setSubmitStatus(true);
     }
   }
 
@@ -138,28 +138,28 @@ const FreelancerChat = ({
     if (!response.ok) {
       throw new Error("Failed to fetch data");
     }
-  }
+  };
 
   const handleSubmitGig = async () => {
     // TODO: check if work submited and after that client can accept budget, before button should be inactive
     const freelancerId = await getUserIdFromPayload();
-    const response = await fetch('/api/gig/submit', {
-      method: 'POST',
+    const response = await fetch("/api/gig/submit", {
+      method: "POST",
       headers: {
-        'Content-Type': 'application/json',
+        "Content-Type": "application/json",
       },
       body: JSON.stringify({ gigId, freelancerId }),
     });
 
-    console.log(response)
+    console.log(response);
 
     if (!response.ok) {
       throw new Error("Failed to fetch data");
     }
 
-    console.log("All good")
+    console.log("All good");
     setSubmitStatus(true);
-  }
+  };
 
   const removeFile = (index: any) => {
     return;
@@ -174,15 +174,15 @@ const FreelancerChat = ({
           getSubmittedFiles(),
           getGigStatus(),
 
-          currUserRole = await getRoleFromPayload()
+          (currUserRole = await getRoleFromPayload()),
         ]);
       } catch (err) {
-        console.error('Failed to fetch data:', err);
+        console.error("Failed to fetch data:", err);
       }
-    }
+    };
 
     fetchData();
-  }, [])
+  }, []);
 
   // await Promise.all([getChatMessages()]);
 
@@ -249,193 +249,6 @@ const FreelancerChat = ({
                 currentUser={currentUser}
               />
             </div>
-            {/* <div className={styles.frameParent2}>
-              <button className={styles.ongoingGigsWrapper}>
-                <b className={styles.ongoingGigs}>Ongoing GiGs</b>
-              </button>
-              <div className={styles.chatListItemsParent}>
-                <div className={styles.chatListItems}>
-                  <img
-                    className={styles.chatListItemsChild}
-                    loading="lazy"
-                    alt=""
-                    src="/frame-165@2x.png"
-                  />
-                  <div className={styles.chatListContent}>
-                    <b className={styles.rachel}>Rachel</b>
-                    <div className={styles.hamsterVentures}>
-                      Hamster Ventures
-                    </div>
-                  </div>
-                  <div className={styles.chatListMessages}>
-                    <img
-                      className={styles.commentCircleChatMessage1Icon1}
-                      loading="lazy"
-                      alt=""
-                      src="/commentcirclechatmessage-1-1.svg"
-                    />
-                    <b className={styles.chatListEmpty}>10</b>
-                  </div>
-                </div>
-                <b className={styles.defiDashboardFor}>
-                  DeFi Dashboard for Hamster Coins
-                </b>
-                <div className={styles.timerParent}>
-                  <img
-                    className={styles.timerIcon}
-                    loading="lazy"
-                    alt=""
-                    src="/timer.svg"
-                  />
-                  <b className={styles.dueOn}>Due on:</b>
-                  <b className={styles.hours}>10 hours</b>
-                  <div className={styles.chatListEmpty1}>02.24.2024</div>
-                </div>
-              </div>
-              <div className={styles.frameParent3}>
-                <div className={styles.frameParent4}>
-                  <img
-                    className={styles.frameItem}
-                    loading="lazy"
-                    alt=""
-                    src="/frame-165-1@2x.png"
-                  />
-                  <div className={styles.dianaParent}>
-                    <b className={styles.diana}>Diana</b>
-                    <div className={styles.metaCosmetics}>Meta Cosmetics</div>
-                  </div>
-                  <div className={styles.commentCircleChatMessage1Group}>
-                    <img
-                      className={styles.commentCircleChatMessage1Icon2}
-                      loading="lazy"
-                      alt=""
-                      src="/commentcirclechatmessage-1-1.svg"
-                    />
-                    <b className={styles.b}>4</b>
-                  </div>
-                </div>
-                <b className={styles.eCommerceForBeauty}>
-                  e-Commerce for beauty products
-                </b>
-                <div className={styles.timerGroup}>
-                  <img
-                    className={styles.timerIcon1}
-                    loading="lazy"
-                    alt=""
-                    src="/timer-1.svg"
-                  />
-                  <b className={styles.dueOn1}>Due on:</b>
-                  <b className={styles.days}>2 days</b>
-                  <div className={styles.div}>02.24.2024</div>
-                </div>
-              </div>
-              <div className={styles.frameParent5}>
-                <div className={styles.frameParent6}>
-                  <img
-                    className={styles.frameInner}
-                    loading="lazy"
-                    alt=""
-                    src="/frame-165-2@2x.png"
-                  />
-                  <div className={styles.tomParent}>
-                    <b className={styles.tom}>Tom</b>
-                    <div className={styles.unrealEstate}>UnReal Estate</div>
-                  </div>
-                  <div className={styles.commentCircleChatMessage1Container}>
-                    <img
-                      className={styles.commentCircleChatMessage1Icon3}
-                      loading="lazy"
-                      alt=""
-                      src="/commentcirclechatmessage-1-1.svg"
-                    />
-                    <b className={styles.b1}>1</b>
-                  </div>
-                </div>
-                <b className={styles.landingPageFor}>
-                  Landing page for RWA platform
-                </b>
-                <div className={styles.timerContainer}>
-                  <img
-                    className={styles.timerIcon2}
-                    alt=""
-                    src="/timer-1.svg"
-                  />
-                  <b className={styles.dueOn2}>Due on:</b>
-                  <b className={styles.days1}>3 days</b>
-                  <div className={styles.div1}>02.24.2024</div>
-                </div>
-              </div>
-              <div className={styles.frameParent7}>
-                <div className={styles.frameParent8}>
-                  <img
-                    className={styles.frameIcon}
-                    loading="lazy"
-                    alt=""
-                    src="/frame-165-3@2x.png"
-                  />
-                  <div className={styles.charlesParent}>
-                    <b className={styles.charles}>Charles</b>
-                    <div className={styles.intoDaPremium}>into DA premium</div>
-                  </div>
-                  <div className={styles.commentCircleChatMessage1Parent1}>
-                    <img
-                      className={styles.commentCircleChatMessage1Icon4}
-                      alt=""
-                      src="/commentcirclechatmessage-1-1.svg"
-                    />
-                    <b className={styles.b2}>4</b>
-                  </div>
-                </div>
-                <b className={styles.defiDappFor}>
-                  DeFi dApp for affinity groups with for Hamster Coins
-                </b>
-                <div className={styles.timerParent1}>
-                  <img
-                    className={styles.timerIcon3}
-                    alt=""
-                    src="/timer-3.svg"
-                  />
-                  <b className={styles.dueOn3}>Due on:</b>
-                  <b className={styles.days2}>10 days</b>
-                  <div className={styles.div2}>02.24.2024</div>
-                </div>
-              </div>
-              <div className={styles.frameParent9}>
-                <div className={styles.frameParent10}>
-                  <img
-                    className={styles.frameChild1}
-                    loading="lazy"
-                    alt=""
-                    src="/frame-165-4@2x.png"
-                  />
-                  <div className={styles.brendaParent}>
-                    <b className={styles.brenda}>Brenda</b>
-                    <div className={styles.chainLawy3rs}>Chain Lawy3rs</div>
-                  </div>
-                  <div className={styles.commentCircleChatMessage1Parent2}>
-                    <img
-                      className={styles.commentCircleChatMessage1Icon5}
-                      alt=""
-                      src="/commentcirclechatmessage-1-1.svg"
-                    />
-                    <b className={styles.b3}>4</b>
-                  </div>
-                </div>
-                <b className={styles.landingPageFor1}>
-                  Landing page for lawyers in the
-                </b>
-                <div className={styles.timerParent2}>
-                  <img
-                    className={styles.timerIcon4}
-                    alt=""
-                    src="/timer-3.svg"
-                  />
-                  <b className={styles.dueOn4}>Due on:</b>
-                  <b className={styles.days3}>15 days</b>
-                  <div className={styles.div3}>02.24.2024</div>
-                </div>
-              </div>
-            </div> */}
             <div className={styles.ongoingGigContentParent}>
               <div className={styles.ongoingGigContent}>
                 <div className={styles.ongoingGigDetails}>

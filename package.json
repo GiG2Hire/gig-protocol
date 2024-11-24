@@ -15,6 +15,7 @@
     "@aws-sdk/s3-request-presigner": "^3.658.1",
     "@google-ai/generativelanguage": "^2.6.0",
     "@google/generative-ai": "^0.16.0",
+    "@mui/material": "^6.1.7",
     "@prisma/client": "^5.20.0",
     "@supabase/supabase-js": "^2.44.3",
     "@thirdweb-dev/sdk": "^4.0.99",
