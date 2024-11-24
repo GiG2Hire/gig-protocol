@@ -4,21 +4,22 @@ import styles from "./chat-notify-folder.module.css";
 
 export type ChatStatusNotificationType = {
     className?: string;
-    role?: "freelancer" | "client";
-    property1?: "submitted";
+    role?: "Freelancer" | "Client";
+    property1?: "SUBMITTED";
 };
 
 const ChatStatusNotification: FunctionComponent<ChatStatusNotificationType> = ({
     className = "",
     role,
-    property1 = "submitted",
+    property1 = "SUBMITTED",
 }) => {
     const titleText =
-        role === "freelancer"
-            ? "Freelancer has submitted your job"
-            : "You’ve successfully submitted your job";
+        role === "Freelancer"
+            ? "You’ve successfully submitted your job"
+            : "Freelancer has submitted your job";
+    console.log("Role", role);
     const messageText =
-        role === "client"
+        role === "Client"
             ? "You need to accept it."
             : "Client need to accept it.";
 

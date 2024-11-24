@@ -41,18 +41,20 @@ const JobList = ({ selectedCategory, className = "" }) => {
 
   return (
     <div className={styles.jobListings}>
-      {gigData.map((singleGig) => (
-        <CompJoboffer
-          gigId={singleGig.gigId}
-          title={singleGig.title}
-          description={singleGig.description}
-          budget={singleGig.budget}
-          appliedStatus={appliedStatuses[singleGig.gigId]}
-          freelancerCount={0}
-          tasks1={singleGig.gig_task}
-          jobCategory={singleGig.category}
-        />
-      ))}
+      {gigData.map((singleGig) => {
+        return (
+          <CompJoboffer
+            gigId={singleGig.gigId}
+            title={singleGig.title}
+            description={singleGig.description}
+            budget={singleGig.gigBudget}
+            appliedStatus={appliedStatuses[singleGig.gigId]}
+            freelancerCount={0}
+            tasks={singleGig.tasks || []}
+            jobCategory={singleGig.category}
+          />
+        );
+      })}
     </div>
   );
 };
