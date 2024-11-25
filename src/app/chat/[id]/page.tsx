@@ -9,9 +9,7 @@ import ChatWindow from "@/src/app/components/chat/chat-window";
 import ChatInput from "../../components/chat/chat-input";
 import FileUpload from "../../components/chat/file-upload";
 import FileList from "../../components/files/file-list";
-import { getUserIdFromPayload } from "../../actions/login";
 import { getFiles, getMessages } from "../../actions/get-messages";
-import { getRoleFromPayload } from "../../actions/login";
 import {
   defineChain,
   getContract,
@@ -23,7 +21,7 @@ import approveBudget from "../../actions/approve-budget";
 import { abi } from "../../actions/constantAbi";
 import { client } from "../../lib/client";
 import { useActiveAccount } from "thirdweb/react";
-import { ethers } from "ethers";
+import { useAuth } from "../../providers/auth";
 
 // async function acceptGigInDatabase() {
 //   const options = {
@@ -79,6 +77,7 @@ const FreelancerChat = ({
   let [filesSharedByUser, setFilesSharedByUser] = useState([]);
   let [filesSharedByPartner, setFilesSharedByPartner] = useState([]);
   const [currUserRole, setCurrUserRole] = useState<string | undefined>(undefined);
+  const { userId, role, updateLoggedInUser, resetLoggedInUser } = useAuth();
 
   /**
    * get initial messages to load in chat window
@@ -212,7 +211,7 @@ const FreelancerChat = ({
 
   const handleSubmitGig = async () => {
     // TODO: check if work submited and after that client can accept budget, before button should be inactive
-    const freelancerId = await getUserIdFromPayload();
+    const freelancerId = userId;
     const response = await fetch('/api/gig/submit', {
       method: 'POST',
       headers: {
@@ -239,11 +238,10 @@ const FreelancerChat = ({
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const [chatMessages, submittedFiles, gigStatus, role] = await Promise.all([
+        const [chatMessages, submittedFiles, gigStatus] = await Promise.all([
           getChatMessages(),
           getSubmittedFiles(),
-          getGigStatus(),
-          getRoleFromPayload()
+          getGigStatus()
         ]);
 
         setCurrUserRole(role);
@@ -255,7 +253,7 @@ const FreelancerChat = ({
     fetchData().then(() => {
       console.log(currUserRole);
     });
-  }, [])
+  }, [role])
 
   // we can use gig id to get chat id or directly pass chat id in the http route query
   return (
