@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 import styles from "./client-dashboard.module.css";
 import { usdcAddresses } from "@/src/constants/usdcConstants";
 import { getTime } from "@/src/utils/getCurrTime";
-import { getRoleFromPayload, getUserIdFromPayload } from "../actions/login";
+import { useAuth } from "../providers/auth";
 import { client } from "../lib/client";
 import {
   useActiveAccount,
@@ -16,6 +16,7 @@ import {
 
 const ClientDashboard = () => {
   const router = useRouter();
+  const { userId, role } = useAuth();
   const [walletBalance, setWalletBalance] = useState("N/A");
   //const [clientProposals, setClientProposals] = useState<any[]>();
   const walletStatus = useActiveWalletConnectionStatus();
@@ -30,10 +31,9 @@ const ClientDashboard = () => {
 
   const getClientData = async () => {
     try {
-      const id = await getUserIdFromPayload();
       const [responseCompleted, responseActive] = await Promise.all([
-        fetch(`api/gig/get-applications/completed-gigs/?user_id=${id}`),
-        fetch(`api/gig/get-applications/active-gigs/?user_id=${id}`)
+        fetch(`api/gig/get-applications/completed-gigs/?user_id=${userId}`),
+        fetch(`api/gig/get-applications/active-gigs/?user_id=${userId}`)
       ]);
 
       if (!responseCompleted.ok || !responseActive.ok) {
@@ -373,7 +373,8 @@ const ClientDashboard = () => {
                                   <div className={styles.filesQuantity}>
                                     <div className={styles.docsPlaceholderOne}>
                                       <b className={styles.docsWordRow}>
-                                        {getGigDocs(gig.gig_file).length}
+                                        HELLO I"M HERE IN DOCS
+                                        {/* {getGigDocs(gig.gig_file).length} */}
                                       </b>
                                       <div className={styles.docs}>Docs</div>
                                     </div>
