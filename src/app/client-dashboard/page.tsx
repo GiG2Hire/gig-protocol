@@ -14,37 +14,39 @@ import {
   useWalletBalance,
 } from "thirdweb/react";
 
+
 const ClientDashboard = () => {
   const router = useRouter();
   const { userId, role } = useAuth();
   const [walletBalance, setWalletBalance] = useState("N/A");
+  const [activeGigs, setActiveGigs] = useState([]);
   //const [clientProposals, setClientProposals] = useState<any[]>();
   const walletStatus = useActiveWalletConnectionStatus();
   const walletAddress = useActiveAccount();
   const walletChain = useActiveWalletChain();
   const timeNow = getTime();
 
-  let activeGigs: any[] = [];
+  //let activeGigs: any[] = [];
   let completedGigs: any[] = [];
   let offers: any[] = [];
 
 
   const getClientData = async () => {
     try {
-      const [responseCompleted, responseActive] = await Promise.all([
-        fetch(`api/gig/get-applications/completed-gigs/?user_id=${userId}`),
+      const [responseActive] = await Promise.all([
+        //fetch(`api/gig/get-applications/completed-gigs/?user_id=${userId}`),
         fetch(`api/gig/get-applications/active-gigs/?user_id=${userId}`)
       ]);
-
-      if (!responseCompleted.ok || !responseActive.ok) {
+      console.log(userId, responseActive)
+      if (/*!responseCompleted.ok ||*/ !responseActive.ok) {
         throw new Error("Failed to fetch data");
       }
 
-      const completedGigsData = JSON.parse(await responseCompleted.json());
-      completedGigs = completedGigsData;
+      //const completedGigsData = JSON.parse(await responseCompleted.json());
+      //completedGigs = completedGigsData;
 
       const activeGigsData = JSON.parse(await responseActive.json());
-      activeGigs = activeGigsData;
+      setActiveGigs(activeGigsData);
 
       console.log(completedGigs, activeGigs);
     } catch (error) {
@@ -91,7 +93,7 @@ const ClientDashboard = () => {
       await getClientData();
     };
     fetchData();
-  }, [walletStatus]);
+  }, []);
 
   const onBtnChatContainerClick = useCallback(async () => {
     router.push("/chat/17-1-1/");
@@ -171,122 +173,121 @@ const ClientDashboard = () => {
                   <h1 className={styles.yourActiveJobs}>Active Proposals</h1>
                 </div>
                 <div className={styles.jobsList}>
-                  {!activeGigs ? activeGigs.map((gig) => {
-                    return (
-                      <div className={styles.jobCards}>
-                        <div className={styles.jobCardOne}>
-                          <Image
-                            className={styles.cardOneTopRow}
-                            alt=""
-                            src={gig.user.profileImage}
-                            height={45}
-                            width={45}
-                            loading="lazy"
-                          />
-                          <b className={styles.max}>{gig.user.username}</b>
+                  {activeGigs.map((gig, index) => (
+                    <div className={styles.jobCards}>
+                      <div className={styles.jobCardOne}>
+                        {/* <Image
+                          className={styles.cardOneTopRow}
+                          alt=""
+                          src={gig.user.profileImage}
+                          height={45}
+                          width={45}
+                          loading="lazy"
+                        /> */}
+                        <b className={styles.max}>{gig.user.username}</b>
+                      </div>
+                      <div className={styles.cardOneSecondRow}>
+                        <div className={styles.cardOneJobCategories}>
+                          <div className={styles.cardOneJobTitles}>
+                            <div className={styles.cardOneCategoryNames}>
+                              {/* <div className={styles.developmentAndIt}>
+                                {JOB_CATEGORIES[gig.category]}
+                              </div> */}
+                            </div>
+                            <h2 className={styles.developADefi1}>
+                              {gig.title}
+                            </h2>
+                          </div>
+                          <div className={styles.cardOneTime}>
+                            <img
+                              className={styles.timerIcon1}
+                              alt=""
+                              src="/timer-11.svg"
+                            />
+                            <div className={styles.d21h58m23s}>
+                              {/* {getRemainingTime(gig.expectedDeliveryDate)} */}
+                              <span>00</span>
+                              <b>D:</b>
+                              <span>21</span>
+                              <b>H:</b>
+                              <span>58</span>
+                              <b>M:</b>
+                              <span>23</span>
+                              <b>S</b>
+                            </div>
+                          </div>
                         </div>
-                        <div className={styles.cardOneSecondRow}>
-                          <div className={styles.cardOneJobCategories}>
-                            <div className={styles.cardOneJobTitles}>
-                              <div className={styles.cardOneCategoryNames}>
-                                <div className={styles.developmentAndIt}>
-                                  {JOB_CATEGORIES[gig.category]}
+                        <div className={styles.cardOneProgress}>
+                          <div className={styles.cardOneTaskIcons}>
+                            <div className={styles.cardOneTaskInfo}>
+                              <img
+                                className={styles.taskSquare1Icon}
+                                loading="lazy"
+                                alt=""
+                                src="/tasksquare-11.svg"
+                              />
+                              <div className={styles.cardOneTasks}>
+                                <div className={styles.tasks}>Tasks:</div>
+                                <div className={styles.tasksQuantity}>
+                                  <b className={styles.taskPlaceholderOne}>
+                                    {/* {getCompletedTasks(gig.gig_task).length} */}
+                                  </b>
+                                  <div className={styles.of}>of</div>
+                                  <b className={styles.taskPlaceholderTwo}>
+                                    {gig.gig_task.length}
+                                  </b>
                                 </div>
                               </div>
-                              <h2 className={styles.developADefi1}>
-                                {gig.title}
-                              </h2>
                             </div>
-                            <div className={styles.cardOneTime}>
+                            <div className={styles.cardOneFileIcons}>
                               <img
-                                className={styles.timerIcon1}
+                                className={styles.cloudUploadOutline1Icon}
+                                loading="lazy"
                                 alt=""
-                                src="/timer-11.svg"
+                                src="/clouduploadoutline-11.svg"
                               />
-                              <div className={styles.d21h58m23s}>
-                                {/* {getRemainingTime(gig.expectedDeliveryDate)} */}
-                                <span>00</span>
-                                <b>D:</b>
-                                <span>21</span>
-                                <b>H:</b>
-                                <span>58</span>
-                                <b>M:</b>
-                                <span>23</span>
-                                <b>S</b>
+                              <div className={styles.cardOneFiles}>
+                                <div className={styles.files}>Files:</div>
+                                <div className={styles.filesQuantity}>
+                                  <div className={styles.docsPlaceholderOne}>
+                                    <b className={styles.docsWordRow}>
+                                      {/* {getGigDocs(gig.gig_file).length} */}
+                                    </b>
+                                    {/* <div className={styles.docs}>Docs</div> */}
+                                  </div>
+                                  <div className={styles.docsPlaceholderTwo}>
+                                    <b className={styles.linksWordRow}>
+                                      {/* {gig.gig_file.length -
+                                        getGigDocs(gig.gig_file).length} */}
+                                    </b>
+                                    {/* <div className={styles.links}>Links</div> */}
+                                  </div>
+                                </div>
                               </div>
                             </div>
                           </div>
-                          <div className={styles.cardOneProgress}>
-                            <div className={styles.cardOneTaskIcons}>
-                              <div className={styles.cardOneTaskInfo}>
-                                <img
-                                  className={styles.taskSquare1Icon}
-                                  loading="lazy"
-                                  alt=""
-                                  src="/tasksquare-11.svg"
-                                />
-                                <div className={styles.cardOneTasks}>
-                                  <div className={styles.tasks}>Tasks:</div>
-                                  <div className={styles.tasksQuantity}>
-                                    <b className={styles.taskPlaceholderOne}>
-                                      {getCompletedTasks(gig.gig_task).length}
-                                    </b>
-                                    <div className={styles.of}>of</div>
-                                    <b className={styles.taskPlaceholderTwo}>
-                                      {gig.gig_task.length}
-                                    </b>
-                                  </div>
-                                </div>
-                              </div>
-                              <div className={styles.cardOneFileIcons}>
-                                <img
-                                  className={styles.cloudUploadOutline1Icon}
-                                  loading="lazy"
-                                  alt=""
-                                  src="/clouduploadoutline-11.svg"
-                                />
-                                <div className={styles.cardOneFiles}>
-                                  <div className={styles.files}>Files:</div>
-                                  <div className={styles.filesQuantity}>
-                                    <div className={styles.docsPlaceholderOne}>
-                                      <b className={styles.docsWordRow}>
-                                        {getGigDocs(gig.gig_file).length}
-                                      </b>
-                                      <div className={styles.docs}>Docs</div>
-                                    </div>
-                                    <div className={styles.docsPlaceholderTwo}>
-                                      <b className={styles.linksWordRow}>
-                                        {gig.gig_file.length -
-                                          getGigDocs(gig.gig_file).length}
-                                      </b>
-                                      <div className={styles.links}>Links</div>
-                                    </div>
-                                  </div>
-                                </div>
-                              </div>
+                          <div
+                            className={styles.btnChat}
+                          // onClick={onBtnChatContainerClick}
+                          >
+                            <div className={styles.iconChat}>
+                              <img
+                                className={
+                                  styles.commentCircleChatMessage1Icon
+                                }
+                                loading="lazy"
+                                alt=""
+                                src="/commentcirclechatmessage-11.svg"
+                              />
+                              <div className={styles.iconChatChild} />
                             </div>
-                            <div
-                              className={styles.btnChat}
-                            // onClick={onBtnChatContainerClick}
-                            >
-                              <div className={styles.iconChat}>
-                                <img
-                                  className={
-                                    styles.commentCircleChatMessage1Icon
-                                  }
-                                  loading="lazy"
-                                  alt=""
-                                  src="/commentcirclechatmessage-11.svg"
-                                />
-                                <div className={styles.iconChatChild} />
-                              </div>
-                              <b className={styles.chat}>Chat</b>
-                            </div>
+                            <b className={styles.chat}>Chat</b>
                           </div>
                         </div>
                       </div>
-                    );
-                  }) : <div>You don't have active Proposals.</div>}
+                    </div>
+                  )
+                  )}
                 </div>
               </div>
               <div className={styles.activeJobsContainerParent}>
@@ -352,7 +353,7 @@ const ClientDashboard = () => {
                                   <div className={styles.tasks}>Tasks:</div>
                                   <div className={styles.tasksQuantity}>
                                     <b className={styles.taskPlaceholderOne}>
-                                      {getCompletedTasks(gig.gig_task).length}
+                                      {/* {getCompletedTasks(gig.gig_task).length} */}
                                     </b>
                                     <div className={styles.of}>of</div>
                                     <b className={styles.taskPlaceholderTwo}>
@@ -380,8 +381,8 @@ const ClientDashboard = () => {
                                     </div>
                                     <div className={styles.docsPlaceholderTwo}>
                                       <b className={styles.linksWordRow}>
-                                        {gig.gig_file.length -
-                                          getGigDocs(gig.gig_file).length}
+                                        {/* {gig.gig_file.length -
+                                          getGigDocs(gig.gig_file).length} */}
                                       </b>
                                       <div className={styles.links}>Links</div>
                                     </div>
