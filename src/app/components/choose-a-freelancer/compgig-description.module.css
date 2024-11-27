@@ -1,12 +1,10 @@
 .gigDescription {
-  height: 31px;
   position: relative;
-  display: inline-block;
 }
 .iconkeyboardArrowDown {
-  width: 24px;
+  width: 1.5rem;
   position: relative;
-  height: 24px;
+  height: 1.5rem;
 }
 .gigDescription1 {
   align-self: stretch;
@@ -16,15 +14,15 @@
   justify-content: space-between;
 }
 .gigdescription {
-  width: 268px;
+  width: 16.75rem;
   position: relative;
   font-size: var(--small-size);
-  color: var(--navy-800);
+  color: var(--midnight-800);
   display: none;
 }
 .compgigDescription {
   align-self: stretch;
-  border: 1px solid var(--navy);
+  border: 1px solid var(--navy-600);
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -33,6 +31,6 @@
   gap: var(--gap-5xs);
   text-align: left;
   font-size: var(--hl3-size);
-  color: var(--navy);
+  color: var(--navy-600);
   font-family: var(--h3);
 }

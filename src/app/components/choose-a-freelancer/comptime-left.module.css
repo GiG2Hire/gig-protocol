@@ -1,0 +1,36 @@
+.iconclockLoader90 {
+  width: 2rem;
+  position: relative;
+  height: 2rem;
+}
+.d00h00m00s,
+.timeLeftTo {
+  position: relative;
+}
+.d00h00m00s {
+  font-size: var(--p-size);
+  text-align: right;
+}
+.comptimeLeft,
+.timeLeft {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+}
+.comptimeLeft {
+  align-self: stretch;
+  background-color: var(--red-200);
+  height: 2.688rem;
+  overflow: hidden;
+  flex-shrink: 0;
+  flex-direction: row;
+  align-items: center;
+  padding: var(--padding-9xs) var(--padding-5xs);
+  box-sizing: border-box;
+  gap: var(--gap-9xs);
+  text-align: left;
+  font-size: var(--small-size);
+  color: var(--red-800);
+  font-family: var(--h3);
+}

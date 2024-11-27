@@ -1,6 +1,6 @@
 .iconterminal {
-  height: 60px;
-  width: 60px;
+  height: 3.75rem;
+  width: 3.75rem;
   position: relative;
 }
 .iconterminalWrapper {
@@ -38,14 +38,14 @@
   align-items: flex-start;
   justify-content: flex-start;
   gap: var(--gap-5xs);
-  min-width: 584px;
+  min-width: 36.5rem;
   max-width: 100%;
 }
 .frameGroup {
   flex-direction: row;
   align-items: center;
   gap: var(--gap-base);
-  min-width: 646px;
+  min-width: 40.375rem;
 }
 .backToGigs {
   text-decoration: none;
@@ -56,8 +56,8 @@
   text-align: left;
 }
 .replyIcon {
-  height: 24px;
-  width: 24px;
+  height: 1.5rem;
+  width: 1.5rem;
   position: relative;
 }
 .actions,

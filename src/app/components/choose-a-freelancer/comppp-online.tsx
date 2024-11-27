@@ -1,5 +1,5 @@
-import { FunctionComponent } from "react";
-import styles from "./CompppOnline.module.css";
+import type { NextPage } from "next";
+import styles from "./comppp-online.module.css";
 
 export type CompppOnlineType = {
   className?: string;
@@ -8,7 +8,7 @@ export type CompppOnlineType = {
   property1?: string;
 };
 
-const CompppOnline: FunctionComponent<CompppOnlineType> = ({
+const CompppOnline: NextPage<CompppOnlineType> = ({
   className = "",
   property1 = "offline-xl",
 }) => {

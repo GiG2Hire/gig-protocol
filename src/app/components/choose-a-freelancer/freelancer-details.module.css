@@ -1,131 +1,3 @@
-.iconeventList {
-  height: 24px;
-  width: 24px;
-  position: relative;
-}
-.b,
-.b1,
-.tasks {
-  height: 31px;
-  position: relative;
-  display: inline-block;
-}
-.tasks {
-  margin: 0;
-  font-size: inherit;
-  font-weight: 700;
-  font-family: inherit;
-}
-.b,
-.b1 {
-  width: 32px;
-}
-.b1 {
-  width: 10px;
-}
-.parent {
-  display: none;
-  flex-direction: row;
-  align-items: center;
-  justify-content: flex-start;
-  gap: var(--gap-11xs);
-}
-.expandUserIcon {
-  height: 31px;
-  position: relative;
-  display: inline-block;
-}
-.expandUser {
-  justify-content: flex-start;
-  gap: var(--gap-11xs);
-}
-.expandUser,
-.userTasks,
-.userTasksParent {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-}
-.userTasks {
-  justify-content: flex-start;
-  gap: var(--gap-5xs);
-}
-.userTasksParent {
-  align-self: stretch;
-  justify-content: space-between;
-}
-.compsubmitTasks,
-.frameParent,
-.frametaskWrapper {
-  align-items: flex-start;
-  justify-content: flex-start;
-}
-.frametaskWrapper {
-  width: 320px;
-  display: flex;
-  flex-direction: column;
-}
-.compsubmitTasks,
-.frameParent {
-  gap: var(--gap-5xs);
-}
-.frameParent {
-  width: 654px;
-  display: none;
-  flex-direction: row;
-  flex-wrap: wrap;
-  align-content: flex-start;
-}
-.compsubmitTasks {
-  align-self: stretch;
-  border: 1px solid var(--navy);
-  display: flex;
-  flex-direction: column;
-  padding: var(--padding-5xs);
-}
-.deadline {
-  height: 26px;
-  position: relative;
-  display: inline-block;
-}
-.iconeventParent {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: flex-start;
-  gap: var(--gap-9xs);
-}
-.at2359Utc {
-  position: relative;
-  font-size: var(--small-size);
-}
-.compdeadlineBox,
-.yearParent {
-  align-self: stretch;
-  display: flex;
-}
-.yearParent {
-  border: 1px solid var(--navy-bk);
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-between;
-  padding: var(--padding-9xs) var(--padding-5xs);
-  font-size: var(--hl3-size);
-}
-.compdeadlineBox {
-  flex-direction: column;
-  align-items: flex-start;
-  justify-content: flex-start;
-  gap: var(--gap-9xs);
-  font-size: var(--medium-size);
-}
-.btniconText {
-  flex: 1;
-}
-.btniconText1 {
-  height: 40px;
-  flex: 1;
-}
 .offerActions {
   align-self: stretch;
   display: flex;
@@ -167,14 +39,14 @@
   flex-direction: column;
   gap: var(--gap-5xs);
   font-size: var(--p-size);
-  color: var(--navy-800);
+  color: var(--midnight-800);
 }
 .chatPlaceholderWrapper,
 .gigDetails {
   box-sizing: border-box;
 }
 .gigDetails {
-  height: 754px;
+  height: 47.125rem;
   background-color: var(--lime-bk-10a);
   flex-direction: column;
   padding: var(--padding-5xs);
@@ -187,7 +59,7 @@
   flex-direction: row;
   padding: var(--padding-339xl) var(--padding-210xl) var(--padding-339xl)
     var(--padding-227xl);
-  min-width: 133px;
+  min-width: 8.313rem;
   max-width: 100%;
   font-size: var(--p-size);
   color: var(--color-black);
@@ -210,10 +82,10 @@
 .monthsLabel,
 .monthsOnGig2hire {
   display: inline-block;
-  min-width: 9px;
+  min-width: 0.563rem;
 }
 .monthsOnGig2hire {
-  min-width: 115px;
+  min-width: 7.188rem;
 }
 .monthsOn {
   display: flex;
@@ -255,33 +127,44 @@
   flex-direction: column;
   padding: var(--padding-11xs) 0 0;
   font-size: var(--hl3-size);
-  color: var(--navy-800);
+  color: var(--midnight-800);
   font-family: var(--hl3);
 }
 .compppOnlineParent {
   align-self: stretch;
   flex-direction: row;
   gap: var(--gap-base);
-  color: var(--navy);
+  color: var(--navy-600);
 }
 .freelancerdescription {
   align-self: stretch;
   position: relative;
 }
 .socialgithubIcon {
-  height: 24px;
-  width: 24px;
+  height: 1.5rem;
+  width: 1.5rem;
   position: relative;
   overflow: hidden;
   flex-shrink: 0;
   object-fit: cover;
 }
 .github {
+  margin: 0;
   position: relative;
+  font-size: inherit;
+  font-weight: 400;
+  font-family: inherit;
+}
+.githubInfo {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  gap: var(--gap-5xs);
 }
 .btnCheck {
-  height: 18px;
-  width: 18px;
+  height: 1.125rem;
+  width: 1.125rem;
   background-color: var(--light);
   overflow: hidden;
   flex-shrink: 0;
@@ -300,10 +183,10 @@
 .githubcommits {
   position: relative;
   display: inline-block;
-  min-width: 129px;
+  min-width: 8.063rem;
 }
 .githubcommits {
-  min-width: 21px;
+  min-width: 1.313rem;
 }
 .githubCommits,
 .verification {
@@ -324,33 +207,31 @@
   font-size: var(--medium-size);
 }
 .xcom {
+  margin: 0;
   position: relative;
+  font-size: inherit;
+  font-weight: 400;
+  font-family: inherit;
   display: inline-block;
-  min-width: 61px;
+  min-width: 3.813rem;
 }
 .xBadge {
-  height: 20px;
-  width: 73px;
+  height: 1.25rem;
+  width: 4.563rem;
   background-color: var(--navy-400);
 }
 .xFollowers1 {
-  width: 129px;
+  width: 8.063rem;
   position: relative;
   display: inline-block;
   flex-shrink: 0;
 }
-.frameContainer {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  justify-content: flex-start;
+.frameGroup {
+  align-self: stretch;
   gap: var(--gap-xs);
 }
-.btniconText2,
-.frameContainer {
-  align-self: stretch;
-}
 .frameGroup,
+.frameParent,
 .gigDetails1,
 .gigHeader {
   display: flex;
@@ -358,21 +239,23 @@
   align-items: flex-start;
   justify-content: flex-start;
 }
-.frameGroup {
+.frameParent {
   align-self: stretch;
   background-color: var(--navy-bk-40a);
   overflow: hidden;
   padding: var(--padding-5xs);
   gap: var(--gap-380xl);
+  color: var(--midnight-800);
 }
 .gigDetails1,
 .gigHeader {
+  width: 18.75rem;
   gap: var(--gap-3xs);
   font-size: var(--small-size);
-  color: var(--navy-800);
+  color: var(--red-800);
 }
 .gigHeader {
-  width: 1272px;
+  width: 79.5rem;
   flex-direction: row;
   flex-wrap: wrap;
   align-content: flex-start;
@@ -380,7 +263,7 @@
   max-width: 100%;
   text-align: left;
   font-size: var(--hl3-size);
-  color: var(--navy);
+  color: var(--navy-600);
   font-family: var(--h3);
 }
 @media screen and (max-width: 1000px) {
@@ -413,7 +296,7 @@
   .xcom {
     font-size: var(--p-size);
   }
-  .frameGroup {
+  .frameParent {
     gap: var(--gap-180xl);
   }
 }

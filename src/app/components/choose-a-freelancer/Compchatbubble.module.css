@@ -1,6 +1,6 @@
 .freelacepicIcon {
-  height: 48px;
-  width: 48px;
+  height: 3rem;
+  width: 3rem;
   position: relative;
   object-fit: cover;
 }
@@ -12,9 +12,7 @@
   white-space: nowrap;
 }
 .freelancername {
-  height: 20px;
   flex: 1;
-  display: inline-block;
 }
 .namePlaceholder {
   font-size: var(--small-size);
@@ -35,7 +33,7 @@
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
-  height: 18px;
+  height: 1.125rem;
 }
 .timestampPlaceholder {
   align-self: stretch;
@@ -79,6 +77,6 @@
   gap: var(--gap-5xs);
   text-align: left;
   font-size: var(--p-size);
-  color: var(--navy-800);
+  color: var(--midnight-800);
   font-family: var(--h3);
 }

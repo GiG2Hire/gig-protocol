@@ -1,17 +1,12 @@
-import { FunctionComponent, useCallback } from "react";
-import styles from "./FrameComponent1.module.css";
+import type { NextPage } from "next";
+import Image from "next/image";
+import styles from "./frame-component.module.css";
 
-export type FrameComponent1Type = {
+export type FrameComponentType = {
   className?: string;
 };
 
-const FrameComponent1: FunctionComponent<FrameComponent1Type> = ({
-  className = "",
-}) => {
-  const onActionsClick = useCallback(() => {
-    // Please sync "screen/approve-freelance" to the project
-  }, []);
-
+const FrameComponent: NextPage<FrameComponentType> = ({ className = "" }) => {
   return (
     <section
       className={[styles.screenchatApplicantsInner, className].join(" ")}
@@ -19,25 +14,33 @@ const FrameComponent1: FunctionComponent<FrameComponent1Type> = ({
       <div className={styles.frameParent}>
         <div className={styles.frameGroup}>
           <div className={styles.iconterminalWrapper}>
-            <img
+            <Image
               className={styles.iconterminal}
               loading="lazy"
+              width={60}
+              height={60}
               alt=""
               src="/iconterminal.svg"
             />
           </div>
           <div className={styles.applicantInfo}>
             <h1 className={styles.applicantsChat}>Applicants Chat</h1>
-            <h3 className={styles.titleOfThe}>TItle of the offer here</h3>
+            <h1 className={styles.titleOfThe}>TItle of the offer here</h1>
           </div>
         </div>
-        <button className={styles.actions} onClick={onActionsClick}>
+        <button className={styles.actions}>
           <a className={styles.backToGigs}>Back to GIGs</a>
-          <img className={styles.replyIcon} alt="" src="/reply.svg" />
+          <Image
+            className={styles.replyIcon}
+            width={24}
+            height={24}
+            alt=""
+            src="/reply.svg"
+          />
         </button>
       </div>
     </section>
   );
 };
 
-export default FrameComponent1;
+export default FrameComponent;

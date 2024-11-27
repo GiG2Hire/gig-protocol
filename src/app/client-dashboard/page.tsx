@@ -23,7 +23,7 @@ const ClientDashboard = () => {
   const walletChain = useActiveWalletChain();
   const timeNow = getTime();
 
-  let activeGigs: any[] = [];
+  const [activeGigs, setActiveGigs] = useState([]);
   let completedGigs: any[] = [];
   let offers: any[] = [];
 
@@ -43,7 +43,7 @@ const ClientDashboard = () => {
       completedGigs = completedGigsData;
 
       const activeGigsData = JSON.parse(await responseActive.json());
-      activeGigs = activeGigsData;
+      setActiveGigs(activeGigsData);
 
       console.log(completedGigs, activeGigs);
     } catch (error) {
@@ -86,13 +86,19 @@ const ClientDashboard = () => {
     }
     const fetchData = async () => {
       await getClientData();
+      console.log("actually got data");
     };
     fetchData();
-  }, [walletStatus]);
+    console.log("got data");
+  }, []);
 
   const onBtnChatContainerClick = useCallback(async () => {
     router.push("/chat/17-1-1/");
   }, [router]);
+
+  const openApplicantsChat = (gigId: number) => {
+    router.push("/choose-a-freelancer/" + gigId);
+  };
 
   return (
     <div className={styles.freelancerDashboard}>
@@ -173,9 +179,7 @@ const ClientDashboard = () => {
                       return (
                         <div className={styles.jobCards}>
                           <div className={styles.jobCardOne}>
-                            <Image
-                              className={styles.cardOneTopRow}
-                              alt=""
+                            <img
                               src={gig.user.profileImage}
                               height={45}
                               width={45}
@@ -227,11 +231,11 @@ const ClientDashboard = () => {
                                     <div className={styles.tasks}>Tasks:</div>
                                     <div className={styles.tasksQuantity}>
                                       <b className={styles.taskPlaceholderOne}>
-                                        {getCompletedTasks(gig.gig_task).length}
+                                        {7}
                                       </b>
                                       <div className={styles.of}>of</div>
                                       <b className={styles.taskPlaceholderTwo}>
-                                        {gig.gig_task.length}
+                                        {7}
                                       </b>
                                     </div>
                                   </div>
@@ -250,7 +254,7 @@ const ClientDashboard = () => {
                                         className={styles.docsPlaceholderOne}
                                       >
                                         <b className={styles.docsWordRow}>
-                                          {getGigDocs(gig.gig_file).length}
+                                          {10}
                                         </b>
                                         <div className={styles.docs}>Docs</div>
                                       </div>
@@ -258,8 +262,7 @@ const ClientDashboard = () => {
                                         className={styles.docsPlaceholderTwo}
                                       >
                                         <b className={styles.linksWordRow}>
-                                          {gig.gig_file.length -
-                                            getGigDocs(gig.gig_file).length}
+                                          {8}
                                         </b>
                                         <div className={styles.links}>
                                           Links
@@ -271,7 +274,9 @@ const ClientDashboard = () => {
                               </div>
                               <div
                                 className={styles.btnChat}
-                                // onClick={onBtnChatContainerClick}
+                                onClick={() => {
+                                  openApplicantsChat(gig.gigId);
+                                }}
                               >
                                 <div className={styles.iconChat}>
                                   <img
@@ -302,11 +307,11 @@ const ClientDashboard = () => {
                 </div>
                 <div className={styles.jobsList}>
                   {!completedGigs ? (
-                    completedGigs.map((gig) => {
+                    completedGigs.map((gig: any) => {
                       return (
                         <div className={styles.jobCards}>
                           <div className={styles.jobCardOne}>
-                            <Image
+                            <img
                               className={styles.cardOneTopRow}
                               alt=""
                               src={gig.user.profileImage}
@@ -360,11 +365,11 @@ const ClientDashboard = () => {
                                     <div className={styles.tasks}>Tasks:</div>
                                     <div className={styles.tasksQuantity}>
                                       <b className={styles.taskPlaceholderOne}>
-                                        {getCompletedTasks(gig.gig_task).length}
+                                        {7}
                                       </b>
                                       <div className={styles.of}>of</div>
                                       <b className={styles.taskPlaceholderTwo}>
-                                        {gig.gig_task.length}
+                                        {7}
                                       </b>
                                     </div>
                                   </div>
@@ -383,7 +388,7 @@ const ClientDashboard = () => {
                                         className={styles.docsPlaceholderOne}
                                       >
                                         <b className={styles.docsWordRow}>
-                                          {getGigDocs(gig.gig_file).length}
+                                          {7}
                                         </b>
                                         <div className={styles.docs}>Docs</div>
                                       </div>
@@ -391,8 +396,7 @@ const ClientDashboard = () => {
                                         className={styles.docsPlaceholderTwo}
                                       >
                                         <b className={styles.linksWordRow}>
-                                          {gig.gig_file.length -
-                                            getGigDocs(gig.gig_file).length}
+                                          {7}
                                         </b>
                                         <div className={styles.links}>
                                           Links

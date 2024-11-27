@@ -1,33 +1,36 @@
-import { FunctionComponent } from "react";
-import styles from "./Compchatbubble.module.css";
+import type { NextPage } from "next";
+import Image from "next/image";
+import styles from "./compchatbubble.module.css";
 
 export type CompchatbubbleType = {
   className?: string;
+  msgAmmount?: string;
+  lastMessage?: string;
   freelancerName?: string;
   time?: string;
-  lastMessage?: string;
-  msgAmmount?: string;
 
   /** Variant props */
   property1?: string;
 };
 
-const Compchatbubble: FunctionComponent<CompchatbubbleType> = ({
+const Compchatbubble: NextPage<CompchatbubbleType> = ({
   className = "",
   property1 = "Default",
+  msgAmmount = "0",
+  lastMessage = "lastMessage",
   freelancerName = "Roaring Kitty",
   time = "00:00",
-  lastMessage = "lastMessage",
-  msgAmmount = "0",
 }) => {
   return (
     <div
       className={[styles.compchatbubble, className].join(" ")}
       data-property1={property1}
     >
-      <img
+      <Image
         className={styles.freelacepicIcon}
         loading="lazy"
+        width={48}
+        height={48}
         alt=""
         src="/freelacepic@2x.png"
       />

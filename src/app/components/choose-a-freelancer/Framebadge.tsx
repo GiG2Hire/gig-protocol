@@ -1,5 +1,6 @@
-import { FunctionComponent } from "react";
-import styles from "./Framebadge.module.css";
+import type { NextPage } from "next";
+import Image from "next/image";
+import styles from "./framebadge.module.css";
 
 export type FramebadgeType = {
   className?: string;
@@ -8,7 +9,7 @@ export type FramebadgeType = {
   property1?: string;
 };
 
-const Framebadge: FunctionComponent<FramebadgeType> = ({
+const Framebadge: NextPage<FramebadgeType> = ({
   className = "",
   property1 = "navy",
 }) => {
@@ -17,9 +18,11 @@ const Framebadge: FunctionComponent<FramebadgeType> = ({
       className={[styles.framebadge, className].join(" ")}
       data-property1={property1}
     >
-      <img
+      <Image
         className={styles.iconnewReleases}
         loading="lazy"
+        width={16}
+        height={16}
         alt=""
         src="/iconnew-releases.svg"
       />
