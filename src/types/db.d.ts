@@ -5,6 +5,7 @@ interface ChatMessage {
   receiverId: number;
   message: string;
   sentTimestamp: Date;
+  createdAt: Date;
 }
 
 interface Gig {

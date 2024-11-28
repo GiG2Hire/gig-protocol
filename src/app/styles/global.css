@@ -1,6 +1,8 @@
 @import url("https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Unbounded:wght@400;700&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@300;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;700&display=swap");
+
 body {
   margin: 0;
   line-height: normal;
@@ -219,4 +221,80 @@ body {
   --content: "Space Grotesk", sans-serif;
   --h2: clamp(3rem, 5vw, 4rem);
   --desc: clamp(1rem, 5vw, 1.5rem);
+
+  /* fonts */
+  --h3: "Space Grotesk";
+  --hl3: Unbounded;
+  --font-space-mono: "Space Mono";
+
+  /* font sizes */
+  --p-size: 1rem;
+  --hl3-size: 1.5rem;
+  --medium-size: 1.25rem;
+  --small-size: 0.75rem;
+  --font-size-lgi: 1.188rem;
+  --hl2-size: 2rem;
+  --font-size-7xl: 1.625rem;
+
+  /* Colors */
+  --light: #fffcf0;
+  --color-black: #000;
+  --color-royalblue-100: #7387ff;
+  --navy-bk: #6e83ff;
+  --navy-400: #596eec;
+  --navy-600: #3f5dba;
+  --navy-600-40a: rgba(63, 93, 186, 0.4);
+  --navy-bk-40a: rgba(110, 131, 255, 0.4);
+  --midnight-800: #061543;
+  --lime-bk: #d6ea5e;
+  --lime-bk-10a: rgba(214, 234, 94, 0.1);
+  --red-200: #f87a7a;
+  --red-800: #7f1111;
+  --grey-600: #8894b9;
+  --orange-400: #f9a455;
+  --orange-600: #dc883b;
+
+  /* Gaps */
+  --gap-13xl: 2rem;
+  --gap-base: 1rem;
+  --gap-5xl: 1.5rem;
+  --gap-3xs: 0.625rem;
+  --gap-380xl: 24.937rem;
+  --gap-180xl: 12.437rem;
+  --gap-5xs: 0.5rem;
+  --gap-xs: 0.75rem;
+  --gap-xl: 1.25rem;
+  --gap-9xs: 0.25rem;
+  --gap-11xs: 0.125rem;
+  --gap-45xl: 4rem;
+
+  /* Paddings */
+  --padding-9xl: 1.75rem;
+  --padding-648xl: 41.687rem;
+  --padding-651xl: 41.875rem;
+  --padding-316xl: 20.937rem;
+  --padding-314xl: 20.812rem;
+  --padding-xl: 1.25rem;
+  --padding-5xs: 0.5rem;
+  --padding-base: 1rem;
+  --padding-9xs: 0.25rem;
+  --padding-11xs: 0.125rem;
+  --padding-7xs: 0.375rem;
+  --padding-339xl: 22.375rem;
+  --padding-210xl: 14.312rem;
+  --padding-227xl: 15.375rem;
+  --padding-214xl: 14.562rem;
+  --padding-104xl: 7.687rem;
+  --padding-95xl: 7.125rem;
+  --padding-2xl: 1.312rem;
+  --padding-12xl: 1.937rem;
+  --padding-101xl: 7.5rem;
+  --padding-41xl: 3.75rem;
+  --padding-mini: 0.937rem;
+  --padding-3xs: 0.625rem;
+  --padding-4xl: 1.437rem;
+
+  /* Border radiuses */
+  --br-81xl: 100px;
+  --br-11xs: 2px;
 }

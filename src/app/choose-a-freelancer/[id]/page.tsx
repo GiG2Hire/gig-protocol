@@ -4,25 +4,45 @@ import GigDescription from "../../components/choose-a-freelancer/gig-description
 import FreelancerDetails from "../../components/choose-a-freelancer/freelancer-details";
 import ChatWindow from "../../components/chat/chat-window";
 import ChatInput from "../../components/chat/chat-input";
+import { prisma } from "../../lib/db";
+import { getMessages } from "../../actions/get-messages";
+import { getRoleFromPayload, getUserIdFromPayload } from "../../actions/login";
 
 export type GigHeaderType = {
   className?: string;
 };
 
-const ScreenchatApplicants = ({ params }: { params: any }) => {
-  const gigId: number = params.id;
-  const messages: any[] = [];
-  const currentUser = 1;
-  const chatId = "";
-  const currUserRole = "Client";
+const ScreenchatApplicants = async ({ params }: { params: any }) => {
+  const gigId: number = Number(params.id);
+  let messages: ChatMessage[] = [];
+  const currentUser: number = (await getUserIdFromPayload()) as number;
+  let chatId: string = "";
+  const currUserRole: string = (await getRoleFromPayload()) as string;
   const hasSubmitted = true;
-  const receiverUser = 1;
+  let receiverUser: number = -1;
+
+  const getGigDescription = async () => {
+    const gig = await prisma.gig.findUnique({
+      where: { gigId: gigId },
+      include: { gig_task: true, gig_offer: true },
+    });
+    console.log(gig);
+    receiverUser = gig?.gig_offer[0].freelancerId as number;
+    chatId = gig?.clientId + "-" + receiverUser + "-" + gig?.gigId;
+    messages = (await getMessages(chatId)) as ChatMessage[];
+    console.log(messages);
+  };
+
+  await Promise.all([getGigDescription()]);
+
   return (
     <div className={styles.screenchatApplicants}>
       <FrameComponent />
       <section className={styles.gigHeaderWrapper}>
         <div className={[styles.gigHeader].join(" ")}>
-          <GigDescription />
+          <section className={styles.gigHeaderWrapper}>
+            <GigDescription />
+          </section>
           <div className={styles.chatInputContent}>
             <ChatWindow
               initialMessages={messages}
