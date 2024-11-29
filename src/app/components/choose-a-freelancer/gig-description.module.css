@@ -1,3 +1,25 @@
+.chatInputContent {
+  flex: 1;
+  border: 1px solid var(--yellow-bk);
+  box-sizing: border-box;
+  align-items: center;
+  justify-content: flex-end;
+  min-width: 408px;
+  max-width: 100%;
+}
+.chatInputContentInner {
+  display: flex;
+  flex-direction: column;
+}
+
+.chatInputContentInner {
+  align-self: stretch;
+  background-color: var(--yellow-bk);
+  align-items: flex-start;
+  justify-content: flex-start;
+  padding: var(--padding-5xs);
+}
+
 .offerActions {
   align-self: stretch;
   display: flex;
@@ -46,7 +68,7 @@
   box-sizing: border-box;
 }
 .gigDetails {
-  height: 47.125rem;
+  /* height: 47.125rem; */
   background-color: var(--lime-bk-10a);
   flex-direction: column;
   padding: var(--padding-5xs);
@@ -235,7 +257,7 @@
 .gigDetails1,
 .gigHeader {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   align-items: flex-start;
   justify-content: flex-start;
 }

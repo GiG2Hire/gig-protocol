@@ -83,20 +83,6 @@ const FreelancerChat = ({
   );
 
   /**
-   * get initial messages to load in chat window
-   */
-  async function getChatMessages() {
-    try {
-      //let messages = await fetch(`api/message/get-messages?chat_id=${chatId}`);    Have some troubles with it
-
-      let messages = await getMessages(chatId);
-      setMessages(messages);
-    } catch (error) {
-      console.log(error);
-    }
-  }
-
-  /**
    * get gemini api sentiment for exisiting chat messages
    */
   // async function getGeminiSentiment() {
@@ -240,13 +226,11 @@ const FreelancerChat = ({
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const [chatMessages, submittedFiles, gigStatus, role] =
-          await Promise.all([
-            getChatMessages(),
-            getSubmittedFiles(),
-            getGigStatus(),
-            getRoleFromPayload(),
-          ]);
+        const [submittedFiles, gigStatus, role] = await Promise.all([
+          getSubmittedFiles(),
+          getGigStatus(),
+          getRoleFromPayload(),
+        ]);
 
         setCurrUserRole(role);
       } catch (err) {
@@ -364,12 +348,7 @@ const FreelancerChat = ({
               </div>
               <div className={styles.chatInputContentParent}>
                 <div className={styles.chatInputContent}>
-                  <ChatWindow
-                    initialMessages={messages}
-                    currentUser={currentUser}
-                    chatId={chatId}
-                    className=""
-                  />
+                  <ChatWindow chatId={chatId} className="" />
                   <div className={styles.chatInputContentInner}>
                     <ChatInput
                       hasSubmitted={hasSubmitted}

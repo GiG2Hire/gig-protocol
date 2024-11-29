@@ -25,3 +25,23 @@ interface User {
   createdAt: Date;
   userId: number;
 }
+
+interface GigOffer {
+  offerId: number;
+  createdAt: Date;
+  gigId: number;
+  status: string;
+  comment: string;
+  freelancerId: number;
+  chatId: string;
+  updatedAt: Date;
+  chatUuid: string;
+  clientId: number;
+}
+
+interface AuthObject {
+  userId: number;
+  role: string;
+  updateLoggedInUser: (userId: number, role: string) => void;
+  resetLoggedInUser: () => void;
+}

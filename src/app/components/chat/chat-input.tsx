@@ -4,22 +4,19 @@ import styles from "./chat-input.module.css";
 import { prepareConversation } from "@/src/utils/prepare-conversation";
 import ChatStatusNotification from "./chat-notify-folder";
 import { STATUS_200 } from "@/src/constants/appConstants";
+import { useAuth } from "../../providers/auth";
 
 const ChatInput = ({
   hasSubmitted,
-  userRole,
-  currentUser,
   receiverUser,
   chatId,
-  messages,
 }: {
   hasSubmitted: boolean;
-  userRole: string;
-  currentUser: number;
   receiverUser: number;
   chatId: string;
-  messages: any;
 }) => {
+  const { userId, role, updateLoggedInUser, resetLoggedInUser } =
+    useAuth() as AuthObject;
   const [chatMsg, setChatMsg] = useState<string>("");
 
   /**
@@ -45,7 +42,7 @@ const ChatInput = ({
         "Content-Type": "application/json;charset=UTF-8",
       },
       body: JSON.stringify({
-        senderId: currentUser,
+        senderId: userId,
         receiverId: receiverUser,
         chatMsg: chatMsg,
         sentTimestamp: new Date(),
@@ -64,7 +61,7 @@ const ChatInput = ({
       console.log("Message stored in database successfully");
       const sentMessage = await sendChatMsgResponse.json();
       console.log("messages list updated - line 145");
-      conversation = prepareConversation([...messages, sentMessage], true);
+      // conversation = prepareConversation([...messages, sentMessage], true);
     } else {
       console.log("Failed to store message in database!!");
     }
@@ -83,48 +80,48 @@ const ChatInput = ({
 
     console.log("Determining chat sentiment via Gemini API");
 
-    let geminiSentimentResponse = await fetch(
-      "/api/chat/sentiment/gemini",
-      options
-    );
+    // let geminiSentimentResponse = await fetch(
+    //   "/api/chat/sentiment/gemini",
+    //   options
+    // );
 
-    if (geminiSentimentResponse.status == STATUS_200) {
-      console.log("Got sentiment from gemini api");
-      console.log(geminiSentimentResponse);
-    }
+    // if (geminiSentimentResponse.status == STATUS_200) {
+    //   console.log("Got sentiment from gemini api");
+    //   console.log(geminiSentimentResponse);
+    // }
 
-    const geminiSentiment = await geminiSentimentResponse.json();
-    console.log(geminiSentiment);
-    console.log(geminiSentiment.response.candidates[0].content.parts[0].text);
+    // const geminiSentiment = await geminiSentimentResponse.json();
+    // console.log(geminiSentiment);
+    // console.log(geminiSentiment.response.candidates[0].content.parts[0].text);
 
     // contains sentiment type and explanation
-    const actualGeminiSentiment = JSON.parse(
-      geminiSentiment.response.candidates[0].content.parts[0].text
-    );
+    // const actualGeminiSentiment = JSON.parse(
+    //   geminiSentiment.response.candidates[0].content.parts[0].text
+    // );
 
     // positive, negative, neutral etc.
-    const sentimentType: string = actualGeminiSentiment["sentiment"];
+    // const sentimentType: string = actualGeminiSentiment["sentiment"];
 
-    const storeSentimentoptions = {
-      method: "POST",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json;charset=UTF-8",
-      },
-      body: JSON.stringify({
-        chatId: chatId,
-        sentiment: sentimentType,
-      }),
-    };
+    // const storeSentimentoptions = {
+    //   method: "POST",
+    //   headers: {
+    //     Accept: "application/json",
+    //     "Content-Type": "application/json;charset=UTF-8",
+    //   },
+    //   body: JSON.stringify({
+    //     chatId: chatId,
+    //     sentiment: sentimentType,
+    //   }),
+    // };
 
-    const storeSentimentResponse = await fetch(
-      "/api/chat/sentiment/gemini/store",
-      storeSentimentoptions
-    );
+    // const storeSentimentResponse = await fetch(
+    //   "/api/chat/sentiment/gemini/store",
+    //   storeSentimentoptions
+    // );
 
-    if (storeSentimentResponse.status == 201) {
-      console.log("Successfully stored sentiment in database!!");
-    }
+    // if (storeSentimentResponse.status == 201) {
+    //   console.log("Successfully stored sentiment in database!!");
+    // }
 
     const sendPusherOptions = {
       method: "POST",
@@ -133,12 +130,12 @@ const ChatInput = ({
         "Content-Type": "application/json;charset=UTF-8",
       },
       body: JSON.stringify({
-        senderId: currentUser,
+        senderId: userId,
         receiverId: receiverUser,
         chatMsg: chatMsg,
         sentTimestamp: new Date(),
         chatId: chatId,
-        sentiment: actualGeminiSentiment["sentiment"],
+        sentiment: null,
       }),
     };
 
@@ -149,11 +146,11 @@ const ChatInput = ({
       console.log("Published event successfully to pusher!!");
     }
   };
-  console.log("User Role", currentUser);
+  console.log("User Role", role);
 
   return (
     <>
-      {hasSubmitted && <ChatStatusNotification role={userRole} />}
+      {hasSubmitted && <ChatStatusNotification role={role} />}
       <div className={styles.frameParent11}>
         <input
           className={styles.frameInput}

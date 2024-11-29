@@ -155,8 +155,8 @@ model gigOffer {
   comment      String?   @map("comment")
   freelancerId Int?      @map("freelancer_id")
   chatId       String?   @map("chat_id")
-  updated_at   DateTime? @db.Timestamptz(6)
-  chat_uuid    String?   @db.Uuid
+  updatedAt   DateTime?  @db.Timestamptz(6) @map("updated_at")
+  chatUuid    String?    @db.Uuid @map("chat_uuid")
   clientId     Int?      @map("client_id")
   chat         chat?     @relation(fields: [chatId], references: [chatId], onDelete: NoAction, onUpdate: NoAction)
   gig          gig       @relation(fields: [gigId], references: [gigId], onDelete: NoAction, onUpdate: NoAction)

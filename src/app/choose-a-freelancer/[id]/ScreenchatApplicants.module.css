@@ -6,7 +6,7 @@
 .compnavbar,
 .gigHeaderWrapper {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   align-items: flex-start;
 }
 .compnavbar {
@@ -90,28 +90,6 @@
 /**
 component css
 */
-.chatInputContent {
-  flex: 1;
-  border: 1px solid var(--yellow-bk);
-  box-sizing: border-box;
-  align-items: center;
-  justify-content: flex-end;
-  min-width: 408px;
-  max-width: 100%;
-}
-.chatInputContentInner {
-  display: flex;
-  flex-direction: column;
-}
-
-.chatInputContentInner {
-  align-self: stretch;
-  background-color: var(--yellow-bk);
-  align-items: flex-start;
-  justify-content: flex-start;
-  padding: var(--padding-5xs);
-}
-
 .offerActions {
   align-self: stretch;
   display: flex;
@@ -139,28 +117,20 @@ component css
   padding: var(--padding-2xl) var(--padding-12xl);
   color: var(--color-black);
 }
-.applicantList,
+
 .chatPlaceholderWrapper,
 .gigDetails {
   display: flex;
   align-items: flex-start;
   justify-content: flex-start;
 }
-.applicantList {
-  align-self: stretch;
-  flex: 1;
-  overflow-y: auto;
-  flex-direction: column;
-  gap: var(--gap-5xs);
-  font-size: var(--p-size);
-  color: var(--midnight-800);
-}
+
 .chatPlaceholderWrapper,
 .gigDetails {
   box-sizing: border-box;
 }
 .gigDetails {
-  height: 47.125rem;
+  /* height: 47.125rem; */
   background-color: var(--lime-bk-10a);
   flex-direction: column;
   padding: var(--padding-5xs);

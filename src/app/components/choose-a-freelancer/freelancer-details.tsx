@@ -5,7 +5,7 @@ import Image from "next/image";
 import Framebadge from "./framebadge";
 import styles from "./freelancer-details.module.css";
 
-const FreelancerDetails = () => {
+const FreelancerDetails = ({ freelancerId }) => {
   return (
     <div className={styles.gigDetails1}>
       <ComptimeLeft property1="red" />

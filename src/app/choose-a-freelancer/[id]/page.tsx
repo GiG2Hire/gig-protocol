@@ -7,6 +7,9 @@ import ChatInput from "../../components/chat/chat-input";
 import { prisma } from "../../lib/db";
 import { getMessages } from "../../actions/get-messages";
 import { getRoleFromPayload, getUserIdFromPayload } from "../../actions/login";
+import Compchatbubble from "../../components/choose-a-freelancer/compchatbubble";
+import GigApplicants from "../../components/choose-a-freelancer/gig-applicants";
+import { useState } from "react";
 
 export type GigHeaderType = {
   className?: string;
@@ -19,7 +22,8 @@ const ScreenchatApplicants = async ({ params }: { params: any }) => {
   let chatId: string = "";
   const currUserRole: string = (await getRoleFromPayload()) as string;
   const hasSubmitted = true;
-  let receiverUser: number = -1;
+  let freelancerId: number = -1;
+  let applicants: GigOffer[] = [];
 
   const getGigDescription = async () => {
     const gig = await prisma.gig.findUnique({
@@ -27,10 +31,11 @@ const ScreenchatApplicants = async ({ params }: { params: any }) => {
       include: { gig_task: true, gig_offer: true },
     });
     console.log(gig);
-    receiverUser = gig?.gig_offer[0].freelancerId as number;
-    chatId = gig?.clientId + "-" + receiverUser + "-" + gig?.gigId;
+    freelancerId = gig?.gig_offer[0].freelancerId as number;
+    chatId = gig?.clientId + "-" + freelancerId + "-" + gig?.gigId;
     messages = (await getMessages(chatId)) as ChatMessage[];
     console.log(messages);
+    applicants = gig?.gig_offer as GigOffer[];
   };
 
   await Promise.all([getGigDescription()]);
@@ -39,30 +44,7 @@ const ScreenchatApplicants = async ({ params }: { params: any }) => {
     <div className={styles.screenchatApplicants}>
       <FrameComponent />
       <section className={styles.gigHeaderWrapper}>
-        <div className={[styles.gigHeader].join(" ")}>
-          <section className={styles.gigHeaderWrapper}>
-            <GigDescription />
-          </section>
-          <div className={styles.chatInputContent}>
-            <ChatWindow
-              initialMessages={messages}
-              currentUser={currentUser}
-              chatId={chatId}
-              className=""
-            />
-            <div className={styles.chatInputContentInner}>
-              <ChatInput
-                hasSubmitted={hasSubmitted}
-                userRole={currUserRole}
-                currentUser={currentUser}
-                receiverUser={receiverUser}
-                chatId={chatId}
-                messages={messages}
-              />
-            </div>
-          </div>
-          <FreelancerDetails />
-        </div>
+        <GigDescription applicants={applicants} freelancerId={freelancerId} />
       </section>
     </div>
   );
