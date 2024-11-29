@@ -44,7 +44,12 @@ const ScreenchatApplicants = async ({ params }: { params: any }) => {
     <div className={styles.screenchatApplicants}>
       <FrameComponent />
       <section className={styles.gigHeaderWrapper}>
-        <GigDescription applicants={applicants} freelancerId={freelancerId} />
+        <GigDescription
+          applicants={applicants}
+          gigId={gigId}
+          clientId={currentUser}
+          freelancerId={freelancerId}
+        />
       </section>
     </div>
   );

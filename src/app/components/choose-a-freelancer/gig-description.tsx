@@ -11,10 +11,13 @@ import ChatWindow from "../chat/chat-window";
 import { useState } from "react";
 import ChatInput from "../chat/chat-input";
 import FreelancerDetails from "./freelancer-details";
-const GigDescription = ({ applicants, freelancerId }) => {
+import { useAuth } from "../../providers/auth";
+const GigDescription = ({ applicants, gigId, clientId, freelancerId }) => {
   const switchOfferContext = () => {};
-  const [chatId, setChatId] = useState<string>("");
-  const hasSubmitted: boolean = true;
+  const [chatId, setChatId] = useState<string>(
+    clientId + "-" + freelancerId + "-" + gigId
+  );
+  const hasSubmitted: boolean = false;
   return (
     <div className={styles.gigHeader}>
       <div className={styles.gigDetails}>
