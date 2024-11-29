@@ -1,15 +1,8 @@
 import FrameComponent from "../../components/choose-a-freelancer/frame-component";
 import styles from "./ScreenchatApplicants.module.css";
 import GigDescription from "../../components/choose-a-freelancer/gig-description";
-import FreelancerDetails from "../../components/choose-a-freelancer/freelancer-details";
-import ChatWindow from "../../components/chat/chat-window";
-import ChatInput from "../../components/chat/chat-input";
 import { prisma } from "../../lib/db";
-import { getMessages } from "../../actions/get-messages";
 import { getRoleFromPayload, getUserIdFromPayload } from "../../actions/login";
-import Compchatbubble from "../../components/choose-a-freelancer/compchatbubble";
-import GigApplicants from "../../components/choose-a-freelancer/gig-applicants";
-import { useState } from "react";
 
 export type GigHeaderType = {
   className?: string;
@@ -17,6 +10,7 @@ export type GigHeaderType = {
 
 const ScreenchatApplicants = async ({ params }: { params: any }) => {
   const gigId: number = Number(params.id);
+  let gig;
   let messages: ChatMessage[] = [];
   const currentUser: number = (await getUserIdFromPayload()) as number;
   let chatId: string = "";
@@ -24,18 +18,31 @@ const ScreenchatApplicants = async ({ params }: { params: any }) => {
   const hasSubmitted = true;
   let freelancerId: number = -1;
   let applicants: GigOffer[] = [];
+  const applicantUsersMap: Map<number, User> = new Map();
 
   const getGigDescription = async () => {
-    const gig = await prisma.gig.findUnique({
+    gig = await prisma.gig.findUnique({
       where: { gigId: gigId },
       include: { gig_task: true, gig_offer: true },
     });
     console.log(gig);
     freelancerId = gig?.gig_offer[0].freelancerId as number;
-    chatId = gig?.clientId + "-" + freelancerId + "-" + gig?.gigId;
-    messages = (await getMessages(chatId)) as ChatMessage[];
-    console.log(messages);
     applicants = gig?.gig_offer as GigOffer[];
+    let applicantUserIds: number[] = [];
+    applicants.forEach((offer) => {
+      applicantUserIds.push(offer.freelancerId);
+    });
+    let offerFreelancers: User[] = await prisma.user.findMany({
+      where: {
+        userId: {
+          in: applicantUserIds,
+        },
+      },
+    });
+    console.log(offerFreelancers);
+    offerFreelancers.forEach((freelancer: User) => {
+      applicantUsersMap.set(freelancer.userId, freelancer);
+    });
   };
 
   await Promise.all([getGigDescription()]);
@@ -45,8 +52,9 @@ const ScreenchatApplicants = async ({ params }: { params: any }) => {
       <FrameComponent />
       <section className={styles.gigHeaderWrapper}>
         <GigDescription
+          applicantUsersMap={applicantUsersMap}
           applicants={applicants}
-          gigId={gigId}
+          gig={gig}
           clientId={currentUser}
           freelancerId={freelancerId}
         />

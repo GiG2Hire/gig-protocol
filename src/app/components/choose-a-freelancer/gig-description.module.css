@@ -1,3 +1,49 @@
+.gigDescription {
+  position: relative;
+}
+.iconkeyboardArrowDown {
+  width: 1.5rem;
+  position: relative;
+  height: 1.5rem;
+}
+.gigDescription1 {
+  align-self: stretch;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+.gigdescriptionHidden {
+  width: 16.75rem;
+  position: relative;
+  font-size: var(--small-size);
+  color: var(--midnight-800);
+  display: none;
+  cursor: pointer;
+}
+.gigdescriptionShow {
+  width: 16.75rem;
+  position: relative;
+  font-size: var(--small-size);
+  color: var(--midnight-800);
+  cursor: pointer;
+}
+.compgigDescription {
+  align-self: stretch;
+  border: 1px solid var(--navy-600);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  padding: var(--padding-5xs);
+  gap: var(--gap-5xs);
+  text-align: left;
+  font-size: var(--hl3-size);
+  color: var(--navy-600);
+  font-family: var(--h3);
+  cursor: pointer;
+}
+
 .chatInputContent {
   flex: 1;
   border: 1px solid var(--yellow-bk);

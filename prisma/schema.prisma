@@ -66,7 +66,7 @@ model user {
   lastLogin        DateTime?          @map("last_login") @db.Timestamp(6)
   email            String?            @unique
   description      String?
-  updated_at       DateTime?          @db.Timestamptz(6)
+  updatedAt       DateTime?          @db.Timestamptz(6) @map("updated_at")
   profileImage     String?            @map("profile_image")
   organization     String?
   dispute_evidence dispute_evidence[]

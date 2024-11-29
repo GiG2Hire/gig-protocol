@@ -1,6 +1,15 @@
+.selectedApplicantDiv {
+  background: #6e83ff;
+}
 .applicantDiv {
   cursor: pointer;
+  transition: ease-out 300ms;
 }
+.applicantDiv:hover {
+  cursor: pointer;
+  background: rgba(110, 131, 255, 0.4);
+}
+
 .gigDetails {
   /* height: 47.125rem; */
   background-color: var(--lime-bk-10a);

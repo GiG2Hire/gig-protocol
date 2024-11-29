@@ -1,30 +1,66 @@
 "use client";
 import styles from "./gig-description.module.css";
-import CompgigDescription from "./compgig-description";
 import CompsubmitTasks from "./compsubmit-tasks";
 import CompdeadlineBox from "./compdeadline-box";
 import CompbudgetBox from "./compbudget-box";
-import Compchatbubble from "./compchatbubble";
 import BtniconText from "./btnicon-text";
 import GigApplicants from "./gig-applicants";
 import ChatWindow from "../chat/chat-window";
 import { useState } from "react";
 import ChatInput from "../chat/chat-input";
 import FreelancerDetails from "./freelancer-details";
-import { useAuth } from "../../providers/auth";
-const GigDescription = ({ applicants, gigId, clientId, freelancerId }) => {
-  const switchOfferContext = () => {};
+import Image from "next/image";
+const GigDescription = ({
+  applicantUsersMap,
+  applicants,
+  gig,
+  clientId,
+  freelancerId,
+}) => {
+  const [showGigDesc, setShowGigDesc] = useState<boolean>(false);
   const [chatId, setChatId] = useState<string>(
-    clientId + "-" + freelancerId + "-" + gigId
+    clientId + "-" + freelancerId + "-" + gig.gigId
   );
+  const [selectedFreelancerId, setSelectedFreelancerId] =
+    useState<number>(freelancerId);
   const hasSubmitted: boolean = false;
+  const [selectedOfferId, setSelectedOfferId] = useState<number>(
+    applicants[0].offerId
+  );
+  const switchOfferContext = (selectedOffer: GigOffer) => {
+    setChatId(clientId + "-" + selectedOffer.freelancerId + "-" + gig.gigId);
+    setSelectedFreelancerId(selectedOffer.freelancerId);
+    setSelectedOfferId(selectedOffer.offerId);
+  };
   return (
     <div className={styles.gigHeader}>
       <div className={styles.gigDetails}>
-        <CompgigDescription
-          property1="default"
-          gigDescription="gigDescription"
-        />
+        <div className={[styles.compgigDescription].join(" ")}>
+          <div
+            className={styles.gigDescription1}
+            onClick={() => {
+              setShowGigDesc(!showGigDesc);
+            }}
+          >
+            <b className={styles.gigDescription}>GIG Description</b>
+            <Image
+              className={styles.iconkeyboardArrowDown}
+              width={24}
+              height={24}
+              alt=""
+              src="/iconkeyboard-arrow-down.svg"
+            />
+          </div>
+          <div
+            className={
+              showGigDesc
+                ? styles.gigDescriptionShow
+                : styles.gigdescriptionHidden
+            }
+          >
+            {gig.description}
+          </div>
+        </div>
         <CompsubmitTasks
           property1="default"
           taskCompletedHide={false}
@@ -52,6 +88,7 @@ const GigDescription = ({ applicants, gigId, clientId, freelancerId }) => {
         <GigApplicants
           applicants={applicants}
           switchOfferContext={switchOfferContext}
+          selectedOfferId={selectedOfferId}
         />
       </div>
       <div className={styles.chatInputContent}>
@@ -65,7 +102,9 @@ const GigDescription = ({ applicants, gigId, clientId, freelancerId }) => {
         </div>
       </div>
       <div className={styles.gigDetails1}>
-        <FreelancerDetails freelancerId={freelancerId} />
+        <FreelancerDetails
+          freelancer={applicantUsersMap.get(selectedFreelancerId)}
+        />
       </div>
     </div>
   );

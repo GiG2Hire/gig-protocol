@@ -5,6 +5,7 @@ import { prisma } from "../../lib/db";
  * @notice Creates new user in database with connected wallet
  * @param req Address of connected wallet
  * @returns Created new user in database or error
+ * @author MAYANK CHHIPA (mgroovyank)
  */
 export async function POST(req: Request) {
   console.log("Inside POST /user/");

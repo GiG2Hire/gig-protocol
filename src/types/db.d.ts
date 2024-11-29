@@ -22,8 +22,14 @@ interface User {
   role: string | null;
   xFollowers: number | null;
   githubCommits: number | null;
-  createdAt: Date;
   userId: number;
+  email: string;
+  description: string;
+  profileImage: string;
+  organization: string;
+  lastLogin: Date;
+  createdAt: Date;
+  updatedAt: Date;
 }
 
 interface GigOffer {

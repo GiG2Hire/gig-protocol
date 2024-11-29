@@ -34,9 +34,10 @@ const ChatWindow = ({
    * pusherClient object: to bind to events on all subscribed channels simultaneously.
    */
   useEffect(() => {
-    if (messages.length == 0) {
-      getChatMessages(chatId);
-    }
+    // if (messages.length == 0) {
+    //   getChatMessages(chatId);
+    // }
+    getChatMessages(chatId);
     // pusher client subscribes to a channel
     const channel = pusherClient.subscribe("chat-messages");
     console.log("bind to event completed");
@@ -58,6 +59,7 @@ const ChatWindow = ({
       console.log("flush previous channel!!");
       pusherClient.unsubscribe("chat-messages");
       channel.unbind(`chat__${chatId}`);
+      setMessages([]);
     };
   }, [chatId]);
   return (

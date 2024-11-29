@@ -5,7 +5,7 @@ import Image from "next/image";
 import Framebadge from "./framebadge";
 import styles from "./freelancer-details.module.css";
 
-const FreelancerDetails = ({ freelancerId }) => {
+const FreelancerDetails = ({ freelancer }) => {
   return (
     <div className={styles.gigDetails1}>
       <ComptimeLeft property1="red" />
@@ -15,7 +15,7 @@ const FreelancerDetails = ({ freelancerId }) => {
             <CompppOnline property1="online-xl" />
             <div className={styles.userInfoWrapper}>
               <div className={styles.userInfo}>
-                <h1 className={styles.username}>userName</h1>
+                <h1 className={styles.username}>{freelancer.username}</h1>
                 <div className={styles.userStats}>
                   <div className={styles.monthsOn}>
                     <div className={styles.monthsLabel}>6</div>

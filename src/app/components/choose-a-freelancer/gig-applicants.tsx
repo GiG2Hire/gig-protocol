@@ -1,7 +1,15 @@
+"use client";
+import { useState } from "react";
 import Compchatbubble from "./compchatbubble";
 import styles from "./gig-applicants.module.css";
 
-const GigApplicants = ({ applicants, switchOfferContext }) => {
+const GigApplicants = ({ applicants, switchOfferContext, selectedOfferId }) => {
+  if (applicants && applicants.length == 0) {
+    return <div></div>;
+  }
+  const [selectedFreelancerId, setSelectedFreelancerId] = useState<number>(
+    applicants[0].freelancerId
+  );
   return (
     <div className={styles.gigDetails}>
       <h1 className={styles.applicants}>Applicants</h1>
@@ -10,8 +18,16 @@ const GigApplicants = ({ applicants, switchOfferContext }) => {
           return (
             <div
               key={offer.offerId}
-              className={styles.applicantDiv}
-              onClick={switchOfferContext(offer.freelancerId)}
+              className={
+                styles.applicantDiv +
+                " " +
+                (selectedOfferId == offer.offerId
+                  ? styles.selectedApplicantDiv
+                  : "")
+              }
+              onClick={() => {
+                switchOfferContext(offer);
+              }}
             >
               <Compchatbubble
                 property1="Default"
