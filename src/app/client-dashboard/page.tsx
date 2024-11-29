@@ -20,25 +20,24 @@ const ClientDashboard = () => {
   const { userId, role } = useAuth();
   const [walletBalance, setWalletBalance] = useState("N/A");
   const [activeGigs, setActiveGigs] = useState([]);
-  //const [clientProposals, setClientProposals] = useState<any[]>();
+
   const walletStatus = useActiveWalletConnectionStatus();
   const walletAddress = useActiveAccount();
   const walletChain = useActiveWalletChain();
   const timeNow = getTime();
 
-  //let activeGigs: any[] = [];
   let completedGigs: any[] = [];
   let offers: any[] = [];
 
 
   const getClientData = async () => {
     try {
-      const [responseActive] = await Promise.all([
-        //fetch(`api/gig/get-applications/completed-gigs/?user_id=${userId}`),
+      const [responseComplete, responseActive] = await Promise.all([
+        fetch(`api/gig/get-applications/completed-gigs/?user_id=${userId}`),
         fetch(`api/gig/get-applications/active-gigs/?user_id=${userId}`)
       ]);
-      console.log(userId, responseActive)
-      if (/*!responseCompleted.ok ||*/ !responseActive.ok) {
+
+      if (/*!responseCompleted.ok ||  */!responseActive.ok) {
         throw new Error("Failed to fetch data");
       }
 
@@ -46,9 +45,21 @@ const ClientDashboard = () => {
       //completedGigs = completedGigsData;
 
       const activeGigsData = JSON.parse(await responseActive.json());
+
+
+      for (let gigIndex = 0; gigIndex < activeGigsData.length; gigIndex++) {
+        let tasksLength = 0;
+        Object(activeGigsData[gigIndex].gig_task).forEach((gigObj, idx) => {
+          if (gigObj.status == "DONE") {
+            tasksLength++;
+          }
+          activeGigsData[gigIndex]["completed_tasks"] = tasksLength;
+        });
+      }
+
       setActiveGigs(activeGigsData);
 
-      console.log(completedGigs, activeGigs);
+      console.log(completedGigs, activeGigsData, tasksLength);
     } catch (error) {
       console.log(error)
     }
@@ -230,7 +241,7 @@ const ClientDashboard = () => {
                                 <div className={styles.tasks}>Tasks:</div>
                                 <div className={styles.tasksQuantity}>
                                   <b className={styles.taskPlaceholderOne}>
-                                    {/* {getCompletedTasks(gig.gig_task).length} */}
+                                    {gig.completed_tasks}
                                   </b>
                                   <div className={styles.of}>of</div>
                                   <b className={styles.taskPlaceholderTwo}>
@@ -251,7 +262,7 @@ const ClientDashboard = () => {
                                 <div className={styles.filesQuantity}>
                                   <div className={styles.docsPlaceholderOne}>
                                     <b className={styles.docsWordRow}>
-                                      {/* {getGigDocs(gig.gig_file).length} */}
+                                      {gig.gig_file.length}
                                     </b>
                                     {/* <div className={styles.docs}>Docs</div> */}
                                   </div>
@@ -495,11 +506,12 @@ const ClientDashboard = () => {
                   <div className={styles.openDisputesContainer}>
                     <h1 className={styles.jobsToBe}>Open Disputes</h1>
                     <div className={styles.pendingJobsCount}>
-                      <b className={styles.pendingJobsNumber}>1</b>
+                      <b className={styles.pendingJobsNumber}>0</b>
                       <div className={styles.pending}>pending</div>
                     </div>
                   </div>
-                  <div className={styles.featuredDispute}>
+                  <div>Soon in Production..</div>
+                  {/* <div className={styles.featuredDispute}>
                     <div className={styles.jobContainer}>
                       <div className={styles.btnDevit}>
                         <img
@@ -558,7 +570,7 @@ const ClientDashboard = () => {
                         <b className={styles.viewMoreLabel}>View Offer</b>
                       </button>
                     </div>
-                  </div>
+                  </div> */}
                 </div>
               </div>
             </div>
