@@ -47,26 +47,12 @@ export async function GET(req: NextRequest) {
   if (payloadUserRole === "Client") {
     whereClause = {
       clientId: user_id,
-      OR: [
-        {
-          completionStatus: GIG_COMPLETION_STATUS.OPEN,
-        },
-        {
-          completionStatus: GIG_COMPLETION_STATUS.IN_PROGRESS,
-        },
-      ],
+      completionStatus: GIG_COMPLETION_STATUS.OPEN,
     };
   } else if (payloadUserRole === "Freelancer") {
     whereClause = {
       freelancerId: user_id,
-      OR: [
-        {
-          completionStatus: GIG_COMPLETION_STATUS.OPEN,
-        },
-        {
-          completionStatus: GIG_COMPLETION_STATUS.IN_PROGRESS,
-        },
-      ],
+      completionStatus: GIG_COMPLETION_STATUS.OPEN,
     };
   }
 
