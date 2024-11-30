@@ -388,7 +388,6 @@ const ClientDashboard = () => {
                                   <div className={styles.filesQuantity}>
                                     <div className={styles.docsPlaceholderOne}>
                                       <b className={styles.docsWordRow}>
-                                        HELLO I"M HERE IN DOCS
                                         {/* {getGigDocs(gig.gig_file).length} */}
                                       </b>
                                       <div className={styles.docs}>Docs</div>

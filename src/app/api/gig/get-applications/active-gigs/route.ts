@@ -22,21 +22,21 @@ export async function GET(req: NextRequest) {
     return NextResponse.json(
       { message: "User not authenticated." },
       { status: 401 }
-    )
+    );
   }
 
   if (!user_id) {
     return NextResponse.json(
       { message: "Invalid client_id provided." },
       { status: 400 }
-    )
+    );
   }
 
   if (payloadUserId !== user_id) {
     return NextResponse.json(
       { message: "User don't have access to data." },
       { status: 401 }
-    )
+    );
   }
 
 
@@ -65,7 +65,7 @@ export async function GET(req: NextRequest) {
 
   if (!activeGigs.length) {
     return NextResponse.json(
-      { message: "No completed gigs found for client." },
+      { message: "No active gigs found for client." },
       { status: 404 }
     );
   }
