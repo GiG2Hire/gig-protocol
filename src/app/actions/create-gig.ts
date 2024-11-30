@@ -21,7 +21,8 @@ export async function createGig(
   deliveryDate: Date,
   projectBudget: number,
   jobCategory: number,
-  tasks: GigTask[]
+  tasks: GigTask[],
+  gig_onchain_id: string
 ) {
   console.log("Trying to create a gig for client...");
   const clientId = await getUserIdFromPayload();
@@ -48,6 +49,7 @@ export async function createGig(
         completionStatus: GIG_COMPLETION_STATUS.OPEN,
         expectedDeliveryDate: deliveryDate,
         category: jobCategory,
+        gig_on_chain_id: gig_onchain_id,
       },
     });
     console.log(`POST /gig/create/ response from database: ${gig}`);
