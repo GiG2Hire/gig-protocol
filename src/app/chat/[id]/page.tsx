@@ -9,9 +9,7 @@ import ChatWindow from "@/src/app/components/chat/chat-window";
 import ChatInput from "../../components/chat/chat-input";
 import FileUpload from "../../components/chat/file-upload";
 import FileList from "../../components/files/file-list";
-import { getUserIdFromPayload } from "../../actions/login";
 import { getFiles, getMessages } from "../../actions/get-messages";
-import { getRoleFromPayload } from "../../actions/login";
 import {
   defineChain,
   getContract,
@@ -23,7 +21,8 @@ import approveBudget from "../../actions/approve-budget";
 import { abi } from "../../actions/constantAbi";
 import { client } from "../../lib/client";
 import { useActiveAccount } from "thirdweb/react";
-import { ethers } from "ethers";
+import { useAuth } from "../../providers/auth";
+import { getRoleFromPayload, getUserIdFromPayload } from "../../actions/login";
 
 // async function acceptGigInDatabase() {
 //   const options = {
