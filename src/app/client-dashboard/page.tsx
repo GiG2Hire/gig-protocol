@@ -37,9 +37,11 @@ const ClientDashboard = () => {
         fetch(`api/gig/get-applications/active-gigs/?user_id=${userId}`)
       ]);
 
-      if (/*!responseCompleted.ok ||  */!responseActive.ok) {
-        throw new Error("Failed to fetch data");
-      }
+
+      /* Right now we not checking if it bad data or not, change it in future */
+      // if (/*!responseCompleted.ok ||  */!responseActive.ok) {
+      //   throw new Error("Failed to fetch data");
+      // }
 
       //const completedGigsData = JSON.parse(await responseCompleted.json());
       //completedGigs = completedGigsData;
@@ -59,7 +61,7 @@ const ClientDashboard = () => {
 
       setActiveGigs(activeGigsData);
 
-      console.log(completedGigs, activeGigsData, tasksLength);
+      console.log(completedGigs, activeGigsData);
     } catch (error) {
       console.log(error)
     }
@@ -187,14 +189,14 @@ const ClientDashboard = () => {
                   {activeGigs.map((gig, index) => (
                     <div className={styles.jobCards}>
                       <div className={styles.jobCardOne}>
-                        {/* <Image
+                        <Image
                           className={styles.cardOneTopRow}
                           alt=""
                           src={gig.user.profileImage}
                           height={45}
                           width={45}
                           loading="lazy"
-                        /> */}
+                        />
                         <b className={styles.max}>{gig.user.username}</b>
                       </div>
                       <div className={styles.cardOneSecondRow}>
