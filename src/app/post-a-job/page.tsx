@@ -24,6 +24,7 @@ import { useState } from "react";
 import Calendar from "react-calendar";
 import ReviewJobOffer from "../components/review-job-offer";
 import toast from "react-hot-toast";
+import { allowance } from "thirdweb/extensions/erc20";
 
 const PostAJob = () => {
   const account = useActiveAccount();
@@ -73,26 +74,16 @@ const PostAJob = () => {
     console.log(tasks);
   }
 
-  async function approveUSDCandOpenProposal(): Promise<string> {
-    console.log("Trying to obtain approval from client....");
+  async function approveUSDCandOpenProposal(amount: number): Promise<string> {
     const chainId = 84532;
     const rpcUrl = process.env.NEXT_PUBLIC_BASE_RPC_URL;
     const addressProtocol = "0x8cC886B5C5BaBD5f30512b31dAB3fcA07C8f264e";
-    const amount = 5000000;
+    //const amount = 5000000;
     const usdcToken = "0x036CbD53842c5426634e7929541eC2318f3dCF7e";
-
-    // const account = useActiveAccount();
 
     const selectedChain = defineChain({
       id: chainId,
       rpc: rpcUrl,
-    });
-
-    const lendingContract = getContract({
-      address: addressProtocol,
-      chain: selectedChain,
-      abi: abi,
-      client,
     });
 
     const usdcContract = getContract({
@@ -102,66 +93,59 @@ const PostAJob = () => {
       client,
     });
 
-    // get approval from Client to transfer gig budget
-    const tx = prepareContractCall({
+    //Check allowance
+    const result = await allowance({
       contract: usdcContract,
-      method: "function approve(address _spender, uint256 _value)",
-      params: [addressProtocol, BigInt(amount)],
+      owner: account?.address,
+      spender: addressProtocol,
     });
 
-    if (account == undefined) {
-      toast.error("Please Connect your wallet!!");
-      return Promise.reject("error");
-    }
+    console.log("Allowance: ", result, BigInt(amount * 1000000));
 
-    const { transactionHash } = await sendTransaction({
-      account: account,
-      transaction: tx,
-    });
+    if (result < BigInt(amount * 1000000)) {
+      console.log("Trying to obtain approval from client....");
+      // get approval from Client to transfer gig budget
+      const tx = prepareContractCall({
+        contract: usdcContract,
+        method: "function approve(address _spender, uint256 _value)",
+        params: [addressProtocol, BigInt(amount * 1000000)],
+      });
 
-    const receipt = await waitForReceipt({
-      client: client,
-      chain: selectedChain,
-      transactionHash: transactionHash,
-      maxBlocksWaitTime: 6,
-    });
+      if (account == undefined) {
+        toast.error("Please Connect your wallet!!");
+        return Promise.reject("error");
+      }
 
-    if (receipt.status != "success") {
-      return Promise.reject("error");
+      const { transactionHash } = await sendTransaction({
+        account: account,
+        transaction: tx,
+      });
+
+      const receipt = await waitForReceipt({
+        client: client,
+        chain: selectedChain,
+        transactionHash: transactionHash,
+        maxBlocksWaitTime: 6,
+      });
+
+      console.log(receipt);
+
+      if (receipt.status != "success") {
+        return Promise.reject("error");
+      }
     }
 
     console.log("Transaction approval confirmed: ");
     setProjectBudget(amount);
 
-    return await openProposal();
-
-    // amount = gig budget, usdcToken = base , destinationChain = Optimism
-    // const txCall = prepareContractCall({
-    //   contract: lendingContract,
-    //   method:
-    //     "function openProposal(uint256 _amount, address _usdcToken, uint64 _destinationChainSelector)",
-    //   params: [BigInt(amount), usdcToken, BigInt("5224473277236331295")],
-    // });
-
-    // console.log("Sending Transaction to chain");
-    // // front it will be showing tx hash or link for ccip explorer with this hash
-    // const { transactionHash } = await sendTransaction({
-    //   account: account,
-    //   transaction: txCall,
-    // });
-
-    // return transactionHash;
+    return await openProposal(amount);
   }
 
-  async function openProposal() {
+  async function openProposal(amount: number): Promise<string> {
     console.log("Trying to open proposal on contract....");
     const chainId = 84532;
     const rpcUrl = process.env.NEXT_PUBLIC_BASE_RPC_URL;
     const addressProtocol = "0x8cC886B5C5BaBD5f30512b31dAB3fcA07C8f264e";
-    const amount = 4000000;
-    const usdcToken = "0x036CbD53842c5426634e7929541eC2318f3dCF7e";
-
-    // const account = useActiveAccount();
 
     const selectedChain = defineChain({
       id: chainId,
@@ -178,8 +162,9 @@ const PostAJob = () => {
     // amount = gig budget, usdcToken = base , destinationChain = Optimism
     const txCall = prepareContractCall({
       contract: lendingContract,
-      method: "function openProposal(uint256 _amount)",
-      params: [BigInt(amount)],
+      method:
+        "function openProposal(uint256 _amount)",
+      params: [BigInt(amount * 1000000)],
     });
 
     console.log("Sending Transaction to chain");
@@ -201,19 +186,35 @@ const PostAJob = () => {
       client: client,
       chain: selectedChain,
       transactionHash: transactionHash,
+      maxBlocksWaitTime: 6,
     });
+
+    //get the onchain id from the transaction logs
+    console.log(receipt);
+
+    // Parse event logs
+    const logs = receipt.logs || [];
+    console.log(logs);
+    console.log(logs[4].data);
+    const gig_onchain_id = logs[4].data.slice(0, 66)
+    console.log(gig_onchain_id);
+//"0x7497924a936438858f0fd86e2eee674abf97580aeaf25c0a37aa1dc65560d68000000000000000000000000000000000000000000000000000000000002dc6c00000000000000000000000003d7fea9a2585b83f56c61e132e7136d78d1e92ac"
+//0x7497924a936438858f0fd86e2eee674abf97580aeaf25c0a37aa1dc65560d680
 
     if (receipt.status != "success") {
       return Promise.reject("error");
     }
 
-    return "success";
+    return gig_onchain_id;
 
     // return transactionHash;
   }
 
   const openProposalAndCreateGig = async (formData: FormData) => {
-    const txnResult = await approveUSDCandOpenProposal();
+    const amount = formData.get("budget");
+
+    const txnResult = await approveUSDCandOpenProposal(amount);
+    console.log(txnResult);
     if (txnResult == "error" || txnResult == null) {
       toast.error("Transaction Failed!!");
       return;
@@ -238,25 +239,6 @@ const PostAJob = () => {
         error: (err) => <b>{err.message}</b>,
       }
     );
-
-    // const result = await createGig(
-    //   formData,
-    //   deliveryDate,
-    //   projectBudget,
-    //   activeJobCategory,
-    //   tasks
-    // );
-    // if (result?.error) {
-    //   toast.error(result?.error);
-    // } else {
-    //   toast.success(result?.message as string, {
-    //     style: {
-    //       border: "1px solid #713200",
-    //       padding: "16px",
-    //       color: "#713200",
-    //     },
-    //   });
-    // }
   };
 
   return (
@@ -331,11 +313,6 @@ const PostAJob = () => {
                       name="description"
                       onChange={(e) => setGigDescription(e.target.value)}
                     >
-                      {/* <div className={styles.textInput1}>
-                        <div className={styles.searchInGlobal}>
-                          Add GiG title here
-                        </div>
-                      </div> */}
                     </textarea>
                   </div>
                   <div className={styles.categorySelection}>

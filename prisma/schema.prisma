@@ -8,14 +8,15 @@ datasource db {
   directUrl = env("DIRECT_URL")
 }
 
+/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
 model chat {
-  chatId            String     @id @unique @map("chat_id")
-  geminiSentiment   String?    @map("gemini_sentiment")
-  createdAt         DateTime   @default(now()) @map("created_at") @db.Timestamptz(6)
-  updatedAt         DateTime?  @map("updated_at") @db.Timestamp(6)
-  geminiExplanation String?    @map("gemini_explanation")
-  chat_uuid         String?    @db.Uuid
-  gigOffer          gigOffer[]
+  chat_id            String      @id @unique
+  gemini_sentiment   String?
+  created_at         DateTime    @default(now()) @db.Timestamptz(6)
+  updated_at         DateTime?   @db.Timestamp(6)
+  gemini_explanation String?
+  chat_uuid          String?     @db.Uuid
+  gig_offer          gig_offer[]
 }
 
 /// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
@@ -130,19 +131,17 @@ model dispute_verdict {
 }
 
 /// This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
-model GigFile {
-  id         Int       @id(map: "gig_files_pkey") @default(autoincrement())
-  gigId      Int       @map("gig_id")
-  name       String?   @map("name")
-  type       String?   @map("type")
-  url        String?   @map("url")
-  uploadedBy Int?      @map("uploaded_by")
-  createdAt  DateTime? @map("created_at") @db.Timestamptz(6)
-  updatedAt  DateTime? @map("updated_at") @db.Timestamptz(6)
-  size       Int?      @map("size")
-  gig        gig       @relation(fields: [gigId], references: [gigId], onDelete: NoAction, onUpdate: NoAction)
-
-  @@map("gig_file")
+model gig_file {
+  id          Int       @id(map: "gig_files_pkey") @default(autoincrement())
+  gig_id      Int
+  name        String?
+  type        String?
+  url         String?
+  uploaded_by Int?
+  created_at  DateTime? @db.Timestamptz(6)
+  updated_at  DateTime? @db.Timestamptz(6)
+  size        Int?
+  gig         gig       @relation(fields: [gig_id], references: [gig_id], onDelete: NoAction, onUpdate: NoAction)
 }
 
 /// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
