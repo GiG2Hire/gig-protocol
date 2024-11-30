@@ -42,7 +42,7 @@ export async function createGig(
   try {
     const gig = await prisma.gig.create({
       data: {
-        client_id: clientId,
+        clientId: clientId,
         title: title,
         description: description,
         gigBudget: budget,

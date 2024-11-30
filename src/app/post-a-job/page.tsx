@@ -189,17 +189,10 @@ const PostAJob = () => {
       maxBlocksWaitTime: 6,
     });
 
-    //get the onchain id from the transaction logs
-    console.log(receipt);
-
     // Parse event logs
     const logs = receipt.logs || [];
-    console.log(logs);
-    console.log(logs[4].data);
     const gig_onchain_id = logs[4].data.slice(0, 66)
     console.log(gig_onchain_id);
-//"0x7497924a936438858f0fd86e2eee674abf97580aeaf25c0a37aa1dc65560d68000000000000000000000000000000000000000000000000000000000002dc6c00000000000000000000000003d7fea9a2585b83f56c61e132e7136d78d1e92ac"
-//0x7497924a936438858f0fd86e2eee674abf97580aeaf25c0a37aa1dc65560d680
 
     if (receipt.status != "success") {
       return Promise.reject("error");
@@ -226,7 +219,8 @@ const PostAJob = () => {
         deliveryDate,
         projectBudget,
         activeJobCategory,
-        tasks
+        tasks,
+        txnResult
       ),
       {
         loading: "Saving...",

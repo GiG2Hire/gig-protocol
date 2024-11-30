@@ -10,13 +10,13 @@ datasource db {
 
 /// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
 model chat {
-  chat_id            String      @id @unique
+  chatId            String      @id @unique
   gemini_sentiment   String?
   created_at         DateTime    @default(now()) @db.Timestamptz(6)
   updated_at         DateTime?   @db.Timestamp(6)
   gemini_explanation String?
   chat_uuid          String?     @db.Uuid
-  gig_offer          gig_offer[]
+  gig_offer          gigOffer[]
 }
 
 /// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
@@ -47,11 +47,11 @@ model gig {
   title                String?
   updated_at           DateTime?  @db.Timestamptz(6)
   freelancersCount     Int?       @map("freelancers_count")
-  gig_on_chain_id      Int?
+  gig_on_chain_id      String?
   tx_hash              String?
   dispute              dispute[]
   user                 user       @relation(fields: [clientId], references: [userId], onDelete: NoAction, onUpdate: NoAction)
-  gig_file             GigFile[]
+  gig_file             gigFile[]
   gig_offer            gigOffer[]
   gig_task             gigTask[]
 }
@@ -131,7 +131,7 @@ model dispute_verdict {
 }
 
 /// This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
-model gig_file {
+model gigFile {
   id          Int       @id(map: "gig_files_pkey") @default(autoincrement())
   gig_id      Int
   name        String?
@@ -141,7 +141,7 @@ model gig_file {
   created_at  DateTime? @db.Timestamptz(6)
   updated_at  DateTime? @db.Timestamptz(6)
   size        Int?
-  gig         gig       @relation(fields: [gig_id], references: [gig_id], onDelete: NoAction, onUpdate: NoAction)
+  gig         gig       @relation(fields: [gig_id], references: [gigId], onDelete: NoAction, onUpdate: NoAction)
 }
 
 /// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
