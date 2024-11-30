@@ -193,7 +193,7 @@ const ClientDashboard = () => {
                         <Image
                           className={styles.cardOneTopRow}
                           alt=""
-                          src={gig.user.profileImage}
+                          src={"https://gig2hirelocal.s3.eu-north-1.amazonaws.com/f1d4ae1df5988f0ba7386b559441d3612c94ae64ef29e61d56dd93fc14a3c22f"}
                           height={45}
                           width={45}
                           loading="lazy"
