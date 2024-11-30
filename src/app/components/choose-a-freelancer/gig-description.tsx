@@ -10,6 +10,7 @@ import { useState } from "react";
 import ChatInput from "../chat/chat-input";
 import FreelancerDetails from "./freelancer-details";
 import Image from "next/image";
+import ApproveFreelancerModal from "./approve-freelancer-modal/approve-freelancer-modal";
 const GigDescription = ({
   applicantUsersMap,
   applicants,
@@ -18,6 +19,7 @@ const GigDescription = ({
   freelancerId,
 }) => {
   const [showGigDesc, setShowGigDesc] = useState<boolean>(false);
+  const [showEditOfferModal, setShowEditOfferModal] = useState<boolean>(false);
   const [chatId, setChatId] = useState<string>(
     clientId + "-" + freelancerId + "-" + gig.gigId
   );
@@ -81,6 +83,9 @@ const GigDescription = ({
             btniconTextFlex="1"
             btniconTextAlignSelf="unset"
             iconeditSquare="/iconedit-square.svg"
+            clickAction={() => {
+              setShowEditOfferModal(true);
+            }}
           />
           <BtniconText
             buttonVariables="red-m-def"
@@ -111,6 +116,7 @@ const GigDescription = ({
           offer={selectedOffer}
         />
       </div>
+      {showEditOfferModal && <ApproveFreelancerModal />}
     </div>
   );
 };

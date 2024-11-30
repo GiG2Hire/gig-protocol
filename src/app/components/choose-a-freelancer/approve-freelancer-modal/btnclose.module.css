@@ -1,0 +1,15 @@
+.iconclose {
+  height: 1.5rem;
+  width: 1.5rem;
+  position: relative;
+}
+.btnclose {
+  background-color: var(--light);
+  height: 1.75rem;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  padding: var(--padding-11xs);
+  box-sizing: border-box;
+}

@@ -5,6 +5,8 @@ import Image from "next/image";
 import Framebadge from "./framebadge";
 import styles from "./freelancer-details.module.css";
 import { getMonthsTillTodayFromDate } from "@/src/utils/common-util";
+import toast from "react-hot-toast";
+import { useRouter } from "next/navigation";
 
 const FreelancerDetails = ({
   freelancer,
@@ -13,6 +15,46 @@ const FreelancerDetails = ({
   freelancer: User;
   offer: GigOffer;
 }) => {
+  const router = useRouter();
+
+  let statusSuccess: boolean = false;
+
+  const getApproveFreelancerResponse = async (offer: GigOffer) => {
+    const response = await fetch("/api/gig/accept-offer", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+      },
+      body: JSON.stringify({
+        offerId: offer.offerId,
+        gigId: offer.gigId,
+        freelancerId: offer.freelancerId,
+        clientId: offer.clientId,
+      }),
+    });
+    statusSuccess = response.status == 200;
+    return response.json();
+  };
+
+  const approveFreelancer = async () => {
+    toast
+      .promise(getApproveFreelancerResponse(offer), {
+        loading: "Approving Freelancer...",
+        success: (res) => {
+          if (!statusSuccess) {
+            throw new Error(res.message);
+          }
+          return <b>Freelacer Approved Successfully!!</b>;
+        },
+        error: (err) => <b>{err.message}</b>,
+      })
+      .then(() => {
+        if (statusSuccess) {
+          router.push("/chat/" + offer.chatId);
+        }
+      });
+  };
   return (
     <div className={styles.gigDetails1}>
       <ComptimeLeft property1="red" />
@@ -101,7 +143,7 @@ const FreelancerDetails = ({
           btniconTextFlex="unset"
           btniconTextAlignSelf="stretch"
           iconeditSquare="/iconperson-check.svg"
-          offer={offer}
+          clickAction={approveFreelancer}
         />
       </div>
     </div>
