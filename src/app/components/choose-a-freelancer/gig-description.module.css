@@ -12,6 +12,7 @@
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
+  transition: ease-in-out 300ms;
 }
 .gigdescriptionHidden {
   width: 16.75rem;
@@ -20,6 +21,7 @@
   color: var(--midnight-800);
   display: none;
   cursor: pointer;
+  transition: ease-in-out 300ms;
 }
 .gigdescriptionShow {
   width: 16.75rem;
@@ -27,6 +29,7 @@
   font-size: var(--small-size);
   color: var(--midnight-800);
   cursor: pointer;
+  transition: ease-in-out 300ms;
 }
 .compgigDescription {
   align-self: stretch;

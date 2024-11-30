@@ -1,6 +1,7 @@
 import type { NextPage } from "next";
 import Image from "next/image";
 import styles from "./compsubmit-tasks.module.css";
+import { useState } from "react";
 
 export type CompsubmitTasksType = {
   className?: string;
@@ -17,12 +18,15 @@ const CompsubmitTasks: NextPage<CompsubmitTasksType> = ({
   property1 = "default",
   taskCompletedHide = false,
   taskCompleted = "00",
-  taskTotal = "00",
+  tasks,
 }) => {
+  const [showTasks, setShowTasks] = useState<boolean>(false);
   return (
     <div
       className={[styles.compsubmitTasks, className].join(" ")}
-      data-property1={property1}
+      onClick={() => {
+        setShowTasks(!showTasks);
+      }}
     >
       <div className={styles.userTasksParent}>
         <div className={styles.userTasks}>
@@ -42,7 +46,7 @@ const CompsubmitTasks: NextPage<CompsubmitTasksType> = ({
                 <b className={styles.b1}>/</b>
               </div>
             )}
-            <b className={styles.expandUserIcon}>{taskTotal}</b>
+            <b className={styles.expandUserIcon}>{tasks.length}</b>
           </div>
         </div>
         <Image
@@ -54,20 +58,24 @@ const CompsubmitTasks: NextPage<CompsubmitTasksType> = ({
           src="/iconkeyboard-arrow-down.svg"
         />
       </div>
-      <div className={styles.frameParent}>
-        <div className={styles.frametaskWrapper}>
-          <div className={styles.frametask}>
-            <input className={styles.btncheckbox} type="checkbox" />
-            <div className={styles.tasktext}>taskText</div>
-          </div>
+      {showTasks && (
+        <div className={styles.frameParent}>
+          {tasks.map((task: any) => {
+            return (
+              <div className={styles.frametaskWrapper}>
+                <div className={styles.frametask}>
+                  <input
+                    className={styles.btncheckbox}
+                    type="checkbox"
+                    checked
+                  />
+                  <div className={styles.tasktext}>taskText</div>
+                </div>
+              </div>
+            );
+          })}
         </div>
-        <div className={styles.frametaskContainer}>
-          <div className={styles.frametask1}>
-            <input className={styles.btncheckbox1} type="checkbox" />
-            <div className={styles.tasktext1}>taskText</div>
-          </div>
-        </div>
-      </div>
+      )}
     </div>
   );
 };

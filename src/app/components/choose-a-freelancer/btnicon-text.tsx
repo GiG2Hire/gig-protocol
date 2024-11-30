@@ -1,7 +1,10 @@
+"use client";
 import type { NextPage } from "next";
 import { useMemo, type CSSProperties } from "react";
 import Image from "next/image";
 import styles from "./btnicon-text.module.css";
+import toast from "react-hot-toast";
+import { useRouter } from "next/navigation";
 
 export type BtniconTextType = {
   className?: string;
@@ -25,6 +28,7 @@ const BtniconText: NextPage<BtniconTextType> = ({
   btniconTextFlex,
   btniconTextAlignSelf,
   iconeditSquare,
+  offer,
 }) => {
   const btniconTextStyle: CSSProperties = useMemo(() => {
     return {
@@ -33,11 +37,55 @@ const BtniconText: NextPage<BtniconTextType> = ({
     };
   }, [btniconTextFlex, btniconTextAlignSelf]);
 
+  const router = useRouter();
+
+  let statusSuccess: boolean = false;
+
+  const getApproveFreelancerResponse = async (offer: GigOffer) => {
+    const response = await fetch("/api/gig/accept-offer", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+      },
+      body: JSON.stringify({
+        offerId: offer.offerId,
+        gigId: offer.gigId,
+        freelancerId: offer.freelancerId,
+        clientId: offer.clientId,
+      }),
+    });
+    statusSuccess = response.status == 200;
+    return response.json();
+  };
+
+  const approveFreelancer = async (offer: GigOffer) => {
+    toast
+      .promise(getApproveFreelancerResponse(offer), {
+        loading: "Approving Freelancer...",
+        success: (res) => {
+          if (!statusSuccess) {
+            throw new Error(res.message);
+          }
+          return <b>Freelacer Approved Successfully!!</b>;
+        },
+        error: (err) => <b>{err.message}</b>,
+      })
+      .then(() => {
+        if (statusSuccess) {
+          router.push("/chat/" + offer.chatId);
+        }
+      });
+  };
+
   return (
     <button
       className={[styles.root, className].join(" ")}
       data-buttonVariables={buttonVariables}
       style={btniconTextStyle}
+      onClick={() => {
+        approveFreelancer(offer);
+      }}
     >
       {iconHide && (
         <Image

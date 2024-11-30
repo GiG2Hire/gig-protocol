@@ -77,7 +77,7 @@
   gap: var(--gap-9xs);
 }
 .frametaskWrapper {
-  width: 20rem;
+  /* width: 16.75rem; */
   flex-direction: column;
   align-items: flex-start;
 }
@@ -113,13 +113,15 @@
   gap: var(--gap-5xs);
 }
 .frameParent {
-  width: 40.875rem;
-  display: none;
+  /* width: 16.75rem; */
+  /* display: none; */
   flex-direction: row;
   flex-wrap: wrap;
   align-content: flex-start;
   font-size: var(--small-size);
   color: var(--midnight-800);
+  transition: ease-in-out 300ms;
+  cursor: pointer;
 }
 .compsubmitTasks {
   align-self: stretch;
@@ -131,4 +133,6 @@
   font-size: var(--hl3-size);
   color: var(--navy-600);
   font-family: var(--h3);
+  transition: ease-in-out 300ms;
+  cursor: pointer;
 }

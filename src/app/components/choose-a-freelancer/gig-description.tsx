@@ -27,6 +27,7 @@ const GigDescription = ({
   const [selectedOfferId, setSelectedOfferId] = useState<number>(
     applicants[0].offerId
   );
+  const [selectedOffer, setSelectedOffer] = useState<GigOffer>(applicants[0]);
   const switchOfferContext = (selectedOffer: GigOffer) => {
     setChatId(clientId + "-" + selectedOffer.freelancerId + "-" + gig.gigId);
     setSelectedFreelancerId(selectedOffer.freelancerId);
@@ -66,9 +67,12 @@ const GigDescription = ({
           taskCompletedHide={false}
           taskCompleted="00"
           taskTotal="00"
+          tasks={gig.gig_task}
         />
-        <CompdeadlineBox date="Nov 16, 2024" />
-        <CompbudgetBox budget="0000" />
+        <CompdeadlineBox
+          date={(gig.expectedDeliveryDate as Date).toDateString()}
+        />
+        <CompbudgetBox budget={gig.gigBudget} />
         <div className={styles.offerActions}>
           <BtniconText
             buttonVariables="navy-st-m-def"
@@ -104,6 +108,7 @@ const GigDescription = ({
       <div className={styles.gigDetails1}>
         <FreelancerDetails
           freelancer={applicantUsersMap.get(selectedFreelancerId)}
+          offer={selectedOffer}
         />
       </div>
     </div>

@@ -32,13 +32,13 @@ const ScreenchatApplicants = async ({ params }: { params: any }) => {
     applicants.forEach((offer) => {
       applicantUserIds.push(offer.freelancerId);
     });
-    let offerFreelancers: User[] = await prisma.user.findMany({
+    let offerFreelancers: User[] = (await prisma.user.findMany({
       where: {
         userId: {
           in: applicantUserIds,
         },
       },
-    });
+    })) as User[];
     console.log(offerFreelancers);
     offerFreelancers.forEach((freelancer: User) => {
       applicantUsersMap.set(freelancer.userId, freelancer);

@@ -178,8 +178,7 @@ const PostAJob = () => {
     // amount = gig budget, usdcToken = base , destinationChain = Optimism
     const txCall = prepareContractCall({
       contract: lendingContract,
-      method:
-        "function openProposal(uint256 _amount)",
+      method: "function openProposal(uint256 _amount)",
       params: [BigInt(amount)],
     });
 

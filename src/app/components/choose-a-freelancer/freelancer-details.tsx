@@ -4,8 +4,15 @@ import CompppOnline from "./comppp-online";
 import Image from "next/image";
 import Framebadge from "./framebadge";
 import styles from "./freelancer-details.module.css";
+import { getMonthsTillTodayFromDate } from "@/src/utils/common-util";
 
-const FreelancerDetails = ({ freelancer }) => {
+const FreelancerDetails = ({
+  freelancer,
+  offer,
+}: {
+  freelancer: User;
+  offer: GigOffer;
+}) => {
   return (
     <div className={styles.gigDetails1}>
       <ComptimeLeft property1="red" />
@@ -18,13 +25,19 @@ const FreelancerDetails = ({ freelancer }) => {
                 <h1 className={styles.username}>{freelancer.username}</h1>
                 <div className={styles.userStats}>
                   <div className={styles.monthsOn}>
-                    <div className={styles.monthsLabel}>6</div>
+                    <div className={styles.monthsLabel}>
+                      {getMonthsTillTodayFromDate(freelancer.createdAt)}
+                    </div>
                     <div className={styles.monthsOnGig2hire}>
                       Months on GiG2Hire
                     </div>
                   </div>
                   <div className={styles.monthsOn}>
-                    <div className={styles.monthsLabel}>5</div>
+                    <div className={styles.monthsLabel}>
+                      {freelancer.jobsSuccessful
+                        ? freelancer.jobsSuccessful
+                        : 0}
+                    </div>
                     <div className={styles.jobsSuccessful}>Jobs successful</div>
                   </div>
                 </div>
@@ -32,7 +45,7 @@ const FreelancerDetails = ({ freelancer }) => {
             </div>
           </div>
           <div className={styles.freelancerdescription}>
-            Freelancer description here.
+            {freelancer.description}
           </div>
           <div className={styles.verification}>
             <div className={styles.btnVerify}>
@@ -52,7 +65,9 @@ const FreelancerDetails = ({ freelancer }) => {
             </div>
             <div className={styles.githubCommits}>
               <b className={styles.githubCommits1}>Github commits:</b>
-              <div className={styles.githubcommits}>25</div>
+              <div className={styles.githubcommits}>
+                {freelancer.githubCommits ? freelancer.githubCommits : 0}
+              </div>
             </div>
           </div>
           <div className={styles.verification}>
@@ -73,7 +88,9 @@ const FreelancerDetails = ({ freelancer }) => {
             </div>
             <div className={styles.githubCommits}>
               <b className={styles.xFollowers1}>X followers:</b>
-              <div className={styles.moreApplicantsPlaceholder}>1542</div>
+              <div className={styles.moreApplicantsPlaceholder}>
+                {freelancer.xFollowers ? freelancer.xFollowers : 0}
+              </div>
             </div>
           </div>
         </div>
@@ -84,6 +101,7 @@ const FreelancerDetails = ({ freelancer }) => {
           btniconTextFlex="unset"
           btniconTextAlignSelf="stretch"
           iconeditSquare="/iconperson-check.svg"
+          offer={offer}
         />
       </div>
     </div>
