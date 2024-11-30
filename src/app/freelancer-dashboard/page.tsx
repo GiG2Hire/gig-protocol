@@ -4,7 +4,7 @@ import { useCallback, useEffect } from "react";
 import styles from "./freelancer-dashboard.module.css";
 import { getTime } from "@/src/utils/getCurrTime";
 import JobCard from "../components/job-card";
-import { getUserIdFromPayload } from "../actions/login";
+import { useAuth } from "../providers/auth";
 import {
   useActiveAccount,
   useActiveWalletChain,
@@ -27,6 +27,7 @@ const FreelancerDashboard = () => {
   const walletStatus = useActiveWalletConnectionStatus();
 
   const router = useRouter();
+  const { userId } = useAuth();
 
   // const account = useActiveAccount();
   // console.log(`account:` + account?.address);
@@ -40,12 +41,10 @@ const FreelancerDashboard = () => {
 
   async function getActiveOrCompletedGigs() {
     console.log("Inside GET /api/gig/active-gigs/");
-
-    const id = await getUserIdFromPayload();
     try {
       const [responseCompleted, responseActive] = await Promise.all([
-        fetch(`api/gig/get-applications/completed-gigs/?user_id=${id}`),
-        fetch(`api/gig/get-applications/active-gigs/?user_id=${id}`)
+        fetch(`api/gig/get-applications/completed-gigs/?user_id=${userId}`),
+        fetch(`api/gig/get-applications/active-gigs/?user_id=${userId}`)
       ]);
 
       if (!responseCompleted.ok || !responseActive.ok) {
@@ -72,9 +71,8 @@ const FreelancerDashboard = () => {
   async function getGigOffersForFreelancer() {
     console.log("Trying to get gig offers for freelancer...");
 
-    const freelancer = await getUserIdFromPayload();
     try {
-      const response = await fetch(`api/gig/get-applications/pending-offers/?freelancer_id=${freelancer}`);
+      const response = await fetch(`api/gig/get-applications/pending-offers/?freelancer_id=${userId}`);
       if (!response.ok) {
         throw new Error("Failed to fetch data");
       }

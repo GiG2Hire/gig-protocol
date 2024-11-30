@@ -1,10 +1,12 @@
+//@ts-nocheck
 "use client";
+import Image from 'next/image';
 import { useCallback, useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import styles from "./client-dashboard.module.css";
 import { usdcAddresses } from "@/src/constants/usdcConstants";
 import { getTime } from "@/src/utils/getCurrTime";
-import { getRoleFromPayload, getUserIdFromPayload } from "../actions/login";
+import { useAuth } from "../providers/auth";
 import { client } from "../lib/client";
 import {
   useActiveAccount,
@@ -12,42 +14,57 @@ import {
   useActiveWalletConnectionStatus,
   useWalletBalance,
 } from "thirdweb/react";
-import { JOB_CATEGORIES } from "@/src/constants/appConstants";
+
 
 const ClientDashboard = () => {
   const router = useRouter();
+  const { userId, role } = useAuth();
   const [walletBalance, setWalletBalance] = useState("N/A");
-  //const [clientProposals, setClientProposals] = useState<any[]>();
+  const [activeGigs, setActiveGigs] = useState([]);
+
   const walletStatus = useActiveWalletConnectionStatus();
   const walletAddress = useActiveAccount();
   const walletChain = useActiveWalletChain();
   const timeNow = getTime();
 
-  const [activeGigs, setActiveGigs] = useState([]);
   let completedGigs: any[] = [];
   let offers: any[] = [];
 
+
   const getClientData = async () => {
     try {
-      const id = await getUserIdFromPayload();
-      const [responseCompleted, responseActive] = await Promise.all([
-        fetch(`api/gig/get-applications/completed-gigs/?user_id=${id}`),
-        fetch(`api/gig/get-applications/active-gigs/?user_id=${id}`),
+      const [responseComplete, responseActive] = await Promise.all([
+        fetch(`api/gig/get-applications/completed-gigs/?user_id=${userId}`),
+        fetch(`api/gig/get-applications/active-gigs/?user_id=${userId}`)
       ]);
 
-      if (!responseCompleted.ok || !responseActive.ok) {
-        throw new Error("Failed to fetch data");
-      }
 
-      const completedGigsData = JSON.parse(await responseCompleted.json());
-      completedGigs = completedGigsData;
+      /* Right now we not checking if it bad data or not, change it in future */
+      // if (/*!responseCompleted.ok ||  */!responseActive.ok) {
+      //   throw new Error("Failed to fetch data");
+      // }
+
+      //const completedGigsData = JSON.parse(await responseCompleted.json());
+      //completedGigs = completedGigsData;
 
       const activeGigsData = JSON.parse(await responseActive.json());
+
+
+      for (let gigIndex = 0; gigIndex < activeGigsData.length; gigIndex++) {
+        let tasksLength = 0;
+        Object(activeGigsData[gigIndex].gig_task).forEach((gigObj, idx) => {
+          if (gigObj.status == "DONE") {
+            tasksLength++;
+          }
+          activeGigsData[gigIndex]["completed_tasks"] = tasksLength;
+        });
+      }
+
       setActiveGigs(activeGigsData);
 
-      console.log(completedGigs, activeGigs);
+      console.log(completedGigs, activeGigsData);
     } catch (error) {
-      console.log(error);
+      console.log(error)
     }
 
     // for (let i = 0; i < data.length; i++) {
@@ -67,7 +84,9 @@ const ClientDashboard = () => {
     //   data[i]["offersCount"] = offersCount;
     // }
     //setClientProposals(data);
-  };
+
+
+  }
 
   const usdcAddress = usdcAddresses[walletChain?.id];
   const { data, isLoading, isError } = useWalletBalance({
@@ -86,19 +105,13 @@ const ClientDashboard = () => {
     }
     const fetchData = async () => {
       await getClientData();
-      console.log("actually got data");
     };
     fetchData();
-    console.log("got data");
   }, []);
 
   const onBtnChatContainerClick = useCallback(async () => {
     router.push("/chat/17-1-1/");
   }, [router]);
-
-  const openApplicantsChat = (gigId: number) => {
-    router.push("/choose-a-freelancer/" + gigId);
-  };
 
   return (
     <div className={styles.freelancerDashboard}>
@@ -171,177 +184,166 @@ const ClientDashboard = () => {
             <div className={styles.chartContainer}>
               <div className={styles.activeJobsContainerParent}>
                 <div className={styles.activeJobsContainer}>
-                  <h1 className={styles.yourActiveJobs}>Active Gigs</h1>
+                  <h1 className={styles.yourActiveJobs}>Active Proposals</h1>
                 </div>
                 <div className={styles.jobsList}>
-                  {activeGigs ? (
-                    activeGigs.map((gig) => {
-                      return (
-                        <div className={styles.jobCards}>
-                          <div className={styles.jobCardOne}>
-                            <img
-                              src={gig.user.profileImage}
-                              height={45}
-                              width={45}
-                              loading="lazy"
-                            />
-                            <b className={styles.max}>{gig.user.username}</b>
-                          </div>
-                          <div className={styles.cardOneSecondRow}>
-                            <div className={styles.cardOneJobCategories}>
-                              <div className={styles.cardOneJobTitles}>
-                                <div className={styles.cardOneCategoryNames}>
-                                  <div className={styles.developmentAndIt}>
-                                    {JOB_CATEGORIES[gig.category]}
-                                  </div>
-                                </div>
-                                <h2 className={styles.developADefi1}>
-                                  {gig.title}
-                                </h2>
-                              </div>
-                              <div className={styles.cardOneTime}>
-                                <img
-                                  className={styles.timerIcon1}
-                                  alt=""
-                                  src="/timer-11.svg"
-                                />
-                                <div className={styles.d21h58m23s}>
-                                  {/* {getRemainingTime(gig.expectedDeliveryDate)} */}
-                                  <span>00</span>
-                                  <b>D:</b>
-                                  <span>21</span>
-                                  <b>H:</b>
-                                  <span>58</span>
-                                  <b>M:</b>
-                                  <span>23</span>
-                                  <b>S</b>
-                                </div>
-                              </div>
+                  {activeGigs.map((gig, index) => (
+                    <div className={styles.jobCards}>
+                      <div className={styles.jobCardOne}>
+                        <Image
+                          className={styles.cardOneTopRow}
+                          alt=""
+                          src={gig.user.profileImage}
+                          height={45}
+                          width={45}
+                          loading="lazy"
+                        />
+                        <b className={styles.max}>{gig.user.username}</b>
+                      </div>
+                      <div className={styles.cardOneSecondRow}>
+                        <div className={styles.cardOneJobCategories}>
+                          <div className={styles.cardOneJobTitles}>
+                            <div className={styles.cardOneCategoryNames}>
+                              {/* <div className={styles.developmentAndIt}>
+                                {JOB_CATEGORIES[gig.category]}
+                              </div> */}
                             </div>
-                            <div className={styles.cardOneProgress}>
-                              <div className={styles.cardOneTaskIcons}>
-                                <div className={styles.cardOneTaskInfo}>
-                                  <img
-                                    className={styles.taskSquare1Icon}
-                                    loading="lazy"
-                                    alt=""
-                                    src="/tasksquare-11.svg"
-                                  />
-                                  <div className={styles.cardOneTasks}>
-                                    <div className={styles.tasks}>Tasks:</div>
-                                    <div className={styles.tasksQuantity}>
-                                      <b className={styles.taskPlaceholderOne}>
-                                        {7}
-                                      </b>
-                                      <div className={styles.of}>of</div>
-                                      <b className={styles.taskPlaceholderTwo}>
-                                        {7}
-                                      </b>
-                                    </div>
-                                  </div>
-                                </div>
-                                <div className={styles.cardOneFileIcons}>
-                                  <img
-                                    className={styles.cloudUploadOutline1Icon}
-                                    loading="lazy"
-                                    alt=""
-                                    src="/clouduploadoutline-11.svg"
-                                  />
-                                  <div className={styles.cardOneFiles}>
-                                    <div className={styles.files}>Files:</div>
-                                    <div className={styles.filesQuantity}>
-                                      <div
-                                        className={styles.docsPlaceholderOne}
-                                      >
-                                        <b className={styles.docsWordRow}>
-                                          {10}
-                                        </b>
-                                        <div className={styles.docs}>Docs</div>
-                                      </div>
-                                      <div
-                                        className={styles.docsPlaceholderTwo}
-                                      >
-                                        <b className={styles.linksWordRow}>
-                                          {8}
-                                        </b>
-                                        <div className={styles.links}>
-                                          Links
-                                        </div>
-                                      </div>
-                                    </div>
-                                  </div>
-                                </div>
-                              </div>
-                              <div
-                                className={styles.btnChat}
-                                onClick={() => {
-                                  openApplicantsChat(gig.gigId);
-                                }}
-                              >
-                                <div className={styles.iconChat}>
-                                  <img
-                                    className={
-                                      styles.commentCircleChatMessage1Icon
-                                    }
-                                    loading="lazy"
-                                    alt=""
-                                    src="/commentcirclechatmessage-11.svg"
-                                  />
-                                  <div className={styles.iconChatChild} />
-                                </div>
-                                <b className={styles.chat}>Chat</b>
-                              </div>
+                            <h2 className={styles.developADefi1}>
+                              {gig.title}
+                            </h2>
+                          </div>
+                          <div className={styles.cardOneTime}>
+                            <img
+                              className={styles.timerIcon1}
+                              alt=""
+                              src="/timer-11.svg"
+                            />
+                            <div className={styles.d21h58m23s}>
+                              {/* {getRemainingTime(gig.expectedDeliveryDate)} */}
+                              <span>00</span>
+                              <b>D:</b>
+                              <span>21</span>
+                              <b>H:</b>
+                              <span>58</span>
+                              <b>M:</b>
+                              <span>23</span>
+                              <b>S</b>
                             </div>
                           </div>
                         </div>
-                      );
-                    })
-                  ) : (
-                    <div>You don't have active Proposals.</div>
+                        <div className={styles.cardOneProgress}>
+                          <div className={styles.cardOneTaskIcons}>
+                            <div className={styles.cardOneTaskInfo}>
+                              <img
+                                className={styles.taskSquare1Icon}
+                                loading="lazy"
+                                alt=""
+                                src="/tasksquare-11.svg"
+                              />
+                              <div className={styles.cardOneTasks}>
+                                <div className={styles.tasks}>Tasks:</div>
+                                <div className={styles.tasksQuantity}>
+                                  <b className={styles.taskPlaceholderOne}>
+                                    {gig.completed_tasks}
+                                  </b>
+                                  <div className={styles.of}>of</div>
+                                  <b className={styles.taskPlaceholderTwo}>
+                                    {gig.gig_task.length}
+                                  </b>
+                                </div>
+                              </div>
+                            </div>
+                            <div className={styles.cardOneFileIcons}>
+                              <img
+                                className={styles.cloudUploadOutline1Icon}
+                                loading="lazy"
+                                alt=""
+                                src="/clouduploadoutline-11.svg"
+                              />
+                              <div className={styles.cardOneFiles}>
+                                <div className={styles.files}>Files:</div>
+                                <div className={styles.filesQuantity}>
+                                  <div className={styles.docsPlaceholderOne}>
+                                    <b className={styles.docsWordRow}>
+                                      {gig.gig_file.length}
+                                    </b>
+                                    {/* <div className={styles.docs}>Docs</div> */}
+                                  </div>
+                                  <div className={styles.docsPlaceholderTwo}>
+                                    <b className={styles.linksWordRow}>
+                                      {/* {gig.gig_file.length -
+                                        getGigDocs(gig.gig_file).length} */}
+                                    </b>
+                                    {/* <div className={styles.links}>Links</div> */}
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          <div
+                            className={styles.btnChat}
+                          // onClick={onBtnChatContainerClick}
+                          >
+                            <div className={styles.iconChat}>
+                              <img
+                                className={
+                                  styles.commentCircleChatMessage1Icon
+                                }
+                                loading="lazy"
+                                alt=""
+                                src="/commentcirclechatmessage-11.svg"
+                              />
+                              <div className={styles.iconChatChild} />
+                            </div>
+                            <b className={styles.chat}>Chat</b>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  )
                   )}
                 </div>
               </div>
               <div className={styles.activeJobsContainerParent}>
                 <div className={styles.activeJobsContainer}>
-                  <h1 className={styles.yourActiveJobs}>Completed Gigs</h1>
+                  <h1 className={styles.yourActiveJobs}>Completed Proposals</h1>
                 </div>
                 <div className={styles.jobsList}>
-                  {!completedGigs ? (
-                    completedGigs.map((gig: any) => {
-                      return (
-                        <div className={styles.jobCards}>
-                          <div className={styles.jobCardOne}>
-                            <img
-                              className={styles.cardOneTopRow}
-                              alt=""
-                              src={gig.user.profileImage}
-                              height={45}
-                              width={45}
-                              loading="lazy"
-                            />
-                            <b className={styles.max}>{gig.user.username}</b>
-                          </div>
-                          <div className={styles.cardOneSecondRow}>
-                            <div className={styles.cardOneJobCategories}>
-                              <div className={styles.cardOneJobTitles}>
-                                <div className={styles.cardOneCategoryNames}>
-                                  <div className={styles.developmentAndIt}>
-                                    {JOB_CATEGORIES[gig.category]}
-                                  </div>
+                  {!completedGigs ? completedGigs.map((gig) => {
+                    return (
+                      <div className={styles.jobCards}>
+                        <div className={styles.jobCardOne}>
+                          <Image
+                            className={styles.cardOneTopRow}
+                            alt=""
+                            src={gig.user.profileImage}
+                            height={45}
+                            width={45}
+                            loading="lazy"
+                          />
+                          <b className={styles.max}>{gig.user.username}</b>
+                        </div>
+                        <div className={styles.cardOneSecondRow}>
+                          <div className={styles.cardOneJobCategories}>
+                            <div className={styles.cardOneJobTitles}>
+                              <div className={styles.cardOneCategoryNames}>
+                                <div className={styles.developmentAndIt}>
+                                  {JOB_CATEGORIES[gig.category]}
                                 </div>
-                                <h2 className={styles.developADefi1}>
-                                  {gig.title}
-                                </h2>
                               </div>
-                              <div className={styles.cardOneBudget}>
-                                <img
-                                  className={styles.timerIcon1}
-                                  alt=""
-                                  src="/icon/usdc.svg"
-                                />
-                                <div className={styles.d21h58m23s}>
-                                  {gig.gigBudget}
-                                  {/* <span>00</span>
+                              <h2 className={styles.developADefi1}>
+                                {gig.title}
+                              </h2>
+                            </div>
+                            <div className={styles.cardOneBudget}>
+                              <img
+                                className={styles.timerIcon1}
+                                alt=""
+                                src="/icon/usdc.svg"
+                              />
+                              <div className={styles.d21h58m23s}>
+                                {gig.gigBudget}
+                                {/* <span>00</span>
                                 <b>D:</b>
                                 <span>21</span>
                                 <b>H:</b>
@@ -349,85 +351,77 @@ const ClientDashboard = () => {
                                 <b>M:</b>
                                 <span>23</span>
                                 <b>S</b> */}
-                                </div>
-                              </div>
-                            </div>
-                            <div className={styles.cardOneProgress}>
-                              <div className={styles.cardOneTaskIcons}>
-                                <div className={styles.cardOneTaskInfo}>
-                                  <img
-                                    className={styles.taskSquare1Icon}
-                                    loading="lazy"
-                                    alt=""
-                                    src="/tasksquare-11.svg"
-                                  />
-                                  <div className={styles.cardOneTasks}>
-                                    <div className={styles.tasks}>Tasks:</div>
-                                    <div className={styles.tasksQuantity}>
-                                      <b className={styles.taskPlaceholderOne}>
-                                        {7}
-                                      </b>
-                                      <div className={styles.of}>of</div>
-                                      <b className={styles.taskPlaceholderTwo}>
-                                        {7}
-                                      </b>
-                                    </div>
-                                  </div>
-                                </div>
-                                <div className={styles.cardOneFileIcons}>
-                                  <img
-                                    className={styles.cloudUploadOutline1Icon}
-                                    loading="lazy"
-                                    alt=""
-                                    src="/clouduploadoutline-11.svg"
-                                  />
-                                  <div className={styles.cardOneFiles}>
-                                    <div className={styles.files}>Files:</div>
-                                    <div className={styles.filesQuantity}>
-                                      <div
-                                        className={styles.docsPlaceholderOne}
-                                      >
-                                        <b className={styles.docsWordRow}>
-                                          {7}
-                                        </b>
-                                        <div className={styles.docs}>Docs</div>
-                                      </div>
-                                      <div
-                                        className={styles.docsPlaceholderTwo}
-                                      >
-                                        <b className={styles.linksWordRow}>
-                                          {7}
-                                        </b>
-                                        <div className={styles.links}>
-                                          Links
-                                        </div>
-                                      </div>
-                                    </div>
-                                  </div>
-                                </div>
-                              </div>
-                              <div className={styles.btnChat}>
-                                <div className={styles.iconChat}>
-                                  <img
-                                    className={
-                                      styles.commentCircleChatMessage1Icon
-                                    }
-                                    loading="lazy"
-                                    alt=""
-                                    src="/commentcirclechatmessage-11.svg"
-                                  />
-                                  <div className={styles.iconChatChild} />
-                                </div>
-                                <b className={styles.chat}>Chat</b>
                               </div>
                             </div>
                           </div>
+                          <div className={styles.cardOneProgress}>
+                            <div className={styles.cardOneTaskIcons}>
+                              <div className={styles.cardOneTaskInfo}>
+                                <img
+                                  className={styles.taskSquare1Icon}
+                                  loading="lazy"
+                                  alt=""
+                                  src="/tasksquare-11.svg"
+                                />
+                                <div className={styles.cardOneTasks}>
+                                  <div className={styles.tasks}>Tasks:</div>
+                                  <div className={styles.tasksQuantity}>
+                                    <b className={styles.taskPlaceholderOne}>
+                                      {/* {getCompletedTasks(gig.gig_task).length} */}
+                                    </b>
+                                    <div className={styles.of}>of</div>
+                                    <b className={styles.taskPlaceholderTwo}>
+                                      {gig.gig_task.length}
+                                    </b>
+                                  </div>
+                                </div>
+                              </div>
+                              <div className={styles.cardOneFileIcons}>
+                                <img
+                                  className={styles.cloudUploadOutline1Icon}
+                                  loading="lazy"
+                                  alt=""
+                                  src="/clouduploadoutline-11.svg"
+                                />
+                                <div className={styles.cardOneFiles}>
+                                  <div className={styles.files}>Files:</div>
+                                  <div className={styles.filesQuantity}>
+                                    <div className={styles.docsPlaceholderOne}>
+                                      <b className={styles.docsWordRow}>
+                                        {/* {getGigDocs(gig.gig_file).length} */}
+                                      </b>
+                                      <div className={styles.docs}>Docs</div>
+                                    </div>
+                                    <div className={styles.docsPlaceholderTwo}>
+                                      <b className={styles.linksWordRow}>
+                                        {/* {gig.gig_file.length -
+                                          getGigDocs(gig.gig_file).length} */}
+                                      </b>
+                                      <div className={styles.links}>Links</div>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                            <div className={styles.btnChat}>
+                              <div className={styles.iconChat}>
+                                <img
+                                  className={
+                                    styles.commentCircleChatMessage1Icon
+                                  }
+                                  loading="lazy"
+                                  alt=""
+                                  src="/commentcirclechatmessage-11.svg"
+                                />
+                                <div className={styles.iconChatChild} />
+                              </div>
+                              <b className={styles.chat}>Chat</b>
+                            </div>
+                          </div>
                         </div>
-                      );
-                    })
-                  ) : (
-                    <div>You don't have completed proposals.</div>
-                  )}
+                      </div>
+                    );
+                  }) : <div>You don't have completed proposals.</div>}
                 </div>
               </div>
             </div>
@@ -437,9 +431,7 @@ const ClientDashboard = () => {
                   <div className={styles.pendingJobsContainer}>
                     <h1 className={styles.jobsToBe}>Applications</h1>
                     <div className={styles.pendingJobsCount}>
-                      <b className={styles.pendingJobsNumber}>
-                        {offers.length}
-                      </b>
+                      <b className={styles.pendingJobsNumber}>{offers.length}</b>
                       <div className={styles.pending}>pending</div>
                     </div>
                   </div>
@@ -516,11 +508,12 @@ const ClientDashboard = () => {
                   <div className={styles.openDisputesContainer}>
                     <h1 className={styles.jobsToBe}>Open Disputes</h1>
                     <div className={styles.pendingJobsCount}>
-                      <b className={styles.pendingJobsNumber}>1</b>
+                      <b className={styles.pendingJobsNumber}>0</b>
                       <div className={styles.pending}>pending</div>
                     </div>
                   </div>
-                  <div className={styles.featuredDispute}>
+                  <div>Soon in Production..</div>
+                  {/* <div className={styles.featuredDispute}>
                     <div className={styles.jobContainer}>
                       <div className={styles.btnDevit}>
                         <img
@@ -579,7 +572,7 @@ const ClientDashboard = () => {
                         <b className={styles.viewMoreLabel}>View Offer</b>
                       </button>
                     </div>
-                  </div>
+                  </div> */}
                 </div>
               </div>
             </div>
@@ -602,10 +595,7 @@ const ClientDashboard = () => {
           <a className={styles.socialMedia} href="https://x.com/gig2hire">
             <img className={styles.socialIconOne} alt="" src="/vector-7.svg" />
           </a>
-          <a
-            className={styles.socialMedia1}
-            href="https://discord.com/invite/sFEZN2nFkV"
-          >
+          <a className={styles.socialMedia1} href="https://discord.com/invite/sFEZN2nFkV">
             <img className={styles.socialIconTwo} alt="" src="/vector-8.svg" />
           </a>
         </div>

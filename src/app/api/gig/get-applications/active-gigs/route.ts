@@ -2,10 +2,7 @@
 import { prisma } from "@/src/app/lib/db";
 import { isLoggedIn } from "@/src/app/actions/login";
 import { NextResponse, NextRequest } from "next/server";
-import {
-  getRoleFromPayload,
-  getUserIdFromPayload,
-} from "@/src/app/actions/login";
+import { getRoleFromPayload, getUserIdFromPayload } from "@/src/app/actions/login";
 import { GIG_COMPLETION_STATUS } from "@/src/constants/appConstants";
 
 /**
@@ -17,12 +14,11 @@ import { GIG_COMPLETION_STATUS } from "@/src/constants/appConstants";
 export async function GET(req: NextRequest) {
   const { searchParams } = new URL(req.url);
   const user_id = parseInt(searchParams.get("user_id") || "0");
-  console.log("user id printinh: ", user_id);
   const payloadUserId = await getUserIdFromPayload();
   const payloadUserRole = await getRoleFromPayload();
 
   // check user authentication
-  if (!(await isLoggedIn())) {
+  if (!await isLoggedIn()) {
     return NextResponse.json(
       { message: "User not authenticated." },
       { status: 401 }
@@ -43,30 +39,17 @@ export async function GET(req: NextRequest) {
     );
   }
 
+
   let whereClause = {};
   if (payloadUserRole === "Client") {
     whereClause = {
       clientId: user_id,
-      OR: [
-        {
-          completionStatus: GIG_COMPLETION_STATUS.OPEN,
-        },
-        {
-          completionStatus: GIG_COMPLETION_STATUS.IN_PROGRESS,
-        },
-      ],
+      completionStatus: GIG_COMPLETION_STATUS.OPEN,
     };
   } else if (payloadUserRole === "Freelancer") {
     whereClause = {
       freelancerId: user_id,
-      OR: [
-        {
-          completionStatus: GIG_COMPLETION_STATUS.OPEN,
-        },
-        {
-          completionStatus: GIG_COMPLETION_STATUS.IN_PROGRESS,
-        },
-      ],
+      completionStatus: GIG_COMPLETION_STATUS.OPEN,
     };
   }
 
@@ -88,10 +71,9 @@ export async function GET(req: NextRequest) {
   }
 
   // changed `bigint` into `string` for resolving issue with serialization BigInt from TypeScript
-  return NextResponse.json(
-    JSON.stringify(activeGigs, (key, value) =>
-      typeof value === "bigint" ? value.toString() : value
-    ),
-    { status: 200 }
-  );
+  return NextResponse.json(JSON.stringify(activeGigs, (key, value) =>
+    typeof value === 'bigint'
+      ? value.toString()
+      : value
+  ), { status: 200 });
 }
