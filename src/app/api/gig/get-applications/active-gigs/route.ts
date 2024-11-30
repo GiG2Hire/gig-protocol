@@ -43,6 +43,7 @@ export async function GET(req: NextRequest) {
     );
   }
 
+<<<<<<< HEAD
   let whereClause = {};
   if (payloadUserRole === "Client") {
     whereClause = {
@@ -50,6 +51,29 @@ export async function GET(req: NextRequest) {
       OR: [
         {
           completionStatus: GIG_COMPLETION_STATUS.OPEN,
+=======
+
+    let whereClause = {};
+    if (payloadUserRole === "Client") {
+        whereClause = {
+            clientId: user_id,
+            completionStatus: GIG_COMPLETION_STATUS.OPEN,
+        };
+    } else if (payloadUserRole === "Freelancer") {
+        whereClause = {
+            freelancerId: user_id,
+            completionStatus: GIG_COMPLETION_STATUS.OPEN,
+        };
+    }
+
+    // Retrieve data from the database based on the user's role
+    const activeGigs = await prisma.gig.findMany({
+        where: whereClause,
+        include: {
+            gig_task: true,
+            gig_file: true,
+            user: true,
+>>>>>>> b45642efd24341f796c4fba98d5b1bbbc5079aff
         },
         {
           completionStatus: GIG_COMPLETION_STATUS.IN_PROGRESS,
