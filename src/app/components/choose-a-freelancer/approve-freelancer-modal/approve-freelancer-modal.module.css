@@ -1,0 +1,358 @@
+.modalBackdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgb(214, 234, 94, 0.4);
+  z-index: 100000;
+  transition: ease-out 0.3s;
+}
+
+.approveFreelancer {
+  text-decoration: none;
+  position: relative;
+  font-weight: 700;
+  color: inherit;
+}
+.approveFreelancerModal,
+.btncloseWrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  padding: var(--padding-7xs) 0 0;
+}
+.approveFreelancerModal {
+  align-self: stretch;
+  background-color: var(--navy-bk);
+  flex-direction: row;
+  justify-content: space-between;
+  padding: var(--padding-base) var(--padding-mini) var(--padding-base)
+    var(--padding-base);
+  gap: var(--gap-xl);
+}
+.roaring {
+  margin: 0;
+}
+.months,
+.onGig2hire,
+.roaringKitty {
+  position: relative;
+  color: var(--light);
+  text-align: left;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.roaringKitty {
+  text-decoration: none;
+  align-self: stretch;
+  height: 1.875rem;
+  font-size: var(--hl3-size);
+  font-weight: 700;
+  font-family: var(--hl3);
+  display: inline-block;
+  flex-shrink: 0;
+}
+.months,
+.onGig2hire {
+  font-size: var(--small-size);
+  font-family: var(--h3);
+}
+.months {
+  text-decoration: none;
+}
+.onGig2hire {
+  display: inline-block;
+  min-width: 4.25rem;
+}
+.experienceLabels {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: flex-start;
+  gap: var(--gap-9xs);
+}
+.jobs,
+.successful {
+  position: relative;
+  font-size: var(--small-size);
+  font-family: var(--h3);
+  color: var(--light);
+  text-align: left;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.successful {
+  display: inline-block;
+  min-width: 4.063rem;
+}
+.experienceDetails {
+  align-self: stretch;
+  flex-direction: column;
+  gap: var(--gap-5xs);
+}
+.compppOnlineParent,
+.experience,
+.experienceDetails {
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+}
+.experience {
+  flex: 1;
+  flex-direction: column;
+  padding: var(--padding-11xs) 0 0;
+}
+.compppOnlineParent {
+  width: 17.5rem;
+  background-color: var(--navy-bk);
+  flex-direction: row;
+  padding: var(--padding-5xs);
+  box-sizing: border-box;
+  gap: var(--gap-9xs);
+}
+.developADefi,
+.youAreApproving {
+  position: relative;
+  font-family: var(--h3);
+  text-align: left;
+}
+.youAreApproving {
+  align-self: stretch;
+  font-size: var(--p-size);
+  color: var(--midnight-800);
+}
+.developADefi {
+  margin: 0;
+  font-size: var(--hl3-size);
+  font-weight: 700;
+  color: var(--navy-800);
+}
+.frameParent,
+.projectDetails {
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  max-width: 100%;
+}
+.projectDetails {
+  flex: 1;
+  flex-direction: column;
+  gap: var(--gap-5xs);
+  min-width: 15.25rem;
+}
+.frameParent {
+  align-self: stretch;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-content: flex-start;
+  gap: var(--gap-13xl);
+}
+.lookingForAn,
+.tasksPlaceholderUse {
+  font-family: var(--h3);
+  position: relative;
+  text-align: left;
+}
+.lookingForAn {
+  margin: 0;
+  font-size: var(--p-size);
+  color: var(--midnight-800);
+}
+.tasksPlaceholderUse {
+  width: 100%;
+  border: 0;
+  outline: 0;
+  font-size: var(--small-size);
+  background-color: transparent;
+  flex: 1;
+  color: var(--color-black);
+  display: inline-block;
+  min-width: 15.625rem;
+  padding: 0;
+  max-width: 100%;
+}
+.compsubmitTasks {
+  align-self: stretch;
+  height: 2.938rem;
+  border: 1px solid var(--navy-600);
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: flex-start;
+  padding: var(--padding-7xs) var(--padding-8xs) 1.375rem var(--padding-5xs);
+  max-width: 100%;
+}
+.deadlinePlaceHolder {
+  width: 100%;
+  border: 0;
+  outline: 0;
+  font-family: var(--h3);
+  font-size: var(--small-size);
+  background-color: transparent;
+  flex: 1;
+  position: relative;
+  color: var(--color-black);
+  text-align: left;
+  display: inline-block;
+  min-width: 14.875rem;
+  padding: 0;
+  max-width: 100%;
+}
+.compdeadlineBox {
+  flex: 1;
+  border: 1px solid var(--color-black);
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: flex-start;
+  padding: var(--padding-7xs) var(--padding-8xs) 2.75rem var(--padding-5xs);
+  min-width: 16.75rem;
+  min-height: 4.313rem;
+  max-width: 100%;
+}
+.budgetPlaceholderUse {
+  flex: 1;
+  position: relative;
+  font-size: var(--small-size);
+  font-family: var(--h3);
+  color: var(--color-black);
+  text-align: left;
+}
+.compbudgetBox,
+.compdeadlineBoxParent,
+.freelancerStatus {
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+}
+.compbudgetBox {
+  width: 16.25rem;
+  border: 1px solid var(--color-black);
+  box-sizing: border-box;
+  flex-direction: row;
+  padding: var(--padding-7xs) 0.437rem 1.812rem;
+}
+.compdeadlineBoxParent,
+.freelancerStatus {
+  align-self: stretch;
+  gap: var(--gap-base);
+  max-width: 100%;
+}
+.compdeadlineBoxParent {
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-content: flex-start;
+}
+.freelancerStatus {
+  flex-direction: column;
+}
+.back {
+  margin: 0;
+  width: 3.063rem;
+  position: relative;
+  font-size: var(--medium-size);
+  font-weight: 400;
+  font-family: var(--h3);
+  color: var(--navy-bk);
+  text-align: center;
+  display: inline-block;
+}
+.backWrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  padding: 0.656rem 0 0;
+}
+.button {
+  position: relative;
+  font-size: var(--hl3-size);
+  font-family: var(--h3);
+  color: var(--light);
+  text-align: left;
+}
+.btniconText {
+  cursor: pointer;
+  border: 0;
+  padding: var(--padding-5xs) var(--padding-base);
+  background-color: var(--navy-bk);
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: var(--gap-5xs);
+}
+.actions,
+.freelancerDetails {
+  display: flex;
+  justify-content: flex-start;
+  max-width: 100%;
+}
+.actions {
+  flex-direction: row;
+  align-items: flex-start;
+  gap: var(--gap-5xl);
+}
+.freelancerDetails {
+  margin: 0;
+  flex: 1;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 3rem;
+}
+.freelancerInfo,
+.modalapproveFreelancer {
+  box-sizing: border-box;
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+}
+.freelancerInfo {
+  align-self: stretch;
+  flex-direction: row;
+  padding: 0 var(--padding-base);
+  max-width: 100%;
+}
+.modalapproveFreelancer {
+  width: 50%;
+  position: relative;
+  background-color: var(--light);
+  border: 2px solid var(--navy-bk);
+  overflow: hidden;
+  flex-direction: column;
+  padding: 0 0 0.812rem;
+  gap: var(--gap-base);
+  line-height: normal;
+  letter-spacing: normal;
+  text-align: left;
+  font-size: var(--hl2-size);
+  color: var(--light);
+  font-family: var(--hl3);
+  margin: 0 auto;
+}
+@media screen and (max-width: 690px) {
+  .frameParent {
+    gap: var(--gap-base);
+  }
+  .freelancerDetails {
+    gap: var(--gap-5xl);
+  }
+}
+@media screen and (max-width: 450px) {
+  .developADefi,
+  .roaringKitty {
+    font-size: var(--font-size-lgi);
+  }
+  .back {
+    font-size: var(--p-size);
+  }
+  .actions {
+    flex-wrap: wrap;
+  }
+}

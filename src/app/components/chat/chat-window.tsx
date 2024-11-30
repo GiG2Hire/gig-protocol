@@ -1,19 +1,32 @@
 "use client";
+import { getMessages } from "../../actions/get-messages";
 import { pusherClient } from "../../lib/pusher";
+import { useAuth } from "../../providers/auth";
 import styles from "./chat-window.module.css";
 import { useEffect, useState } from "react";
 const ChatWindow = ({
-  initialMessages,
-  currentUser,
   chatId,
   className = "",
 }: {
-  initialMessages: any;
-  currentUser: number;
   chatId: string;
   className: string;
 }) => {
-  const [messages, setMessages] = useState(initialMessages);
+  const { userId, role, updateLoggedInUser, resetLoggedInUser } = useAuth();
+  const [messages, setMessages] = useState<ChatMessage[]>([]);
+
+  /**
+   * get initial messages to load in chat window
+   */
+  async function getChatMessages(chatId: string) {
+    try {
+      //let messages = await fetch(`api/message/get-messages?chat_id=${chatId}`);    Have some troubles with it
+
+      let messages = (await getMessages(chatId)) as ChatMessage[];
+      setMessages(messages);
+    } catch (error) {
+      console.log(error);
+    }
+  }
 
   /**
    * chatId dependency ensures new messages corresponding to new chat id are loaded.
@@ -21,6 +34,10 @@ const ChatWindow = ({
    * pusherClient object: to bind to events on all subscribed channels simultaneously.
    */
   useEffect(() => {
+    // if (messages.length == 0) {
+    //   getChatMessages(chatId);
+    // }
+    getChatMessages(chatId);
     // pusher client subscribes to a channel
     const channel = pusherClient.subscribe("chat-messages");
     console.log("bind to event completed");
@@ -42,14 +59,15 @@ const ChatWindow = ({
       console.log("flush previous channel!!");
       pusherClient.unsubscribe("chat-messages");
       channel.unbind(`chat__${chatId}`);
+      setMessages([]);
     };
   }, [chatId]);
   return (
     <div>
       <div className={styles.freelancerClientChatMsgBox}>
-        {initialMessages?.length > 0 ? (
-          initialMessages.map((message) => {
-            if (message.senderId !== currentUser) {
+        {messages?.length > 0 ? (
+          messages.map((message) => {
+            if (message.senderId !== userId) {
               return (
                 <div
                   key={message.id} // Ensure unique key for each message
@@ -68,7 +86,9 @@ const ChatWindow = ({
                   className={styles.freenalceemployerChatInner10}
                 >
                   <div className={styles.definitelySophieIllEnsurParent}>
-                    <p className={styles.definitelySophieIll}>{message.message}</p>
+                    <p className={styles.definitelySophieIll}>
+                      {message.message}
+                    </p>
                     <b className={styles.b15}>21:33</b>
                   </div>
                 </div>

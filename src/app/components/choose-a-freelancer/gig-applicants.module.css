@@ -1,0 +1,42 @@
+.selectedApplicantDiv {
+  background: #6e83ff;
+}
+.applicantDiv {
+  cursor: pointer;
+  transition: ease-out 300ms;
+}
+.applicantDiv:hover {
+  cursor: pointer;
+  background: rgba(110, 131, 255, 0.4);
+}
+
+.gigDetails {
+  /* height: 47.125rem; */
+  background-color: var(--lime-bk-10a);
+  flex-direction: column;
+  padding: var(--padding-5xs);
+  gap: var(--gap-base);
+  box-sizing: border-box;
+}
+.applicants {
+  margin: 0;
+  font-size: inherit;
+  font-weight: 700;
+  font-family: inherit;
+  position: relative;
+}
+.applicantList {
+  align-self: stretch;
+  flex: 1;
+  overflow-y: auto;
+  flex-direction: column;
+  gap: var(--gap-5xs);
+  font-size: var(--p-size);
+  color: var(--midnight-800);
+}
+.applicantList,
+.gigDetails {
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+}

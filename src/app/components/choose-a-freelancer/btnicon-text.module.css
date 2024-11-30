@@ -1,0 +1,44 @@
+.iconeditSquare {
+  width: 1.5rem;
+  position: relative;
+  height: 1.5rem;
+}
+.button {
+  position: relative;
+  font-size: var(--hl3-size);
+  font-family: var(--h3);
+  color: var(--red-800);
+  text-align: left;
+}
+.root {
+  cursor: pointer;
+  border: 0;
+  padding: var(--padding-5xs) var(--padding-base);
+  background-color: var(--red-200);
+  flex: 1;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: var(--gap-5xs);
+}
+.root[data-buttonVariables="navy-m-def"] {
+  background-color: var(--navy-bk);
+}
+.root[data-buttonVariables="navy-st-m-def"] {
+  border: 1px solid var(--navy-600);
+  background-color: transparent;
+}
+.root[data-buttonVariables="navy-m-def"] .iconeditSquare {
+  display: unset;
+}
+.root[data-buttonVariables="navy-st-m-def"] .iconeditSquare {
+  display: unset;
+  margin: 0;
+}
+.root[data-buttonVariables="navy-m-def"] .button {
+  color: var(--light);
+}
+.root[data-buttonVariables="navy-st-m-def"] .button {
+  color: var(--navy-600);
+}

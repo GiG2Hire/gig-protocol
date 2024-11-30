@@ -17,10 +17,11 @@ export async function POST(req: Request) {
     pusherServer.trigger("chat-messages", `chat__${chatId}`, {
       message: chatMsg,
       senderId: senderId,
-      sentiment: sentiment,
+      sentiment: "",
     });
     console.log("Successfully published event to pusher channel!!");
   } catch (error) {
+    console.log(error);
     if (error instanceof Error) {
       return NextResponse.json({ error: error.message }, { status: 500 });
     }

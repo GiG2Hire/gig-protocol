@@ -1,0 +1,138 @@
+.iconeventList {
+  height: 1.5rem;
+  width: 1.5rem;
+}
+.b,
+.b1,
+.iconeventList,
+.tasks {
+  position: relative;
+}
+.tasks {
+  margin: 0;
+  font-size: inherit;
+  font-weight: 700;
+  font-family: inherit;
+}
+.b,
+.b1 {
+  height: 1.938rem;
+  width: 2rem;
+  display: inline-block;
+}
+.b1 {
+  width: 0.625rem;
+}
+.parent {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  gap: var(--gap-11xs);
+}
+.expandUserIcon {
+  position: relative;
+}
+.expandUser,
+.userTasks {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  gap: var(--gap-11xs);
+}
+.userTasks {
+  gap: var(--gap-5xs);
+}
+.iconkeyboardArrowDown {
+  height: 1.5rem;
+  width: 1.5rem;
+  position: relative;
+}
+.userTasksParent {
+  align-self: stretch;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+.btncheckbox {
+  margin: 0;
+  width: 1.125rem;
+}
+.tasktext {
+  height: 0.938rem;
+  width: 3.188rem;
+  position: relative;
+  display: inline-block;
+}
+.frametask,
+.frametaskWrapper {
+  display: flex;
+  justify-content: flex-start;
+}
+.frametask {
+  flex-direction: row;
+  align-items: center;
+  gap: var(--gap-9xs);
+}
+.frametaskWrapper {
+  /* width: 16.75rem; */
+  flex-direction: column;
+  align-items: flex-start;
+}
+.btncheckbox1 {
+  margin: 0;
+  width: 1.125rem;
+}
+.tasktext1 {
+  height: 0.938rem;
+  width: 3.188rem;
+  position: relative;
+  display: inline-block;
+}
+.frametask1,
+.frametaskContainer {
+  display: flex;
+  justify-content: flex-start;
+}
+.frametask1 {
+  flex-direction: row;
+  align-items: center;
+  gap: var(--gap-9xs);
+}
+.frametaskContainer {
+  width: 20rem;
+  flex-direction: column;
+  align-items: flex-start;
+}
+.compsubmitTasks,
+.frameParent {
+  align-items: flex-start;
+  justify-content: flex-start;
+  gap: var(--gap-5xs);
+}
+.frameParent {
+  /* width: 16.75rem; */
+  /* display: none; */
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-content: flex-start;
+  font-size: var(--small-size);
+  color: var(--midnight-800);
+  transition: ease-in-out 300ms;
+  cursor: pointer;
+}
+.compsubmitTasks {
+  align-self: stretch;
+  border: 1px solid var(--navy-600);
+  display: flex;
+  flex-direction: column;
+  padding: var(--padding-5xs);
+  text-align: left;
+  font-size: var(--hl3-size);
+  color: var(--navy-600);
+  font-family: var(--h3);
+  transition: ease-in-out 300ms;
+  cursor: pointer;
+}

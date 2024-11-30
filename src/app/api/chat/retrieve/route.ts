@@ -6,6 +6,7 @@ import { redirect } from "next/navigation";
  * @notice Get chat messages for chat window display
  * @param req senderId, receiverId
  * @returns list of messages sent/received as part of chat sorted in ascending order
+ * @author MAYANK CHHIPA (mgroovyank)
  */
 export async function GET(req: Request) {
   console.log("Inside GET /chat/retrieve/");

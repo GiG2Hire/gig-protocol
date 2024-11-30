@@ -1,0 +1,476 @@
+.navbarPlaceholder {
+  text-decoration: none;
+  position: relative;
+  color: inherit;
+}
+.compnavbar,
+.gigHeaderWrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+.compnavbar {
+  backdrop-filter: blur(50px);
+  border: 1px solid var(--color-black);
+  justify-content: flex-start;
+  padding: var(--padding-4xl) var(--padding-648xl) var(--padding-4xl)
+    var(--padding-651xl);
+  top: 0;
+  z-index: 99;
+  position: sticky;
+  text-align: left;
+  font-size: var(--p-size);
+  color: var(--color-black);
+  font-family: var(--h3);
+}
+.gigHeaderWrapper {
+  align-self: stretch;
+  justify-content: center;
+  padding: 0 var(--padding-xl);
+  box-sizing: border-box;
+  max-width: 100%;
+}
+.footerPlaceholder {
+  position: relative;
+}
+.compfooter,
+.screenchatApplicants {
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+}
+.compfooter {
+  border: 1px solid var(--color-black);
+  overflow: hidden;
+  flex-direction: row;
+  padding: var(--padding-9xl) var(--padding-648xl) var(--padding-9xl)
+    var(--padding-651xl);
+  text-align: left;
+  font-size: var(--p-size);
+  color: var(--color-black);
+  font-family: var(--h3);
+}
+.screenchatApplicants {
+  width: 100%;
+  position: relative;
+  background-color: var(--light);
+  flex-direction: column;
+  gap: var(--gap-13xl);
+  line-height: normal;
+  letter-spacing: normal;
+}
+@media screen and (max-width: 1000px) {
+  .compfooter,
+  .compnavbar {
+    gap: 24.25rem;
+    padding-left: var(--padding-316xl);
+    padding-right: var(--padding-314xl);
+    box-sizing: border-box;
+  }
+  .compfooter {
+    gap: 31.688rem;
+  }
+  .screenchatApplicants {
+    gap: var(--gap-base);
+  }
+}
+@media screen and (max-width: 450px) {
+  .compfooter,
+  .compnavbar {
+    gap: 12.125rem;
+    padding-left: var(--padding-xl);
+    padding-right: var(--padding-xl);
+    box-sizing: border-box;
+  }
+  .compfooter {
+    gap: 15.875rem;
+  }
+}
+
+/**
+component css
+*/
+.offerActions {
+  align-self: stretch;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: flex-start;
+  gap: var(--gap-base);
+}
+.applicants {
+  margin: 0;
+  font-size: inherit;
+  font-weight: 700;
+  font-family: inherit;
+}
+.applicants,
+.moreApplicantsPlaceholder {
+  position: relative;
+}
+.compchatbubble {
+  border: 0.5px solid var(--navy-600-40a);
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  padding: var(--padding-2xl) var(--padding-12xl);
+  color: var(--color-black);
+}
+
+.chatPlaceholderWrapper,
+.gigDetails {
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+}
+
+.chatPlaceholderWrapper,
+.gigDetails {
+  box-sizing: border-box;
+}
+.gigDetails {
+  /* height: 47.125rem; */
+  background-color: var(--lime-bk-10a);
+  flex-direction: column;
+  padding: var(--padding-5xs);
+  gap: var(--gap-base);
+}
+.chatPlaceholderWrapper {
+  flex: 1;
+  border: 8px solid var(--navy-bk);
+  overflow: hidden;
+  flex-direction: row;
+  padding: var(--padding-339xl) var(--padding-210xl) var(--padding-339xl)
+    var(--padding-227xl);
+  min-width: 8.313rem;
+  max-width: 100%;
+  font-size: var(--p-size);
+  color: var(--color-black);
+}
+.monthsLabel,
+.monthsOnGig2hire,
+.username {
+  position: relative;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.username {
+  margin: 0;
+  align-self: stretch;
+  font-size: inherit;
+  font-weight: 700;
+  font-family: inherit;
+}
+.monthsLabel,
+.monthsOnGig2hire {
+  display: inline-block;
+  min-width: 0.563rem;
+}
+.monthsOnGig2hire {
+  min-width: 7.188rem;
+}
+.monthsOn {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: flex-start;
+  gap: var(--gap-9xs);
+}
+.jobsSuccessful {
+  position: relative;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.userInfo,
+.userStats {
+  flex-direction: column;
+  gap: var(--gap-5xs);
+}
+.userStats {
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  font-size: var(--small-size);
+  font-family: var(--h3);
+}
+.userInfo {
+  align-self: stretch;
+}
+.compppOnlineParent,
+.userInfo,
+.userInfoWrapper {
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+}
+.userInfoWrapper {
+  flex: 1;
+  flex-direction: column;
+  padding: var(--padding-11xs) 0 0;
+  font-size: var(--hl3-size);
+  color: var(--midnight-800);
+  font-family: var(--hl3);
+}
+.compppOnlineParent {
+  align-self: stretch;
+  flex-direction: row;
+  gap: var(--gap-base);
+  color: var(--navy-600);
+}
+.freelancerdescription {
+  align-self: stretch;
+  position: relative;
+}
+.socialgithubIcon {
+  height: 1.5rem;
+  width: 1.5rem;
+  position: relative;
+  overflow: hidden;
+  flex-shrink: 0;
+  object-fit: cover;
+}
+.github {
+  margin: 0;
+  position: relative;
+  font-size: inherit;
+  font-weight: 400;
+  font-family: inherit;
+}
+.githubInfo {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  gap: var(--gap-5xs);
+}
+.btnCheck {
+  height: 1.125rem;
+  width: 1.125rem;
+  background-color: var(--light);
+  overflow: hidden;
+  flex-shrink: 0;
+  display: none;
+}
+.btnVerify {
+  align-self: stretch;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--padding-9xs) 0;
+  gap: var(--gap-xl);
+}
+.githubCommits1,
+.githubcommits {
+  position: relative;
+  display: inline-block;
+  min-width: 8.063rem;
+}
+.githubcommits {
+  min-width: 1.313rem;
+}
+.githubCommits,
+.verification {
+  align-self: stretch;
+  display: flex;
+}
+.githubCommits {
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--gap-xl);
+  font-size: var(--p-size);
+}
+.verification {
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  font-size: var(--medium-size);
+}
+.xcom {
+  margin: 0;
+  position: relative;
+  font-size: inherit;
+  font-weight: 400;
+  font-family: inherit;
+  display: inline-block;
+  min-width: 3.813rem;
+}
+.xBadge {
+  height: 1.25rem;
+  width: 4.563rem;
+  background-color: var(--navy-400);
+}
+.xFollowers1 {
+  width: 8.063rem;
+  position: relative;
+  display: inline-block;
+  flex-shrink: 0;
+}
+.frameGroup {
+  align-self: stretch;
+  gap: var(--gap-xs);
+}
+.frameGroup,
+.frameParent,
+.gigDetails1,
+.gigHeader {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+}
+.frameParent {
+  align-self: stretch;
+  background-color: var(--navy-bk-40a);
+  overflow: hidden;
+  padding: var(--padding-5xs);
+  gap: var(--gap-380xl);
+  color: var(--midnight-800);
+}
+.gigDetails1,
+.gigHeader {
+  width: 18.75rem;
+  gap: var(--gap-3xs);
+  font-size: var(--small-size);
+  color: var(--red-800);
+}
+.gigHeader {
+  width: 79.5rem;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-content: flex-start;
+  gap: var(--gap-5xl);
+  max-width: 100%;
+  text-align: left;
+  font-size: var(--hl3-size);
+  color: var(--navy-600);
+  font-family: var(--h3);
+}
+@media screen and (max-width: 1000px) {
+  .chatPlaceholderWrapper {
+    padding-top: var(--padding-214xl);
+    padding-bottom: var(--padding-214xl);
+    box-sizing: border-box;
+  }
+}
+@media screen and (max-width: 725px) {
+  .chatPlaceholderWrapper {
+    padding-left: var(--padding-104xl);
+    padding-right: var(--padding-95xl);
+    box-sizing: border-box;
+  }
+}
+@media screen and (max-width: 450px) {
+  .applicants {
+    font-size: var(--font-size-lgi);
+  }
+  .chatPlaceholderWrapper {
+    padding-left: var(--padding-xl);
+    padding-right: var(--padding-xl);
+    box-sizing: border-box;
+  }
+  .username {
+    font-size: var(--font-size-lgi);
+  }
+  .github,
+  .xcom {
+    font-size: var(--p-size);
+  }
+  .frameParent {
+    gap: var(--gap-180xl);
+  }
+}
+
+/* Screen chat applicants css **/
+.navbarPlaceholder {
+  text-decoration: none;
+  position: relative;
+  color: inherit;
+}
+.compnavbar,
+.gigHeaderWrapper {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+}
+.compnavbar {
+  backdrop-filter: blur(50px);
+  border: 1px solid var(--color-black);
+  justify-content: flex-start;
+  padding: var(--padding-4xl) var(--padding-648xl) var(--padding-4xl)
+    var(--padding-651xl);
+  top: 0;
+  z-index: 99;
+  position: sticky;
+  text-align: left;
+  font-size: var(--p-size);
+  color: var(--color-black);
+  font-family: var(--h3);
+}
+.gigHeaderWrapper {
+  align-self: stretch;
+  justify-content: center;
+  padding: 0 var(--padding-xl);
+  box-sizing: border-box;
+  max-width: 100%;
+}
+.footerPlaceholder {
+  position: relative;
+}
+.compfooter,
+.screenchatApplicants {
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+}
+.compfooter {
+  border: 1px solid var(--color-black);
+  overflow: hidden;
+  flex-direction: row;
+  padding: var(--padding-9xl) var(--padding-648xl) var(--padding-9xl)
+    var(--padding-651xl);
+  text-align: left;
+  font-size: var(--p-size);
+  color: var(--color-black);
+  font-family: var(--h3);
+}
+.screenchatApplicants {
+  width: 100%;
+  position: relative;
+  background-color: var(--light);
+  flex-direction: column;
+  gap: var(--gap-13xl);
+  line-height: normal;
+  letter-spacing: normal;
+}
+@media screen and (max-width: 1000px) {
+  .compfooter,
+  .compnavbar {
+    gap: 24.25rem;
+    padding-left: var(--padding-316xl);
+    padding-right: var(--padding-314xl);
+    box-sizing: border-box;
+  }
+  .compfooter {
+    gap: 31.688rem;
+  }
+  .screenchatApplicants {
+    gap: var(--gap-base);
+  }
+}
+@media screen and (max-width: 450px) {
+  .compfooter,
+  .compnavbar {
+    gap: 12.125rem;
+    padding-left: var(--padding-xl);
+    padding-right: var(--padding-xl);
+    box-sizing: border-box;
+  }
+  .compfooter {
+    gap: 15.875rem;
+  }
+}
