@@ -1,5 +1,6 @@
 //@ts-nocheck
 "use client";
+import Image from 'next/image';
 import { useCallback, useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import styles from "./client-dashboard.module.css";
