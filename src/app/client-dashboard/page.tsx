@@ -56,8 +56,8 @@ const ClientDashboard = () => {
           if (gigObj.status == "DONE") {
             tasksLength++;
           }
-          activeGigsData[gigIndex]["completed_tasks"] = tasksLength;
         });
+        activeGigsData[gigIndex]["completed_tasks"] = tasksLength;
       }
 
       setActiveGigs(activeGigsData);
