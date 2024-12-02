@@ -10,12 +10,12 @@ datasource db {
 
 /// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
 model chat {
-  chatId            String      @id @unique
+  chat_id            String     @id @unique
   gemini_sentiment   String?
-  created_at         DateTime    @default(now()) @db.Timestamptz(6)
-  updated_at         DateTime?   @db.Timestamp(6)
+  created_at         DateTime   @default(now()) @db.Timestamptz(6)
+  updated_at         DateTime?  @db.Timestamp(6)
   gemini_explanation String?
-  chat_uuid          String?     @db.Uuid
+  chat_uuid          String?    @db.Uuid
   gig_offer          gigOffer[]
 }
 
@@ -51,7 +51,7 @@ model gig {
   tx_hash              String?
   dispute              dispute[]
   user                 user       @relation(fields: [clientId], references: [userId], onDelete: NoAction, onUpdate: NoAction)
-  gig_file             gigFile[]
+  gig_file             gig_file[]
   gig_offer            gigOffer[]
   gig_task             gigTask[]
 }
@@ -67,7 +67,7 @@ model user {
   lastLogin        DateTime?          @map("last_login") @db.Timestamp(6)
   email            String?            @unique
   description      String?
-  updatedAt       DateTime?          @db.Timestamptz(6) @map("updated_at")
+  updatedAt        DateTime?          @map("updated_at") @db.Timestamptz(6)
   profileImage     String?            @map("profile_image")
   organization     String?
   dispute_evidence dispute_evidence[]
@@ -130,20 +130,6 @@ model dispute_verdict {
   dispute                dispute?  @relation(fields: [dispute_id], references: [dispute_id], onDelete: NoAction, onUpdate: NoAction)
 }
 
-/// This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
-model gigFile {
-  id          Int       @id(map: "gig_files_pkey") @default(autoincrement())
-  gig_id      Int
-  name        String?
-  type        String?
-  url         String?
-  uploaded_by Int?
-  created_at  DateTime? @db.Timestamptz(6)
-  updated_at  DateTime? @db.Timestamptz(6)
-  size        Int?
-  gig         gig       @relation(fields: [gig_id], references: [gigId], onDelete: NoAction, onUpdate: NoAction)
-}
-
 /// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
 /// This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
 model gigOffer {
@@ -154,11 +140,25 @@ model gigOffer {
   comment      String?   @map("comment")
   freelancerId Int?      @map("freelancer_id")
   chatId       String?   @map("chat_id")
-  updatedAt   DateTime?  @db.Timestamptz(6) @map("updated_at")
-  chatUuid    String?    @db.Uuid @map("chat_uuid")
+  updatedAt    DateTime? @map("updated_at") @db.Timestamptz(6)
+  chatUuid     String?   @map("chat_uuid") @db.Uuid
   clientId     Int?      @map("client_id")
-  chat         chat?     @relation(fields: [chatId], references: [chatId], onDelete: NoAction, onUpdate: NoAction)
+  chat         chat?     @relation(fields: [chatId], references: [chat_id], onDelete: NoAction, onUpdate: NoAction)
   gig          gig       @relation(fields: [gigId], references: [gigId], onDelete: NoAction, onUpdate: NoAction)
 
   @@map("gig_offer")
+}
+
+/// This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
+model gig_file {
+  id          Int       @id(map: "gig_files_pkey") @default(autoincrement())
+  gig_id      Int
+  name        String?
+  type        String?
+  url         String?
+  uploaded_by Int?
+  created_at  DateTime? @db.Timestamptz(6)
+  updated_at  DateTime? @db.Timestamptz(6)
+  size        Int?
+  gig         gig       @relation(fields: [gig_id], references: [gigId], onDelete: NoAction, onUpdate: NoAction)
 }
