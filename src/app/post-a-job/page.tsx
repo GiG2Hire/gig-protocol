@@ -96,7 +96,7 @@ const PostAJob = () => {
     //Check allowance
     const result = await allowance({
       contract: usdcContract,
-      owner: account?.address,
+      owner: account?.address ?? "",
       spender: addressProtocol,
     });
 
@@ -206,7 +206,17 @@ const PostAJob = () => {
   const openProposalAndCreateGig = async (formData: FormData) => {
     const amount = formData.get("budget");
 
-    const txnResult = await approveUSDCandOpenProposal(amount);
+    if (amount === null) {
+      throw new Error("Budget is required.");
+    }
+
+    const numericAmount = Number(amount);
+
+    if (isNaN(numericAmount)) {
+      throw new Error("Budget must be a valid number.");
+    }
+
+    const txnResult = await approveUSDCandOpenProposal(numericAmount);
     console.log(txnResult);
     if (txnResult == "error" || txnResult == null) {
       toast.error("Transaction Failed!!");
@@ -336,11 +346,10 @@ const PostAJob = () => {
                   {jobCategories.map((category) => (
                     <div
                       key={category.id}
-                      className={`${styles.btnDevit} ${
-                        activeJobCategory === category.id
-                          ? styles.activeBtnDevit
-                          : ""
-                      }`}
+                      className={`${styles.btnDevit} ${activeJobCategory === category.id
+                        ? styles.activeBtnDevit
+                        : ""
+                        }`}
                       onClick={() => {
                         setActiveJobCategory(category.id);
                       }}
@@ -457,7 +466,11 @@ const PostAJob = () => {
                   </div>
 
                   <div>
-                    <Calendar onChange={setDeliveryDate} value={deliveryDate} />
+                    <Calendar onChange={(value) => {
+                      if (value) {
+                        setDeliveryDate(value as Date);
+                      }
+                    }} value={deliveryDate} />
                   </div>
                 </div>
               </div>
@@ -546,7 +559,7 @@ const PostAJob = () => {
                     />
                     <button
                       className={styles.btnApprove}
-                      onClick={approveUSDCandOpenProposal}
+                      onClick={() => approveUSDCandOpenProposal}
                       type="button"
                     >
                       <img
