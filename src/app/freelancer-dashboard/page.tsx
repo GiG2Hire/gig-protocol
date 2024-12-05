@@ -21,16 +21,16 @@ import { useRouter } from "next/navigation";
 
 const FreelancerDashboard = () => {
   const [acceptedGigs, setAccepteGigs] = useState([]);
+  const [completedGigs, setCompletedGigs] = useState([]);
   const walletStatus = useActiveWalletConnectionStatus();
 
   const router = useRouter();
-  const { userId } = useAuth();
+  const { userId } = useAuth() as { userId: number };
 
   // const account = useActiveAccount();
   // console.log(`account:` + account?.address);
 
   let offers: any[] = [];
-  let completedGigs: any[] = [];
 
   const timeNow = getTime();
 
@@ -52,7 +52,7 @@ const FreelancerDashboard = () => {
 
       for (let gigIndex = 0; gigIndex < acceptedGigsData.length; gigIndex++) {
         let tasksLength = 0;
-        Object(acceptedGigsData[gigIndex].gig_task).forEach((gigObj, idx) => {
+        Object(acceptedGigsData[gigIndex].gig_task).forEach((gigObj: any) => {
           if (gigObj.status == "DONE") {
             tasksLength++;
           }
@@ -67,24 +67,24 @@ const FreelancerDashboard = () => {
     }
   }
 
-  // async function getGigOffersForFreelancer() {
-  //   console.log("Trying to get gig offers for freelancer...");
+  async function getGigOffersForFreelancer() {
+    console.log("Trying to get gig offers for freelancer...");
 
-  //   try {
-  //     const response = await fetch(`api/gig/get-applications/pending-offers/?freelancer_id=${userId}`);
-  //     if (!response.ok) {
-  //       throw new Error("Failed to fetch data");
-  //     }
-  //     offers = JSON.parse(await response.json());
-  //     console.log(`Got gigs where freelancer has applied: ${offers.length}`);
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // }
+    try {
+      const response = await fetch(`api/gig/get-applications/pending-offers/?freelancer_id=${userId}`);
+      if (!response.ok) {
+        throw new Error("Failed to fetch data");
+      }
+      offers = JSON.parse(await response.json());
+      console.log(`Got gigs where freelancer has applied: ${offers.length}`);
+    } catch (error) {
+      console.log(error);
+    }
+  }
 
-  const getCompletedTasks = (tasks) => {
-    const completedTasks = [];
-    tasks.forEach((task) => {
+  const getCompletedTasks = (tasks: any) => {
+    const completedTasks: any[] = [];
+    tasks.forEach((task: any) => {
       if (task.status == GIG_TASK_STATUS.COMPLETE) {
         completedTasks.push(task);
       }
@@ -92,9 +92,9 @@ const FreelancerDashboard = () => {
     return completedTasks;
   };
 
-  const getGigDocs = (files) => {
-    const docs = [];
-    files.forEach((file) => {
+  const getGigDocs = (files: any) => {
+    const docs: any[] = [];
+    files.forEach((file: any) => {
       if (file.type != "link") {
         docs.push(file);
       }
@@ -102,7 +102,7 @@ const FreelancerDashboard = () => {
     return docs;
   };
 
-  const getRemainingTime = (expectedDeliveryDate) => {
+  const getRemainingTime = (expectedDeliveryDate: any) => {
     const currentDate: any = new Date();
     const timeDifference = expectedDeliveryDate - currentDate;
     const days = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
@@ -203,7 +203,7 @@ const FreelancerDashboard = () => {
                   <h1 className={styles.yourActiveJobs}>Your Active Jobs</h1>
                 </div>
                 <div className={styles.jobsList}>
-                  {acceptedGigs.map((gig, index) => (
+                  {acceptedGigs.map((gig: any, index) => (
                     <div className={styles.jobCards}>
                       <div className={styles.jobCardOne}>
                         <Image
@@ -446,7 +446,7 @@ const FreelancerDashboard = () => {
                   <h1 className={styles.yourActiveJobs}>Completed Jobs</h1>
                 </div>
                 <div className={styles.jobsList}>
-                  {!completedGigs ? completedGigs.map((gig) => {
+                  {completedGigs.map((gig: any) => {
                     return (
                       <div className={styles.jobCards}>
                         <div className={styles.jobCardOne}>
@@ -465,7 +465,7 @@ const FreelancerDashboard = () => {
                             <div className={styles.cardOneJobTitles}>
                               <div className={styles.cardOneCategoryNames}>
                                 <div className={styles.developmentAndIt}>
-                                  {JOB_CATEGORIES[gig.category]}
+                                  {/* {JOB_CATEGORIES[gig.category]} */}
                                 </div>
                               </div>
                               <h2 className={styles.developADefi1}>
@@ -558,7 +558,7 @@ const FreelancerDashboard = () => {
                         </div>
                       </div>
                     );
-                  }) : <div>You don't have completed jobs.</div>}
+                  })}
                 </div>
               </div>
             </div>
@@ -584,7 +584,7 @@ const FreelancerDashboard = () => {
                               src="/developer-mode-tv1.svg"
                             />
                             <div className={styles.developmentIt}>
-                              {JOB_CATEGORIES[offer.gig.category]}
+                              {/* {JOB_CATEGORIES[offer.gig.category]} */}
                             </div>
                           </div>
                           <h1 className={styles.developADefi}>
