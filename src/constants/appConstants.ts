@@ -16,7 +16,7 @@ export const enum GIG_COMPLETION_STATUS {
 }
 
 export const enum GIG_TASK_STATUS {
-  PENDING = "PENDING",
+  PENDING = "Pending",
   IN_PROGRESS = "IN_PROGRESS",
   COMPLETE = "COMPLETE",
 }
@@ -69,7 +69,7 @@ export const JOB_CATEGORIES_INFO = [
 ];
 
 export const enum GIG_OFFER_STATUS {
-  PENDING = "PENDING",
+  PENDING = "Pending",
   ACCEPTED = "ACCEPTED",
   REJECTED = "REJECTED",
 }
