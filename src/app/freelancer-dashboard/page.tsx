@@ -21,6 +21,7 @@ import { useRouter } from "next/navigation";
 
 const FreelancerDashboard = () => {
   const [acceptedGigs, setAccepteGigs] = useState([]);
+  const [pendingGigs, setPendingGigs] = useState([]);
   const walletStatus = useActiveWalletConnectionStatus();
 
   const router = useRouter();
@@ -42,26 +43,30 @@ const FreelancerDashboard = () => {
   async function getFreelancerData() {
     console.log("Inside GET /api/gig/active-gigs/");
     try {
-      const [responseCompleted, responseAccepted] = await Promise.all([
+      const [responseCompleted, responseAccepted, responsePending] = await Promise.all([
         fetch(`api/gig/get-applications/completed-gigs/?user_id=${userId}`),
-        fetch(`api/gig/get-applications/accepted-gigs/?user_id=${userId}`)
+        fetch(`api/gig/get-applications/accepted-gigs/?user_id=${userId}`),
+        fetch(`api/gig/get-applications/pending-offers/?freelancer_id=${userId}`),
       ]);
-      const acceptedGigsData = JSON.parse(await responseAccepted.json());
+      const pendingGigsData = await responsePending.json();
+      console.log(pendingGigsData)
+      setPendingGigs(pendingGigsData);
+      const acceptedGigsData = await responseAccepted.json();
       console.log(acceptedGigsData)
 
 
-      for (let gigIndex = 0; gigIndex < acceptedGigsData.length; gigIndex++) {
-        let tasksLength = 0;
-        Object(acceptedGigsData[gigIndex].gig_task).forEach((gigObj, idx) => {
-          if (gigObj.status == "DONE") {
-            tasksLength++;
-          }
-        });
-        acceptedGigsData[gigIndex]["completed_tasks"] = tasksLength;
-      }
+      // for (let gigIndex = 0; gigIndex < acceptedGigsData.length; gigIndex++) {
+      //   let tasksLength = 0;
+      //   Object(acceptedGigsData[gigIndex].gig_task).forEach((gigObj, idx) => {
+      //     if (gigObj.status == "DONE") {
+      //       tasksLength++;
+      //     }
+      //   });
+      //   acceptedGigsData[gigIndex]["completed_tasks"] = tasksLength;
+      // }
 
-      setAccepteGigs(acceptedGigsData);
-      console.log(acceptedGigs)
+      // setAccepteGigs(acceptedGigsData);
+      // console.log(acceptedGigs)
     } catch (error) {
       console.log(error);
     }
@@ -320,127 +325,6 @@ const FreelancerDashboard = () => {
                   )}
                 </div>
               </div>
-              {/* <div className={styles.earningsMetrics}>
-                <div className={styles.activeJobsMetricWrapper}>
-                  <div className={styles.activeJobsMetric}>
-                    <div className={styles.earnedMetric}>
-                      <b className={styles.totalEarned}>Total Earned</b>
-                      <b className={styles.earnedSeparator}>$2500</b>
-                      <div className={styles.earnedTrend}>
-                        <img
-                          className={styles.trendingUpIcon}
-                          loading="lazy"
-                          alt=""
-                          src="/trending-up.svg"
-                        />
-                        <div className={styles.earnedTrendSeparator}>+37%</div>
-                      </div>
-                    </div>
-                    <div className={styles.extraEarningsMetric}>
-                      <b className={styles.extra1500}>extra 1,500</b>
-                      <div className={styles.thisMonth}>this month</div>
-                    </div>
-                  </div>
-                </div>
-                <div className={styles.frameParent}>
-                  <div className={styles.activeJobsParent}>
-                    <b className={styles.activeJobs}>Active Jobs</b>
-                    <b className={styles.b2}>5</b>
-                    <div className={styles.extraEarningsTrend}>
-                      <img
-                        className={styles.trendingUpIcon1}
-                        alt=""
-                        src="/trending-up.svg"
-                      />
-                      <div className={styles.extraEarningsTrend1}>+2</div>
-                    </div>
-                  </div>
-                  <div className={styles.jobsMetric}>
-                    <b className={styles.extra2Jobs}>extra 2 jobs</b>
-                    <div className={styles.thisMonth1}>this month</div>
-                  </div>
-                </div>
-              </div>
-              <div className={styles.revenueChart}>
-                <div className={styles.revenueChartContainer}>
-                  <h1 className={styles.monthlyRevenue}>Monthly Revenue</h1>
-                </div>
-                <div className={styles.barChart}>
-                  <div className={styles.bars}>
-                    <div className={styles.bars1}>
-                      <div className={styles.barValues}>1000</div>
-                    </div>
-                    <div className={styles.bars2}>
-                      <div className={styles.div}>900</div>
-                    </div>
-                    <div className={styles.bars3}>
-                      <div className={styles.div1}>800</div>
-                    </div>
-                    <div className={styles.bars4}>
-                      <div className={styles.div2}>700</div>
-                    </div>
-                    <div className={styles.bars5}>
-                      <div className={styles.div3}>600</div>
-                    </div>
-                    <div className={styles.bars6}>
-                      <div className={styles.div4}>500</div>
-                    </div>
-                    <div className={styles.bars7}>
-                      <div className={styles.div5}>400</div>
-                    </div>
-                    <div className={styles.bars8}>
-                      <div className={styles.div6}>300</div>
-                    </div>
-                    <div className={styles.bars9}>
-                      <div className={styles.div7}>200</div>
-                    </div>
-                    <div className={styles.bars10}>
-                      <div className={styles.div8}>100</div>
-                    </div>
-                    <div className={styles.sideSpacer} />
-                    <div className={styles.spacer} />
-                    <div className={styles.jan} />
-                    <div className={styles.spacer1} />
-                    <div className={styles.feb} />
-                    <div className={styles.spacer2} />
-                    <div className={styles.mar} />
-                    <div className={styles.spacer3} />
-                    <div className={styles.apr} />
-                    <div className={styles.spacer4} />
-                    <div className={styles.may} />
-                    <div className={styles.spacer5} />
-                    <div className={styles.jun} />
-                    <div className={styles.spacer6} />
-                    <div className={styles.jul} />
-                    <div className={styles.spacer7} />
-                    <div className={styles.aug} />
-                    <div className={styles.spacer8} />
-                    <div className={styles.sep} />
-                    <div className={styles.spacer9} />
-                    <div className={styles.oct} />
-                    <div className={styles.spacer10} />
-                    <div className={styles.nov} />
-                    <div className={styles.spacer11} />
-                    <div className={styles.dec} />
-                    <div className={styles.spacer12} />
-                  </div>
-                  <div className={styles.daySpacer}>
-                    <div className={styles.daySpacerChild} />
-                    <div className={styles.jan1}>JAN</div>
-                    <div className={styles.feb1}>FEB</div>
-                    <div className={styles.mar1}>MAR</div>
-                    <div className={styles.apr1}>APR</div>
-                    <div className={styles.may1}>MAY</div>
-                    <div className={styles.jun1}>JUN</div>
-                    <div className={styles.jul1}>JUL</div>
-                    <div className={styles.aug1}>AUG</div>
-                    <div className={styles.sep1}>SEP</div>
-                    <div className={styles.oct1}>OCT</div>
-                    <div className={styles.nov1}>NOV</div>
-                    <div className={styles.dec1}>DEC</div>
-                  </div>
-                </div>
-              </div> */}
               <div className={styles.activeJobsContainerParent}>
                 <div className={styles.activeJobsContainer}>
                   <h1 className={styles.yourActiveJobs}>Completed Jobs</h1>
@@ -568,11 +452,11 @@ const FreelancerDashboard = () => {
                   <div className={styles.pendingJobsContainer}>
                     <h1 className={styles.jobsToBe}>Applications</h1>
                     <div className={styles.pendingJobsCount}>
-                      <b className={styles.pendingJobsNumber}>{offers.length}</b>
+                      <b className={styles.pendingJobsNumber}>{pendingGigs.length}</b>
                       <div className={styles.pending}>pending</div>
                     </div>
                   </div>
-                  {offers.map((offer) => {
+                  {pendingGigs.map((offer) => {
                     return (
                       <div className={styles.featuredJob}>
                         <div className={styles.jobContainer}>
@@ -584,7 +468,7 @@ const FreelancerDashboard = () => {
                               src="/developer-mode-tv1.svg"
                             />
                             <div className={styles.developmentIt}>
-                              {JOB_CATEGORIES[offer.gig.category]}
+                              {/* {JOB_CATEGORIES[offer.gig.category]} */}
                             </div>
                           </div>
                           <h1 className={styles.developADefi}>
@@ -634,7 +518,7 @@ const FreelancerDashboard = () => {
                             </div>
                           </div>
                           <button className={styles.btn}>
-                            <b className={styles.viewMoreLabel}>View Offer</b>
+                            <b className={styles.viewMoreLabel}>PENDING...</b>
                           </button>
                         </div>
                       </div>

@@ -67,7 +67,7 @@ export async function POST(req: Request) {
         freelancerId: freelancerId,
         clientId: gig.clientId,
         comment: "",
-        status: "Pending",
+        status: "PENDING",
         chatId: null, // assuming chat will be created later
       },
     });
