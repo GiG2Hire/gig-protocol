@@ -8,7 +8,7 @@ import { GIG_OFFER_STATUS } from "@/src/constants/appConstants";
  * Get all pending offers for a freelancer
  * @param req Request object
  * @returns A list of pending offers for the freelancer
- * @author alhonaut
+ * @author alhonaut, horlarmmy
  */
 export async function GET(req: NextRequest) {
     const { searchParams } = new URL(req.url);

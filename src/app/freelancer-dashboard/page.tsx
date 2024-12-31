@@ -122,12 +122,6 @@ const FreelancerDashboard = () => {
   };
 
   useEffect(() => {
-    // if (walletStatus == "connected") {
-    //   setWalletBalance(data?.displayValue);
-    // }
-    // if (walletStatus == "disconnected") {
-    //   setWalletBalance("N/A");
-    // }
     const fetchData = async () => {
       await getFreelancerData();
     };
