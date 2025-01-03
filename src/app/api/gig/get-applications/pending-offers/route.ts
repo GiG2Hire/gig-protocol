@@ -1,6 +1,6 @@
 //api/gig/get-applications/pending-offers/?freelancer_id
 import { prisma } from "@/src/app/lib/db";
-import { isLoggedIn } from "@/src/app/actions/login";
+import { getUserIdFromPayload } from "@/src/app/actions/login";
 import { NextResponse, NextRequest } from "next/server";
 import { GIG_OFFER_STATUS } from "@/src/constants/appConstants";
 
@@ -13,6 +13,7 @@ import { GIG_OFFER_STATUS } from "@/src/constants/appConstants";
 export async function GET(req: NextRequest) {
     const { searchParams } = new URL(req.url);
     const freelancer_id = parseInt(searchParams.get("freelancer_id") || "0");
+    const payloadUserId = await getUserIdFromPayload();
 
     // Validate freelancer_id
     if (isNaN(freelancer_id) || freelancer_id <= 0) {
@@ -22,13 +23,12 @@ export async function GET(req: NextRequest) {
         );
     }
 
-    // Check user authentication
-    // if (!await isLoggedIn()) {
-    //     return NextResponse.json(
-    //         { message: "User not authenticated." },
-    //         { status: 401 }
-    //     );
-    // }
+    if (payloadUserId !== freelancer_id) {
+        return NextResponse.json(
+            { message: "User don't have access to data." },
+            { status: 401 }
+        );
+    }
 
     try {
         const pendingOffers = await prisma.gigOffer.findMany({

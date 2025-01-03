@@ -1,6 +1,5 @@
 //api/gig/get-applications/accepted-gigs/?user_id
 import { prisma } from "@/src/app/lib/db";
-import { isLoggedIn } from "@/src/app/actions/login";
 import { NextResponse, NextRequest } from "next/server";
 import { getRoleFromPayload, getUserIdFromPayload } from "@/src/app/actions/login";
 import { GIG_COMPLETION_STATUS, GIG_OFFER_STATUS } from "@/src/constants/appConstants";
@@ -14,15 +13,7 @@ import { GIG_COMPLETION_STATUS, GIG_OFFER_STATUS } from "@/src/constants/appCons
 export async function GET(req: NextRequest) {
     const { searchParams } = new URL(req.url);
     const user_id = parseInt(searchParams.get("user_id") || "0");
-    //const payloadUserId = await getUserIdFromPayload();
-
-    // check user authentication
-    // if (!await isLoggedIn()) {
-    //     return NextResponse.json(
-    //         { message: "User not authenticated." },
-    //         { status: 401 }
-    //     );
-    // }
+    const payloadUserId = await getUserIdFromPayload();
 
     if (!user_id) {
         return NextResponse.json(
@@ -31,12 +22,12 @@ export async function GET(req: NextRequest) {
         );
     }
 
-    // if (payloadUserId !== user_id) {
-    //     return NextResponse.json(
-    //         { message: "User don't have access to data." },
-    //         { status: 401 }
-    //     );
-    // }
+    if (payloadUserId !== user_id) {
+        return NextResponse.json(
+            { message: "User don't have access to data." },
+            { status: 401 }
+        );
+    }
 
     // Retrieve data from the database based on the user's role
     try {

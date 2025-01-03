@@ -53,6 +53,7 @@ const FreelancerDashboard = () => {
       setPendingGigs(pendingGigsData);
       const acceptedGigsData = await responseAccepted.json();
       console.log(acceptedGigsData)
+      setAccepteGigs(acceptedGigsData);
 
 
       // for (let gigIndex = 0; gigIndex < acceptedGigsData.length; gigIndex++) {
@@ -259,7 +260,7 @@ const FreelancerDashboard = () => {
                                 <div className={styles.tasks}>Tasks:</div>
                                 <div className={styles.tasksQuantity}>
                                   <b className={styles.taskPlaceholderOne}>
-                                    {gig.completed_tasks}
+                                    0
                                   </b>
                                   <div className={styles.of}>of</div>
                                   <b className={styles.taskPlaceholderTwo}>
